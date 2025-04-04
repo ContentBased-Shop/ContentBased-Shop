@@ -2,12 +2,115 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/assets//CSS//Layout//header.css">
 </head>
+
 <body>
+    <header>
+        <!-- Top bar -->
+        <div class="bg-light-custom py-2">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-medium small">Hotline 24/7</span>
+                        <span class="fw-bold small">(025) 3886 25 16</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main navigation -->
+        <div class="py-3">
+            <div class="container">
+                <div class="row align-items-center gy-3">
+                    <!-- Logo -->
+                    <div class="col-12 col-md-3 d-flex justify-content-center justify-content-md-start">
+                        <div class="d-flex align-items-center">
+                            <div class="logo-circle bg-green-custom text-white me-3">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div class="logo-text">
+                                <h1>SWOO</h1>
+                                <p>TECH MART</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation menu -->
+                    <div class="col-12 col-md-5">
+                        <nav>
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                        HOMES
+                                        <i class="fas fa-chevron-down ms-1 small"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                        PAGES
+                                        <i class="fas fa-chevron-down ms-1 small"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                        PRODUCTS
+                                        <i class="fas fa-chevron-down ms-1 small"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium">CONTACT</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- User actions -->
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex justify-content-center justify-content-md-end align-items-center gap-3">
+                            <!-- User account -->
+                            <div class="d-flex align-items-center">
+                                <div class="icon-circle bg-light-custom">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="ms-2 d-none d-md-block">
+                                    <p class="fs-7 text-gray-custom mb-0">WELCOME</p>
+                                    <p class="fs-7 fw-medium mb-0">LOG IN / REGISTER</p>
+                                </div>
+                            </div>
+
+                            <!-- Wishlist -->
+                            <div>
+                                <div class="icon-circle bg-light-custom">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                            </div>
+
+                            <!-- Cart -->
+                            <div class="d-flex align-items-center position-relative">
+                                <div class="icon-circle bg-light-custom">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="ms-2 d-none d-md-block">
+                                    <p class="fs-7 text-gray-custom mb-0">CART</p>
+                                    <p class="fs-7 fw-bold mb-0">$1,689.00</p>
+                                </div>
+                                <span class="cart-badge bg-green-custom text-white">5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     @RenderBody()
 
     @Scripts.Render("~/bundles/jquery")
