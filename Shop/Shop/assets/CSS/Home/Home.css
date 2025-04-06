@@ -68,3 +68,122 @@
         padding-right: 10px;
     }
 }
+
+
+
+/* Section titles */
+.section-title {
+    font-size: 1.5rem;
+    color: #000;
+    margin-bottom: 0;
+}
+
+/* View All link */
+.view-all {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+    .view-all:hover {
+        color: #000;
+    }
+
+/* Brand items */
+.brand-item {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+    .brand-item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transform: translateY(-3px);
+    }
+
+    .brand-item img {
+        max-height: 50px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+/* Category items */
+.category-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .category-item:hover {
+        transform: translateY(-5px);
+    }
+
+.category-image {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+}
+
+    .category-image img {
+        max-height: 120px;
+        object-fit: contain;
+    }
+
+.category-name {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .brands-container .row {
+        row-gap: 1rem !important;
+    }
+
+    .brand-item {
+        height: 60px;
+    }
+
+        .brand-item img {
+            max-height: 40px;
+        }
+}
+
+@media (max-width: 767.98px) {
+    .brands-container .row-cols-5 {
+        --bs-gutter-x: 0.5rem;
+    }
+
+    .category-image {
+        height: 120px;
+    }
+
+    .category-name {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .brands-container .row-cols-5 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .brand-item {
+        height: 50px;
+    }
+
+    .category-image {
+        height: 100px;
+    }
+}
