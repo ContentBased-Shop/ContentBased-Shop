@@ -72,7 +72,7 @@
               "RelativeDocumentMoniker": "Shop\\Views\\Home\\Index.cshtml",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Home\\Index.cshtml",
               "RelativeToolTip": "Shop\\Views\\Home\\Index.cshtml",
-              "ViewState": "AQIAAOoBAAAAAAAAAADwvwYCAAALAAAA",
+              "ViewState": "AQIAAF8EAAAAAAAAAAAwwHcEAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-07T05:59:04.352Z",
               "EditorCaption": ""
@@ -85,7 +85,7 @@
               "RelativeDocumentMoniker": "Shop\\assets\\CSS\\Home\\Home.css",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Home\\Home.css",
               "RelativeToolTip": "Shop\\assets\\CSS\\Home\\Home.css",
-              "ViewState": "AQIAAFoBAAAAAAAAAAAwwDEAAAAOAAAA",
+              "ViewState": "AQIAANwBAAAAAAAAAAAgwPcBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-04-06T12:09:10.612Z",
               "EditorCaption": ""
@@ -113,8 +113,7 @@
               "RelativeToolTip": "Shop\\assets\\CSS\\Layout\\footer.css",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-05T16:05:37.407Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T16:05:37.407Z"
             },
             {
               "$type": "Document",
@@ -187,8 +186,7 @@
               "RelativeToolTip": "Shop\\assets\\CSS\\Layout\\footer.css",
               "ViewState": "AQIAABMAAAAAAAAAAAAAAAYAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-05T16:04:02.25Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-05T16:04:02.25Z"
             }
           ]
         }
