@@ -25,8 +25,13 @@ a{
     padding: 3px 0;
     transition: all 0.2s ease;
     border-radius: 8px;
+    margin-bottom:5px;
 }
-
+    .category-link i {
+        margin-right: 8px;
+        width: 20px; /* Giữ cho các icon đều nhau */
+        text-align: center;
+    }
     .category-link:hover {
         color: #f1352b;
         transform: translateX(5px);
@@ -36,11 +41,12 @@ a{
 .product-image {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 1px solid rgba(0,0,0,0.05);
+    cursor:pointer;
 }
 
     .product-image:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+       
     }
 
 /* Product card styling */
@@ -138,7 +144,7 @@ a{
 }
 
     .category-image img {
-        max-height: 120px;
+        max-height: 100px;
         object-fit: contain;
     }
 

@@ -138,6 +138,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
+    <Content Include="assets\Image\Header\Banner\Banner_apple-chinh-hang.jpg" />
+    <Content Include="assets\Image\Header\Banner\Banner_dien-thoai-samsung-galaxy-m55.jpg" />
+    <Content Include="assets\Image\Header\Banner\Banner_dien-thoai-samsung-galaxy-s25-ultra.jpg" />
+    <Content Include="assets\Image\Header\Banner\Banner_iphone-16-pro-max.jpg" />
+    <Content Include="assets\Image\Header\Banner\Banner_mac.jpg" />
+    <Content Include="assets\Image\Header\Banner\ezgif.com-webp-to-jpg-converter.jpg" />
+    <Content Include="assets\Image\Header\Banner\prod1_PC.png" />
+    <Content Include="assets\Image\Header\Banner\prod2_headphone.png" />
+    <Content Include="assets\Image\Header\Banner\prod3_monitor.png" />
+    <Content Include="assets\Image\Header\Banner\prod4_lap.png" />
+    <Content Include="assets\Image\Logo\LogoBrand\Acer.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Asus.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Gigabyte.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Honor.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\JBL.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Logitech.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Macbook.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Oppo.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Samsung.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Xiaomi.jpg" />
+    <Content Include="assets\Image\Logo\LogoTitle\logo_header_swoo.png" />
+    <Content Include="assets\Image\Logo\LogoTitle\logo_swoo_title.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -269,7 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="assets\Image\Logo\LogoTitle\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
