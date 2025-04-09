@@ -1,0 +1,26 @@
+﻿.text-success-custom {
+    color: #1aba1a;
+}
+
+.btn-success-custom {
+    background-color: #1aba1a;
+    color: white;
+}
+
+    .btn-success-custom:hover {
+        background-color: #18a818;
+    }
+
+.form-control:focus {
+    border-color: #1aba1a;
+    box-shadow: 0 0 0 0.2rem rgba(26, 186, 26, 0.25);
+}
+
+.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:hover {
+        color: #1aba1a;
+    }

@@ -23,5 +23,9 @@ namespace Shop.Controllers
         {
             return View();
         }
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }
