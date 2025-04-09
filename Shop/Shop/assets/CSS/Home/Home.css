@@ -254,13 +254,12 @@ Product */
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-    position: relative;
 }
 
 .save-badge {
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     z-index: 10;
 }
 
@@ -270,7 +269,7 @@ Product */
     font-weight: bold;
     font-size: 0.75rem;
     padding: 2px 8px;
-    border-radius: 2px;
+    border-start-start-radius: 5px;
 }
 
 .save-amount {
@@ -278,7 +277,7 @@ Product */
     color: white;
     font-weight: bold;
     padding: 2px 8px;
-    border-radius: 2px;
+    border-end-end-radius: 5px;
 }
 
 .review-count {
@@ -452,6 +451,7 @@ Product */
 
 .product-item {
     transition: all 0.3s ease-in-out;
+    cursor:pointer;
 }
 
     .product-item:hover {
@@ -530,4 +530,12 @@ Product */
     .news-img-container {
         height: 140px;
     }
+}
+
+.paragraph {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
