@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    .text-success-custom {
+        color: #1aba1a;
+    }
+
+    .btn-success-custom {
+        background-color: #1aba1a;
+        color: white;
+    }
+
+        .btn-success-custom:hover {
+            background-color: #18a818;
+        }
+
+    .form-control:focus {
+        border-color: #1aba1a;
+        box-shadow: 0 0 0 0.2rem rgba(26, 186, 26, 0.25);
+    }
+
+    .breadcrumb-item a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #1aba1a;
+        }
+</style>
+<!-- Breadcrumb -->
+<div class="container py-4 px-4 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Đăng Ký</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Main Content -->
+<div class="container py-5 bg-white rounded-3 mb-3">
+    <div class="row align-items-center justify-content-center gx-5">
+        <!-- Left Side - Illustration -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/login.svg" alt="Login illustration" class="img-fluid" />
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="col-md-6 col-lg-5">
+            <h1 class="text-success-custom fw-bold mb-2">Đăng Ký</h1>
+            <p class="text-uppercase text-muted small mb-4">Tham gia cùng chúng tôi</p>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Nhập tên của bạn</label>
+                    <input type="text" class="form-control" id="name" placeholder="Anine" required />
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Địa chỉ Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="example@gmail.com" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Nhập mật khẩu</label>
+                    <d iv class="input-group">
+                        <input type="password" class="form-control" id="password" placeholder="••••••••" required />
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                            <span id="toggleIcon">👁️</span>
+                        </button>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Xác nhận lại mật khẩu</label>
+                    <d iv class="input-group">
+                        <input type="password" class="form-control" id="password" placeholder="••••••••" required />
+                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                            <span id="toggleIcon">👁️</span>
+                        </button>
+                </div>
+                <div class="text-end mt-1">
+                    <a href="/forgot-password" class="small text-muted">Quên mật khẩu ?</a>
+                </div>
+
+                <button type="submit" class="btn btn-success-custom w-100 mb-3">ĐĂNG KÝ</button>
+
+                <div class="text-center small">
+                    <span class="text-muted">ĐÃ CÓ TÀI KHOẢN ? </span>
+                    <a href="/signup" class="text-success-custom fw-medium">ĐĂNG NHẬP</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
