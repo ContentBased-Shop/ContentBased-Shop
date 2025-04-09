@@ -27,5 +27,9 @@ namespace Shop.Controllers
         {
             return View();
         }
+        public ActionResult PreCart()
+        {
+            return View();
+        }
     }
 }
