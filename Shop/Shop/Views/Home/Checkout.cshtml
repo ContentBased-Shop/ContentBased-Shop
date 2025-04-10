@@ -1,0 +1,206 @@
+﻿@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .breadcrumb-item a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #1aba1a;
+        }
+
+    .form-check-input[type="radio"] {
+        width: 1.2em;
+        height: 1.2em;
+        border: 2px solid #28a745;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    .form-check-input[type="radio"]:checked {
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+
+    .form-check-input[type="radio"]:focus {
+        box-shadow: none;
+    }
+
+</style>
+<div class="container p-4 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Thanh toán</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container p-4  mb-3 rounded-3 bg-white">
+    <h3 class="mb-4 fw-bold">THANH TOÁN</h3>
+
+    <div class="row g-4">
+        <!-- Left column -->
+        <div class="col-lg-8">
+            <!-- Info boxes -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <div class="bg-light p-3 rounded">
+                        <p>
+                            Quay về ?
+                            <a href="#" class="text-danger text-decoration-underline">Click tại đây để quay về sản phẩm</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="bg-light p-3 rounded">
+                        <p>
+                            Bạn có voucher ?
+                            <a href="#" class="text-danger text-decoration-underline">Click tại đây để nhập mã voucer</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Billing Details -->
+            <h2 class="h5 fw-bold mb-3">Chi tiết hóa đơn</h2>
+            <form>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">Họ khách hàng<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="firstName" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label">Tên khách hàng<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="lastName" required>
+                    </div>
+                  
+                    <div class="col-12">
+                        <label for="country" class="form-label">Quốc gia <span class="text-danger">*</span></label>
+                        <select class="form-select" id="country" required>
+                            <option>United States (US)</option>
+                            <option>Viet Nam</option>
+                            <option>United Kingdom</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="streetAddress" class="form-label">Địa chỉ nhận hàng</label>
+                        <input type="text" class="form-control mb-2" id="streetAddress" placeholder="House number and street name ...">
+                        <input type="text" class="form-control" id="streetAddress2" placeholder="Apartment, suite, unit, etc (Optional)">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="city" class="form-label">Thành phố <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="city" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="state" class="form-label">Tỉnh thành <span class="text-danger">*</span></label>
+                        <select class="form-select" id="state" required>
+                            <option>Washington</option>
+                            <option>California</option>
+                            <option>New York</option>
+                        </select>
+                    </div>
+                
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label">Địa chỉ email <span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" id="email" required>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="createAccount">
+                        <label class="form-check-label" for="createAccount">Xác nhận thông tin trên là chính xác?</label>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div class="mt-4">
+                    <h2 class="h5 fw-bold">Thông tin bổ sung</h2>
+                    <label for="orderNotes" class="form-label">Ghi chí cho đơn hàng <small class="text-muted">(Không bắt buộc)</small></label>
+                    <textarea class="form-control" id="orderNotes" rows="3" placeholder="Note about your order, e.g. special note for delivery"></textarea>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right column - Order Summary -->
+        <div class="col-lg-4">
+            <div class="bg-light p-4 rounded">
+                <h2 class="h5 fw-bold mb-3">Your Order</h2>
+
+                <div class="d-flex justify-content-between text-muted small mb-2">
+                    <span>PRODUCT</span>
+                    <span>SUB TOTAL</span>
+                </div>
+
+                <div class="border-top border-bottom py-3">
+                    <div class="d-flex mb-2">
+                        <img src="https://via.placeholder.com/50" alt="Product" class="me-3 border rounded" />
+                        <div>
+                            <p class="mb-1 fw-medium">Pinnaeple Macbook Pro 2022 M1/512GB</p>
+                            <div class="d-flex justify-content-between small mt-3">
+                                <small class="text-muted">× 3</small>
+                                <span class="text-danger">$1,737.00</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="d-flex justify-content-between mt-3 fw-semibold">
+                    <span>Tồng tiền hàng:</span>
+                    <span class="fs-8">$1,746.50</span>
+                </div>
+                <div class="d-flex justify-content-between mt-3 fw-semibold">
+                    <span>Chi phí vận chuyển:</span>
+                    <span class=" fs-8">$1,746.50</span>
+                </div>
+                <div class="d-flex justify-content-between mt-3 fw-semibold border-bottom ">
+                    <span>Thuế:</span>
+                    <span class=" fs-8">$1,746.50</span>
+                </div>
+                <div class="d-flex justify-content-between mt-3 fw-bold">
+                    <span>Order Total</span>
+                    <span class="text-success fs-5">$1,746.50</span>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="mt-4">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer">
+                        <label class="form-check-label" for="bankTransfer">
+                            Direct Bank Transfer
+                        </label>
+                        <small class="d-block text-muted mt-1">
+                            Make your payment directly into our bank account. Please use your Order ID as the payment reference.
+                            Your order will not be shipped until the funds have cleared in our account.
+                        </small>
+                    </div>
+
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="cod">
+                        <label class="form-check-label" for="cod">Cash on Delivery</label>
+                    </div>
+
+                    <div class="form-check d-flex justify-content-between align-items-center">
+                        <div>
+                            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal">
+                            <label class="form-check-label" for="paypal">
+                                Paypal <a href="#" class="text-danger text-decoration-underline small">What's Paypal?</a>
+                            </label>
+                        </div>
+                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="Paypal" class="ms-2" />
+                    </div>
+                </div>
+
+                <button class="btn btn-success w-100 mt-4">PLACE ORDER</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,4 +3,114 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Contact</h2>
+<link rel="stylesheet" href="~/assets/CSS/Home/Contact.css"/>
+<div class="container py-4 px-4 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Liên hệ</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container py-5 px-4 bg-white my-4 rounded-4">
+    <h1 class="form-section-title mb-4">Bạn đã sẵn sàng tham gia với chúng tôi</h1>
+    <div class="row g-4">
+        <!-- Form Column -->
+        <div class="col-lg-7">
+            <p class="text-secondary mb-4">Liên hệ với chúng tôi để được giải đáp mọi thắc mắc và ý kiến ​​của bạn</p>
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label form-label-required">Họ </label>
+                        <input type="text" class="form-control custom-input" id="firstName" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="lastName" class="form-label form-label-required">Tên </label>
+                        <input type="text" class="form-control custom-input" id="lastName" required />
+                    </div>
+                    <div class="col-12">
+                        <label for="email" class="form-label form-label-required">Địa chỉ email</label>
+                        <input type="email" class="form-control custom-input" id="email" required />
+                    </div>
+                    <div class="col-12">
+                        <label for="phone" class="form-label">Số điện thoại <span class="text-muted small">(Tùy chọn)</span></label>
+                        <input type="tel" class="form-control custom-input" id="phone" />
+                    </div>
+                    <div class="col-12">
+                        <label for="country" class="form-label form-label-required">Quốc gia </label>
+                        <select class="form-select custom-input" id="country" required>
+                            <option selected>United States (US)</option>
+                            <option>United Kingdom (UK)</option>
+                            <option>Canada</option>
+                            <option>Australia</option>
+                            <option>Germany</option>
+                            <option>France</option>
+                            <option>Japan</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label for="subject" class="form-label">
+                            Chủ đề 
+                            <span class="text-muted small">(Tùy chọn)</span>
+                        </label>
+                        <input type="text" class="form-control custom-input" id="subject" />
+                    </div>
+                    <div class="col-12">
+                        <label for="message" class="form-label">Tin nhắn</label>
+                        <textarea class="form-control custom-input" id="message" rows="5" placeholder="Lưu ý về đơn hàng của bạn, ví dụ: lưu ý đặc biệt về việc giao hàng"></textarea>
+                    </div>
+                    <div class="col-12 form-check mt-3">
+                        <input class="form-check-input custom-checkbox" type="checkbox" id="newsletter" />
+                        <label class="form-check-label" for="newsletter">
+                            Tôi muốn nhận tin tức và cập nhật thỉnh thoảng. Bằng cách gửi, tôi đồng ý với
+
+                            <a href="#" class="text-success text-decoration-underline">Điều khoản & Điều kiện</a>
+                        </label>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success px-5">GỬI TIN NHẮN</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Contact Info Column -->
+        <div class="col-lg-5">
+            <div class="bg-light p-4 rounded">
+                <div class="mb-4">
+                    <h5 class="text-secondary">Trường Đại học Công Thương Thành phố Hồ Chí Minh (HEAD QUATER)</h5>
+                    <p class="fw-semibold mb-1">140 Lê Trọng Tấn, phường Tây Thạnh , quận Tân Phú , Thành phố Hồ Chí Minh , Việt Nam</p>
+                    <p class="mb-1">(+025) 3886 25 16</p>
+                    <a href="mailto:hello@swattechmart.com" class="text-success text-decoration-underline">huit@edu.com.vn</a>
+                </div>
+                <div class="mb-4">
+                    <h5 class="text-secondary">SAI GON LAB (BRANCH)</h5>
+                    <p class="fw-semibold mb-1">28/61 Cư Xá Lữ Gia , phường 15, quận 11, Tp. HCM</p>
+                    <p class="mb-1">(+718) 895-5350</p>
+                    <a href="mailto:contact@swattechmart.co.uk" class="text-success text-decoration-underline">huit@edu.com.vn</a>
+                </div>
+                <!-- Social Icons -->
+                <div class="d-flex gap-3">
+                    <a href="#" class="btn btn-white border rounded-circle p-2"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="btn btn-white border rounded-circle p-2"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="btn btn-white border rounded-circle p-2"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="btn btn-white border rounded-circle p-2"><i class="bi bi-youtube"></i></a>
+                    <a href="#" class="btn btn-white border rounded-circle p-2"><i class="bi bi-globe2"></i></a>
+                </div>
+                <!-- Image -->
+
+            </div>
+            <div class="mt-4">
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/contact.png" alt="Person typing on laptop" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+<iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.067279078708!2d106.62608531079351!3d10.806159158599737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaMawxqFuZyBUUC4gSOG7kyBDaMOtIE1pbmggKEhVSVQp!5e0!3m2!1svi!2s!4v1744050227165!5m2!1svi!2s"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>

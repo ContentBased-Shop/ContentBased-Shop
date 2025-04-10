@@ -1,0 +1,28 @@
+﻿.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:hover {
+        color: #1aba1a;
+    }
+
+.custom-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(26, 186, 26, 0.25);
+    border-color: #1aba1a;
+}
+
+.custom-checkbox:checked {
+    background-color: #1aba1a;
+    border-color: #1aba1a;
+}
+
+.form-section-title {
+    color: #000000;
+    font-weight: bold;
+}
+
+.form-label-required::after {
+    content: " *";
+    color: red;
+}
