@@ -36,6 +36,10 @@ namespace Shop.Controllers
         {
             return View();
         }
+        public ActionResult Checkout_ShoppingCart()
+        {
+            return View();
+        }
         public ActionResult Contact()
         {
             return View();

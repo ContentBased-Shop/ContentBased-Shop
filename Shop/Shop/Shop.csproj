@@ -132,6 +132,7 @@
     <Content Include="assets\CSS\Home\Home.css" />
     <Content Include="assets\CSS\Login_Register\index.css" />
     <Content Include="assets\CSS\Home\Contact.css" />
+    <Content Include="assets\CSS\Home\Checkout.css" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -341,6 +342,7 @@
     <Content Include="Views\Home\PreCart.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
+    <Content Include="Views\Home\Checkout_ShoppingCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
