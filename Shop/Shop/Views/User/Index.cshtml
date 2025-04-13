@@ -22,8 +22,6 @@
             color: #fff !important;
         }
 
-       
-
     .profile-img {
         width: 240px;
         height: 240px;
@@ -33,13 +31,68 @@
     .nav-item a {
         color: black;
     }
+
+    /*Order*/
+    .btn-buyagain,
+    .btn-Confirm {
+        border:none;
+        background-color: #1aba1a;
+        color: white;
+    }
+    .item-order {
+        background-color: #FAFAFB;
+    }
+    .icon-check{
+        color:#1aba1a;
+    }
+    .lbl-shipped,
+    .icon-shipped {
+        color: #FF8039;
+    }
+
+
+    .overflow-scroll-container {
+        max-height: 600px; /* hoặc chiều cao bạn mong muốn */
+        overflow-y: auto;
+        padding-right: 5px; /* tạo khoảng cho scroll bar */
+    }
+
+      
+
+    .overflow-scroll-container {
+        max-height: 600px; /* hoặc tuỳ theo yêu cầu của bạn */
+        overflow-y: auto;
+        padding-right: 5px;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #c2c2c2 transparent; /* Firefox */
+    }
+
+        /* Chrome, Edge, Safari */
+        .overflow-scroll-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .overflow-scroll-container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .overflow-scroll-container::-webkit-scrollbar-thumb {
+            background-color: #c2c2c2;
+            border-radius: 10px;
+        }
+
+            .overflow-scroll-container::-webkit-scrollbar-thumb:hover {
+                background-color: #888;
+            }
+
 </style>
 <div class="container p-4 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
             <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
-            <li class="breadcrumb-item active text-secondary" aria-current="page">Thanh toán</li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Hồ sơ</li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Thông tin tài khoản</li>
         </ol>
     </nav>
 </div>
@@ -50,33 +103,33 @@
             <div class="mb-3 mx-auto">
                 <img src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
             </div>
-            <h2 class="h4 fw-bold">Mark Cole</h2>
-            <p class="text-muted">swoo@gmail.com</p>
+            <h2 class="h4 fw-bold">VuzPham</h2>
+            <p class="text-muted">phamnguyenvu287@gmail.com</p>
         </div>
 
         <nav>
             <ul class="nav flex-column gap-2">
                 <li class="nav-item">
                     <a href="#" class="nav-link active d-flex justify-content-between align-items-center rounded px-3 py-2">
-                        <span>Account info</span>
+                        <span>Thông tin tài khoản</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2">
-                        <span>My order</span>
+                        <span>Đơn hàng của tôi</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2">
-                        <span>My address</span>
+                        <span>Địa chỉ nhận hàng</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2">
-                        <span>Change password</span>
+                        <span>Đổi mật khẩu</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
@@ -85,10 +138,11 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-grow-1 p-4">
-        <h1 class="mb-4">Account Info</h1>
+    @*Account*@
+    <div class="account-infor flex-grow-1 p-4 d-none">
+        <h1 class="mb-4">Thông tin tài khoản</h1>
 
-        <form  style="max-width: 720px;">
+        <form style="max-width: 720px;">
             <div class="row g-3 mb-3">
                 <div class="col-md-6">
                     <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
@@ -113,4 +167,121 @@
             <button type="submit" class="btn text-white px-4 py-2" style="background-color: #1aba1a;">SAVE</button>
         </form>
     </div>
+
+    <!-- Order items -->
+    <div class="my-order flex-grow-1 overflow-scroll-container">
+        <div class="my-order flex-grow-1">
+            <h1 class="h4 fw-bold mb-2 ">Đơn hàng của tôi</h1>
+            <div class="item-order mb-4 px-3 rounded-4 py-2">
+                <div class="text-end pb-2">
+                    <span class="lbl-shipped fw-medium">Shipped</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-start pb-2">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal Avocado Oil Premium French Imported</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-start  pb-2 ">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="text-end text-muted small">
+                    <p>Còn 2+ sản phẩm khác</p>
+                </div>
+
+                <div class="border-top pt-1 text-end">
+                    <span class="h6 fw-medium me-2">Tổng tiền(4 sản phẩm):</span>
+                    <span class="h4 fw-bold">$ 41.82</span>
+                </div>
+                <!-- Shipping notification -->
+                <div class="bg-warning bg-opacity-25 rounded p-2 my-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="icon-shipped fw-bold">
+                            <i class="bi bi-check-circle-fill"></i> Shipped
+                        </div>
+                        <span>Đơn hàng đang vận chuyển</span>
+                    </div>
+                </div>
+                <!-- Action buttons -->
+                <div class="d-flex justify-content-end gap-2 ">
+                    <button class="btn btn-dark">Refund</button>
+                    <button class="btn btn-Confirm btn-success">Confirm</button>
+                </div>
+            </div>
+
+
+            <div class="item-order mb-4 px-3 rounded-4 py-2">
+                <div class="text-end pb-2">
+                    <span class="text-danger fw-medium">Closed</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-start pb-2">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal Avocado Oil Premium French Imported</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-start  pb-2 ">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="text-end text-muted small">
+                    <p>Còn 2+ sản phẩm khác</p>
+                </div>
+
+                <div class="border-top pt-1 text-end">
+                    <span class="h6 fw-medium me-2">Tổng tiền(4 sản phẩm):</span>
+                    <span class="h4 fw-bold">$ 41.82</span>
+                </div>
+
+                <!-- Order confirmation -->
+                <div class="bg-success bg-opacity-25 rounded p-2 my-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="icon-check fw-bold">
+                            <i class="bi bi-check-circle-fill"></i> Signed
+                        </div>
+                        <span> Your order has been received and signed...</span>
+                    </div>
+                </div>
+
+                <!-- Buy again button -->
+                <div class="text-end 2">
+                    <button class="btn btn-buyagain btn-success">Buy Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
