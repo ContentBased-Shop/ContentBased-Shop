@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+   
+    .breadcrumb-item a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #1aba1a;
+        }
+
+    .sidebar {
+        background-color: #fff;
+    }
+
+        .sidebar .nav-link.active {
+            background-color: #1aba1a;
+            color: #fff !important;
+        }
+
+       
+
+    .profile-img {
+        width: 240px;
+        height: 240px;
+        object-fit: cover;
+        background-color: #ccc;
+    }
+    .nav-item a {
+        color: black;
+    }
+</style>
+<div class="container p-4 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Thanh toán</li>
+        </ol>
+    </nav>
+</div>
+<div class="container container-fluid min-vh-75 d-flex flex-column flex-md-row bg-white my-3 rounded-3 p-4 gap-5">
+    <!-- Sidebar -->
+    <div class="sidebar p-4 col-12 col-md-3 bg-light rounded-4">
+        <div class="text-center mb-4">
+            <div class="mb-3 mx-auto">
+                <img src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
+            </div>
+            <h2 class="h4 fw-bold">Mark Cole</h2>
+            <p class="text-muted">swoo@gmail.com</p>
+        </div>
+
+        <nav>
+            <ul class="nav flex-column gap-2">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active d-flex justify-content-between align-items-center rounded px-3 py-2">
+                        <span>Account info</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2">
+                        <span>My order</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2">
+                        <span>My address</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2">
+                        <span>Change password</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-grow-1 p-4">
+        <h1 class="mb-4">Account Info</h1>
+
+        <form  style="max-width: 720px;">
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="firstName" value="Mark" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="lastName" value="Cole" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" value="swoo@gmail.com" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="phone" class="form-label">Phone Number (Optional)</label>
+                <input type="tel" class="form-control" id="phone" value="+1 0231 4554 452">
+            </div>
+
+            <button type="submit" class="btn text-white px-4 py-2" style="background-color: #1aba1a;">SAVE</button>
+        </form>
+    </div>
+</div>

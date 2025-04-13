@@ -134,6 +134,7 @@
     <Content Include="assets\CSS\Home\Contact.css" />
     <Content Include="assets\CSS\Home\Checkout.css" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -343,6 +344,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Checkout.cshtml" />
     <Content Include="Views\Home\Checkout_ShoppingCart.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
