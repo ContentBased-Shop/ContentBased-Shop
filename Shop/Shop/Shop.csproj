@@ -131,9 +131,10 @@
     <Content Include="assets\CSS\Layout\footer.css" />
     <Content Include="assets\CSS\Home\Home.css" />
     <Content Include="assets\CSS\Login_Register\index.css" />
-    <Content Include="assets\CSS\Home\Contact.css" />
-    <Content Include="assets\CSS\Home\Checkout.css" />
+    <Content Include="assets\CSS\InnerPage\Contact.css" />
+    <Content Include="assets\CSS\InnerPage\Checkout.css" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InnerPageController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -338,14 +339,16 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\ForgotPassword.cshtml" />
-    <Content Include="Views\Home\PreCart.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Checkout.cshtml" />
-    <Content Include="Views\Home\Checkout_ShoppingCart.cshtml" />
+    <Content Include="Views\InnerPage\Login.cshtml" />
+    <Content Include="Views\InnerPage\Register.cshtml" />
+    <Content Include="Views\InnerPage\ForgotPassword.cshtml" />
+    <Content Include="Views\InnerPage\PreCart.cshtml" />
+    <Content Include="Views\InnerPage\Contact.cshtml" />
+    <Content Include="Views\InnerPage\Checkout.cshtml" />
+    <Content Include="Views\InnerPage\Checkout_ShoppingCart.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\InnerPage\Index.cshtml" />
+    <Content Include="Views\InnerPage\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
