@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
+    <Content Include="assets\CSS\User\User.css" />
     <Content Include="assets\Image\Header\Banner\banner_1.png" />
     <Content Include="assets\Image\Header\Banner\banner_2.png" />
     <Content Include="assets\Image\Header\Banner\Banner_3.png" />
