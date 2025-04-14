@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <style>
-   
+
     .breadcrumb-item a {
         color: #6c757d;
         text-decoration: none;
@@ -28,6 +28,7 @@
         object-fit: cover;
         background-color: #ccc;
     }
+
     .nav-item a {
         color: black;
     }
@@ -35,16 +36,19 @@
     /*Order*/
     .btn-buyagain,
     .btn-Confirm {
-        border:none;
+        border: none;
         background-color: #1aba1a;
         color: white;
     }
+
     .item-order {
         background-color: #FAFAFB;
     }
-    .icon-check{
-        color:#1aba1a;
+
+    .icon-check {
+        color: #1aba1a;
     }
+
     .lbl-shipped,
     .icon-shipped {
         color: #FF8039;
@@ -57,7 +61,7 @@
         padding-right: 5px; /* tạo khoảng cho scroll bar */
     }
 
-      
+
 
     .overflow-scroll-container {
         max-height: 600px; /* hoặc tuỳ theo yêu cầu của bạn */
@@ -85,6 +89,37 @@
                 background-color: #888;
             }
 
+    /*Address*/
+    .radio-indicator {
+        display: none;
+    }
+
+    .circle-indicator-label {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid #1aba1a;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .radio-indicator:checked + .circle-indicator-label {
+        background-color: #1aba1a;
+    }
+
+        .radio-indicator:checked + .circle-indicator-label::after {
+            content: "";
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+        }
+    .badge{
+        background-color:#1aba1a;
+    }
 </style>
 <div class="container p-4 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
@@ -169,7 +204,7 @@
     </div>
 
     <!-- Order items -->
-    <div class="my-order flex-grow-1 overflow-scroll-container">
+    <div class="my-order flex-grow-1 overflow-scroll-container d-none">
         <div class="my-order flex-grow-1">
             <h1 class="h4 fw-bold mb-2 ">Đơn hàng của tôi</h1>
             <div class="item-order mb-4 px-3 rounded-4 py-2">
@@ -284,4 +319,58 @@
         </div>
     </div>
 
+
+    <!-- My address -->
+
+    <div class="flex-grow-1 p-3 ">
+        <h2 class="mb-2 fw-bold">My Address</h2>
+
+        <!-- Home Address Card -->
+        <div class=" p-3 mb-4 rounded-4 bg-light">
+            <div class="d-flex align-items-center mb-3">
+                <input type="radio" name="address" id="home" class="radio-indicator" checked>
+                <label for="home" class="circle-indicator-label me-3"></label>
+                <h5 class="mb-0 me-3">2118 Thornridge</h5>
+                <span class="badge ">HOME</span>
+            </div>
+            <div class="ps-5 d-flex justify-content-between">
+                <div>
+                    <p class="mb-1 text-dark">2118 Thornridge Cir. Syracuse, Connecticut 35624</p>
+                    <p class="text-muted">(209) 555-0104</p>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-2">
+                    <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light"><i class="bi bi-x"></i></button>
+                </div>
+            </div>
+           
+        </div>
+
+        <!-- Office Address Card -->
+        <div class=" p-3 mb-4 shadow-sm rounded-4 bg-light"">
+            <div class="d-flex align-items-center mb-3">
+                <input type="radio" name="address" id="office" class="radio-indicator">
+                <label for="office" class="circle-indicator-label me-3"></label>
+                <h5 class="mb-0 me-3">Headoffice</h5>
+                <span class="badge ">OFFICE</span>
+            </div>
+            <div class="ps-5 d-flex justify-content-between">
+                <div>
+                    <p class="mb-1 text-dark">2715 Ash Dr. San Jose, South Dakota 83475</p>
+                    <p class="text-muted">(704) 555-0127</p>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-2">
+                    <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light"><i class="bi bi-x"></i></button>
+                </div>
+            </div>
+            
+        </div>
+
+        <!-- Add New Address -->
+        <button class="w-100 btn border border-2 border-dashed text-muted d-flex align-items-center justify-content-center py-3">
+            <i class="bi bi-plus-circle me-2"></i> Add New Address
+        </button>
+    </div>
+</div>
 </div>
