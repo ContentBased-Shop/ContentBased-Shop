@@ -28,6 +28,8 @@
 }
 
 /*Order*/
+.btn-save,
+.btn-changepassword,
 .btn-buyagain,
 .btn-Confirm {
     border: none;

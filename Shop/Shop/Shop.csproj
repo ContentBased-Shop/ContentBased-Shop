@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="assets\CSS\InnerPage\about.css" />
     <Content Include="assets\CSS\Layout\footer.css" />
     <Content Include="assets\CSS\Home\Home.css" />
     <Content Include="assets\CSS\Login_Register\index.css" />
