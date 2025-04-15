@@ -136,6 +136,7 @@
     <Content Include="assets\CSS\InnerPage\Checkout.css" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InnerPageController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -144,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
+    <Content Include="assets\CSS\Product\Product_Detail.css" />
     <Content Include="assets\CSS\User\User.css" />
     <Content Include="assets\Image\Header\Banner\banner_1.png" />
     <Content Include="assets\Image\Header\Banner\banner_2.png" />
@@ -350,6 +352,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\InnerPage\Index.cshtml" />
     <Content Include="Views\InnerPage\About.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\ProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
