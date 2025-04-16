@@ -2,45 +2,7 @@
     ViewBag.Title = "ProductDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .star-rating {
-        color: #FFB547;
-    }
-
-        .star-rating .unfilled {
-            color: #dcdcdc;
-        }
-    .color-box {
-        width: 32px;
-        height: 32px;
-        border-radius: 0.25rem;
-    }
-
-    .selected-border {
-        border: 2px solid #1aba1a !important;
-
-    }
-    .badge-freeship {
-        color: #1aba1a;
-        background-color: #E4F9E4;
-
-    }
-    .badge-gift {
-        color: #F1352B;
-        background-color: #FFF1F0;
-        
-    }
-    .btn-success{
-        background-color:#1aba1a;
-    }
-    .text-colormain {
-        color: #1aba1a;
-    }
-    .bg-gray {
-        background-color: #EDEFF6;
-    }
-    
-</style>  
+<link rel="stylesheet" href="~/assets/CSS/Product/Product_Detail.css" />
 <div class="container py-5 bg-white my-3 rounded-3">
     <div class="row g-2">
         <!-- Product Images -->
@@ -81,7 +43,7 @@
             <div class="mb-3">
                 <h3 class="fw-bold">$569.00 - $609.00</h3>
                 <div class="d-flex align-items-center gap-2">
-                   
+
                 </div>
             </div>
 
@@ -91,7 +53,7 @@
                 <li>Commanding Power Design: Twin 16+1+2 Phases Digital VRM</li>
             </ul>
 
-           
+
 
             <div class="d-flex gap-3 mb-4">
                 <span class="badge-freeship py-1 px-2 rounded-2 text-uppercase">Free Shipping</span>
@@ -203,43 +165,51 @@
             </div>
             <p class="color-000 mt-15"> <i class="fa-solid fa-truck-fast"></i> <span class="color-666"> Ships from </span> <strong> United States </strong> </p>
         </div>
-          
+
     </div>
 </div>
 
-<div class="container py-5 bg-white">
-    <div class="row g-4">
+<div class="container p-3 bg-white my-3 rounded-3">
+    <div class="row g-3">
         <!-- Left Column -->
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <!-- Bundle Section -->
-            <div class="border rounded p-4">
+            <div class="rounded p-4">
                 <h2 class="mb-4 fw-bold text-dark">FREQUENTLY BOUGHT TOGETHER</h2>
-                <div class="d-flex align-items-center flex-wrap gap-3 mb-4">
-                    <div class="d-flex align-items-center">
-                        <img src="/placeholder.svg?height=150&width=80" class="img-fluid" />
-                        <span class="mx-2 text-muted">+</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img src="/placeholder.svg?height=150&width=80" class="img-fluid" />
-                        <span class="mx-2 text-muted">+</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <img src="/placeholder.svg?height=150&width=80" class="img-fluid" />
-                    </div>
-                </div>
-
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+                <div class="d-flex align-items-center justify-content-around flex-wrap gap-3 mb-4">
+                    <!-- Product 1 -->
                     <div>
-                        <div class="small">TOTAL PRICE:</div>
-                        <div class="h4 fw-bold">$1067.00</div>
+                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod1.jpg"
+                             class="img-fluid mb-2" width="190" height="200" />
+
                     </div>
-                    <div class="d-flex gap-2">
-                        <button class="btn text-white" style="background-color:#1aba1a;">ADD TO CART</button>
+                    <div>
+                        <span class="plus fw-bolder fs-3">
+                            <i class="fal fa-plus"></i>
+                        </span>
+                    </div>
+                    <!-- Product 2 -->
+                    <div>
+                        <img src="http://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod6.jpg"
+                             class="img-fluid" width="190" height="200" />
+                    </div>
+
+                    <!-- Price + Buttons -->
+                    <div>
+                        <div class="mb-2">
+                            <div class="small text-muted">TOTAL PRICE:</div>
+                            <div class="h4 fw-bold">$1067.00</div>
+                        </div>
+                        <div class="d-flex gap-2 mb-3 ">
+                            <button class="btn btn-success text-white w-100 py-2">ADD TO CART</button>
+
+                        </div>
                         <button class="btn btn-outline-secondary">
-                            <i class="bi bi-heart"></i>
+                            <i class="bi bi-heart"></i> Ad all to Wishlist
                         </button>
                     </div>
                 </div>
+
 
                 <div>
                     <div class="form-check mb-2">
@@ -265,68 +235,386 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Tabs Section -->
-            <div class="mt-5">
-                <ul class="nav nav-tabs" id="productTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">DESCRIPTION</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">REVIEWS (5)</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button">ADDITIONAL INFORMATION</button>
-                    </li>
-                </ul>
-                <div class="tab-content pt-4" id="productTabsContent">
-                    <div class="tab-pane fade show active" id="description">
-                        <p>
-                            Built for ultra-fast performance, the thin and lightweight Samsung Galaxy Tab S2 goes anywhere you go...
-                            <strong>Super AMOLED display</strong> • With deep contrast, rich colors and crisp details, you won't miss a thing.
-                        </p>
-                        <img src="/placeholder.svg?height=400&width=800" class="img-fluid rounded my-3" />
-                        <p class="fst-italic small text-muted">
-                            * The Galaxy Tab S2's 4:3 ratio display provides you with an ideal environment for performing office tasks.
-                        </p>
-                        <h5 class="mt-4">From the manufacturer</h5>
-                        <p>Switch between your favorite apps quickly and easily... SideSync. Quickly drag and drop photos between devices.</p>
-                        <div class="row g-3 mt-3">
-                            <div class="col-md-6">
-                                <img src="/placeholder.svg?height=300&width=400" class="img-fluid rounded" />
-                            </div>
-                            <div class="col-md-6">
-                                <img src="/placeholder.svg?height=300&width=400" class="img-fluid rounded" />
-                            </div>
-                        </div>
-                        <h5 class="mt-4">Samsung Galaxy Tab S2, 8-Inch, White</h5>
-                        <p>The Samsung Galaxy Tab S2 offers dual cameras... Galaxy Essentials widget.</p>
-                        <a href="#" class="btn btn-link p-0">SHOW MORE</a>
-                    </div>
-                    <div class="tab-pane fade" id="reviews">
-                        <p class="text-muted-custom">Customer reviews will appear here.</p>
-                    </div>
-                    <div class="tab-pane fade" id="additional">
-                        <p class="text-muted-custom">Additional product information will appear here.</p>
-                    </div>
-                </div>
-            </div>
         </div>
-
         <!-- Right Column -->
-        <div class="col-lg-4">
-            <div class="bg-dark-custom text-white rounded overflow-hidden mb-4 position-relative">
-                <div class="sale-badge">50% OFF</div>
-                <img src="/placeholder.svg?height=300&width=400" class="w-100" alt="Sale image" />
-                <div class="p-3">
-                    <h5 class="fw-bold">SALE</h5>
-                    <p class="text-light-custom small">Limited time offers on gaming accessories</p>
-                </div>
+        <div class="col-lg-3 ">
+            <div class="bg-dark-custom text-white rounded overflow-hidden mb-5 position-relative">
+                @*<div class="sale-badge">50% OFF</div>*@
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/ban1.png" class="w-100" alt="Sale image" />
+                @*<div class="p-3">
+                        <h5 class="fw-bold">SALE</h5>
+                        <p class="text-light-custom small">Limited time offers on gaming accessories</p>
+                    </div>*@
             </div>
 
             <div class="bg-white border rounded overflow-hidden">
-                <img src="/placeholder.svg?height=250&width=400" class="w-100" alt="Featured electronics" />
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/ban1.png" class="w-100" alt="Featured electronics" />
             </div>
         </div>
+    </div>
+</div>
+
+
+<div class="container p-3 bg-white rounded-3">
+    <!-- Tabs Section -->
+    <div class="">
+        <ul class="nav nav-tabs" id="productTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active text-dark" id="desc-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">DESCRIPTION</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link  text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">REVIEWS (5)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link text-dark" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button">ADDITIONAL INFORMATION</button>
+            </li>
+        </ul>
+        <div class="tab-content pt-4" id="productTabsContent">
+            <div class="tab-pane fade show active" id="description">
+                <p>
+                    Built for ultra-fast performance, the thin and lightweight Samsung Galaxy Tab S2 goes anywhere you go. Photos, movies and documents pop on a crisp, clear Super AMOLED display. Expandable
+                    memory lets you enjoy more of your favorite content. And connecting and sharing between all your Samsung devices is easier than ever. Welcome to life with the reimagined Samsung Galaxy Tab
+                    S2. Watch thev world come to life on your tablet's
+                    <strong>Super AMOLED display</strong> • With deep contrast, rich colors and crisp details, you won't miss a thing.
+                </p>
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/det1.jpeg" class="img-fluid rounded my-3 object-fit-cover w-100" style="height: 500px;" />
+                <p class="fst-italic small text-muted">
+                    * The Galaxy Tab S2's 4:3 ratio display provides you with an ideal environment for performing office tasks.
+                </p>
+                <h5 class="mt-4">From the manufacturer</h5>
+                <p>
+                    Dive into the blockbuster movies you can't wait to see. Switch between your favorite apps quickly and easily. The new and improved octa-core processor gives you the power and speed you need to see more and do more. Expand your tablet's memory from 32GB to up to an additional 128GB and enjoy more of your favorite music, photos, movies and games on the go with a microSD card. With Quick Connect, start a show on your Smart TV and, with the touch of a button, take it with you by moving it to your Galaxy Tab S2.
+
+                    Or send videos and photos from your tablet screen to your TV screen to share with everyone in the room. Work effortlessly between your Samsung tablet and Samsung smartphone with SideSync. Quickly drag and drop photos between devices. And even respond to a call from your smartphone right on your tablet screen.
+                </p>
+
+
+                <div class="row g-3 mt-3">
+                    <div class="col-md-6">
+                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/det3.png"
+                             class="img-fluid rounded custom-img-height w-100" />
+                    </div>
+                    <div class="col-md-6">
+                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/det2.png"
+                             class="img-fluid rounded custom-img-height w-100" />
+                    </div>
+                </div>
+                <h5 class="mt-4">Samsung Galaxy Tab S2, 8-Inch, White</h5>
+                <p>The Samsung Galaxy Tab S2 offers dual cameras: a rear-facing 8-megapixel camera with Auto Focus and a 2.1-megapixel camera on the front. Take high-quality pictures and video or video chat with friends, family, and colleagues. Customize your Galaxy Tab S2 with the apps you use most. The Samsung Galaxy Essentials widget provides a collection of premium complimentary apps optimized for your tablet screen. Select and download the apps you want to instantly upgrade your tablet experience.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container p-0 my-3">
+    <!-- Product Carousel -->
+    <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-3">
+        <!-- Navigation Tabs -->
+        <h3 class="mb-4 fs-3">SẢN PHẨM LIÊN QUAN</h3>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <!-- Product 1 -->
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <div class="save-badge">
+                                    <div class="save-label">SAVE</div>
+                                    <div class="save-amount">$199.00</div>
+                                </div>
+                                <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
+                            </div>
+                            <div class="review-count">(152)</div>
+                            <h3 class="product-name">Grande</h3>
+                            <p class="product-description">Blossom Pouch</p>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                <span class="rating-count">43 Ratings</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$39.49</span>
+                                <span class="original-price">$78.66</span>
+                                <span class="discount">50% OFF</span>
+                            </div>
+                            <div class="free-shipping">FREE SHIPPING</div>
+                            <div class="stock-status">
+                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                <span>In stock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 2 -->
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <div class="save-badge">
+                                    <div class="save-label">SAVE</div>
+                                    <div class="save-amount">$59.00</div>
+                                </div>
+                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
+                            </div>
+                            <div class="review-count">(152)</div>
+                            <h3 class="product-name">Grande</h3>
+                            <p class="product-description">Blossom Pouch</p>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                <span class="rating-count">43 Ratings</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$39.49</span>
+                                <span class="original-price">$78.66</span>
+                                <span class="discount">50% OFF</span>
+                            </div>
+                            <div class="free-shipping">FREE SHIPPING</div>
+                            <div class="stock-status">
+                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                <span>In stock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 3 -->
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
+                            </div>
+                            <div class="review-count">(8)</div>
+                            <h3 class="product-name">Grande</h3>
+                            <p class="product-description">Blossom Pouch</p>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                <span class="rating-count">43 Ratings</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$39.49</span>
+                                <span class="original-price">$78.66</span>
+                                <span class="discount">50% OFF</span>
+                            </div>
+                            <div class="free-shipping">FREE SHIPPING</div>
+                            <div class="stock-status">
+                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                <span>In stock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 4 -->
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
+                            </div>
+                            <div class="review-count">(9)</div>
+                            <h3 class="product-name">Grande</h3>
+                            <p class="product-description">Blossom Pouch</p>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                <span class="rating-count">43 Ratings</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$39.49</span>
+                                <span class="original-price">$78.66</span>
+                                <span class="discount">50% OFF</span>
+                            </div>
+                            <div class="free-shipping">FREE SHIPPING</div>
+                            <div class="stock-status">
+                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                <span>In stock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product 5 -->
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <div class="product-card">
+                            <div class="product-image-container">
+                                <div class="save-badge">
+                                    <div class="save-label">SAVE</div>
+                                    <div class="save-amount">$3.00</div>
+                                </div>
+                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
+                            </div>
+                            <div class="review-count">(9)</div>
+                            <h3 class="product-name">Grande</h3>
+                            <p class="product-description">Blossom Pouch</p>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                <span class="rating-count">43 Ratings</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$39.49</span>
+                                <span class="original-price">$78.66</span>
+                                <span class="discount">50% OFF</span>
+                            </div>
+                            <div class="free-shipping">FREE SHIPPING</div>
+                            <div class="stock-status">
+                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                <span>In stock</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<!-- Product Reviews -->
+<div class="container py-5">
+    <h2 class="h3 mb-4 fw-bold">Reviews</h2>
+
+    <!-- Rating Summary -->
+    <div class="d-flex flex-column flex-md-row gap-5 mb-5">
+        <div class="bg-light p-4 rounded w-100 w-md-25">
+            <div class="display-6 fw-bold mb-2">4.8</div>
+            <div class="small text-muted mb-3">of 123 reviews</div>
+            <div class="d-flex mb-2">
+                <div class="d-flex">
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-fill text-warning"></i>
+                    <i class="bi bi-star-half text-warning"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating Breakdown -->
+        <div class="w-100">
+            <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                    <div>Excellent</div>
+                    <div>50</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 60%"></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                    <div>Good</div>
+                    <div>30</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 25%"></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                    <div>Average</div>
+                    <div>20</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 15%"></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                    <div>Below Average</div>
+                    <div>10</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 5%"></div>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                    <div>Poor</div>
+                    <div>5</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" style="width: 2%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave Comment -->
+    <div class="mb-5">
+        <textarea class="form-control" rows="4" placeholder="Leave Comment"></textarea>
+    </div>
+
+    <!-- Reviews List -->
+    <div class="space-y-5">
+        <!-- Review 1 -->
+        <div class="bg-light p-4 rounded">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex gap-3">
+                    <img src="/placeholder.svg" alt="User" class="rounded-circle" width="40" height="40">
+                    <div>
+                        <div class="fw-medium">Grace Carey</div>
+                        <div class="d-flex">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-half text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="small text-muted">24 January, 2023</div>
+            </div>
+            <p class="text-muted mb-3">I was a bit nervous to be buying a secondhand phone from Amazon...</p>
+            <div class="d-flex gap-2">
+                <img src="/placeholder.svg" alt="Review image 1" class="rounded" width="80" height="80">
+                <img src="/placeholder.svg" alt="Review image 2" class="rounded" width="80" height="80">
+            </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="bg-light p-4 rounded">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex gap-3">
+                    <img src="/placeholder.svg" alt="User" class="rounded-circle" width="40" height="40">
+                    <div>
+                        <div class="fw-medium">Ronald Richards</div>
+                        <div class="d-flex">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="small text-muted">24 January, 2023</div>
+            </div>
+            <p class="text-muted mb-3">This phone has 1T storage and is durable...</p>
+        </div>
+    </div>
+
+    <!-- View More Button -->
+    <div class="text-center mt-4">
+        <button class="btn btn-outline-primary">View More</button>
     </div>
 </div>

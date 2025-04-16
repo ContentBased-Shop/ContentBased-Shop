@@ -1,2 +1,245 @@
-﻿body {
+﻿.star-rating {
+    color: #FFB547;
+}
+
+    .star-rating .unfilled {
+        color: #dcdcdc;
+    }
+
+.color-box {
+    width: 32px;
+    height: 32px;
+    border-radius: 0.25rem;
+}
+
+.selected-border {
+    border: 2px solid #1aba1a !important;
+}
+
+.badge-freeship {
+    color: #1aba1a;
+    background-color: #E4F9E4;
+}
+
+.badge-gift {
+    color: #F1352B;
+    background-color: #FFF1F0;
+}
+
+.btn-success {
+    background-color: #1aba1a;
+}
+
+.text-colormain {
+    color: #1aba1a;
+}
+
+.bg-gray {
+    background-color: #EDEFF6;
+}
+
+.custom-img-height {
+    height: 350px; /* hoặc bất kỳ chiều cao nào bạn muốn */
+    object-fit: cover;
+}
+
+
+
+
+
+/*Product*/
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+    mask-size: 100%;
+    color: dimgray
+}
+
+.carousel-control-prev {
+    left: -20px;
+}
+
+.carousel-control-next {
+    right: -20px;
+}
+
+.carousel-inner {
+    padding: 0 30px;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #666666;
+        font-size: 1.1rem;
+        padding-left: 0;
+        padding-right: 2rem;
+    }
+
+        .nav-tabs .nav-link.active {
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+            background-color: transparent;
+        }
+
+.product-card {
+    text-align: center;
+    position: relative;
+    padding: 15px;
+}
+
+.product-image-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.save-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.save-label {
+    background-color: #1aba1a;
+    color: white;
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-start-start-radius: 5px;
+}
+
+.save-amount {
+    background-color: #1aba1a;
+    color: white;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-end-end-radius: 5px;
+}
+
+.review-count {
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.product-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.product-description {
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.star-rating {
+    color: #ff8c4b;
+    margin-bottom: 0.5rem;
+}
+
+.rating-count {
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+.price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.25rem;
+}
+
+.current-price {
+    font-weight: bold;
+}
+
+.original-price {
+    color: #666666;
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+.discount {
+    color: #e21d1d;
+    font-weight: bold;
+}
+
+.free-shipping {
+    color: #1aba1a;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stock-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.in-stock-icon {
+    color: #1aba1a;
+    margin-right: 5px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+    mask-size: 100%;
+    color: dimgray
+}
+
+.carousel-control-prev {
+    left: -20px;
+}
+
+.carousel-control-next {
+    right: -20px;
+}
+
+.carousel-inner {
+    padding: 0 30px;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        margin-bottom: 30px;
+    }
 }
