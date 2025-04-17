@@ -19,5 +19,9 @@ namespace Shop.Controllers
         {
             return View();
         }
+        public ActionResult ProductCategories()
+        {
+            return View();
+        }
     }
 }

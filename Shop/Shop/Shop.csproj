@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
+    <Content Include="assets\CSS\Product\Product_categories.css" />
     <Content Include="assets\CSS\Product\Product_Detail.css" />
     <Content Include="assets\CSS\User\User.css" />
     <Content Include="assets\Image\Header\Banner\banner_1.png" />
@@ -354,6 +355,7 @@
     <Content Include="Views\InnerPage\About.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
+    <Content Include="Views\Product\ProductCategories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

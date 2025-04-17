@@ -7,57 +7,47 @@
         color: #1aba1a;
     }
 
-
-.star-rating {
-    color: #FFB547;
+.category-link {
+    text-decoration: none;
+    color: #000;
 }
 
-    .star-rating .unfilled {
-        color: #dcdcdc;
+    .category-link:hover {
+        color: #1ABA1A;
+        text-decoration: underline;
+        font-weight: 500;
     }
 
-.color-box {
-    width: 32px;
-    height: 32px;
-    border-radius: 0.25rem;
+.layout-wrapper {
+    display: flex;
+    min-height: 75vh;
+    background-color: #fff;
 }
 
-.selected-border {
-    border: 2px solid #1aba1a !important;
+.sidebar {
+    width: 20%;
+    min-width: 220px;
+    background-color: #EEEFF6;
+    padding: 1.5rem;
+    border-radius: 0.5rem 0 0 0.5rem;
+    overflow-y: auto; /* Cho scroll nếu nội dung dài */
 }
 
-.badge-freeship {
-    color: #1aba1a;
-    background-color: #E4F9E4;
+.main-content {
+    width: 80%;
+    padding: 0 1.5rem;
 }
 
-.badge-gift {
-    color: #F1352B;
-    background-color: #FFF1F0;
-}
-
-.btn-success {
-    background-color: #1aba1a;
-}
-
-.text-colormain {
-    color: #1aba1a;
-}
-
-.bg-gray {
-    background-color: #EDEFF6;
-}
-
-.custom-img-height {
-    height: 350px; /* hoặc bất kỳ chiều cao nào bạn muốn */
-    object-fit: cover;
+@media (max-width: 768px) {
+    .sidebar, .main-content {
+        width: 100%;
+        border-radius: 0;
+    }
 }
 
 
 
-
-
-/*Product*/
+/*Product */
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -88,7 +78,7 @@
 }
 
 .carousel-inner {
-    padding: 0 30px;
+    padding: 0 20px;
 }
 
 .nav-tabs {
@@ -111,9 +101,33 @@
         }
 
 .product-card {
-    text-align: center;
     position: relative;
-    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.7s ease;
+    cursor:pointer;
+}
+
+    .product-card:hover {
+        border-color: #1ABA1A;
+    }
+
+.add-to-cart-btn {
+    width:100%;
+    background-color: #1ABA1A;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.product-card:hover .add-to-cart-btn {
+    opacity: 1;
 }
 
 .product-image-container {
@@ -245,25 +259,11 @@
 }
 
 .carousel-inner {
-    padding: 0 30px;
+    padding: 0 10px;
 }
 
 @media (max-width: 768px) {
     .product-card {
         margin-bottom: 30px;
     }
-}
-
-/*progress rate*/
-.progress-sm {
-    height: 6px;
-}
-/*banner*/
-.tc-banner-style3 .banner-card {
-    padding: 35px;
-    background-image: url(https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/banner1.png);
-    background-size: cover;
-    border-radius: 15px;
-    overflow: hidden;
-    color: #fff;
 }
