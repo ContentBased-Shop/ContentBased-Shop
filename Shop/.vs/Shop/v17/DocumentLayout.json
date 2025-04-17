@@ -7,7 +7,11 @@
       "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\views\\product\\productdetail.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\assets\\css\\product\\product_detail.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\shop\\assets\\css\\product\\product_detail.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\assets\\css\\product\\product_detail.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,12 +39,25 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Shop\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Shop\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAACsBAAAAAAAAAAAUwDsBAAB4AQAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-17T08:25:06.763Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Product_Detail.css",
               "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Product\\Product_Detail.css",
               "RelativeDocumentMoniker": "Shop\\assets\\CSS\\Product\\Product_Detail.css",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Product\\Product_Detail.css",
               "RelativeToolTip": "Shop\\assets\\CSS\\Product\\Product_Detail.css",
-              "ViewState": "AQIAAGoAAAAAAAAAAAAYwIEAAAAWAAAA",
+              "ViewState": "AQIAAO8AAAAAAAAAAAAkwPsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-04-16T16:49:31.535Z",
               "EditorCaption": ""
@@ -53,7 +70,7 @@
               "RelativeDocumentMoniker": "Shop\\Views\\Product\\ProductDetail.cshtml",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Product\\ProductDetail.cshtml",
               "RelativeToolTip": "Shop\\Views\\Product\\ProductDetail.cshtml",
-              "ViewState": "AQIAAFACAAAAAAAAAAAYwGwCAAAAAAAA",
+              "ViewState": "AQIAAPkBAAAAAAAAAAAUwPUBAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-16T16:39:10.32Z",
               "EditorCaption": ""

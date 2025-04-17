@@ -490,69 +490,72 @@
     </div>
 </div>
 <!-- Product Reviews -->
-<div class="container py-5">
+<div class="container py-4 rounded-3 bg-white p-4">
     <h2 class="h3 mb-4 fw-bold">Reviews</h2>
 
     <!-- Rating Summary -->
-    <div class="d-flex flex-column flex-md-row gap-5 mb-5">
-        <div class="bg-light p-4 rounded w-100 w-md-25">
-            <div class="display-6 fw-bold mb-2">4.8</div>
-            <div class="small text-muted mb-3">of 123 reviews</div>
-            <div class="d-flex mb-2">
-                <div class="d-flex">
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-fill text-warning"></i>
-                    <i class="bi bi-star-half text-warning"></i>
+    <div class="row mb-5 px-4">
+        <!-- Cột 25% -->
+        <div class="col-12 col-md-3 mb-4 mb-md-0">
+            <div class="bg-light p-4 rounded text-center mx-4 rounded-4">
+                <div class="display-6 fw-bold mb-2">4.8</div>
+                <div class="small text-muted mb-3">of 123 reviews</div>
+                <div class="d-flex mb-2 justify-content-center">
+                    <div class="d-flex ">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-half text-warning"></i>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Rating Breakdown -->
-        <div class="w-100">
-            <div class="mb-3">
+        <!-- Cột 75% -->
+        <div class="col-12 col-md-9">
+            <div class="mb-2">
                 <div class="d-flex justify-content-between">
                     <div>Excellent</div>
                     <div>50</div>
                 </div>
-                <div class="progress">
+                <div class="progress progress-sm">
                     <div class="progress-bar bg-warning" style="width: 60%"></div>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <div class="d-flex justify-content-between">
                     <div>Good</div>
                     <div>30</div>
                 </div>
-                <div class="progress">
+                <div class="progress progress-sm">
                     <div class="progress-bar bg-warning" style="width: 25%"></div>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <div class="d-flex justify-content-between">
                     <div>Average</div>
                     <div>20</div>
                 </div>
-                <div class="progress">
+                <div class="progress progress-sm">
                     <div class="progress-bar bg-warning" style="width: 15%"></div>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <div class="d-flex justify-content-between">
                     <div>Below Average</div>
                     <div>10</div>
                 </div>
-                <div class="progress">
+                <div class="progress progress-sm">
                     <div class="progress-bar bg-warning" style="width: 5%"></div>
                 </div>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <div class="d-flex justify-content-between">
                     <div>Poor</div>
                     <div>5</div>
                 </div>
-                <div class="progress">
+                <div class="progress progress-sm">
                     <div class="progress-bar bg-warning" style="width: 2%"></div>
                 </div>
             </div>
@@ -561,8 +564,21 @@
 
     <!-- Leave Comment -->
     <div class="mb-5">
-        <textarea class="form-control" rows="4" placeholder="Leave Comment"></textarea>
+        <div class="row g-3 align-items-start">
+            <!-- Cột textarea -->
+            <div class="col-12 col-md-11">
+                <textarea class="form-control" rows="4" placeholder="Leave Comment"></textarea>
+            </div>
+
+            <!-- Cột nút gửi -->
+            <div class="col-12 col-md-1 text-md-end">
+                <button class="btn btn-success w-100 w-md-auto">
+                    <i class="fas fa-paper-plane me-1"></i> Gửi
+                </button>
+            </div>
+        </div>
     </div>
+
 
     <!-- Reviews List -->
     <div class="space-y-5">
@@ -570,7 +586,7 @@
         <div class="bg-light p-4 rounded">
             <div class="d-flex justify-content-between mb-3">
                 <div class="d-flex gap-3">
-                    <img src="/placeholder.svg" alt="User" class="rounded-circle" width="40" height="40">
+                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
                     <div>
                         <div class="fw-medium">Grace Carey</div>
                         <div class="d-flex">
@@ -584,10 +600,10 @@
                 </div>
                 <div class="small text-muted">24 January, 2023</div>
             </div>
-            <p class="text-muted mb-3">I was a bit nervous to be buying a secondhand phone from Amazon...</p>
+            <p class="text-muted mb-3">I was a bit nervous to be buying a secondhand phone from Amazon, but I couldn’t be happier with my purchase!! I have a pre-paid data plan so I was worried that this phone wouldn’t connect with my data plan, since the new phones don’t have the physical Sim tray anymore, but couldn’t have been easier! I bought an Unlocked black iPhone 14 Pro Max in excellent condition and everything is PERFECT. It was super easy to set up and the phone works and looks great. It truly was in excellent condition. Highly recommend!!!🖤</p>
             <div class="d-flex gap-2">
-                <img src="/placeholder.svg" alt="Review image 1" class="rounded" width="80" height="80">
-                <img src="/placeholder.svg" alt="Review image 2" class="rounded" width="80" height="80">
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 1" class="rounded" width="80" height="80">
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 2" class="rounded" width="80" height="80">
             </div>
         </div>
 
@@ -595,7 +611,7 @@
         <div class="bg-light p-4 rounded">
             <div class="d-flex justify-content-between mb-3">
                 <div class="d-flex gap-3">
-                    <img src="/placeholder.svg" alt="User" class="rounded-circle" width="40" height="40">
+                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
                     <div>
                         <div class="fw-medium">Ronald Richards</div>
                         <div class="d-flex">
@@ -615,6 +631,12 @@
 
     <!-- View More Button -->
     <div class="text-center mt-4">
-        <button class="btn btn-outline-primary">View More</button>
+        <button class="btn btn-outline-success">View More</button>
     </div>
 </div>
+@*Banner*@
+<section class="tc-banner-style3 my-3 wow fadeInUp slow" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+    <div class="banner-card text-center">
+        <h6 class="d-block d-lg-inline-flex align-items-center fw-400 fsz-18 lh-5"> <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/star.png" alt="" class="icon-30 me-2"> Thành viên được  MIỄN PHÍ VẬN CHUYỂN không yêu cầu giá trị đơn hàng tối thiểu!. Áp dụng điều kiện <a href="#" class="fsz-14 text-decoration-underline ms-2 text-white"> Dùng thử miễn phí 30 ngày!" </a> </h6>
+    </div>
+</section>

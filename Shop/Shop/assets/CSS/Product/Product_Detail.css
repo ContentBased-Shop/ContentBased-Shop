@@ -243,3 +243,17 @@
         margin-bottom: 30px;
     }
 }
+
+/*progress rate*/
+.progress-sm {
+    height: 6px;
+}
+/*banner*/
+.tc-banner-style3 .banner-card {
+    padding: 35px;
+    background-image: url(https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/banner1.png);
+    background-size: cover;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #fff;
+}
