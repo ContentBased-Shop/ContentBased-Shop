@@ -29,7 +29,7 @@
     min-width: 220px;
     background-color: #EEEFF6;
     padding: 1.5rem;
-    border-radius: 0.5rem 0 0 0.5rem;
+    border-radius: 0.5rem;
     overflow-y: auto; /* Cho scroll nếu nội dung dài */
 }
 
@@ -267,3 +267,27 @@
         margin-bottom: 30px;
     }
 }
+
+
+.badge:hover {
+    background-color: #1ABA1A !important;
+    color: #fff !important;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.badge:hover a {
+    color: #fff !important;
+}
+
+.input-group-sm .form-control,
+.input-group-sm .input-group-text {
+    transition: none !important; /* Bỏ hiệu ứng chuyển tiếp */
+}
+
+    .input-group-sm .form-control:hover,
+    .input-group-sm .input-group-text:hover {
+        background-color: initial !important;
+        border-color: initial !important;
+        box-shadow: none !important;
+    }

@@ -11,7 +11,7 @@
       "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\assets\\css\\product\\product_categories.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\assets\\css\\user\\user.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\shop\\assets\\css\\user\\user.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\assets\\css\\user\\user.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
@@ -46,8 +46,7 @@
               "RelativeToolTip": "Shop\\assets\\CSS\\User\\User.css",
               "ViewState": "AQIAABgAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-04-17T12:08:00.012Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-04-17T12:08:00.012Z"
             },
             {
               "$type": "Document",
@@ -57,7 +56,7 @@
               "RelativeDocumentMoniker": "Shop\\Views\\Product\\ProductCategories.cshtml",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Product\\ProductCategories.cshtml",
               "RelativeToolTip": "Shop\\Views\\Product\\ProductCategories.cshtml",
-              "ViewState": "AQIAAFMBAAAAAAAAAAAiwGkBAABdAAAA",
+              "ViewState": "AQIAAH0BAAAAAAAAAAAcwJwBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-04-17T08:36:57.242Z",
               "EditorCaption": ""
@@ -70,7 +69,7 @@
               "RelativeDocumentMoniker": "Shop\\assets\\CSS\\Product\\Product_categories.css",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Product\\Product_categories.css",
               "RelativeToolTip": "Shop\\assets\\CSS\\Product\\Product_categories.css",
-              "ViewState": "AQIAAO4AAAAAAAAAAAAiwAUBAAAQAAAA",
+              "ViewState": "AQIAAP0AAAAAAAAAAAAAACUBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
               "WhenOpened": "2025-04-17T08:36:06.193Z",
               "EditorCaption": ""
