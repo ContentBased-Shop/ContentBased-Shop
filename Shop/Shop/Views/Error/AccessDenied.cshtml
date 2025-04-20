@@ -1,5 +1,35 @@
 ﻿@{
     ViewBag.Title = "Truy cập bị từ chối";
 }
-<h2>403 - Truy cập bị từ chối</h2>
-<p>Bạn không có quyền truy cập vào trang này.</p>
+@{
+    ViewBag.Title = "Không tìm thấy trang";
+}
+<link  rel="stylesheet" href="~/assets/CSS/InnerPage/Error.css"/>
+<div class="text-center my-5">
+    <div class="mb-4">
+        <h1 class="display-1 fw-bold text-success">403</h1>
+        <h2 class="h3 fw-semibold">Truy cập bị từ chối</h2>
+        <p class="text-muted">Xin lỗi, Bạn không có quyền truy cập vào trang này.</p>
+    </div>
+
+    <div class="circle-bg d-flex align-items-center justify-content-center mb-4 mx-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none"
+             stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+             class="icon-muted">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M8 16c1.5-2 6.5-2 8 0" />
+            <path d="M9 9c-.5 1-1.5 1-2 0" />
+            <path d="M17 9c-.5 1-1.5 1-2 0" />
+        </svg>
+    </div>
+
+    <a href="/" class="btn btn-success btn-lg d-inline-flex align-items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+             class="bi bi-arrow-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 1-.5.5H3.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L3.707 7.5H14.5A.5.5 0 0 1 15 8z" />
+        </svg>
+        Trở về trang chủ
+    </a>
+</div>
+
