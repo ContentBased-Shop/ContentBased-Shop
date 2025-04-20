@@ -2,5 +2,211 @@
     ViewBag.Title = "Promotion";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .countdown-box {
+        border: 2px solid #1ABA1A;
+        border-radius: 10px;
+        width: 100px;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: #1ABA1A;
+        background-color:white;
+    }
 
-<h2>Promotion</h2>
+    .countdown-label {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .bg-custom {
+        background-color: #1ABA1A;
+    }
+
+    .bg-light-green {
+        background-color: #1ABA1A;
+    }
+
+    .text-green {
+        color: #1ABA1A;
+    }
+
+    .text-white-green {
+        color: #1ABA1A;
+        background-color: white;
+    }
+
+  
+    
+</style>
+<!-- Header Banner -->
+<div class="position-relative w-100 container my-2 rounded-3 bg-light-green" style="height: 300px;">
+    <div class="position-absolute w-100 h-100 bg-gradient-to-r" z-index: 10;"></div>
+    <div class="container position-relative d-flex flex-column justify-content-center align-items-center text-center text-white h-100">
+
+        <h1 class="display-4 fw-bold mb-4">ĐẠI TIỆC KHUYẾN MÃI</h1>
+        <h2 class="h3 fw-semibold mb-6">MỪNG LỄ 30/4 - 1/5</h2>
+        <p class="fs-4 max-w-2xl mb-8">
+            Giảm giá lên đến 50% cho tất cả sản phẩm điện tử. Cơ hội vàng chỉ diễn ra một lần trong năm!
+        </p>
+        <div class="d-flex flex-column flex-sm-row gap-4">
+            <button class="btn btn-lg text-white">Mua Ngay <i class="bi bi-bag" style="font-size: 20px; margin-left: 8px;"></i></button>
+            <button class="btn btn-lg  text-white ">Xem Thêm <i class="bi bi-chevron-right" style="font-size: 20px; margin-left: 8px;"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- Countdown Section -->
+<div class="py-3">
+    <div class="container p-3 rounded bg-white">
+        <div class="row align-items-center">
+            <!-- Cột 1: Hình ảnh -->
+            <div class="col-md-6">
+                <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:800:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/khuyen-mai-30-4-va-1-5.jpg" alt="Khuyến mãi lễ 30/4" class="w-100 h-auto object-cover">
+            </div>
+            <!-- Cột 2: Đếm giờ -->
+            <div class="col-md-6 text-center my-2">
+                <h3 class="h4 text-green mb-4">
+                    <i class="bi bi-calendar-clock" style="font-size: 20px; margin-right: 10px;"></i>
+                    Thời Gian Còn Lại
+                </h3>
+                <div class="d-flex justify-content-center gap-4">
+                    <!-- Countdown Timers -->
+                    <div class="countdown-box">
+                        <span id="days">00</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="hours">00</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="minutes">00</span>
+                    </div>
+                    <div class="countdown-box">
+                        <span id="seconds">00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container bg-light rounded-3 p-4">
+    <h3>
+        Khuyến mãi 30/4 - 1/5 | Mua sale phụ kiện giá chỉ từ 35k
+    </h3>
+    <p>
+        Nhân nhịp khuyến mãi 30/4 -1/5 này bạn dự định làm gì chưa? Nhân dịp ngày lễ cực lớn trong năm 2023 hãy tự thưởng cho bản thân một vài điều mới cùng Swoo  nào. Rất nhiều sản phẩm sale 30/4 với ưu đãi cực KHỦNG đang chờ đón bạn đấy! Dưới đây là danh sách những thiết bị công nghệ dự kiến sẽ được giảm giá vô cùng hấp dẫn, bạn có thể tham khảo chi tiết ngay bên dưới.
+    </p>
+    <p>
+        Sale 30/4 là một dịp chương trình lớn với rất nhiều mặt hàng sale hấp dẫn. Đặc biệt trong dịp này, bạn không thể bỏ qua những phụ kiện đi chơi lễ, du lịch. Săn sale dịp này sẽ giúp bạn tiết kiệm kha khá chi phí, đồng thời còn có được những món đồ đi chơi lễ bổ ích.
+    </p>
+    <p>
+        CellphoneS đang diễn ra chương trình khuyến mãi 1/6 với nhiều sản phẩm công nghệ được giảm giá cực sốc từ điện thoại, đồng hồ thông minh, tai nghe, loa, macbook, laptop đến các sản phẩm đồ gia dụng cho các chị em phụ nữ, thiết bị nhà thông minh hỗ trợ các công việc nhà. Khi Quý Khách mua từ 3 sản phẩm trở lên giảm thêm 20%. giao hàng toàn quốc.
+    </p>
+
+    <p>Khuyến mãi 30/4 là dịp lý tưởng để bạn sắm sửa các phụ kiện du lịch, giúp chuyến đi thêm phần thú vị và thuận tiện. Dưới đây là những gợi ý phụ kiện du lịch mà bạn không nên bỏ qua.</p>
+
+    <ul>
+        <li><strong>Cáp sạc</strong> là phụ kiện không thể thiếu khi đi du lịch. Cáp sạc tương thích giúp bạn duy trì năng lượng cho các thiết bị như điện thoại, máy tính bảng hay máy ảnh, đảm bảo việc sử dụng liên tục trong suốt chuyến đi.</li>
+
+        <li><strong>Pin dự phòng</strong> cũng là một món đồ quan trọng. Nó giúp bạn tránh tình trạng hết pin đột ngột, đặc biệt khi du lịch ở những nơi không có nguồn điện sẵn. Pin dự phòng nhỏ gọn, tiện lợi cho việc mang theo trong suốt hành trình.</li>
+
+        <li><strong>Tai nghe bluetooth</strong> sẽ mang đến cho bạn trải nghiệm âm thanh tuyệt vời mà không cần lo lắng về dây vướng víu. Chúng giúp bạn thư giãn, xem phim hay nghe nhạc mà không làm phiền người khác, đồng thời tiết kiệm không gian trong vali.</li>
+
+        <li><strong>Loa bluetooth</strong> cũng là một phụ kiện hữu ích. Bạn có thể thưởng thức âm nhạc ngoài trời với âm thanh lớn mà không cần cồng kềnh. Những chiếc loa này còn có khả năng chống nước, lý tưởng cho các hoạt động gần hồ bơi hay biển.</li>
+
+        <li><strong>Quạt mini</strong> là một món đồ nhỏ gọn và giá rẻ giúp bạn giải nhiệt hiệu quả trong những ngày nắng nóng. Đây là phụ kiện rất được ưa chuộng trong dịp khuyến mãi 30/4.</li>
+
+        <li><strong>Máy tăm nước</strong> giúp bạn chăm sóc răng miệng sạch sẽ khi đi du lịch, đặc biệt hữu ích cho những ai đang niềng răng. Máy tăm nước sẽ giúp bạn lấy sạch thức ăn thừa và mang lại sự tự tin khi giao tiếp.</li>
+
+        <li><strong>Bàn chải điện</strong> đi kèm với máy tăm nước là phụ kiện không thể thiếu trong chuyến đi. Bàn chải điện giúp bạn duy trì vệ sinh răng miệng hiệu quả, mang lại cảm giác thoải mái và tự tin.</li>
+
+        <li><strong>Camera hành trình</strong> là một lựa chọn tuyệt vời để ghi lại những khoảnh khắc đẹp trong chuyến đi của bạn. Với chiếc camera nhỏ gọn này, bạn có thể dễ dàng ghi lại các cảnh đẹp, hoạt động hoặc món ăn mà mình yêu thích.</li>
+
+        <li><strong>Gimbal - Tripod</strong> giúp bạn quay video hoặc chụp ảnh ổn định, tránh bị rung lắc, mang lại những bức ảnh đẹp mắt trong mọi tình huống. Đây là món đồ không thể thiếu cho những ai yêu thích quay phim, chụp ảnh trong các chuyến du lịch.</li>
+
+        <li><strong>Bộ phát wifi di động</strong> là thiết bị cần thiết để bạn luôn kết nối internet, đặc biệt khi du lịch đến những nơi không có wifi miễn phí hoặc tín hiệu kém. Việc có internet dễ dàng giúp bạn tìm kiếm thông tin, đặt phòng khách sạn hay mua vé tham quan tiện lợi hơn.</li>
+    </ul>
+    <center><img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:800:0/q:90/plain/https://cellphones.com.vn/media/wysiwyg/khuyen-mai-30-4.jpg" /></center>
+    <p>Phụ kiện nào cũng cần thiết để giúp bạn có một chuyến đi hoàn thiện hơn. Nhưng duy nhất trong dịp sale 30/4 và chuẩn bị cho chuyến đi sắp tới thì chắc chắn bạn không thể bỏ qua TOP 5 tai nghe bluetooth dưới đây:</p>
+
+    <ul>
+        <li>
+            <strong>Tai nghe Bluetooth Apple AirPods Pro 2022</strong><br>
+            Chiếc tai nghe thế hệ mới AirPods Pro 2022 chính hãng Apple sẽ mang đến một chất âm sống động và khả năng tái tạo âm thanh 3 chiều nhờ chip Apple H2. Bên cạnh thiết kế sang trọng, tai nghe còn được trang bị công nghệ Bluetooth 5.3 cùng khả năng giúp tiết kiệm pin đáng nể. Ngoài ra, tai nghe còn có khả năng chống ồn chủ động và chống nước chuẩn IPX4.
+        </li>
+
+        <li>
+            <strong>Tai nghe không dây Samsung Galaxy Buds2</strong><br>
+            Chiếc tai nghe Buds2 của nhà Samsung Galaxy mang đến một thế giới âm nhạc riêng biệt với hệ thống loa 2 chiều cùng âm thanh 360. Công nghệ chống ồn chủ động cùng Bluetooth 5.2 sẽ cho trải nghiệm nghe trở nên trọn vẹn hơn.
+        </li>
+
+        <li>
+            <strong>Tai nghe không dây Marshall Minor 3</strong><br>
+            Marshall Minor 3 cũng là một trong những chiếc tai nghe có giảm giá trong dịp khuyến mãi 30/4 này. Lợi thế của Marshall Minor là có thời lượng pin lâu và chuẩn kháng nước IPX4. Cạnh đó, tai nghe còn được trang bị màng loa 12mm và cảm biến tiệm cận giúp nghe và điều chỉnh tốt hơn.
+        </li>
+
+        <li>
+            <strong>Tai nghe Bluetooth Havit TW945</strong><br>
+            Havit TW945 là một trong số những dòng tai nghe giá rẻ được ưa chuộng. Chiếc tai nghe có thiết kế trong suốt độc đáo cùng kết nối Bluetooth 5.3 nhanh chóng. Đồng thời, tai nghe cũng sử dụng driver 13mm cho trải nghiệm gaming sống động.
+        </li>
+
+        <li>
+            <strong>Tai nghe không dây JBL Tune 230 TWS</strong><br>
+            Tune 230 TWS là chiếc tai nghe có thiết kế đặc sắc của JBL. Cơ chế chống ồn chủ động ANC và thời lượng pin kéo dài 10 giờ (hoặc lên 30 giờ nếu có hộp sạc) chính là ưu điểm nổi trội của chiếc tai nghe này. Cạnh đó, JBL Tune 230 TWS còn được thiết kế với kiểu dáng nhỏ gọn cùng đệm tai silicone với nhiều kích cỡ để khít với tai hơn.
+        </li>
+    </ul>
+
+</div>
+
+
+
+<!-- CTA Banner -->
+<div class="bg-light-green py-5 text-white">
+    <div class="container text-center">
+        <h2 class="display-4 fw-bold mb-4">ĐỪNG BỎ LỠ CƠ HỘI VÀNG!</h2>
+        <p class="fs-4 mb-4">
+            Chương trình khuyến mãi chỉ diễn ra từ ngày 25/4 đến hết ngày 5/5/2025. Hãy nhanh tay để không bỏ lỡ những ưu đãi hấp dẫn nhất trong năm!
+        </p>
+      
+    </div>
+</div>
+<script>
+    // Set the date we're counting down to
+    var targetDate = new Date("April 30, 2025 00:00:00").getTime();
+
+    // Update the countdown every 1 second
+    var countdown = setInterval(function() {
+
+        // Get current time
+        var now = new Date().getTime();
+
+        // Find the time difference
+        var distance = targetDate - now;
+
+        // Calculate days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the elements with ids "days", "hours", "minutes", "seconds"
+        document.getElementById("days").innerHTML = days.toString().padStart(2, "0");
+        document.getElementById("hours").innerHTML = hours.toString().padStart(2, "0");
+        document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, "0");
+        document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, "0");
+
+        // If the countdown is over, display some message
+        if (distance < 0) {
+            clearInterval(countdown);
+            document.getElementById("days").innerHTML = "00";
+            document.getElementById("hours").innerHTML = "00";
+            document.getElementById("minutes").innerHTML = "00";
+            document.getElementById("seconds").innerHTML = "00";
+            // You can add a custom message here (for example "Sale ended")
+        }
+    }, 1000);
+</script>
