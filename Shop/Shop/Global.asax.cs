@@ -23,5 +23,39 @@ namespace Shop
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        protected void Application_Error()
+        {
+            Exception exception = Server.GetLastError();
+            Response.Clear();
+
+            HttpException httpException = exception as HttpException;
+            RouteData routeData = new RouteData();
+            routeData.Values.Add("controller", "Error");
+
+            if (httpException == null)
+            {
+                routeData.Values.Add("action", "General");
+            }
+            else
+            {
+                switch (httpException.GetHttpCode())
+                {
+                    case 403:
+                        routeData.Values.Add("action", "AccessDenied");
+                        break;
+                    case 404:
+                        routeData.Values.Add("action", "NotFound");
+                        break;
+                    default:
+                        routeData.Values.Add("action", "General");
+                        break;
+                }
+            }
+
+            Server.ClearError();
+            IController errorController = new Shop.Controllers.ErrorController();
+            errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
+        }
+
     }
 }

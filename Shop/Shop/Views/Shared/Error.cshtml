@@ -1,17 +1,286 @@
-﻿@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="icon" href="~/assets/Image/Logo/LogoTitle/logo_swoo_title.png" />
+    <!-- Bootstrap CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/assets//CSS//Layout//header.css">
+    <link rel="stylesheet" href="~/assets//CSS//Layout//footer.css">
+
+    @*icons8.com*@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
+
 </head>
+
 <body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
+    <style>
+        body {
+            background-color: rgb(226, 228, 235);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    </style>
+    <header>
+        <!-- Top bar -->
+        <div class="bg-light-custom py-2">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fw-medium small">Hotline 24/7</span>
+                        <span class="fw-bold small">(025) 3886 25 16</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main navigation -->
+        <div class="py-3">
+            <div class="container">
+                <div class="row align-items-center gy-3 ">
+                    <!-- Logo -->
+                    <div class="col-12 col-md-2 d-flex justify-content-center justify-content-md-start">
+                        <div class="d-flex align-items-center">
+                            <img src="~/assets/Image/Logo/LogoTitle/logo_header_swoo.png" />
+                        </div>
+                    </div>
+
+                    <!-- Navigation menu -->
+                    <div class="col-12 col-md-6">
+                        <nav>
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                        TRANG CHỦ
+                                        <i class="fas fa-chevron-down ms-1 small"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                        DANH MỤC
+                                        <i class="fas fa-chevron-down ms-1 small"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                        LIÊN KẾT TRANG
+                                        <i class="fas fa-chevron-down ms-1 small"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium">LIÊN HỆ</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <!-- User actions -->
+                    <div class="col-12 col-md-4">
+                        <div class="d-flex justify-content-center justify-content-md-end align-items-center gap-3">
+                            <!-- User account -->
+                            <div class="d-flex align-items-center">
+                                <div class="icon-circle bg-light-custom">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="ms-2 d-none d-md-block">
+                                    <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO </p>
+                                    <p class="fs-7 fw-medium mb-0">ĐĂNG NHẬP</p>
+                                </div>
+                            </div>
+
+                            <!-- Wishlist -->
+                            <div>
+                                <div class="icon-circle bg-light-custom">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                            </div>
+
+                            <!-- Cart -->
+                            <div class="d-flex align-items-center position-relative">
+                                <div class="icon-circle bg-light-custom">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                                <div class="ms-2 d-none d-md-block">
+                                    <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
+                                    <p class="fs-7 fw-bold mb-0">$1,689.00</p>
+                                </div>
+                                <span class="cart-badge bg-green-custom text-white">5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-container">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Search Bar Section -->
+                    <div class="col-lg-5">
+                        <div class="search-container">
+
+                            <input type="text" class="search-input" placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm">
+                            <button class="search-button">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Promotional Messages Section -->
+                    <div class="col-lg-7">
+                        <div class="row promo-container">
+                            <div class="col-md-4 ">
+                                <div class="promo-text"><i class="fa-solid fa-truck-fast"></i>  Miễn phí vận chuyển </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="promo-text"><i class="fa-solid fa-rotate-right"></i>  Hoàn tiền trong 30 ngày</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="promo-text"><i class="fa-solid fa-shield"></i>  100% thanh toán an toàn</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    @RenderBody()
+  
+
+    <footer>
+        <div class="container">
+            <div class="row mb-4">
+                <!-- Company Info Column -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>SWOO - CHỢ CÔNG NGHỆ ONLINE 1ST</h5>
+                    <p class="mb-1">HOTLINE 24/7</p>
+                    <h4 class="hotline mb-3">(025) 3686 25 16</h4>
+                    <p class="mb-1">140 Lê Trọng Tấn, phường Tây Thạnh, quận Tân Phú, Thành phố Hồ Chí Minh</p>
+                    <p class="mb-1">VIE 10092</p>
+                    <p class="mb-3">hufi@@edu.com.vn</p>
+                    <div class="d-flex mb-4">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-pinterest-p"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Top Categories Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>CÁC DANH MỤC HÀNG ĐẦU</h5>
+                    <ul>
+                        <li><a href="#">Laptops</a></li>
+                        <li><a href="#">PC & Computers</a></li>
+                        <li><a href="#">Cell Phones</a></li>
+                        <li><a href="#">Tablets</a></li>
+                        <li><a href="#">Gaming & VR</a></li>
+                        <li><a href="#">Networks</a></li>
+                        <li><a href="#">Cameras</a></li>
+                        <li><a href="#">Sounds</a></li>
+                        <li><a href="#">Office</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>CÔNG TY</h5>
+                    <ul>
+                        <li><a href="#">Về Swoo</a></li>
+                        <li><a href="#">Liên hệ</a></li>
+                        <li><a href="#">Career</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Sơ đồ trang web</a></li>
+                        <li><a href="#">Các địa điểm cửa hàng</a></li>
+                    </ul>
+                </div>
+
+                <!-- Help Center Column -->
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>TRUNG TÂM GIÚP ĐỠ</h5>
+                    <ul>
+                        <li><a href="#">Dịch vụ khách hàng</a></li>
+                        <li><a href="#">Chính sách</a></li>
+                        <li><a href="#">Điều khoản & Điều kiện</a></li>
+                        <li><a href="#">Đơn hàng rác</a></li>
+                        <li><a href="#">Câu hỏi thường gặp</a></li>
+                        <li><a href="#">Tài khoản của tôi</a></li>
+                        <li><a href="#">Hỗ trợ sản phẩm</a></li>
+                    </ul>
+                </div>
+
+                <!-- Partner Column -->
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>ĐỐI TÁC</h5>
+                    <ul>
+                        <li><a href="#">Trở thành người bán</a></li>
+                        <li><a href="#">Tiếp thị liên kết</a></li>
+                        <li><a href="#">Quảng cáo</a></li>
+                        <li><a href="#">Hợp tác</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- Subscribe Section -->
+            <div class="row subscribe-section">
+                <div class="col-12">
+                    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                        <h5 class="mb-3 mb-md-0">
+                            ĐĂNG KÝ & NHẬN <span class="text-danger">10% OFF</span> GIẢM GIÁ CHO ĐƠN HÀNG ĐẦU TIÊN CỦA BẠN
+                        </h5>
+                        <div class="d-flex flex-grow-1 mx-md-2">
+                            <input type="email" class="form-control" placeholder="Nhập địa chỉ email của bạn">
+                            <button class="btn btn-success ms-2">SUBCRIBE</button>
+                        </div>
+                    </div>
+                    <div class="mt-2 text-center text-md-start">
+                        <small class="text-muted">
+                            Bằng cách đăng ký, bạn đã chấp nhận Chính sách của chúng tôi
+                            <a href="#">Here your Policy</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Footer Bottom -->
+            <div class="row py-3">
+                <div class="col-md-4 mb-3 mb-md-0">
+                    <p class="mb-0">© 2025 <strong>Shawonetc3</strong> All Rights Reserved</p>
+                </div>
+                <div class="col-md-4 mb-3 mb-md-0 text-center payment-icons">
+                    <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal">
+                    <img src="https://www.mastercard.com.vn/content/dam/public/mastercardcom/vn/vi/logos/mc-logo-52.svg" alt="Mastercard">
+                    <img src="https://usa.visa.com/dam/VCOM/regional/ve/romania/blogs/hero-image/visa-logo-800x450.jpg" alt="Visa">
+                    <img src="https://stripe.com/img/v3/home/social.png" alt="Stripe">
+                    <img src="https://cdn.klarna.com/1.0/shared/image/generic/logo/en_us/basic/logo_black.png" alt="Klarna">
+                </div>
+
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

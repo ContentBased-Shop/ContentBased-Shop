@@ -48,5 +48,9 @@ namespace Shop.Controllers
         {
             return View();
         }
+        public ActionResult Promotion()
+        {
+            return View();
+        }
     }
 }

@@ -134,6 +134,7 @@
     <Content Include="assets\CSS\Login_Register\index.css" />
     <Content Include="assets\CSS\InnerPage\Contact.css" />
     <Content Include="assets\CSS\InnerPage\Checkout.css" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InnerPageController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -356,6 +357,11 @@
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
     <Content Include="Views\Product\ProductCategories.cshtml" />
+    <Content Include="Views\InnerPage\Promotion.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Error\General.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

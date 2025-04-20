@@ -2,6 +2,11 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .btn-outline-success {
+        background-color: rgb(26, 186, 26);
+    }
+</style>
 <link rel="stylesheet" href="~/assets/CSS/Login_Register/index.css" />
 <!-- Breadcrumb -->
 <div class="container py-4 px-4 bg-white my-3 rounded-3">
@@ -37,7 +42,7 @@
                     <label for="password" class="form-label">Mật khẩu</label>
                     <div class="input-group">
                         <input type="password" class="form-control" id="password" placeholder="••••••••" required />
-                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                        <button class="btn btn-outline-success border-0" type="button" onclick="togglePassword()">
                             <span id="toggleIcon">👁️</span>
                         </button>
                     </div>
