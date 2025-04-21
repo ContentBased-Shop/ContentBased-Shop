@@ -28,7 +28,6 @@
             background-color: rgb(226, 228, 235);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
     </style>
     <header>
         <!-- Top bar -->
@@ -61,25 +60,45 @@
                                 <li class="nav-item mx-2">
                                     <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
                                         TRANG CHỦ
-                                        <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
                                 </li>
-                                <li class="nav-item mx-2">
-                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+
+                                <li class="nav-item dropdown mx-2">
+                                    <a href="#" class="nav-link  text-dark fw-medium d-flex align-items-center" id="dropdownDanhMuc" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         DANH MỤC
                                         <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
+                                    
+                                    <ul style="min-width: 275px;" class="dropdown-menu border-0 p-0 w-100" aria-labelledby="dropdownDanhMuc">
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục sản phẩm</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục điện thoại</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục lapotp</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục sản phẩm khuyến nghị</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2 " href="#">Danh mục sản phẩm HOT<div class="text-danger d-inline"> <i class="fa-solid fa-fire"></i></div> </a></li>
+                                    </ul>
                                 </li>
-                                <li class="nav-item mx-2">
-                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+
+                                <li class="nav-item dropdown mx-2">
+                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center" id="dropdownLienKet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         LIÊN KẾT TRANG
                                         <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
+                                    <ul style="min-width: 250px;" class=" dropdown-menu border-0  p-0 w-100" aria-labelledby="dropdownDanhMuc">
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Khuyến mãi</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Đăng ký nhận Voucher</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Giới thiệu doanh nghiệp</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Giỏ hàng</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Liên kết Facebook</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Liên kết Tiktok</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="#">Liên kết Youtube</a></li>
+                                    </ul>
                                 </li>
+
                                 <li class="nav-item mx-2">
                                     <a href="#" class="nav-link text-dark fw-medium">LIÊN HỆ</a>
                                 </li>
                             </ul>
+
                         </nav>
                     </div>
 
@@ -288,3 +307,4 @@
     </footer>
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
