@@ -10,11 +10,11 @@ namespace Shop.Controllers
     {
         //
         // GET: /Home/
-
+        #region TRANG-CHU
         public ActionResult Index()
         {
             return View();
         }
-        
+        #endregion
     }
 }

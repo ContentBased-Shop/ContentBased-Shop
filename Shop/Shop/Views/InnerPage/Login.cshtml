@@ -6,6 +6,29 @@
     .btn-outline-success {
         background-color: rgb(26, 186, 26);
     }
+    .password-wrapper {
+        position: relative;
+    }
+
+        .password-wrapper input {
+            padding-right: 40px; /* Chừa khoảng trống bên phải cho icon */
+        }
+
+        .password-wrapper button {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+        }
+
+            .password-wrapper button:focus {
+                outline: none;
+                box-shadow: none;
+            }
 </style>
 <link rel="stylesheet" href="~/assets/CSS/Login_Register/index.css" />
 <!-- Breadcrumb -->
@@ -34,30 +57,48 @@
 
             <form onsubmit="handleLogin(event)">
                 <div class="mb-3">
-                    <label for="email" class="form-label">Địa chỉ email</label>
-                    <input type="email" class="form-control" id="email" placeholder="example@gmail.com" required />
+                    <label for="email" class="form-label">Tên Đăng nhập </label>
+                    <input type="email" class="form-control " id="email" placeholder="example@gmail.com" required />
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật khẩu</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="password" placeholder="••••••••" required />
-                        <button class="btn btn-outline-success border-0" type="button" onclick="togglePassword()">
-                            <span id="toggleIcon">👁️</span>
+
+                    <div class="password-wrapper">
+                        <input type="password" class="form-control " id="password" placeholder="••••••••" required />
+                        <button type="button" onclick="togglePassword(this)">
+                            <i class="fa-solid fa-eye"></i>
                         </button>
                     </div>
-                    <div class="text-end mt-1">
-                        <a href="/forgot-password" class="small text-muted">Quên mật khẩu ?</a>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-success-custom w-100 mb-3">ĐĂNG NHẬP</button>
-
-                <div class="text-center small">
-                    <span class="text-muted">NGƯỜI DÙNG MỚI ? </span>
-                    <a href="/signup" class="text-success-custom fw-medium">ĐĂNG KÝ</a>
-                </div>
             </form>
+            <div class="text-end mt-1">
+                <a href="/forgot-password" class="small text-muted">Quên mật khẩu ?</a>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success-custom w-100 mb-3">ĐĂNG NHẬP</button>
+
+        <div class="text-center small">
+            <span class="text-muted">NGƯỜI DÙNG MỚI ? </span>
+            <a href="/signup" class="text-success-custom fw-medium">ĐĂNG KÝ</a>
         </div>
     </div>
+    </div>
 </div>
+
+<script>
+    function togglePassword(button) {
+        const passwordInput = document.getElementById("password");
+        const icon = button.querySelector("i");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+</script>
