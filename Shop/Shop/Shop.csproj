@@ -154,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
+    <Content Include="assets\CSS\Login_Register\Login.css" />
     <Content Include="assets\CSS\Product\Product_categories.css" />
     <Content Include="assets\CSS\Product\Product_Detail.css" />
     <Content Include="assets\CSS\User\User.css" />

@@ -12,7 +12,7 @@ namespace Shop.Controllers
     public class InnerPageController : Controller
     {
 
-        SHOPDataContext data = new SHOPDataContext("Data Source=ACERNITRO5;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
+        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
                  "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
         public ActionResult Index()
         {
@@ -26,7 +26,7 @@ namespace Shop.Controllers
        
         [HttpPost]
         public ActionResult Login(string username, string password)
-        {
+            {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 ViewBag.Error = "Vui lòng nhập đầy đủ thông tin";
@@ -34,7 +34,7 @@ namespace Shop.Controllers
             }
 
             // Tìm người dùng với tên đăng nhập
-            var user = data.NhanViens.FirstOrDefault(u =>
+            var user = data.KhachHangs.FirstOrDefault(u =>
                 u.TenDangNhap == username &&
                 u.TrangThai == "HoatDong");
 
@@ -43,40 +43,38 @@ namespace Shop.Controllers
                 try
                 {
                     // Giải mã mật khẩu và so sánh
-                    string decryptedPassword = SecurityHelper.DecryptPassword(user.MatKhau, "mysecretkey");
+                    string decryptedPassword = SecurityHelper.DecryptPassword(user.MatKhauHash, "mysecretkey");
 
                     if (decryptedPassword == password)
                     {
                         // Lưu thông tin người dùng vào Session
-                        Session["UserID"] = user.MaNhanVien;
+                        Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
-                        Session["Role"] = user.VaiTro;
-
-                        // Chuyển hướng đến trang Dashboard
-                        return RedirectToAction("Dashboard");
+                        // Chuyển hướng đến trang Home
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 catch (Exception)
                 {
                     // Xử lý lỗi giải mã (có thể là mật khẩu đã được lưu dạng text trước đó)
-                    if (user.MatKhau == password)
+                    if (user.MatKhauHash == password)
                     {
                         // Lưu thông tin người dùng vào Session
-                        Session["UserID"] = user.MaNhanVien;
+                        Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
-                        Session["Role"] = user.VaiTro;
 
                         // Chuyển hướng đến trang Dashboard
-                        return RedirectToAction("Dashboard");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
-
-            ViewBag.Error = "Tên đăng nhập hoặc mật khẩu không đúng";
-            return View("Index");
+            TempData["Error"] = "Tên đăng nhập hoặc mật khẩu không đúng";
+            return RedirectToAction("Login");
         }
         #endregion
-        #region Login
+
+
+        #region Register
         public ActionResult Register()
         {
             return View();

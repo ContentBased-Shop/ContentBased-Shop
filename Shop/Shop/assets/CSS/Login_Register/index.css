@@ -9,6 +9,7 @@
 
     .btn-success-custom:hover {
         background-color: #18a818;
+        color: white;
     }
 
 .form-control:focus {
