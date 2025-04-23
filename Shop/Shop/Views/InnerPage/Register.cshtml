@@ -7,11 +7,10 @@
 <link rel="stylesheet" href="~/assets/CSS/Login_Register/index.css" />
 
 <!-- Breadcrumb -->
-<div class="container py-4 px-4 bg-white my-3 rounded-3">
+<div class="container py-3 px-3 bg-white my-2 rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
-            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
             <li class="breadcrumb-item active text-secondary" aria-current="page">Đăng Ký</li>
         </ol>
     </nav>
@@ -27,54 +26,102 @@
 
         <!-- Right Side - Login Form -->
         <div class="col-md-6 col-lg-5">
-            <h1 class="text-success-custom fw-bold mb-2">Đăng Ký</h1>
-            <p class="text-uppercase text-muted small mb-4">Tham gia cùng chúng tôi</p>
-
-            <form onsubmit="handleLogin(event)">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nhập tên của bạn</label>
-                    <input type="text" class="form-control" id="name" placeholder="Anine" required />
+            <h1 id="welcome-title" class="text-success-custom fw-bold mb-2">Đăng Ký</h1>
+            <p id="paragraph-title" class="text-uppercase text-muted small mb-4">Tham gia cùng chúng tôi</p>
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+            <form method="post" action="/InnerPage/Register">
+                <!-- Nhóm đầu tiên -->
+                <div id="step1">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên của bạn <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Ví dụ: Annie123" required />
+                        <div class="invalid-feedback">Tên chỉ được chứa chữ cái và không có số hoặc ký tự đặc biệt.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phonenumber" class="form-label">Số Điện Thoại <span class="text-danger">*</span></label>
+                        <input type="text" name="phonenumber" class="form-control" id="phonenumber" placeholder="Nhập số điện thoại của bạn" required pattern="^\d{10,11}$" />
+                        <div class="invalid-feedback">Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có 10-11 số).</div>
+                    </div>
+                    <button type="button" class="btn btn-success-custom w-100 mb-3" onclick="validateStep1()">Tiếp tục</button>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Địa chỉ Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="example@gmail.com" required />
-                </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Mật khẩu</label>
-                    <div class="password-wrapper">
-                        <input type="password"
+
+                <div id="step2" style="display: none;">
+                    <div class="mb-3">
+                        <label for="accountname" class="form-label">Tên đăng nhập</label>
+                        <input type="text"
+                               name="username"
                                class="form-control"
-                               id="password"
-                               placeholder="••••••••"
-                               required
-                               minlength="8"
-                               maxlength="20"
-                               pattern="^(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,20}$"
-                               title="Mật khẩu phải từ 8–20 ký tự, có ít nhất 1 chữ thường, 1 số và 1 ký tự đặc biệt"
-                               oninput="checkPasswordStrength()" />
-                        <button type="button" onclick="togglePassword(this)" id="togglePasswordBtn">
-                            <i class="fa-solid fa-eye"></i>
+                               id="accountname"
+                               placeholder="Ví dụ: DavidNg123"
+                               maxlength="12"
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{5,12}$"
+                               title="Tên đăng nhập phải từ 5 đến 12 ký tự, chỉ gồm chữ cái và số, và phải chứa ít nhất một chữ cái và một số"
+                               required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Địa chỉ Email <span class="text-danger">*</span></label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="example@gmail.com" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   id="password"
+                                   placeholder="Nhập mật khẩu tại đây"
+                                   required
+                                   minlength="8"
+                                   maxlength="20"
+                                   pattern=".{8,20}"
+                                   title="Mật khẩu phải từ 8–20 ký tự"
+                                   oninput="checkPasswordStrength()" />
+                            <button type="button" onclick="togglePassword(this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="password-strength-text" style="margin-top: 10px;"></div>
+                        <div class="strength-meter" id="strengthMeter"><span></span></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="confirmpassword" class="form-label">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password"
+                                   name="confirmpassword"
+                                   class="form-control"
+                                   id="confirmpassword"
+                                   placeholder="Nhập lại mật khẩu"
+                                   required
+                                   minlength="8"
+                                   maxlength="20"
+                                   pattern=".{8,20}"
+                                   title="Mật khẩu phải từ 8–20 ký tự" />
+                            <button type="button" onclick="togglePassword(this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
+                        <button type="button" class="btn btn-light   w-100 mb-3" onclick="goBackToStep1()">
+                            <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
+                        </button>
+                        <button type="submit" class="btn btn-success-custom w-100 mb-3" id="submitBtn">
+                            ĐĂNG KÝ
                         </button>
                     </div>
-                    <div class="strength-meter" id="strengthMeter">
-                        <span></span>
-                    </div>
-                    <div id="password-strength-text" style="margin-top: 10px;"></div> <!-- Hiển thị độ mạnh -->
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Xác nhận lại mật khẩu</label>
-                    <d iv class="input-group">
-                        <input type="password" class="form-control" id="password" placeholder="••••••••" required />
-                        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-                            <span id="toggleIcon">👁️</span>
-                        </button>
-                </div>
-                <div class="text-end mt-1">
-                    <a href="/forgot-password" class="small text-muted">Quên mật khẩu ?</a>
+
                 </div>
 
-                <button type="submit" class="btn btn-success-custom w-100 mb-3">ĐĂNG KÝ</button>
 
                 <div class="text-center small">
                     <span class="text-muted">ĐÃ CÓ TÀI KHOẢN ? </span>
@@ -86,7 +133,91 @@
 </div>
 
 <script>
+    function validateStep1() {
+        const nameInput = document.getElementById("name");
+        const phoneInput = document.getElementById("phonenumber");
 
+        let isValid = true;
+
+        // Reset trạng thái lỗi
+        nameInput.classList.remove("is-invalid");
+        phoneInput.classList.remove("is-invalid");
+
+        // Biểu thức kiểm tra tên: chỉ chứa chữ và khoảng trắng (có hỗ trợ tiếng Việt)
+        const namePattern = /^[A-Za-zÀ-ỹ\s]+$/;
+
+        // Kiểm tra tên
+        if (!nameInput.value.trim() || !namePattern.test(nameInput.value.trim())) {
+            nameInput.classList.add("is-invalid");
+            isValid = false;
+        }
+
+        // Kiểm tra số điện thoại: chỉ cho phép số, 10-11 chữ số
+        const phonePattern = /^0\d{9,10}$/; // Bắt đầu bằng 0, theo sau là 9 đến 10 số nữa (tổng 10-11 số)
+
+        if (!phonePattern.test(phoneInput.value.trim())) {
+            phoneInput.classList.add("is-invalid");
+            isValid = false;
+        }
+
+        if (isValid) {
+            showStep2(); // Chuyển sang bước tiếp theo nếu hợp lệ
+        }
+    } 
+    
+
+    function showStep2() {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+
+        const nameInput = document.getElementById("name").value;
+        const title = document.getElementById("welcome-title");
+        const paragraphtitle = document.getElementById("paragraph-title");
+
+        // Đổi tiêu đề
+        title.textContent = "Chào mừng " + nameInput + "!";
+        paragraphtitle.textContent = "Chỉ còn một bước nhận ngay hàng ngàn ưu đãi !!!"
+        // Ẩn bước 1, hiện bước 2
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+    }
+
+    function goBackToStep1() {
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("step1").style.display = "block";
+
+        const title = document.getElementById("welcome-title");
+        const paragraphtitle = document.getElementById("paragraph-title");
+
+        // Đổi tiêu đề
+        title.textContent = "Đăng Ký";
+        paragraphtitle.textContent = "Tham gia cùng chúng tôi"
+    }
+    // Ẩn hiện icon passowrd
+    function togglePassword(button) {
+        const passwordInput = button.previousElementSibling;
+        const icon = button.querySelector("i");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+    document.querySelector('form').addEventListener('submit', function () {
+        const btn = document.getElementById('loginBtn');
+        const spinner = document.getElementById('loginSpinner');
+
+        // Hiện icon spinner
+        spinner.classList.remove('d-none');
+
+        // Disable nút để tránh bấm nhiều lần
+        btn.setAttribute('disabled', 'true');
+    });
     // Hàm kiểm tra độ mạnh mật khẩu
 
     function checkPasswordStrength() {

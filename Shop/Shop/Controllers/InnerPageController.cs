@@ -19,11 +19,12 @@ namespace Shop.Controllers
             return View();
         }
         #region Login
+        // [GET]: Login
         public ActionResult Login()
         {
             return View();
         }
-       
+        //[POST]: Login
         [HttpPost]
         public ActionResult Login(string username, string password)
             {
@@ -44,7 +45,6 @@ namespace Shop.Controllers
                 {
                     // Giải mã mật khẩu và so sánh
                     string decryptedPassword = SecurityHelper.DecryptPassword(user.MatKhauHash, "mysecretkey");
-
                     if (decryptedPassword == password)
                     {
                         // Lưu thông tin người dùng vào Session
@@ -53,6 +53,7 @@ namespace Shop.Controllers
                         // Chuyển hướng đến trang Home
                         return RedirectToAction("Index", "Home");
                     }
+                   
                 }
                 catch (Exception)
                 {
@@ -75,9 +76,69 @@ namespace Shop.Controllers
 
 
         #region Register
+        // [GET]: Register
         public ActionResult Register()
         {
             return View();
+        }
+        // [POST]: Register
+        [HttpPost]
+        public ActionResult Register(string name, string username, string email, string password, string phonenumber)
+        {
+            // Kiểm tra trống
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                TempData["Error"] = "Vui lòng nhập đầy đủ thông tin.";
+                return RedirectToAction("Register");
+            }
+
+            // Kiểm tra username đã tồn tại chưa
+            var existingUser = data.KhachHangs.FirstOrDefault(u => u.TenDangNhap == username);
+            if (existingUser != null)
+            {
+                TempData["Error"] = "Tên đăng nhập đã được sử dụng.";
+                return RedirectToAction("Register");
+            }
+            var existingEmail = data.KhachHangs.FirstOrDefault(u => u.Email == email);
+            if (existingUser != null)
+            {
+                TempData["Error"] = "Tên Email đã được sử dụng.";
+                return RedirectToAction("Register");
+            }
+
+            // Mã hóa mật khẩu (ví dụ dùng AES hoặc Hash)
+            string key = "mysecretkey"; // nên lưu ở cấu hình
+            string encryptedPassword = SecurityHelper.EncryptPassword(password, key);
+            string GenerateUniqueMaKhachHang()
+            {
+                Random rand = new Random();
+                string code;
+                do
+                {
+                    int number = rand.Next(0, 100000); // 0 -> 99999
+                    code = "KH" + number.ToString("D5"); // Ví dụ: KH04212
+                } while (data.KhachHangs.Any(kh => kh.MaKhachHang == code)); // Kiểm tra trùng
+                return code;
+            }
+            // Tạo người dùng mới
+            var newUser = new KhachHang
+            {
+                MaKhachHang = GenerateUniqueMaKhachHang(), // Gán mã trước khi insert
+                HoTen = name,
+                TenDangNhap = username,
+                Email = email,
+                MatKhauHash = encryptedPassword,
+                DiaChi = "SG",
+                SoDienThoai = phonenumber,
+                TrangThai = "HoatDong",
+                NgayTao = DateTime.Now,
+            };
+
+           data.KhachHangs.InsertOnSubmit(newUser);
+           data.SubmitChanges();
+
+            TempData["Success"] = "Đăng ký thành công!";
+            return RedirectToAction("Login");
         }
         #endregion
         public ActionResult ForgotPassword()
