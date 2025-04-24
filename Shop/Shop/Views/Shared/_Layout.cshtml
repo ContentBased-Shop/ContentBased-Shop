@@ -19,6 +19,12 @@
     @*icons8.com*@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
 
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 </head>
 
 <body>
@@ -58,7 +64,7 @@
                         <nav>
                             <ul class="nav justify-content-center">
                                 <li class="nav-item mx-2">
-                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                    <a href="/Home" class="nav-link text-dark fw-medium d-flex align-items-center">
                                         TRANG CHỦ
                                     </a>
                                 </li>
@@ -84,18 +90,18 @@
                                         <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
                                     <ul style="min-width: 250px;" class=" dropdown-menu border-0  p-0 w-100" aria-labelledby="dropdownDanhMuc">
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Khuyến mãi</a></li>
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Đăng ký nhận Voucher</a></li>
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Giới thiệu doanh nghiệp</a></li>
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Giỏ hàng</a></li>
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Liên kết Facebook</a></li>
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Liên kết Tiktok</a></li>
-                                        <li><a class="dropdown-item border-bottom py-2" href="#">Liên kết Youtube</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="/InnerPage/Promotion">Khuyến mãi</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="/InnerPage/Register">Đăng ký nhận Voucher</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="/InnerPage/About">Giới thiệu doanh nghiệp</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="/InnerPage/PreCart">Giỏ hàng</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="https://www.facebook.com/DhCongThuongHCM" target="_blank">Liên kết Facebook</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="https://www.tiktok.com/" target="_blank">Liên kết Tiktok</a></li>
+                                        <li><a class="dropdown-item border-bottom py-2" href="https://www.youtube.com/" target="_blank">Liên kết YouTube</a></li>
                                     </ul>
                                 </li>
 
                                 <li class="nav-item mx-2">
-                                    <a href="#" class="nav-link text-dark fw-medium">LIÊN HỆ</a>
+                                    <a href="/InnerPage/Contact" class="nav-link text-dark fw-medium">LIÊN HỆ</a>
                                 </li>
                             </ul>
 
@@ -112,7 +118,14 @@
                                 </div>
                                 <div class="ms-2 d-none d-md-block">
                                     <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO </p>
-                                    <p class="fs-7 fw-medium mb-0">ĐĂNG NHẬP</p>
+                                    @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
+                                    {
+                                        <p class="fs-7 fw-medium mb-0">@Session["UserName"]</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="fs-7 fw-medium mb-0">ĐĂNG NHẬP</p>
+                                    }
                                 </div>
                             </div>
 

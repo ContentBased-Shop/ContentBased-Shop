@@ -168,6 +168,7 @@ namespace Shop.Controllers
 
 
         #endregion
+        
         public ActionResult ForgotPassword()
         {
             return View();

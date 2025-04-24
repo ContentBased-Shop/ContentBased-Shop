@@ -1,8 +1,12 @@
-﻿@{
+﻿@model List<Shop.Models.HangHoa>
+@{
     ViewBag.Title = "SWOO TECH MART";
+
 }
 
+
 <link rel="stylesheet" href="~/assets//CSS//Home//Home.css" />
+
 <div class="container py-4 px-0">
     <div class="row g-3">
         <!-- Sidebar Column -->
@@ -34,12 +38,46 @@
         <!-- Main Content Column -->
         <div class="col-lg-6 col-md-5">
             <!-- Main Featured Product -->
-            <div class="featured-product mb-4">
-                <img src="~/assets/Image/Header/Banner/Banner_iphone-16-pro-max.jpg"
-                     alt="Featured Headphones"
-                     class="  rounded-4 w-100 product-image ">
+            <div class="swiper mySwiper rounded-4 mb-4">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="~/assets/Image/Header/Banner/Banner_iphone-16-pro-max.jpg" class="w-100 product-image" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-s25-ultra.jpg" class="w-100 product-image" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="~/assets/Image/Header/Banner/ezgif.com-webp-to-jpg-converter.jpg" class="w-100 product-image" />
+                    </div>
+                </div>
+
+                <!-- Navigation buttons -->
+                <div class="swiper-button-next custom-nav-btn"></div>
+                <div class="swiper-button-prev custom-nav-btn"></div>
             </div>
 
+            <style>
+                .custom-nav-btn {
+                    background-color: rgba(0, 0, 0, 0.4); /* nền mờ */
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    top: 50%;
+                    color: white;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: background 0.3s ease-in-out;
+                }
+
+                    .custom-nav-btn::after {
+                        font-size: 16px;
+                    }
+
+                    .custom-nav-btn:hover {
+                        background-color: rgba(0, 0, 0, 0.7);
+                    }
+            </style>
             <!-- Secondary Products Row -->
             <div class="row g-4">
                 <div class="col-6">
@@ -223,7 +261,7 @@
             <div class="card-header deals-header">
                 <div style="background-color: #1ABA1A " class="d-flex justify-content-between align-items-center rounded-3 px-4 py-2 text-white">
                     <h2 class="m-0">DEALS OF THE DAY</h2>
-                    <a href="#" class="view-all text-white">View All <i class="bi bi-chevron-right"></i></a>
+
                 </div>
             </div>
             <div class="container py-4 bg-white rounded-3">
@@ -317,13 +355,15 @@
         </div>
     </section>
 
+
+
     <!-- Product Carousel -->
     <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-4">
         <!-- Navigation Tabs -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">BEST SELLER</a>
+                    <a class="nav-link active " href="#">BEST SELLER</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">NEW IN</a>
@@ -334,517 +374,66 @@
             </ul>
             <a href="#" class="text-decoration-none" style="color: #666666;">View All</a>
         </div>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    <!-- Product 1 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="save-badge">
-                                    <div class="save-label">SAVE</div>
-                                    <div class="save-amount">$199.00</div>
-                                </div>
-                                <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
-                            </div>
-                            <div class="review-count">(152)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Product 2 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="save-badge">
-                                    <div class="save-label">SAVE</div>
-                                    <div class="save-amount">$59.00</div>
-                                </div>
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
-                            </div>
-                            <div class="review-count">(152)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 3 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
-                            </div>
-                            <div class="review-count">(8)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
-                            </div>
-                            <div class="review-count">(9)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="save-badge">
-                                    <div class="save-label">SAVE</div>
-                                    <div class="save-amount">$3.00</div>
-                                </div>
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
-                            </div>
-                            <div class="review-count">(9)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-
-
-
-
-    <div class="p-4 my-3 bg-white rounded-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold fs-4">BRAND NEW FOR YOU</h2>
-
-        </div>
-
-        <div class="row g-4">
-            <!-- Card -->
-            <div class="col-md-6 col-lg-3">
-                <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_4.jpg" alt="Product"></a>
-                    <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_3.jpg" alt="Product"></a>
-                    <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_2.jpg" alt="Product"></a>
-                    <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_1.jpg" alt="Product"></a>
-                    <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
-                    </div>
-                </div>
-            </div>
-            <!-- You can repeat more cards with different data -->
-        </div>
-    </div>
-
-
-
-    <div class="p-4 my-3 bg-white rounded-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold fs-4">TOP Điện thoại & Tablet  bán chạy</h2>
-        </div>
-        <div class="row g-4">
-            <!-- Redmi Banner -->
-            <div class="col-12 col-md-6">
-                <img class="banner-gradien position-absolute shadow-sm" src="~/assets/Image/Header/Banner/Banner_top_phone.png" alt="Redmi Note 12 Pro+ 5G phones" />
-                <h2 class="position-relative p-4">Redmi note <br>12 Pro+(5G)</h2>
-                <a class="position-relative mx-5 px-4 py-2 rounded-4  shop-now-btn">MUA NGAY</a>
-            </div>
-
-            <!-- Categories Grid -->
-            <div class="col-12 col-md-6">
-                <div class="row g-3">
-                    <!-- iPhone Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">iPhone (iOS)</h3>
-                                        <p class="card-text text-secondary small">74 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Android Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Android</h3>
-                                        <p class="card-text text-secondary small">35 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_adr.png" alt="Android" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 5G Support Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">5G Support</h3>
-                                        <p class="card-text text-secondary small">12 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_5g.png" alt="5G Support" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Gaming Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Gaming</h3>
-                                        <p class="card-text text-secondary small">9 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_gaming.png" alt="Gaming" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Xiaomi Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Xiaomi</h3>
-                                        <p class="card-text text-secondary small">52 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_xiaomi.png" alt="Xiaomi" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Accessories Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Accessories</h3>
-                                        <p class="card-text text-secondary small">29 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_acces.png" alt="Accessories" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-4">
+        <div id="productCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <!-- Product 1 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$199.00</div>
+                @{
+                    var productsPerSlide = 5;
+                    var totalProducts = Model.Count();
+                    var slideCount = (int)Math.Ceiling((double)totalProducts / productsPerSlide);
+
+                    for (int i = 0; i < slideCount; i++)
+                    {
+                        var productsThisSlide = Model.Skip(i * productsPerSlide).Take(productsPerSlide).ToList();
+                        if (!productsThisSlide.Any())
+                        {
+                            continue; // không tạo slide nếu không có sản phẩm
+                        }
+                       
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="row">
+                                @foreach (var product in productsThisSlide)
+                                {
+
+                                    <div class="col-md-4 col-lg-2 col-xl">
+                                        <div class="product-card">
+                                            <div class="product-image-container">
+                                                <div class="save-badge">
+                                                    <div class="save-label">SAVE</div>
+                                                    <div class="save-amount">$199.00</div>
+                                                </div>
+                                                <img src="~/assets/Image/Product/iphone.png" alt="Product Image">
+                                            </div>
+                                            <div class="review-count">(152)</div>
+                                            <h3 class="product-name">@product.TenHangHoa</h3>
+                                            <p class="product-description">@product.MoTa</p>
+                                            <div class="star-rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                                <span class="rating-count">43 Ratings</span>
+                                            </div>
+                                            <div class="price-container">
+                                                <span class="current-price">$39.49</span>
+                                                <span class="original-price">$78.66</span>
+                                                <span class="discount">50% OFF</span>
+                                            </div>
+                                            <div class="free-shipping">FREE SHIPPING</div>
+                                            <div class="stock-status">
+                                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                <span>In stock</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
+                                }
                             </div>
                         </div>
-
-                        <!-- Product 2 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$59.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 3 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
-                                </div>
-                                <div class="review-count">(8)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 4 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
-                                </div>
-                                <div class="review-count">(9)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 5 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$3.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
-                                </div>
-                                <div class="review-count">(9)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    }
+                }
             </div>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
                 <span class="visually-hidden">Previous</span>
@@ -854,583 +443,968 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-    </div>
-    <div class="p-4 my-3 bg-white rounded-4">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold fs-4">Top Laptop & PC bán chạy</h2>
-        </div>
-        <div class="row g-4">
-            <!-- Redmi Banner -->
-            <div class="col-12 col-md-6">
-                <img class="banner-gradien position-absolute shadow-sm" src="~/assets/Image/Header/Banner/Banner_top_lap.png" alt="Redmi Note 12 Pro+ 5G phones" />
-                <h2 class="text-white position-relative p-4">
-                    Macbook Air  <br>superchard
-                    by M2
-                </h2>
-                <a class="position-relative mx-5 px-4 py-2 rounded-4  shop-now-btn">MUA NGAY</a>
+
+
+
+
+        <div class="p-4 my-3 bg-white rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold fs-4">BRAND NEW FOR YOU</h2>
+
             </div>
 
-            <!-- Categories Grid -->
-            <div class="col-12 col-md-6">
-                <div class="row g-3">
-                    <!-- iPhone Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Macbook</h3>
-                                        <p class="card-text text-secondary small">74 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/Lap_mac.png" alt="iPhone" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Android Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">PC Gaming</h3>
-                                        <p class="card-text text-secondary small">35 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/Lap_PC.png" alt="Android" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 5G Support Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Laptop Office</h3>
-                                        <p class="card-text text-secondary small">12 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/Lap_office.png" alt="5G Support" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Gaming Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Laptop Gaming</h3>
-                                        <p class="card-text text-secondary small">9 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/Lap_gaming.png" alt="Gaming" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Xiaomi Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">MAC M1</h3>
-                                        <p class="card-text text-secondary small">52 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/Lap_m1.png" alt="Xiaomi" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Accessories Category -->
-                    <div class="col-4">
-                        <a href="#" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Laptop Dell</h3>
-                                        <p class="card-text text-secondary small">29 Items</p>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/Lap_dell.png" alt="Accessories" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
+            <div class="row g-4">
+                <!-- Card -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="border rounded">
+                        <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_4.jpg" alt="Product"></a>
+                        <div class="p-3">
+                            <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
+                            <p class="text-muted small">And an option to upgrade every three years</p>
+                            <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        </div>
                     </div>
                 </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="border rounded">
+                        <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_3.jpg" alt="Product"></a>
+                        <div class="p-3">
+                            <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
+                            <p class="text-muted small">And an option to upgrade every three years</p>
+                            <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="border rounded">
+                        <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_2.jpg" alt="Product"></a>
+                        <div class="p-3">
+                            <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
+                            <p class="text-muted small">And an option to upgrade every three years</p>
+                            <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="border rounded">
+                        <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_1.jpg" alt="Product"></a>
+                        <div class="p-3">
+                            <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
+                            <p class="text-muted small">And an option to upgrade every three years</p>
+                            <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- You can repeat more cards with different data -->
             </div>
         </div>
 
-        <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-4">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <!-- Product 1 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$199.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Product 2 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$59.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Product 3 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
-                                </div>
-                                <div class="review-count">(8)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 4 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
-                                </div>
-                                <div class="review-count">(9)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Product 5 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$3.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
-                                </div>
-                                <div class="review-count">(9)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="p-4 my-3 bg-white rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold fs-4">TOP Điện thoại & Tablet  bán chạy</h2>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-
-
-
-
-    <div class="row gx-3 pb-3">
-        <!-- Repeat this column 3 times -->
-        <div class="col-12 col-md-4">
-            <div class="p-4 rounded-4 bg-white shadow-sm">
-                <!-- Header -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
-                    <a href="#" class="text-secondary text-decoration-none">View All</a>
+            <div class="row g-4">
+                <!-- Redmi Banner -->
+                <div class="col-12 col-md-6">
+                    <img class="banner-gradien position-absolute shadow-sm" src="~/assets/Image/Header/Banner/Banner_top_phone.png" alt="Redmi Note 12 Pro+ 5G phones" />
+                    <h2 class="position-relative p-4">Redmi note <br>12 Pro+(5G)</h2>
+                    <a class="position-relative mx-5 px-4 py-2 rounded-4  shop-now-btn">MUA NGAY</a>
                 </div>
-
-                <!-- Featured Product Banner -->
-                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
-                    <!-- Image full background -->
-                    <img src="~/assets/Image/Header/Banner/banner_harmankardon.png"
-                         alt="Harman Kardon Speaker"
-                         class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
-
-                    <!-- Overlay text -->
-                    <div class="position-absolute top-0 start-0 p-3 z-1 text-white  bg-opacity-75 rounded-end">
-                        <h2 class="fw-bold mb-0">Best</h2>
-                        <h2 class="fw-bold mb-0">Speaker</h2>
-                        <h2 class="fw-bold mb-0">2023</h2>
-                    </div>
-                </div>
-
-                <!-- Divider -->
-                <hr class="my-4">
 
                 <!-- Categories Grid -->
-                <div class="row row-cols-2 g-3">
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/speaker.png" alt="Speaker" class="pb-1">
-                        <h5 class="fw-bold mb-0">Speaker</h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/Camera.png" alt="DSLR Camera" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            DSLR Camera
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/earphone.png" alt="Earbuds" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Earbuds
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/mic.png" alt="Microphone" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Microphone
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
+                <div class="col-12 col-md-6">
+                    <div class="row g-3">
+                        <!-- iPhone Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">iPhone (iOS)</h3>
+                                            <p class="card-text text-secondary small">74 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Android Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Android</h3>
+                                            <p class="card-text text-secondary small">35 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/phone_adr.png" alt="Android" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- 5G Support Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">5G Support</h3>
+                                            <p class="card-text text-secondary small">12 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/phone_5g.png" alt="5G Support" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Gaming Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Gaming</h3>
+                                            <p class="card-text text-secondary small">9 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/phone_gaming.png" alt="Gaming" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Xiaomi Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Xiaomi</h3>
+                                            <p class="card-text text-secondary small">52 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/phone_xiaomi.png" alt="Xiaomi" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Accessories Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Accessories</h3>
+                                            <p class="card-text text-secondary small">29 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/phone_acces.png" alt="Accessories" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="col-12 col-md-4 ">
-            <div class="p-4 rounded-4 bg-white shadow-sm">
-                <!-- Header -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
-                    <a href="#" class="text-secondary text-decoration-none">View All</a>
-                </div>
+            <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-4">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <!-- Product 1 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <div class="save-badge">
+                                            <div class="save-label">SAVE</div>
+                                            <div class="save-amount">$199.00</div>
+                                        </div>
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
+                                    </div>
+                                    <div class="review-count">(152)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <!-- Featured Product Banner -->
-                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
-                    <!-- Image full background -->
-                    <img src="~/assets/Image/Header/Banner/banner_mouse.png"
-                         alt="Harman Kardon Speaker"
-                         class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+                            <!-- Product 2 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <div class="save-badge">
+                                            <div class="save-label">SAVE</div>
+                                            <div class="save-amount">$59.00</div>
+                                        </div>
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
+                                    </div>
+                                    <div class="review-count">(152)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
 
-                    <!-- Overlay text -->
-                    <div class="position-absolute top-0 start-0 p-2 z-1 text-dark  bg-opacity-75 rounded-end">
-                        <h3 class="fw-semibold mb-0 ">wireless rgb</h3>
-                        <h3 class="fw-semibold mb-0 ">gaming</h3>
-                        <h3 class="fw-semibold mb-0 ">mouse  </h3>
+                            <!-- Product 3 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
+                                    </div>
+                                    <div class="review-count">(8)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 4 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
+                                    </div>
+                                    <div class="review-count">(9)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 5 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <div class="save-badge">
+                                            <div class="save-label">SAVE</div>
+                                            <div class="save-amount">$3.00</div>
+                                        </div>
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
+                                    </div>
+                                    <div class="review-count">(9)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Divider -->
-                <hr class="my-4">
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <div class="p-4 my-3 bg-white rounded-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold fs-4">Top Laptop & PC bán chạy</h2>
+            </div>
+            <div class="row g-4">
+                <!-- Redmi Banner -->
+                <div class="col-12 col-md-6">
+                    <img class="banner-gradien position-absolute shadow-sm" src="~/assets/Image/Header/Banner/Banner_top_lap.png" alt="Redmi Note 12 Pro+ 5G phones" />
+                    <h2 class="text-white position-relative p-4">
+                        Macbook Air  <br>superchard
+                        by M2
+                    </h2>
+                    <a class="position-relative mx-5 px-4 py-2 rounded-4  shop-now-btn">MUA NGAY</a>
+                </div>
 
                 <!-- Categories Grid -->
-                <div class="row row-cols-2 g-3">
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/monitor.png" alt="Monitors" class="pb-1">
-                        <h5 class="fw-bold mb-0">Monitors</h5>
-                        <p class="text-secondary small">12 Items</p>
+                <div class="col-12 col-md-6">
+                    <div class="row g-3">
+                        <!-- iPhone Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Macbook</h3>
+                                            <p class="card-text text-secondary small">74 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/Lap_mac.png" alt="iPhone" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Android Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">PC Gaming</h3>
+                                            <p class="card-text text-secondary small">35 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/Lap_PC.png" alt="Android" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- 5G Support Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Laptop Office</h3>
+                                            <p class="card-text text-secondary small">12 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/Lap_office.png" alt="5G Support" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Gaming Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Laptop Gaming</h3>
+                                            <p class="card-text text-secondary small">9 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/Lap_gaming.png" alt="Gaming" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Xiaomi Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">MAC M1</h3>
+                                            <p class="card-text text-secondary small">52 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/Lap_m1.png" alt="Xiaomi" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Accessories Category -->
+                        <div class="col-4">
+                            <a href="#" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h3 class="card-title fs-6 fw-semibold">Laptop Dell</h3>
+                                            <p class="card-text text-secondary small">29 Items</p>
+                                        </div>
+                                        <img src="~/assets/Image/Header/Product_Feature/Lap_dell.png" alt="Accessories" class=".category-image-top-cell">
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/chair.png" alt="Chair" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Chair
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
+                </div>
+            </div>
+
+            <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-4">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <!-- Product 1 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <div class="save-badge">
+                                            <div class="save-label">SAVE</div>
+                                            <div class="save-amount">$199.00</div>
+                                        </div>
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
+                                    </div>
+                                    <div class="review-count">(152)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 2 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <div class="save-badge">
+                                            <div class="save-label">SAVE</div>
+                                            <div class="save-amount">$59.00</div>
+                                        </div>
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
+                                    </div>
+                                    <div class="review-count">(152)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 3 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
+                                    </div>
+                                    <div class="review-count">(8)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 4 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
+                                    </div>
+                                    <div class="review-count">(9)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product 5 -->
+                            <div class="col-md-4 col-lg-2 col-xl">
+                                <div class="product-card">
+                                    <div class="product-image-container">
+                                        <div class="save-badge">
+                                            <div class="save-label">SAVE</div>
+                                            <div class="save-amount">$3.00</div>
+                                        </div>
+                                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
+                                    </div>
+                                    <div class="review-count">(9)</div>
+                                    <h3 class="product-name">Grande</h3>
+                                    <p class="product-description">Blossom Pouch</p>
+                                    <div class="star-rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        <span class="rating-count">43 Ratings</span>
+                                    </div>
+                                    <div class="price-container">
+                                        <span class="current-price">$39.49</span>
+                                        <span class="original-price">$78.66</span>
+                                        <span class="discount">50% OFF</span>
+                                    </div>
+                                    <div class="free-shipping">FREE SHIPPING</div>
+                                    <div class="stock-status">
+                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                        <span>In stock</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/handgame.png" alt="Controller" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Controller
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+
+
+
+
+        <div class="row gx-3 pb-3">
+            <!-- Repeat this column 3 times -->
+            <div class="col-12 col-md-4">
+                <div class="p-4 rounded-4 bg-white shadow-sm">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
+                        <a href="#" class="text-secondary text-decoration-none">View All</a>
                     </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/keyboard.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Keyboards
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
+
+                    <!-- Featured Product Banner -->
+                    <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
+                        <!-- Image full background -->
+                        <img src="~/assets/Image/Header/Banner/banner_harmankardon.png"
+                             alt="Harman Kardon Speaker"
+                             class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+
+                        <!-- Overlay text -->
+                        <div class="position-absolute top-0 start-0 p-3 z-1 text-white  bg-opacity-75 rounded-end">
+                            <h2 class="fw-bold mb-0">Best</h2>
+                            <h2 class="fw-bold mb-0">Speaker</h2>
+                            <h2 class="fw-bold mb-0">2023</h2>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="my-4">
+
+                    <!-- Categories Grid -->
+                    <div class="row row-cols-2 g-3">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/speaker.png" alt="Speaker" class="pb-1">
+                            <h5 class="fw-bold mb-0">Speaker</h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/Camera.png" alt="DSLR Camera" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                DSLR Camera
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/earphone.png" alt="Earbuds" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Earbuds
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/mic.png" alt="Microphone" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Microphone
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-4 ">
+                <div class="p-4 rounded-4 bg-white shadow-sm">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
+                        <a href="#" class="text-secondary text-decoration-none">View All</a>
+                    </div>
+
+                    <!-- Featured Product Banner -->
+                    <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
+                        <!-- Image full background -->
+                        <img src="~/assets/Image/Header/Banner/banner_mouse.png"
+                             alt="Harman Kardon Speaker"
+                             class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+
+                        <!-- Overlay text -->
+                        <div class="position-absolute top-0 start-0 p-2 z-1 text-dark  bg-opacity-75 rounded-end">
+                            <h3 class="fw-semibold mb-0 ">wireless rgb</h3>
+                            <h3 class="fw-semibold mb-0 ">gaming</h3>
+                            <h3 class="fw-semibold mb-0 ">mouse  </h3>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="my-4">
+
+                    <!-- Categories Grid -->
+                    <div class="row row-cols-2 g-3">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/monitor.png" alt="Monitors" class="pb-1">
+                            <h5 class="fw-bold mb-0">Monitors</h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/chair.png" alt="Chair" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Chair
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/handgame.png" alt="Controller" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Controller
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/keyboard.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Keyboards
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="p-4 rounded-4 bg-white shadow-sm">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
+                        <a href="#" class="text-secondary text-decoration-none">View All</a>
+                    </div>
+
+                    <!-- Featured Product Banner -->
+                    <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
+                        <!-- Image full background -->
+                        <img src="~/assets/Image/Header/Banner/banner_maychieu.png"
+                             alt="Harman Kardon Speaker"
+                             class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+
+                        <!-- Overlay text -->
+                        <div class="position-absolute top-0 start-0 py-3 z-1 text-white bg-opacity-75 rounded-end mx-5">
+                            <h6 class="mb-0 ">Home Thearther 4k</h6>
+                            <h2 class="fw-semibold mb-0 ">Laser Projector</h2>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <hr class="my-4">
+
+                    <!-- Categories Grid -->
+                    <div class="row row-cols-2 g-3">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/printer.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Printers
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/network.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Network
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/camera_1.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Security
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/projector.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Projectors
+                            </h5>
+                            <p class="text-secondary small">12 Items</p>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-4">
-            <div class="p-4 rounded-4 bg-white shadow-sm">
-                <!-- Header -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
-                    <a href="#" class="text-secondary text-decoration-none">View All</a>
+
+
+
+        <div class="row gx-2">
+            <div class="col-lg-6 d-flex position-relative">
+                <img src="~/assets/Image/Header/Banner/banner_swatek.png" alt="" class="img-cover w-100">
+                <div class=" position-absolute mx-5 my-4 end-0 text-white">
+                    <h2 class="text-warning">Giảm 10% </h2>
+                    <p>Hoàn 10% khi thanh toán<br> Swatek. <a href="#" class="text-decoration-underline"> Learn How </a> </p>
                 </div>
+            </div>
+            <div class="col-lg-6 d-flex position-relative">
 
-                <!-- Featured Product Banner -->
-                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
-                    <!-- Image full background -->
-                    <img src="~/assets/Image/Header/Banner/banner_maychieu.png"
-                         alt="Harman Kardon Speaker"
-                         class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
-
-                    <!-- Overlay text -->
-                    <div class="position-absolute top-0 start-0 py-3 z-1 text-white bg-opacity-75 rounded-end mx-5">
-                        <h6 class="mb-0 ">Home Thearther 4k</h6>
-                        <h2 class="fw-semibold mb-0 ">Laser Projector</h2>
-                    </div>
-                </div>
-
-                <!-- Divider -->
-                <hr class="my-4">
-
-                <!-- Categories Grid -->
-                <div class="row row-cols-2 g-3">
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/printer.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Printers
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/network.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Network
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/camera_1.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Security
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/projector.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Projectors
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-
+                <img src="~/assets/Image/Header/Banner/banner_dowload_app.png" alt="" class="img-cover w-100">
+                <div class=" position-absolute mx-5 my-4 top-0 text-white">
+                    <h2> Giảm 5% </h2>
+                    <p class="m-0"> Hoàn 5% khi tải Swat. <a href="#" class="text-decoration-underline"> Learn How </a> </p>
+                    <p> Hãy nhanh tay số lượng có hạn!! </p>
                 </div>
             </div>
         </div>
+
+
+
+
+
+        <!-- Section Header -->
+        <div class="d-flex justify-content-between mt-3 mb-2">
+            <h2 class="section-title">TIN CÔNG NGHỆ</h2>
+            <a href="#" class="view-all">Xem tất cả</a>
+        </div>
+
+        <!-- News Cards -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2">
+            <!-- News Card 1 -->
+            <div class="col">
+                <div class="news-card">
+                    <div class="news-img-container">
+                        <img src="~/assets/Image/News/so-sanh-apple-m3-ultra-va-apple-m4-max-thumb.jpg" alt="Rapoo V300W">
+                    </div>
+                    <div class="p-3">
+                        <p class="news-title">So sánh Apple M4 Max và M3 Ultra: Gấp đôi số lõi nhưng chênh lệch có nhiều?</p>
+                        <p class="paragraph">Chủ đề so sánh và Apple M4 Max và M3 Ultra đang được cộng đồng công nghệ rất quan tâm, đặt ra câu hỏi rằng liệu vi xử lý</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 2 -->
+            <div class="col">
+                <div class="news-card">
+                    <div class="news-img-container">
+                        <img src="~/assets/Image/News/tecno-spark-30c-co-may-mau-th.jpg" alt="Snapdragon 8 Elite 2">
+                    </div>
+                    <div class="p-3">
+                        <p class="news-title">Tecno Spark 30C có mấy màu? Phiên bản màu nào sẽ hot nhất?</p>
+                        <p class="paragraph">Bạn đang thắc mắc Tecno Spark 30C có mấy màu? Và đâu là phiên bản màu sắc phù hợp nhất với phong cách của bạn? Sforum sẽ</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 3 -->
+            <div class="col">
+                <div class="news-card">
+                    <div class="news-img-container">
+                        <img src="~/assets/Image/News/tinh-nang-xiaomi-15s-pro.jpg" alt="Samsung One UI 7">
+                    </div>
+                    <div class="p-3">
+                        <p class="news-title">
+                            Xiaomi 15S Pro sẽ hồi sinh một công nghệ bị lãng quên từ lâu
+                        </p>
+                        <p class="paragraph">Mẫu điện thoại cao cấp tiếp theo đến từ Xiaomi là Xiaomi 15S Pro dự kiến sẽ được trang bị công nghệ Ultra Wideband (UWB). Thời</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Card 4 -->
+            <div class="col">
+                <div class="news-card">
+                    <div class="news-img-container">
+                        <img src="~/assets/Image/News/xiaomi-pad-7-co-may-mau-th.jpg" alt="Galaxy S25 Edge">
+                    </div>
+                    <div class="p-3">
+                        <p class="news-title">Xiaomi Pad 7 có mấy màu? Khám phá bảng màu của tablet nhà Xiaomi</p>
+                        <p class="paragraph">Nếu bạn đang cân nhắc sắm một chiếc tablet Xiaomi Pad 7 mới mà phân vân không biết chọn màu nào, hoặc đơn giản chỉ tò m</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <iframe class="rounded-3 my-3"
+                width="100%"
+                height="315"
+                src="https://www.youtube.com/embed/ePdbj2bZ-Ro?si=XvqRILqboebC9Il5"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+        </iframe>
+
     </div>
 
 
-
-    <div class="row gx-2">
-        <div class="col-lg-6 d-flex position-relative">
-            <img src="~/assets/Image/Header/Banner/banner_swatek.png" alt="" class="img-cover w-100">
-            <div class=" position-absolute mx-5 my-4 end-0 text-white">
-                <h2 class="text-warning">Giảm 10% </h2>
-                <p>Hoàn 10% khi thanh toán<br> Swatek. <a href="#" class="text-decoration-underline"> Learn How </a> </p>
-            </div>
-        </div>
-        <div class="col-lg-6 d-flex position-relative">
-
-            <img src="~/assets/Image/Header/Banner/banner_dowload_app.png" alt="" class="img-cover w-100">
-            <div class=" position-absolute mx-5 my-4 top-0 text-white">
-                <h2> Giảm 5% </h2>
-                <p class="m-0"> Hoàn 5% khi tải Swat. <a href="#" class="text-decoration-underline"> Learn How </a> </p>
-                <p> Hãy nhanh tay số lượng có hạn!! </p>
-            </div>
-        </div>
-    </div>
+    <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.067279078708!2d106.62608531079351!3d10.806159158599737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaMawxqFuZyBUUC4gSOG7kyBDaMOtIE1pbmggKEhVSVQp!5e0!3m2!1svi!2s!4v1744050227165!5m2!1svi!2s"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
 
 
+    <script>
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            speed: 600, // tốc độ chuyển slide (ms)
+            effect: "slide", // mặc định là slide, có thể dùng 'fade' hoặc 'coverflow'
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
 
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const carousel = document.getElementById('productCarousel');
+            const items = carousel.querySelectorAll('.carousel-item');
+            const total = items.length;
+            const carouselInstance = bootstrap.Carousel.getOrCreateInstance(carousel);
 
-
-    <!-- Section Header -->
-    <div class="d-flex justify-content-between mt-3 mb-2">
-        <h2 class="section-title">TIN CÔNG NGHỆ</h2>
-        <a href="#" class="view-all">Xem tất cả</a>
-    </div>
-
-    <!-- News Cards -->
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2">
-        <!-- News Card 1 -->
-        <div class="col">
-            <div class="news-card">
-                <div class="news-img-container">
-                    <img src="~/assets/Image/News/so-sanh-apple-m3-ultra-va-apple-m4-max-thumb.jpg" alt="Rapoo V300W">
-                </div>
-                <div class="p-3">
-                    <p class="news-title">So sánh Apple M4 Max và M3 Ultra: Gấp đôi số lõi nhưng chênh lệch có nhiều?</p>
-                    <p class="paragraph">Chủ đề so sánh và Apple M4 Max và M3 Ultra đang được cộng đồng công nghệ rất quan tâm, đặt ra câu hỏi rằng liệu vi xử lý</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- News Card 2 -->
-        <div class="col">
-            <div class="news-card">
-                <div class="news-img-container">
-                    <img src="~/assets/Image/News/tecno-spark-30c-co-may-mau-th.jpg" alt="Snapdragon 8 Elite 2">
-                </div>
-                <div class="p-3">
-                    <p class="news-title">Tecno Spark 30C có mấy màu? Phiên bản màu nào sẽ hot nhất?</p>
-                    <p class="paragraph">Bạn đang thắc mắc Tecno Spark 30C có mấy màu? Và đâu là phiên bản màu sắc phù hợp nhất với phong cách của bạn? Sforum sẽ</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- News Card 3 -->
-        <div class="col">
-            <div class="news-card">
-                <div class="news-img-container">
-                    <img src="~/assets/Image/News/tinh-nang-xiaomi-15s-pro.jpg" alt="Samsung One UI 7">
-                </div>
-                <div class="p-3">
-                    <p class="news-title">
-                        Xiaomi 15S Pro sẽ hồi sinh một công nghệ bị lãng quên từ lâu
-                    </p>
-                    <p class="paragraph">Mẫu điện thoại cao cấp tiếp theo đến từ Xiaomi là Xiaomi 15S Pro dự kiến sẽ được trang bị công nghệ Ultra Wideband (UWB). Thời</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- News Card 4 -->
-        <div class="col">
-            <div class="news-card">
-                <div class="news-img-container">
-                    <img src="~/assets/Image/News/xiaomi-pad-7-co-may-mau-th.jpg" alt="Galaxy S25 Edge">
-                </div>
-                <div class="p-3">
-                    <p class="news-title">Xiaomi Pad 7 có mấy màu? Khám phá bảng màu của tablet nhà Xiaomi</p>
-                    <p class="paragraph">Nếu bạn đang cân nhắc sắm một chiếc tablet Xiaomi Pad 7 mới mà phân vân không biết chọn màu nào, hoặc đơn giản chỉ tò m</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <iframe class="rounded-3 my-3"
-            width="100%"
-            height="315"
-            src="https://www.youtube.com/embed/ePdbj2bZ-Ro?si=XvqRILqboebC9Il5"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen>
-    </iframe>
-
-</div>
-
-
-<iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.067279078708!2d106.62608531079351!3d10.806159158599737!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752be27d8b4f4d%3A0x92dcba2950430867!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBUaMawxqFuZyBUUC4gSOG7kyBDaMOtIE1pbmggKEhVSVQp!5e0!3m2!1svi!2s!4v1744050227165!5m2!1svi!2s"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+            carousel.addEventListener('slide.bs.carousel', function (event) {
+                // Nếu đang ở slide cuối và người dùng bấm Next
+                if (event.direction === 'left' && event.to === 0 && event.from === total - 1) {
+                    // cho phép Bootstrap xử lý bình thường
+                }
+                // Nếu đang ở slide cuối và "Next" không chỉ định (trường hợp lỗi)
+                else if (event.direction === 'left' && event.to === undefined) {
+                    carouselInstance.to(0);
+                    event.preventDefault();
+                }
+                // Nếu đang ở slide đầu và người dùng bấm Prev
+                else if (event.direction === 'right' && event.to === undefined) {
+                    carouselInstance.to(total - 1);
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
 
