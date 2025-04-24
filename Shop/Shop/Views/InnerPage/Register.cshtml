@@ -44,10 +44,13 @@
                         <input type="text" name="name" class="form-control" id="name" placeholder="Ví dụ: Annie123" required />
                         <div class="invalid-feedback">Tên chỉ được chứa chữ cái và không có số hoặc ký tự đặc biệt.</div>
                     </div>
+                    
                     <div class="mb-3">
                         <label for="phonenumber" class="form-label">Số Điện Thoại <span class="text-danger">*</span></label>
                         <input type="text" name="phonenumber" class="form-control" id="phonenumber" placeholder="Nhập số điện thoại của bạn" required pattern="^\d{10,11}$" />
-                        <div class="invalid-feedback">Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có 10-11 số).</div>
+                        <p class="text-muted fs-7">Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có 10-11 số).</p>
+
+                        <div id="phonenumber-feedback" class="invalid-feedback"></div>
                     </div>
                     <button type="button" class="btn btn-success-custom w-100 mb-3" onclick="validateStep1()">Tiếp tục</button>
                 </div>
@@ -65,10 +68,18 @@
                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{5,12}$"
                                title="Tên đăng nhập phải từ 5 đến 12 ký tự, chỉ gồm chữ cái và số, và phải chứa ít nhất một chữ cái và một số"
                                required />
+                        <div id="username-feedback" class="invalid-feedback"></div>
                     </div>
+
                     <div class="mb-3">
                         <label for="email" class="form-label">Địa chỉ Email <span class="text-danger">*</span></label>
-                        <input type="email" name="email" class="form-control" id="email" placeholder="example@gmail.com" required />
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               id="email"
+                               placeholder="example@gmail.com"
+                               required />
+                        <div id="email-feedback" class="invalid-feedback"></div>
                     </div>
 
                     <div class="mb-3">
@@ -93,7 +104,7 @@
                         <div class="strength-meter" id="strengthMeter"><span></span></div>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 ">
                         <label for="confirmpassword" class="form-label">Xác nhận mật khẩu <span class="text-danger">*</span></label>
                         <div class="password-wrapper">
                             <input type="password"
@@ -106,17 +117,16 @@
                                    maxlength="20"
                                    pattern=".{8,20}"
                                    title="Mật khẩu phải từ 8–20 ký tự" />
-                            <button type="button" onclick="togglePassword(this)">
-                                <i class="fa-solid fa-eye"></i>
-                            </button>
+                            
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
                         <button type="button" class="btn btn-light   w-100 mb-3" onclick="goBackToStep1()">
                             <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
                         </button>
-                        <button type="submit" class="btn btn-success-custom w-100 mb-3" id="submitBtn">
-                            ĐĂNG KÝ
+                        <button id="registerBtn" class="btn btn-success-custom w-100 mb-3" type="submit">
+                            <span id="registerSpinner" class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
+                            Đăng nhập
                         </button>
                     </div>
 
@@ -125,7 +135,7 @@
 
                 <div class="text-center small">
                     <span class="text-muted">ĐÃ CÓ TÀI KHOẢN ? </span>
-                    <a href="/signup" class="text-success-custom fw-medium">ĐĂNG NHẬP</a>
+                    <a href="~/InnerPage/Login" class="text-success-custom fw-medium">ĐĂNG NHẬP</a>
                 </div>
             </form>
         </div>
@@ -163,8 +173,8 @@
         if (isValid) {
             showStep2(); // Chuyển sang bước tiếp theo nếu hợp lệ
         }
-    } 
-    
+    }
+
 
     function showStep2() {
         document.getElementById("step1").style.display = "none";
@@ -259,6 +269,127 @@
             meterSpan.style.width = '100%';
             strengthText.textContent = 'Mạnh';
             strengthText.style.color = 'green';
+        }
+    }
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngăn form submit thực sự để xử lý spinner (bạn có thể bỏ dòng này nếu không dùng Ajax)
+
+        const btn = document.getElementById('registerBtn');
+        const spinner = document.getElementById('register');
+
+        // Hiện spinner và disable nút
+        spinner.classList.remove('d-none');
+        btn.setAttribute('disabled', 'true');
+
+        // Giả lập thời gian xử lý (quay spinner trong 1 giây)
+        setTimeout(function () {
+            // Ẩn spinner và enable lại nút sau 1 giây
+            spinner.classList.add('d-none');
+            btn.removeAttribute('disabled');
+
+            // Sau khi xử lý xong, submit form
+            e.target.submit();
+        }, 1000); // 1000ms = 1s
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#accountname').on('blur', function () {
+        var username = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("CheckUsername", "InnerPage")',
+            type: 'GET',
+            data: { username: username },
+            success: function (data) {
+                if (data.exists) {
+                    $('#accountname').addClass('is-invalid');
+                    $('#username-feedback').text('Tên đăng nhập đã tồn tại.');
+                } else {
+                    $('#accountname').removeClass('is-invalid');
+                    $('#username-feedback').text('');
+                }
+            },
+            error: function () {
+                console.error('Lỗi kiểm tra username');
+            }
+        });
+    });
+
+    $('#email').on('blur', function () {
+        var email = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("CheckEmail", "InnerPage")',
+            type: 'GET',
+            data: { email: email },
+            success: function (data) {
+                if (data.exists) {
+                    $('#email').addClass('is-invalid');
+                    $('#email-feedback').text('Email này đã được sử dụng.');
+                } else {
+                    $('#email').removeClass('is-invalid');
+                    $('#email-feedback').text('');
+                }
+            },
+            error: function () {
+                console.error('Lỗi khi kiểm tra email');
+            }
+        });
+    });
+
+
+$('#phonenumber').on('blur', function () {
+    var phonenumber = $(this).val();
+
+    $.ajax({
+        url: '@Url.Action("CheckPhoneNumber", "InnerPage")', // Đảm bảo URL chính xác
+        type: 'GET',
+        data: { phonenumber: phonenumber },  // Truyền giá trị phonenumber từ input
+        success: function (data) {
+            if (data.exists) {
+                $('#phonenumber').addClass('is-invalid'); // Thêm class is-invalid cho input
+                $('#phonenumber-feedback').text('Số điện thoại này đã được sử dụng.'); // Hiển thị thông báo lỗi
+            } else {
+                $('#phonenumber').removeClass('is-invalid'); // Bỏ class is-invalid nếu hợp lệ
+                $('#phonenumber-feedback').text(''); // Xoá thông báo lỗi
+            }
+        },
+        error: function () {
+            console.error('Lỗi khi kiểm tra số điện thoại');
+        }
+    });
+});
+
+</script>
+<script>
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmpassword');
+
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+    passwordInput.addEventListener('input', validateConfirmPassword);
+
+    function validateConfirmPassword() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        if (confirmPassword !== password) {
+            confirmPasswordInput.classList.add('is-invalid');
+            if (!document.getElementById('confirmPasswordFeedback')) {
+                const feedback = document.createElement('div');
+                feedback.className = 'invalid-feedback';
+                feedback.id = 'confirmPasswordFeedback';
+                feedback.innerText = 'Mật khẩu xác nhận không khớp.';
+                confirmPasswordInput.parentNode.appendChild(feedback);
+            }
+        } else {
+            confirmPasswordInput.classList.remove('is-invalid');
+            const existingFeedback = document.getElementById('confirmPasswordFeedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
         }
     }
 </script>

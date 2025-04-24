@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\views\\innerpage\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\views\\innerpage\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\views\\innerpage\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\views\\innerpage\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\controllers\\innerpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\shop\\controllers\\innerpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\controllers\\innerpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\assets\\css\\login_register\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\assets\\css\\login_register\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,15 +38,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "index.css",
+              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Login_Register\\index.css",
+              "RelativeDocumentMoniker": "Shop\\assets\\CSS\\Login_Register\\index.css",
+              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Login_Register\\index.css",
+              "RelativeToolTip": "Shop\\assets\\CSS\\Login_Register\\index.css",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAQwAcAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-04-24T09:24:31.969Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Login.cshtml",
-              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\InnerPage\\Login.cshtml",
-              "RelativeDocumentMoniker": "Shop\\Views\\InnerPage\\Login.cshtml",
-              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\InnerPage\\Login.cshtml",
-              "RelativeToolTip": "Shop\\Views\\InnerPage\\Login.cshtml",
-              "ViewState": "AQIAAFsAAAAAAAAAAAAkwHwAAAAAAAAA",
+              "Title": "Register.cshtml",
+              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\InnerPage\\Register.cshtml",
+              "RelativeDocumentMoniker": "Shop\\Views\\InnerPage\\Register.cshtml",
+              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\InnerPage\\Register.cshtml",
+              "RelativeToolTip": "Shop\\Views\\InnerPage\\Register.cshtml",
+              "ViewState": "AQIAABEAAAAAAAAAAAAkwDIAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-04-23T16:24:42.712Z",
+              "WhenOpened": "2025-04-24T08:56:08.969Z",
               "EditorCaption": ""
             },
             {
@@ -53,7 +70,7 @@
               "RelativeDocumentMoniker": "Shop\\Controllers\\InnerPageController.cs",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\InnerPageController.cs",
               "RelativeToolTip": "Shop\\Controllers\\InnerPageController.cs",
-              "ViewState": "AQIAAEUAAAAAAAAAAAArwF0AAAAAAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAEwFMAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-23T16:23:06.19Z",
               "EditorCaption": ""

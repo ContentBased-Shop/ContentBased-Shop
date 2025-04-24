@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Shop.Models;
 using Shop.Helpers;
+using System.Web.Providers.Entities;
 namespace Shop.Controllers
 {
     public class InnerPageController : Controller
@@ -73,10 +74,30 @@ namespace Shop.Controllers
             return RedirectToAction("Login");
         }
         #endregion
-
-
         #region Register
-        // [GET]: Register
+        [HttpGet]
+        public JsonResult CheckPhoneNumber(string phonenumber)
+        {
+            // Kiểm tra xem số điện thoại có tồn tại trong cơ sở dữ liệu không
+            bool exists = data.KhachHangs.Any(u => u.SoDienThoai == phonenumber); // Sử dụng đúng tên bảng và cột của bạn
+            return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult CheckEmail(string email)
+        {
+            email = email?.Trim().ToLower(); // chuẩn hóa
+            bool exists = data.KhachHangs.Any(kh => kh.Email.ToLower() == email);
+            return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult CheckUsername(string username)
+        {
+            // LINQ query kiểm tra xem username có tồn tại chưa
+            bool exists = data.KhachHangs.Any(u => u.TenDangNhap == username);
+            return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Register()
         {
             return View();
@@ -133,13 +154,19 @@ namespace Shop.Controllers
                 TrangThai = "HoatDong",
                 NgayTao = DateTime.Now,
             };
-
            data.KhachHangs.InsertOnSubmit(newUser);
            data.SubmitChanges();
 
-            TempData["Success"] = "Đăng ký thành công!";
-            return RedirectToAction("Login");
+
+            // Lưu thông tin người dùng vào Session
+            Session["UserID"] = newUser.MaKhachHang;
+            Session["UserName"] = newUser.HoTen;
+
+            // Chuyển hướng đến trang Dashboard
+            return RedirectToAction("Index", "Home");
         }
+
+
         #endregion
         public ActionResult ForgotPassword()
         {
