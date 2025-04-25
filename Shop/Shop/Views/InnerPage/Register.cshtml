@@ -1,0 +1,395 @@
+﻿@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="~/assets/CSS/Login_Register/index.css" />
+
+<!-- Breadcrumb -->
+<div class="container py-3 px-3 bg-white my-2 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Đăng Ký</li>
+        </ol>
+    </nav>
+</div>
+
+<!-- Main Content -->
+<div class="container py-5 bg-white rounded-3 mb-3">
+    <div class="row align-items-center justify-content-center gx-5">
+        <!-- Left Side - Illustration -->
+        <div class="col-md-6 mb-4 mb-md-0">
+            <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/login.svg" alt="Login illustration" class="img-fluid" />
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="col-md-6 col-lg-5">
+            <h1 id="welcome-title" class="text-success-custom fw-bold mb-2">Đăng Ký</h1>
+            <p id="paragraph-title" class="text-uppercase text-muted small mb-4">Tham gia cùng chúng tôi</p>
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger">@TempData["Error"]</div>
+            }
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">@TempData["Success"]</div>
+            }
+            <form method="post" action="/InnerPage/Register">
+                <!-- Nhóm đầu tiên -->
+                <div id="step1">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên của bạn <span class="text-danger">*</span></label>
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Ví dụ: Annie123" required />
+                        <div class="invalid-feedback">Tên chỉ được chứa chữ cái và không có số hoặc ký tự đặc biệt.</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="phonenumber" class="form-label">Số Điện Thoại <span class="text-danger">*</span></label>
+                        <input type="text" name="phonenumber" class="form-control" id="phonenumber" placeholder="Nhập số điện thoại của bạn" required pattern="^\d{10,11}$" />
+                        <p class="text-muted fs-7">Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có 10-11 số).</p>
+
+                        <div id="phonenumber-feedback" class="invalid-feedback"></div>
+                    </div>
+                    <button type="button" class="btn btn-success-custom w-100 mb-3" onclick="validateStep1()">Tiếp tục</button>
+                </div>
+
+
+                <div id="step2" style="display: none;">
+                    <div class="mb-3">
+                        <label for="accountname" class="form-label">Tên đăng nhập</label>
+                        <input type="text"
+                               name="username"
+                               class="form-control"
+                               id="accountname"
+                               placeholder="Ví dụ: DavidNg123"
+                               maxlength="12"
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{5,12}$"
+                               title="Tên đăng nhập phải từ 5 đến 12 ký tự, chỉ gồm chữ cái và số, và phải chứa ít nhất một chữ cái và một số"
+                               required />
+                        <div id="username-feedback" class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Địa chỉ Email <span class="text-danger">*</span></label>
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               id="email"
+                               placeholder="example@gmail.com"
+                               required />
+                        <div id="email-feedback" class="invalid-feedback"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password"
+                                   name="password"
+                                   class="form-control"
+                                   id="password"
+                                   placeholder="Nhập mật khẩu tại đây"
+                                   required
+                                   minlength="8"
+                                   maxlength="20"
+                                   pattern=".{8,20}"
+                                   title="Mật khẩu phải từ 8–20 ký tự"
+                                   oninput="checkPasswordStrength()" />
+                            <button type="button" onclick="togglePassword(this)">
+                                <i class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                        <div id="password-strength-text" style="margin-top: 10px;"></div>
+                        <div class="strength-meter" id="strengthMeter"><span></span></div>
+                    </div>
+
+                    <div class="mb-3 ">
+                        <label for="confirmpassword" class="form-label">Xác nhận mật khẩu <span class="text-danger">*</span></label>
+                        <div class="password-wrapper">
+                            <input type="password"
+                                   name="confirmpassword"
+                                   class="form-control"
+                                   id="confirmpassword"
+                                   placeholder="Nhập lại mật khẩu"
+                                   required
+                                   minlength="8"
+                                   maxlength="20"
+                                   pattern=".{8,20}"
+                                   title="Mật khẩu phải từ 8–20 ký tự" />
+                            
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
+                        <button type="button" class="btn btn-light   w-100 mb-3" onclick="goBackToStep1()">
+                            <i class="fa-solid fa-arrow-left me-1"></i> Quay lại
+                        </button>
+                        <button id="registerBtn" class="btn btn-success-custom w-100 mb-3" type="submit">
+                            <span id="registerSpinner" class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
+                            Đăng nhập
+                        </button>
+                    </div>
+
+                </div>
+
+
+                <div class="text-center small">
+                    <span class="text-muted">ĐÃ CÓ TÀI KHOẢN ? </span>
+                    <a href="~/InnerPage/Login" class="text-success-custom fw-medium">ĐĂNG NHẬP</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateStep1() {
+        const nameInput = document.getElementById("name");
+        const phoneInput = document.getElementById("phonenumber");
+
+        let isValid = true;
+
+        // Reset trạng thái lỗi
+        nameInput.classList.remove("is-invalid");
+        phoneInput.classList.remove("is-invalid");
+
+        // Biểu thức kiểm tra tên: chỉ chứa chữ và khoảng trắng (có hỗ trợ tiếng Việt)
+        const namePattern = /^[A-Za-zÀ-ỹ\s]+$/;
+
+        // Kiểm tra tên
+        if (!nameInput.value.trim() || !namePattern.test(nameInput.value.trim())) {
+            nameInput.classList.add("is-invalid");
+            isValid = false;
+        }
+
+        // Kiểm tra số điện thoại: chỉ cho phép số, 10-11 chữ số
+        const phonePattern = /^0\d{9,10}$/; // Bắt đầu bằng 0, theo sau là 9 đến 10 số nữa (tổng 10-11 số)
+
+        if (!phonePattern.test(phoneInput.value.trim())) {
+            phoneInput.classList.add("is-invalid");
+            isValid = false;
+        }
+
+        if (isValid) {
+            showStep2(); // Chuyển sang bước tiếp theo nếu hợp lệ
+        }
+    }
+
+
+    function showStep2() {
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+
+        const nameInput = document.getElementById("name").value;
+        const title = document.getElementById("welcome-title");
+        const paragraphtitle = document.getElementById("paragraph-title");
+
+        // Đổi tiêu đề
+        title.textContent = "Chào mừng " + nameInput + "!";
+        paragraphtitle.textContent = "Chỉ còn một bước nhận ngay hàng ngàn ưu đãi !!!"
+        // Ẩn bước 1, hiện bước 2
+        document.getElementById("step1").style.display = "none";
+        document.getElementById("step2").style.display = "block";
+    }
+
+    function goBackToStep1() {
+        document.getElementById("step2").style.display = "none";
+        document.getElementById("step1").style.display = "block";
+
+        const title = document.getElementById("welcome-title");
+        const paragraphtitle = document.getElementById("paragraph-title");
+
+        // Đổi tiêu đề
+        title.textContent = "Đăng Ký";
+        paragraphtitle.textContent = "Tham gia cùng chúng tôi"
+    }
+    // Ẩn hiện icon passowrd
+    function togglePassword(button) {
+        const passwordInput = button.previousElementSibling;
+        const icon = button.querySelector("i");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+    document.querySelector('form').addEventListener('submit', function () {
+        const btn = document.getElementById('loginBtn');
+        const spinner = document.getElementById('loginSpinner');
+
+        // Hiện icon spinner
+        spinner.classList.remove('d-none');
+
+        // Disable nút để tránh bấm nhiều lần
+        btn.setAttribute('disabled', 'true');
+    });
+    // Hàm kiểm tra độ mạnh mật khẩu
+
+    function checkPasswordStrength() {
+        const password = document.getElementById('password').value;
+        const meter = document.getElementById('strengthMeter');
+        const meterSpan = meter.querySelector('span');
+        const strengthText = document.getElementById('password-strength-text');
+
+        // Nếu mật khẩu rỗng, không làm gì (ẩn thanh độ mạnh và văn bản)
+        if (password === "") {
+            meterSpan.className = '';
+            meterSpan.style.width = '0%';
+            strengthText.textContent = '';
+            return;
+        }
+
+        // Kiểm tra độ mạnh mật khẩu
+        let strength = 0;
+
+        if (password.length >= 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[a-z]/.test(password)) strength += 1;
+        if (/\d/.test(password)) strength += 1;
+        if (/[\W_]/.test(password)) strength += 1;
+
+        // Cập nhật thanh độ mạnh và văn bản mô tả độ mạnh
+        if (strength <= 2) {
+            meterSpan.className = 'weak';
+            meterSpan.style.width = '33%';
+            strengthText.textContent = 'Yếu';
+            strengthText.style.color = 'red';
+        } else if (strength === 3 || strength === 4) {
+            meterSpan.className = 'medium';
+            meterSpan.style.width = '66%';
+            strengthText.textContent = 'Trung bình';
+            strengthText.style.color = 'orange';
+        } else if (strength === 5) {
+            meterSpan.className = 'strong';
+            meterSpan.style.width = '100%';
+            strengthText.textContent = 'Mạnh';
+            strengthText.style.color = 'green';
+        }
+    }
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngăn form submit thực sự để xử lý spinner (bạn có thể bỏ dòng này nếu không dùng Ajax)
+
+        const btn = document.getElementById('registerBtn');
+        const spinner = document.getElementById('register');
+
+        // Hiện spinner và disable nút
+        spinner.classList.remove('d-none');
+        btn.setAttribute('disabled', 'true');
+
+        // Giả lập thời gian xử lý (quay spinner trong 1 giây)
+        setTimeout(function () {
+            // Ẩn spinner và enable lại nút sau 1 giây
+            spinner.classList.add('d-none');
+            btn.removeAttribute('disabled');
+
+            // Sau khi xử lý xong, submit form
+            e.target.submit();
+        }, 1000); // 1000ms = 1s
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#accountname').on('blur', function () {
+        var username = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("CheckUsername", "InnerPage")',
+            type: 'GET',
+            data: { username: username },
+            success: function (data) {
+                if (data.exists) {
+                    $('#accountname').addClass('is-invalid');
+                    $('#username-feedback').text('Tên đăng nhập đã tồn tại.');
+                } else {
+                    $('#accountname').removeClass('is-invalid');
+                    $('#username-feedback').text('');
+                }
+            },
+            error: function () {
+                console.error('Lỗi kiểm tra username');
+            }
+        });
+    });
+
+    $('#email').on('blur', function () {
+        var email = $(this).val();
+
+        $.ajax({
+            url: '@Url.Action("CheckEmail", "InnerPage")',
+            type: 'GET',
+            data: { email: email },
+            success: function (data) {
+                if (data.exists) {
+                    $('#email').addClass('is-invalid');
+                    $('#email-feedback').text('Email này đã được sử dụng.');
+                } else {
+                    $('#email').removeClass('is-invalid');
+                    $('#email-feedback').text('');
+                }
+            },
+            error: function () {
+                console.error('Lỗi khi kiểm tra email');
+            }
+        });
+    });
+
+
+$('#phonenumber').on('blur', function () {
+    var phonenumber = $(this).val();
+
+    $.ajax({
+        url: '@Url.Action("CheckPhoneNumber", "InnerPage")', // Đảm bảo URL chính xác
+        type: 'GET',
+        data: { phonenumber: phonenumber },  // Truyền giá trị phonenumber từ input
+        success: function (data) {
+            if (data.exists) {
+                $('#phonenumber').addClass('is-invalid'); // Thêm class is-invalid cho input
+                $('#phonenumber-feedback').text('Số điện thoại này đã được sử dụng.'); // Hiển thị thông báo lỗi
+            } else {
+                $('#phonenumber').removeClass('is-invalid'); // Bỏ class is-invalid nếu hợp lệ
+                $('#phonenumber-feedback').text(''); // Xoá thông báo lỗi
+            }
+        },
+        error: function () {
+            console.error('Lỗi khi kiểm tra số điện thoại');
+        }
+    });
+});
+
+</script>
+<script>
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmpassword');
+
+    confirmPasswordInput.addEventListener('input', validateConfirmPassword);
+    passwordInput.addEventListener('input', validateConfirmPassword);
+
+    function validateConfirmPassword() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+
+        if (confirmPassword !== password) {
+            confirmPasswordInput.classList.add('is-invalid');
+            if (!document.getElementById('confirmPasswordFeedback')) {
+                const feedback = document.createElement('div');
+                feedback.className = 'invalid-feedback';
+                feedback.id = 'confirmPasswordFeedback';
+                feedback.innerText = 'Mật khẩu xác nhận không khớp.';
+                confirmPasswordInput.parentNode.appendChild(feedback);
+            }
+        } else {
+            confirmPasswordInput.classList.remove('is-invalid');
+            const existingFeedback = document.getElementById('confirmPasswordFeedback');
+            if (existingFeedback) {
+                existingFeedback.remove();
+            }
+        }
+    }
+</script>

@@ -1,0 +1,274 @@
+﻿@{
+    ViewBag.Title = "PreCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .card {
+        background-color: #FAFAFA;
+    }
+    .bg-success-custom {
+        background-color: #1aba1a;
+    }
+
+    .text-success-custom {
+        color: #1aba1a;
+    }
+
+    .btn-success-custom {
+        background-color: #1aba1a;
+        color: white;
+    }
+
+        .btn-success-custom:hover {
+            background-color: #18a818;
+        }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #999;
+    }
+
+    .breadcrumb-item a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #1aba1a;
+        }
+
+</style>
+
+<div class="container py-4 px-4 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Giỏ Hàng</li>
+        </ol>
+    </nav>
+</div>
+<div class="container py-5 bg-white rounded-3 mb-3">
+    <div class="row g-4">
+        <!-- Shopping Cart -->
+        <div class="col-lg-8">
+            <!-- Product Card -->
+            <div class="card border-0 mb-4 position-relative">
+                <div class="row g-0 p-3 align-items-center">
+                    <div class="col-md-3 text-center ">
+                        <span class="badge bg-success-custom position-absolute top-0 start-0 m-2">SAVE<br>$199</span>
+                        <img src="~/assets/Image/Product/iphone.png" alt="Product" class="img-fluid">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small class="text-muted">(152 lượt xem)</small>
+                                <h5 class="mb-1">SROK Smart Phone 128GB, Oled Retina</h5>
+                                <div>
+                                    <span class="old-price me-2">$778.00</span>
+                                    <span class="fw-bold text-danger">$579.00</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex gap-2">
+                                    <div class="rounded-circle bg-secondary-subtle p-2"></div>
+                                    <div class="rounded-circle bg-warning-subtle p-2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="input-group" style="width: 120px;">
+                                <button class="btn btn-outline-secondary btn-minus" type="button">-</button>
+                                <input type="text" class="form-control text-center quantity-input" value="1" readonly data-id="1" data-price="579">
+                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <small class="text-success-custom d-block">Miễn Phí Ship</small>
+                            <div class="d-flex align-items-center text-muted small">
+                                <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
+                                Còn Hàng
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /Product Card -->
+            <div class="card border-0 mb-4 position-relative">
+                <div class="row g-0 p-3 align-items-center">
+                    <div class="col-md-3 text-center ">
+                        <span class="badge bg-success-custom position-absolute top-0 start-0 m-2">SAVE<br>$199</span>
+                        <img src="~/assets/Image/Product/iphone.png" alt="Product" class="img-fluid">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small class="text-muted">(152 lượt xem)</small>
+                                <h5 class="mb-1">SROK Smart Phone 128GB, Oled Retina</h5>
+                                <div>
+                                    <span class="old-price me-2">$778.00</span>
+                                    <span class="fw-bold text-danger">$579.00</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex gap-2">
+                                    <div class="rounded-circle bg-secondary-subtle p-2"></div>
+                                    <div class="rounded-circle bg-warning-subtle p-2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="input-group" style="width: 120px;">
+                                <button class="btn btn-outline-secondary btn-minus" type="button">-</button>
+                                <input type="text" class="form-control text-center quantity-input" value="1" readonly data-id="1" data-price="579">
+                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <small class="text-success-custom d-block">Miễn Phí Ship</small>
+                            <div class="d-flex align-items-center text-muted small">
+                                <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
+                                Còn Hàng
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card border-0 mb-4 position-relative">
+                <div class="row g-0 p-3 align-items-center">
+                    <div class="col-md-3 text-center ">
+                        <span class="badge bg-success-custom position-absolute top-0 start-0 m-2">SAVE<br>$199</span>
+                        <img src="~/assets/Image/Product/iphone.png" alt="Product" class="img-fluid">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small class="text-muted">(152 lượt xem)</small>
+                                <h5 class="mb-1">SROK Smart Phone 128GB, Oled Retina</h5>
+                                <div>
+                                    <span class="old-price me-2">$778.00</span>
+                                    <span class="fw-bold text-danger">$579.00</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="d-flex gap-2">
+                                    <div class="rounded-circle bg-secondary-subtle p-2"></div>
+                                    <div class="rounded-circle bg-warning-subtle p-2"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="input-group" style="width: 120px;">
+                                <button class="btn btn-outline-secondary btn-minus" type="button">-</button>
+                                <input type="text" class="form-control text-center quantity-input" value="1" readonly data-id="1" data-price="579">
+                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <small class="text-success-custom d-block">Miễn Phí Ship</small>
+                            <div class="d-flex align-items-center text-muted small">
+                                <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
+                                Còn Hàng
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="col-lg-4 mb-4">
+            <div class="position-sticky top-0">
+                <div class="card p-4 border-1 border-success-subtle shadow-sm">
+                    <h4 class="mb-4">Thông tin đơn hàng</h4>
+
+                    <div class="mb-3">
+                        <label for="voucher" class="form-label">Voucher Code</label>
+                        <div class="input-group">
+                            <input type="text" id="voucher" class="form-control" placeholder="Nhập voucher code">
+                            <button class="btn btn-outline-secondary" type="button">Áp dụng</button>
+                        </div>
+                    </div>
+
+                    <li class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Chi phí vận chuyển:</span>
+                        <span>$600.00</span>
+                    </li>
+                    <li class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                        <span class="text-muted">Thuế:</span>
+                        <span>$137.00</span>
+                    </li>
+                    <ul class="list-unstyled mb-4">
+                        <li class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Tổng sản phẩm:</span>
+                            <span id="subtotal">$0.00</span>
+                        </li>
+                        <!-- giữ nguyên shipping, tax -->
+                        <li class="d-flex justify-content-between fw-bold fs-5">
+                            <span>Tổng đơn hàng:</span>
+                            <span id="total">$0.00</span>
+                        </li>
+                    </ul>
+
+                    <button class="btn btn-success-custom w-100 py-3 fw-medium">THANH TOÁN</button>
+                </div>
+            </div>
+            </div>
+        </div>
+</div>
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <symbol id="check" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M13.485 1.929a1 1 0 0 1 1.415 1.414l-8.486 8.486-4.243-4.243a1 1 0 1 1 1.414-1.414L6.414 9.1l7.071-7.071z" />
+    </symbol>
+</svg>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  const quantityInputs = document.querySelectorAll(".quantity-input");
+  function updateTotal() {
+      let subtotal = 0;
+      quantityInputs.forEach((input) => {
+        const quantity = parseInt(input.value);
+        const price = parseFloat(input.dataset.price);
+        subtotal += quantity * price;
+      });
+
+        document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
+        const shipping = 600.0;
+        const tax = 137.0;
+        const total = subtotal + shipping + tax;
+        document.getElementById("total").textContent = `$${total.toFixed(2)}`;
+    }
+
+    document.querySelectorAll(".btn-minus").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                const input = btn.closest(".input-group").querySelector(".quantity-input");
+                let value = parseInt(input.value);
+                if (value > 1) {
+                    input.value = value - 1;
+                    updateTotal();
+                }
+            });
+    });
+
+    document.querySelectorAll(".btn-plus").forEach((btn) => {
+            btn.addEventListener("click", function () {
+                const input = btn.closest(".input-group").querySelector(".quantity-input");
+                input.value = parseInt(input.value) + 1;
+                updateTotal();
+            });
+    });
+
+        updateTotal(); // Initial calculation
+  });
+
+</script>

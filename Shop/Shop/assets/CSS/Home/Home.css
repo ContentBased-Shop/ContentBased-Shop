@@ -1,0 +1,510 @@
+﻿/* Sidebar styling */
+
+a{
+    text-decoration:none;
+}
+.sidebar {
+    transition: all 0.3s ease;
+}
+
+/* Sale banner styling */
+.sale-banner {
+    color: #f1352b;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+/* Category links styling */
+.category-link {
+    color: #000000;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    padding: 3px 0;
+    transition: all 0.2s ease;
+    border-radius: 8px;
+    margin-bottom:5px;
+}
+    .category-link i {
+        margin-right: 8px;
+        width: 20px; /* Giữ cho các icon đều nhau */
+        text-align: center;
+    }
+    .category-link:hover {
+        color: #f1352b;
+        transform: translateX(5px);
+    }
+
+/* Product image styling */
+.product-image {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+    cursor:pointer;
+}
+
+    .product-image:hover {
+        transform: translateY(-5px);
+       
+    }
+
+/* Product card styling */
+.product-banner {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .sidebar {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .row {
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .col-6, .col-12, .col-md-3, .col-md-4, .col-md-5 {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+
+
+/* Section titles */
+.section-title {
+    font-size: 1.5rem;
+    color: #000;
+    margin-bottom: 0;
+}
+
+/* View All link */
+.view-all {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+    .view-all:hover {
+        color: #000;
+    }
+
+/* Brand items */
+.brand-item {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+    .brand-item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transform: translateY(-3px);
+    }
+
+    .brand-item img {
+        max-height: 50px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+/* Category items */
+.category-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .category-item:hover {
+        transform: translateY(-5px);
+    }
+
+.category-image {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+}
+
+    .category-image img {
+        max-height: 100px;
+        object-fit: contain;
+    }
+
+.category-name {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .brands-container .row {
+        row-gap: 1rem !important;
+    }
+
+    .brand-item {
+        height: 60px;
+    }
+
+        .brand-item img {
+            max-height: 40px;
+        }
+}
+
+@media (max-width: 767.98px) {
+    .brands-container .row-cols-5 {
+        --bs-gutter-x: 0.5rem;
+    }
+
+    .category-image {
+        height: 120px;
+    }
+
+    .category-name {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .brands-container .row-cols-5 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .brand-item {
+        height: 50px;
+    }
+
+    .category-image {
+        height: 100px;
+    }
+}
+
+
+
+.img-fluid {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Custom shadow */
+    cursor: pointer;
+}
+
+    .img-fluid:hover {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Darker shadow */
+        transform: scale(1.05); /* Slightly increase size */
+    }
+
+.tc-banner-style3 .banner-card {
+    padding: 35px;
+    background-image: url(https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/banner1.png);
+    background-size: cover;
+    border-radius: 15px;
+    overflow: hidden;
+    color: #fff;
+}
+
+
+/*
+Product */
+.nav-tabs {
+    border-bottom: none;
+}
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #666666;
+        font-size: 1.1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+        .nav-tabs .nav-link.active {
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+            background-color: transparent;
+        }
+
+.product-card {
+    text-align: center;
+    position: relative;
+    padding: 15px;
+}
+
+.product-image-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.save-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+}
+
+.save-label {
+    background-color: #1aba1a;
+    color: white;
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-start-start-radius: 5px;
+}
+
+.save-amount {
+    background-color: #1aba1a;
+    color: white;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-end-end-radius: 5px;
+}
+
+.review-count {
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.product-name {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.product-description {
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.star-rating {
+    color: #ff8c4b;
+    margin-bottom: 0.5rem;
+}
+
+.rating-count {
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+.price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.25rem;
+}
+
+.current-price {
+    font-weight: bold;
+}
+
+.original-price {
+    color: #666666;
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+.discount {
+    color: #e21d1d;
+    font-weight: bold;
+}
+
+.free-shipping {
+    color: #1aba1a;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stock-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.in-stock-icon {
+    color: #1aba1a;
+    margin-right: 5px;
+}
+
+
+@media (max-width: 768px) {
+    .product-card {
+        margin-bottom: 30px;
+    }
+}
+
+
+/*brandnewforyou*/
+.btn-shopnnow {
+    color: #1aba1a;
+    background-color: white;
+    border: 1px solid #1aba1a;
+    transition: all 0.3s ease-in-out;
+}
+    .btn-shopnnow:hover {
+        background-color: #1aba1a;
+        color: white;
+       
+    }
+
+
+.banner-gradient {
+    background: linear-gradient(to right, #e6e6fa, #d8e1ff);
+    border-radius: 12px;
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+}
+
+.category-card {
+    border-radius: 12px;
+    transition: box-shadow 0.3s;
+}
+
+    .category-card:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+
+.shop-now-btn {
+    background-color: black;
+    color: white;
+    cursor:pointer;
+}
+
+.shop-now-btn:hover {
+    
+    background-color: #1aba1a;
+    border-color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.banner-image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 75%;
+    object-fit: contain;
+}
+
+.category-image-top-cell {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+
+
+.product-item {
+    transition: all 0.3s ease-in-out;
+    cursor:pointer;
+}
+
+    .product-item:hover {
+        color: #1aba1a;
+    }
+
+    .product-item img {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .product-item:hover img {
+        transform: scale(1.1); /* Zoom ảnh khi hover */
+    }
+
+    .product-item:hover h5,
+    .product-item:hover p {
+        color: #1aba1a; /* Thay đổi màu chữ khi hover */
+    }
+
+
+
+.news-card {
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    transition: transform 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+    .news-card:hover {
+        transform: translateY(-5px);
+    }
+
+.news-img-container {
+    height: 180px;
+    overflow: hidden;
+}
+
+    .news-img-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.news-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+
+.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+}
+
+.view-all {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+    .view-all:hover {
+        text-decoration: underline;
+    }
+
+@media (max-width: 768px) {
+    .news-img-container {
+        height: 140px;
+    }
+}
+
+.paragraph {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

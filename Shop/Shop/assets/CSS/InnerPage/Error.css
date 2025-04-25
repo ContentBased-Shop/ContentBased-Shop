@@ -1,0 +1,10 @@
+﻿.circle-bg {
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}
+
+.icon-muted {
+    color: #888;
+}

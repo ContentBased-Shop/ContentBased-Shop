@@ -1,0 +1,166 @@
+﻿.text-success-custom {
+    color: #1aba1a;
+}
+
+.btn-success-custom {
+    background-color: #1aba1a;
+    color: white;
+}
+
+    .btn-success-custom:hover {
+        background-color: #18a818;
+        color: white;
+    }
+
+.form-control:focus {
+    border-color: #1aba1a;
+    box-shadow: 0 0 0 0.2rem rgba(26, 186, 26, 0.25);
+}
+
+.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:hover {
+        color: #1aba1a;
+    }
+
+
+.btn-outline-success {
+    background-color: rgb(26, 186, 26);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+    .password-wrapper input {
+        padding-right: 40px; /* Chừa khoảng trống bên phải cho icon */
+    }
+
+    .password-wrapper button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        cursor: pointer;
+    }
+
+        .password-wrapper button:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+a.text-muted:hover {
+    color: rgb(26, 186, 26) !important; /* Màu xanh Bootstrap */
+}
+
+
+/* Độ mạnh mật khẩu */
+.strength-meter {
+    margin-top: 10px;
+    height: 8px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease; /* Transition cho background */
+}
+
+    .strength-meter span {
+        display: block;
+        height: 100%;
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.3s ease; /* Transition cho width */
+    }
+
+    .strength-meter .weak {
+        background-color: red;
+    }
+
+    .strength-meter .medium {
+        background-color: orange;
+    }
+
+    .strength-meter .strong {
+        background-color: green;
+    }
+
+#password-strength-text {
+    margin-top: 10px;
+    transition: color 0.3s ease; /* Transition cho color của văn bản */
+}
+
+
+
+.btn-outline-success {
+    background-color: rgb(26, 186, 26);
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+    .password-wrapper input {
+        padding-right: 40px; /* Chừa khoảng trống bên phải cho icon */
+    }
+
+    .password-wrapper button {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #6c757d;
+        cursor: pointer;
+    }
+
+        .password-wrapper button:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+a.text-muted:hover {
+    color: rgb(26, 186, 26) !important; /* Màu xanh Bootstrap */
+}
+
+
+/* Độ mạnh mật khẩu */
+.strength-meter {
+    margin-top: 10px;
+    height: 8px;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease; /* Transition cho background */
+}
+
+    .strength-meter span {
+        display: block;
+        height: 100%;
+        border-radius: 4px;
+        width: 0%;
+        transition: width 0.5s ease-in-out; /* Transition cho width */
+    }
+
+    .strength-meter .weak {
+        background-color: red;
+    }
+
+    .strength-meter .medium {
+        background-color: orange;
+    }
+
+    .strength-meter .strong {
+        background-color: green;
+    }
+
+#password-strength-text {
+    margin-top: 10px;
+    transition: color 0.3s ease; /* Transition cho color của văn bản */
+}

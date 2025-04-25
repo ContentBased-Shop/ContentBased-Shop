@@ -1,0 +1,417 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/assets/CSS/User/User.css" />
+
+<div class="container p-4 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">Hồ sơ</li>
+            <li id="breadcrumb-current" class="breadcrumb-item active text-secondary" aria-current="page">
+                Thông tin tài khoản
+            </li>
+        </ol>
+    </nav>
+</div>
+<div class="container  min-vh-75 d-flex flex-column flex-md-row bg-white my-3 rounded-3 p-4 gap-5">
+
+    <!-- Sidebar -->
+    <div class="sidebar p-4 col-12 col-md-3 bg-light rounded-4">
+        <div class="text-center mb-4">
+            <div class="mb-3 mx-auto">
+                <img src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
+            </div>
+            <h2 class="h4 fw-bold">VuzPham</h2>
+            <p class="text-muted">phamnguyenvu287@gmail.com</p>
+        </div>
+
+        <nav>
+            <ul class="nav flex-column gap-2">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="account-infor" data-title="Thông tin tài khoản">
+                        <span>Thông tin tài khoản</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-order" data-title="Đơn hàng của tôi">
+                        <span>Đơn hàng của tôi</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-address" data-title="Địa chỉ nhận hàng">
+                        <span>Địa chỉ nhận hàng</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
+                        <span>Đổi mật khẩu</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    @*Account*@
+    <div id="account-infor" class=" flex-grow-1 p-4 tab-content ">
+        <h1 class="mb-4">Thông tin tài khoản</h1>
+
+        <form style="max-width: 720px;">
+            <div class="row g-3 mb-3">
+                <div class="col-md-6">
+                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="firstName" value="Mark" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="lastName" value="Cole" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input type="email" class="form-control" id="email" value="swoo@gmail.com" required>
+            </div>
+
+            <div class="mb-4">
+                <label for="phone" class="form-label">Phone Number (Optional)</label>
+                <input type="tel" class="form-control" id="phone" value="+1 0231 4554 452">
+            </div>
+
+            <button type="submit" class="btn btn-success text-white px-4 py-1 btn-save">SAVE</button>
+        </form>
+    </div>
+
+    <!-- Order items -->
+    <div id="my-order" class="flex-grow-1 overflow-scroll-container tab-content d-none">
+        <div class="flex-grow-1">
+            <h1 class="h4 fw-bold mb-2 ">Đơn hàng của tôi</h1>
+            <div class="item-order mb-4 px-3 rounded-4 py-2">
+                <div class="text-end pb-2">
+                    <span class="lbl-shipped fw-medium">Shipped</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-start pb-2">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal Avocado Oil Premium French Imported</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-start  pb-2 ">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="text-end text-muted small">
+                    <p>Còn 2+ sản phẩm khác</p>
+                </div>
+
+                <div class="border-top pt-1 text-end">
+                    <span class="h6 fw-medium me-2">Tổng tiền(4 sản phẩm):</span>
+                    <span class="h4 fw-bold">$ 41.82</span>
+                </div>
+                <!-- Shipping notification -->
+                <div class="bg-warning bg-opacity-25 rounded p-2 my-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="icon-shipped fw-bold">
+                            <i class="fa-solid fa-truck-fast"></i> Shipped
+                        </div>
+                        <span>Đơn hàng đang vận chuyển</span>
+                    </div>
+                </div>
+                <!-- Action buttons -->
+                <div class="d-flex justify-content-end gap-2 ">
+                    <button class="btn btn-dark">Refund</button>
+                    <button class="btn btn-Confirm btn-success">Confirm</button>
+                </div>
+            </div>
+
+
+            <div class="item-order mb-4 px-3 rounded-4 py-2">
+                <div class="text-end pb-2">
+                    <span class="text-danger fw-medium">Closed</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-start pb-2">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal Avocado Oil Premium French Imported</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-start  pb-2 ">
+                    <div class="d-flex gap-3">
+                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
+                        </div>
+                        <div>
+                            <h5 class="fw-medium mb-1">Artisanal</h5>
+                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
+                        </div>
+                    </div>
+                    <span class="fw-medium">$ 20.99</span>
+                </div>
+
+                <div class="text-end text-muted small">
+                    <p>Còn 2+ sản phẩm khác</p>
+                </div>
+
+                <div class="border-top pt-1 text-end">
+                    <span class="h6 fw-medium me-2">Tổng tiền(4 sản phẩm):</span>
+                    <span class="h4 fw-bold">$ 41.82</span>
+                </div>
+
+                <!-- Order confirmation -->
+                <div class="bg-success bg-opacity-25 rounded p-2 my-2">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="icon-check fw-bold">
+                            <i class="bi bi-check-circle-fill"></i> Signed
+                        </div>
+                        <span> Your order has been received and signed...</span>
+                    </div>
+                </div>
+
+                <!-- Buy again button -->
+                <div class="text-end 2">
+                    <button class="btn btn-buyagain btn-success">Buy Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- My address -->
+    <div id="my-address" class=" flex-grow-1 p-3 tab-content  d-none">
+        <h2 class="mb-2 fw-bold">My Address</h2>
+
+        <!-- Home Address Card -->
+        <div class=" p-3 mb-4 rounded-4 bg-light">
+            <div class="d-flex align-items-center mb-3">
+                <input type="radio" name="address" id="home" class="radio-indicator" checked>
+                <label for="home" class="circle-indicator-label me-3"></label>
+                <h5 class="mb-0 me-3">2118 Thornridge</h5>
+                <span class="badge ">HOME</span>
+            </div>
+            <div class="ps-5 d-flex justify-content-between">
+                <div>
+                    <p class="mb-1 text-dark">2118 Thornridge Cir. Syracuse, Connecticut 35624</p>
+                    <p class="text-muted"><i class="fa-solid fa-user"></i><span> Phạm Nguyên Vũ</span> &emsp;<i class="fa-solid fa-phone"></i> (209) 555-0104</p>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-2">
+                    <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light"><i class="bi bi-x"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Office Address Card -->
+        <div class=" p-3 mb-4 shadow-sm rounded-4 bg-light" ">
+            <div class="d-flex align-items-center mb-3">
+                <input type="radio" name="address" id="office" class="radio-indicator">
+                <label for="office" class="circle-indicator-label me-3"></label>
+                <h5 class="mb-0 me-3">Headoffice</h5>
+                <span class="badge ">OFFICE</span>
+            </div>
+            <div class="ps-5 d-flex justify-content-between">
+                <div>
+                    <p class="mb-1 text-dark">2715 Ash Dr. San Jose, South Dakota 83475</p>
+                    <p class="text-muted"><i class="fa-solid fa-user"></i><span> Phạm Nguyên Vũ</span> &emsp;<i class="fa-solid fa-phone"></i> (209) 555-0104</p>
+                </div>
+                <div class="d-flex justify-content-end gap-2 mt-2">
+                    <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
+                    <button class="btn btn-sm btn-light"><i class="bi bi-x"></i></button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Add New Address -->
+        <button id="btn-add-address" class="w-100 btn border border-2 border-dashed text-muted d-flex align-items-center justify-content-center py-3">
+            <i class="bi bi-plus-circle me-2"></i> Add New Address
+        </button>
+
+
+        <div id="new-address-form" class="form-container d-none animate__animated">
+            <h2 class="mb-4 text-center">Thêm Địa Chỉ Vận Chuyển</h2>
+            <form>
+                <div class="row g-3">
+                    <!-- Họ và tên -->
+                    <div class="col-md-6">
+                        <label for="fullName" class="form-label">Họ và tên <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+                    </div>
+
+                    <!-- Số điện thoại -->
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Số điện thoại" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <!-- Địa chỉ -->
+                    <label for="address" class="form-label">Địa chỉ nhận hàng <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="address" placeholder="Số nhà, đường, phường, quận, thành phố" required>
+                </div>
+
+                <div class="row g-3">
+                    <!-- Thành phố -->
+                    <div class="col-md-6">
+                        <label for="city" class="form-label">Thành phố</label>
+                        <input type="text" class="form-control" id="city" placeholder="Thành phố">
+                    </div>
+
+                    <!-- Quận huyện -->
+                    <div class="col-md-6">
+                        <label for="district" class="form-label">Quận/Huyện</label>
+                        <input type="text" class="form-control" id="district" placeholder="Quận/Huyện">
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <!-- Phường xã -->
+                    <div class="col-md-6">
+                        <label for="ward" class="form-label">Phường/Xã</label>
+                        <input type="text" class="form-control" id="ward" placeholder="Phường/Xã">
+                    </div>
+
+                   
+                    <div class="col-md-6">
+                        <!-- Thể loại địa chỉ (Home, Office) -->
+                        <label for="addressType" class="form-label">Chọn loại địa chỉ</label>
+                        <select id="addressType" class="form-select" required>
+                            <option value="">Chọn loại địa chỉ...</option>
+                            <option value="home">Home</option>
+                            <option value="office">Office</option>
+                        </select>
+                    </div>
+                </div>
+
+              
+
+                <!-- Nút lưu -->
+                <button type="submit" class="btn btn-success mt-3 w-100">Lưu địa chỉ</button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Change password -->
+    <div id="change-password" class="flex-grow-1 p-4 tab-content d-none">
+        <h2 class="mb-2 fw-bold">Đổi Mật khẩu</h2>
+        <form style="max-width: 720px;" method="POST" action="/change-password" onsubmit="return validateRecaptcha();">
+
+            <div class="mb-3">
+                <label for="password_old" class="form-label">Nhập mật khẩu hiện tại <span class="text-danger">*</span></label>
+                <input type="password" id="password_old" name="password_old" class="form-control" placeholder="************" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password_new" class="form-label">Nhập mật khẩu mới <span class="text-danger">*</span></label>
+                <input type="password" id="password_new" name="password_new" class="form-control" placeholder="************" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password_new_confirm" class="form-label">Xác nhận mật khẩu mới <span class="text-danger">*</span></label>
+                <input type="password" id="password_new_confirm" name="password_new_confirm" class="form-control" placeholder="************" required>
+            </div>
+
+            <div class="g-recaptcha mb-3" data-sitekey="6LfycxgrAAAAAB4Lv3Q2NHNQxmml_eVVqnTQRa2P"></div>
+
+            <button type="submit" class="btn btn-success text-white px-4 py-2 btn-changepassword" >Xác nhận đổi mật khẩu</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+    // Xử lý không phải robot
+    function validateRecaptcha() {
+        const response = grecaptcha.getResponse();
+        if (response.length === 0) {
+            alert("Vui lòng xác minh rằng bạn không phải là robot.");
+            return false;
+        }
+        return true;
+    }
+
+    const navLinks = document.querySelectorAll('.nav-link');
+    const breadcrumb = document.getElementById('breadcrumb-current');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Lấy tiêu đề mới từ data-title
+            const newTitle = this.getAttribute('data-title');
+            if (breadcrumb && newTitle) {
+                breadcrumb.textContent = newTitle;
+            }
+
+            // Ẩn tất cả các tab content
+            const targets = document.querySelectorAll('.tab-content');
+            targets.forEach(el => el.classList.add('d-none'));
+
+            // Hiển thị tab tương ứng
+            const targetId = this.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                targetEl.classList.remove('d-none');
+            }
+
+            // Đổi class active cho link
+            navLinks.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    document.getElementById('btn-add-address').addEventListener('click', function () {
+        const form = document.getElementById('new-address-form');
+
+        // Nếu chưa có overlay thì thêm
+        if (!document.querySelector('.form-overlay')) {
+            const overlay = document.createElement('div');
+            overlay.classList.add('form-overlay');
+            overlay.addEventListener('click', () => {
+                form.classList.add('d-none');
+                overlay.remove();
+            });
+            document.body.appendChild(overlay);
+        }
+
+        form.classList.remove('d-none');
+    });
+</script>

@@ -1,0 +1,123 @@
+﻿.custom-btn {
+    background-color: #1aba1a;
+    color: white;
+    border: none;
+}
+
+    .custom-btn:hover {
+        background-color: #158c15; /* đậm hơn chút khi hover */
+        color: white;
+    }
+
+.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:hover {
+        color: #1aba1a;
+    }
+
+.icon-about {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    background-color: #1aba1a;
+}
+
+.col-5ths {
+    width: 20%;
+}
+
+@media (max-width: 991.98px) {
+    .col-5ths {
+        width: 50%; /* Trên tablet hoặc mobile sẽ xếp 2 người 1 dòng */
+    }
+}
+
+
+
+.section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+}
+/* Brand items */
+.brand-item {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+    .brand-item:hover {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        transform: translateY(-3px);
+    }
+
+    .brand-item img {
+        max-height: 50px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .brands-container .row {
+        row-gap: 1rem !important;
+    }
+
+    .brand-item {
+        height: 60px;
+    }
+
+        .brand-item img {
+            max-height: 40px;
+        }
+}
+
+@media (max-width: 767.98px) {
+    .brands-container .row-cols-5 {
+        --bs-gutter-x: 0.5rem;
+    }
+
+
+}
+
+@media (max-width: 575.98px) {
+    .brands-container .row-cols-5 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .brand-item {
+        height: 50px;
+    }
+}
+.star-rating {
+    color: #FFB547;
+}
+
+    .star-rating .unfilled {
+        color: #dcdcdc;
+    }
+
+.review-img {
+    max-width: 120px;
+    height: 88px;
+    object-fit: cover;
+}
+
+.review-card {
+    border-radius: 8px;
+    padding: 10px 20px;
+}

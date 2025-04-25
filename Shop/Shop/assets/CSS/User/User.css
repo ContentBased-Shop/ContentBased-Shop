@@ -1,0 +1,157 @@
+﻿.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:hover {
+        color: #1aba1a;
+    }
+
+.sidebar {
+    background-color: #fff;
+}
+
+    .sidebar .nav-link.active {
+        background-color: #1aba1a;
+        color: #fff !important;
+    }
+
+.profile-img {
+    width: 240px;
+    height: 240px;
+    object-fit: cover;
+    background-color: #ccc;
+}
+
+.nav-item a {
+    color: black;
+}
+
+/*Order*/
+.btn-save,
+.btn-changepassword,
+.btn-buyagain,
+.btn-Confirm {
+    border: none;
+    background-color: #1aba1a;
+    color: white;
+}
+
+.item-order {
+    background-color: #FAFAFB;
+}
+
+.icon-check {
+    color: #1aba1a;
+}
+
+.lbl-shipped,
+.icon-shipped {
+    color: #FF8039;
+}
+
+
+.overflow-scroll-container {
+    max-height: 600px; /* hoặc chiều cao bạn mong muốn */
+    overflow-y: auto;
+    padding-right: 5px; /* tạo khoảng cho scroll bar */
+}
+
+
+
+.overflow-scroll-container {
+    max-height: 600px; /* hoặc tuỳ theo yêu cầu của bạn */
+    overflow-y: auto;
+    padding-right: 5px;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #c2c2c2 transparent; /* Firefox */
+}
+
+    /* Chrome, Edge, Safari */
+    .overflow-scroll-container::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    .overflow-scroll-container::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .overflow-scroll-container::-webkit-scrollbar-thumb {
+        background-color: #c2c2c2;
+        border-radius: 10px;
+    }
+
+        .overflow-scroll-container::-webkit-scrollbar-thumb:hover {
+            background-color: #888;
+        }
+
+/*Address*/
+.radio-indicator {
+    display: none;
+}
+
+.circle-indicator-label {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #1aba1a;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radio-indicator:checked + .circle-indicator-label {
+    background-color: #1aba1a;
+}
+
+    .radio-indicator:checked + .circle-indicator-label::after {
+        content: "";
+        width: 12px;
+        height: 12px;
+        background-color: white;
+        border-radius: 50%;
+    }
+
+.badge {
+    background-color: #1aba1a;
+}
+
+
+.form-container {
+    position: fixed;
+    top:10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    z-index: 1050;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    animation: slideUp 0.7s ease-in-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, 0%);
+        opacity: 1;
+    }
+}
+
+.form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1040;
+}
