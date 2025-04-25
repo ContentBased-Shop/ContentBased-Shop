@@ -27,19 +27,6 @@ API: None
 |  3  |  UI, Model Shop | Nguyên Vũ   |
 
 
------------------------------------------------
-### Công nghệ sử dụng </br>
- - ASP.NET (MVC) RazorView, Boostrap, AJAX, SWipeJS </br>
- - Visual studio code 2022 </br>
- - Web:</br>
-  	+ Frontend: HTML, CSS, JavaScript, Boostrap</br>
------------------------------------------------
-## Hệ thống Web quản lý khóa học Noah
-<h3>Mô tả dự án: Web site Quản lý khóa học Noah</h3>
-
-## Giới Thiệu
-Đây là một nền tảng web bán khóa học trực tuyến cho phép người dùng tìm kiếm, đăng ký và học các khóa học thuộc nhiều chủ đề khác nhau. Trang web cung cấp các chức năng dành cho học viên, giảng viên, và quản trị viên, đảm bảo một hệ sinh thái hoàn chỉnh cho việc học tập trực tuyến.
-
 # 📱 Swoo TechMart
 
 **Swoo TechMart** là website thương mại điện tử chuyên bán các sản phẩm công nghệ, đặc biệt là điện thoại di động, với giao diện hiện đại, dễ sử dụng và tối ưu cho mọi thiết bị.
@@ -56,6 +43,17 @@ API: None
 - Thiết kế mượt mà, hỗ trợ thao tác cảm ứng trêDeploy
 
 
+## 📦 Hướng dẫn cài đặt
 
+```bash
+# Clone dự án
+git clone https://github.com/tenban/swoo-techmart.git
+cd swoo-techmart
+
+# Cài đặt (nếu dùng Node)
+npm install
+
+# Khởi chạy server (tuỳ framework)
+npm run dev
 
 
