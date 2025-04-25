@@ -1,6 +1,3 @@
-# How To Use
-<h2>Turn on terminal:npm install classnames, npm start</h2>
-
 
 # Link 
 Link sheet: [https://docs.google.com/spreadsheets/d/1T94VoRSNYox1UcCuhYPz2Gi-CSE22-Roq1-KpuG46Js/edit?gid=1274873539#gid=1274873539](https://docs.google.com/spreadsheets/d/14YaHovopocaV9B2aay-VSV93p3crfcX62ThB2zUjaqs/edit?gid=0#gid=0)  
