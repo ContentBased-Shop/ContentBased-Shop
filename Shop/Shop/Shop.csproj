@@ -381,6 +381,7 @@
     <Content Include="Views\Product\Gaming.cshtml" />
     <Content Include="Views\Product\AnotherProduct.cshtml" />
     <Content Include="Views\Product\PhuKien.cshtml" />
+    <Content Include="Views\InnerPage\TuyenDung.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
