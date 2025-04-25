@@ -40,8 +40,43 @@ API: None
 
 ### 🔄 Carousel sản phẩm nổi bật
 - Sử dụng thư viện **Swiper** để tạo carousel chuyển đổi giữa các danh mục sản phẩm.
-- Thiết kế mượt mà, hỗ trợ thao tác cảm ứng trêDeploy
+- Thiết kế mượt mà, hỗ trợ thao tác cảm ứng trên thiết bị di động.
 
+### 🛒 Giỏ hàng & Thanh toán
+- Thêm hoặc xoá sản phẩm khỏi giỏ hàng dễ dàng.
+- Cập nhật số lượng sản phẩm và tổng tiền theo thời gian thực.
+- Form thanh toán gồm thông tin người nhận, phương thức thanh toán và xác nhận đơn hàng.
+
+### 🔍 Tìm kiếm thông minh
+- Tìm kiếm nhanh theo tên sản phẩm, hãng hoặc từ khoá liên quan.
+- Gợi ý sản phẩm trong quá trình nhập liệu.
+
+### 👤 Quản lý người dùng
+- Đăng ký / Đăng nhập tài khoản.
+- Trang cá nhân: theo dõi đơn hàng, cập nhật thông tin, đổi mật khẩu.
+
+### 🧾 Quản trị (Admin)
+- Quản lý sản phẩm, đơn hàng, người dùng và danh mục.
+- Phân quyền truy cập cho quản trị viên và người dùng thông thường.
+
+### 📧 Gửi email & thông báo
+- Tự động gửi email xác nhận đơn hàng.
+- Gửi email nhắc khuyến mãi, sản phẩm mới hoặc tin tức công nghệ.
+
+### 📱 Responsive UI
+- Giao diện tương thích trên mọi thiết bị: Desktop, Tablet, Mobile.
+
+---
+
+## 🛠 Công nghệ sử dụng
+
+- Frontend: HTML, CSS (Bootstrap hoặc Tailwind CSS), JavaScript
+- Carousel: [SwiperJS](https://swiperjs.com/)
+- Backend: ASP.NET MVC / Node.js / Django *(tuỳ phiên bản)*
+- Cơ sở dữ liệu: SQL Server / MongoDB / PostgreSQL *(tuỳ phiên bản)*
+- Email: SMTP / Gmail API / Django Email Backend
+
+---
 
 ## 📦 Hướng dẫn cài đặt
 
