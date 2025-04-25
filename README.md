@@ -1,10 +1,10 @@
 
 # Link 
-Link sheet: [[https://docs.google.com/spreadsheets/d/1T94VoRSNYox1UcCuhYPz2Gi-CSE22-Roq1-KpuG46Js/edit?gid=1274873539#gid=1274873539](https://docs.google.com/spreadsheets/d/14YaHovopocaV9B2aay-VSV93p3crfcX62ThB2zUjaqs/edit?gid=0#gid=0)  ](https://docs.google.com/spreadsheets/d/14YaHovopocaV9B2aay-VSV93p3crfcX62ThB2zUjaqs/edit?gid=550433516#gid=550433516)
+Link sheet: https://docs.google.com/spreadsheets/d/14YaHovopocaV9B2aay-VSV93p3crfcX62ThB2zUjaqs/edit?gid=550433516#gid=550433516
 <br/>
-GIT: [[https://github.com/VuzPham/PRJ_Noah_FETeam9](https://github.com/ContentBased-Shop)](https://github.com/ContentBased-Shop)
+GIT: https://github.com/ContentBased-Shop
 <br/>
-DOC: [https://docs.google.com/document/d/1hQm4O8Z7GxQmWWSudNNZWsxmCn-fIwWpplPi9D2QYWo/edit?tab=t.0](https://docs.google.com/document/d/1hQm4O8Z7GxQmWWSudNNZWsxmCn-fIwWpplPi9D2QYWo/edit?tab=t.0)
+DOC: https://docs.google.com/document/d/1hQm4O8Z7GxQmWWSudNNZWsxmCn-fIwWpplPi9D2QYWo/edit?tab=t.0
 <br/>
 API: None
 
