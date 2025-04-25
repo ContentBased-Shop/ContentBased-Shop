@@ -291,3 +291,161 @@
         border-color: initial !important;
         box-shadow: none !important;
     }
+
+
+
+.btn-success {
+    background-color: #1ABA1A;
+    border: none
+}
+
+.category-card:hover {
+    border: 1px solid #1ABA1A !important;
+    box-shadow: 0 0 10px rgba(26, 186, 26, 0.3);
+    transition: all 0.3s ease;
+}
+.search-box.small {
+    display: flex;
+    max-width: 100%;
+    font-size: 14px;
+}
+
+.search-box.small input {
+    flex: 1;
+    padding: 6px 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+}
+
+.search-box.small button {
+    padding: 6px 10px;
+    border: none;
+    background-color: #1ABA1A;
+    color: white;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+    .search-box.small button:hover {
+        background-color: forestgreen;
+    }
+
+
+.brand-filter {
+    max-height: 150px; /* chiều cao tối đa */
+    overflow-y: auto; /* hiện scroll khi vượt quá */
+    padding-right: 5px; /* tránh bị cắt mất scroll bar */
+}
+    /* Thanh cuộn nhỏ (cho WebKit: Chrome, Edge, Safari) */
+    .brand-filter::-webkit-scrollbar {
+        width: 6px; /* độ rộng thanh scroll */
+    }
+
+    .brand-filter::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .brand-filter::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+
+        .brand-filter::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+.form-check-input {
+    box-shadow: none !important; /* bỏ bóng */
+    outline: none !important; /* bỏ đường viền khi focus */
+}
+
+    .form-check-input:checked {
+        background-color: #1ABA1A; /* màu nền khi được chọn */
+        border-color: #1ABA1A; /* viền khi được chọn */
+    }
+
+.condition-collapse,
+.memory-collapse,
+.color-collapse,
+.rating-collapse,
+.price-collapse,
+.brand-collapse {
+    transition: max-height 0.6s ease-in-out, opacity 0.4s ease-in-out;
+    overflow: hidden;
+    max-height: 1000px; /* đủ cao để chứa nội dung */
+    opacity: 1;
+}
+
+    .condition-collapse.collapsed,
+    .memory-collapse.collapsed,
+    .color-collapse.collapsed,
+    .rating-collapse.collapsed,
+    .price-collapse.collapsed,
+    .brand-collapse.collapsed {
+        max-height: 0;
+        opacity: 0;
+    }
+
+
+.range-slider {
+    position: relative;
+    height: 36px;
+}
+
+.slider-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: #ddd;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    z-index: 1;
+}
+
+.slider-fill {
+    position: absolute;
+    top: 50%;
+    height: 4px;
+    background-color: #1ABA1A; /* Màu giữa hai thanh kéo */
+    transform: translateY(-50%);
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.range-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    z-index: 3;
+}
+
+    .range-input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        background-color: #198754;
+        border-radius: 50%;
+        cursor: pointer;
+        pointer-events: all;
+        border: none;
+        margin-top: -6px;
+    }
+
+    .range-input::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background-color: #198754;
+        border-radius: 50%;
+        cursor: pointer;
+        border: none;
+    }
+

@@ -19,7 +19,23 @@ namespace Shop.Controllers
         {
             return View();
         }
-        public ActionResult ProductCategories()
+        public ActionResult ProductDienThoaiTabLet()
+        {
+            return View();
+        }
+        public ActionResult ProductLapTopPC()
+        {
+            return View();
+        }
+        public ActionResult Gaming()
+        {
+            return View();
+        }
+        public ActionResult AnotherProduct()
+        {
+            return View();
+        }
+        public ActionResult PhuKien()
         {
             return View();
         }

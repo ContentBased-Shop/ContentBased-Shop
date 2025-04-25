@@ -372,11 +372,15 @@
     <Content Include="Views\InnerPage\About.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
-    <Content Include="Views\Product\ProductCategories.cshtml" />
+    <Content Include="Views\Product\ProductDienThoaiTabLet.cshtml" />
     <Content Include="Views\InnerPage\Promotion.cshtml" />
     <Content Include="Views\Error\General.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Product\ProductLapTopPC.cshtml" />
+    <Content Include="Views\Product\Gaming.cshtml" />
+    <Content Include="Views\Product\AnotherProduct.cshtml" />
+    <Content Include="Views\Product\PhuKien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

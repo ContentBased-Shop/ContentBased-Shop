@@ -1,0 +1,1175 @@
+﻿@{
+    ViewBag.Title = "ProductCategories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .swiper-button-next, .swiper-button-prev {
+        color: #999; /* Màu sắc xám nhạt cho các nút */
+        font-size: 18px; /* Giảm kích thước font của nút */
+        width: 30px; /* Điều chỉnh chiều rộng của nút */
+        height: 30px; /* Điều chỉnh chiều cao của nút */
+    }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 18px; /* Kích thước của mũi tên */
+        }
+
+    .swiper-pagination-bullet {
+        background-color: white !important;
+    }
+
+    .product-slide-2 {
+        background-image: url('https://mihomebmt.com/wp-content/uploads/2023/11/De-sac-du-phong-tu-tinh-Magsafe-Xiaomi_13-600x600.jpg');
+        background-size: cover;
+        background-position: center;
+        min-height: 300px;
+    }
+</style>
+<link rel="stylesheet" href="~/assets/CSS/Product/Product_categories.css" />
+<div class="container p-3 bg-white my-3 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Danh Mục Sản Phẩm</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Phụ kiện</a></li>
+        </ol>
+    </nav>
+</div>
+
+
+<div class="container bg-white p-4 rounded-3 mb-4">
+    <h4 class="mb-4 fw-bold">TOP phụ kiện không thể thiếu</h4>
+    <div class="row g-4">
+        <!-- Current Slide -->
+        <div class="col-md-8">
+            <div class="swiper product-swiper rounded overflow-hidden">
+                <div class="swiper-wrapper">
+                    <!-- Slide 1 -->
+                    <div class="swiper-slide position-relative text-white">
+                        <img src="https://png.pngtree.com/thumb_back/fh260/background/20230622/pngtree-data-filled-3d-usb-drive-image_3655586.jpg"
+                             alt="Product Slide 1"
+                             class="w-100 h-100 position-absolute top-0 start-0 object-fit-cover z-0" />
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.4); z-index: 0;"></div>
+                        <div class="position-relative z-1 p-5">
+                            <h3 class="fw-bold">Noise Cancelling<br /> Headphone</h3>
+                            <p>Boso Over-Ear Headphone<br>Wifi, Voice Assistant,<br>Low Latency Game Mode</p>
+                            <button class="btn btn-light text-dark rounded-pill px-4">BUY NOW</button>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2 -->
+                    <div class="swiper-slide position-relative text-white">
+                        <img src="https://genk.mediacdn.vn/139269124445442048/2024/7/18/dscf7884-1721309216401133376297.jpg"
+                             alt="Product Slide 1"
+                             class="w-100 h-100 position-absolute top-0 start-0 object-fit-cover z-0" />
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.4); z-index: 0;"></div>
+                        <div class="position-relative z-1 p-5">
+                            <h3 class="fw-bold">Noise Cancelling<br /> Headphone</h3>
+                            <p>Boso Over-Ear Headphone<br>Wifi, Voice Assistant,<br>Low Latency Game Mode</p>
+                            <button class="btn btn-light text-dark rounded-pill px-4">BUY NOW</button>
+                        </div>
+                    </div>
+                    <div class="swiper-slide position-relative text-white">
+                        <img src=" https://png.pngtree.com/thumb_back/fh260/background/20230614/pngtree-apple-airpods-on-a-black-background-image_2891997.jpg"
+                             alt="Product Slide 1"
+                             class="w-100 h-100 position-absolute top-0 start-0 object-fit-cover z-0" />
+                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0,0,0,0.4); z-index: 0;"></div>
+                        <div class="position-relative z-1 p-5">
+                            <h3 class="fw-bold">Noise Cancelling<br /> Headphone</h3>
+                            <p>Boso Over-Ear Headphone<br>Wifi, Voice Assistant,<br>Low Latency Game Mode</p>
+                            <button class="btn btn-light text-dark rounded-pill px-4">BUY NOW</button>
+                        </div>
+                    </div>
+                </div>
+               
+                <!-- Pagination -->
+                <div class="swiper-pagination position-absolute bottom-0 start-50 translate-middle-x mb-3"></div>
+
+                <!-- Navigation -->
+                <div class="swiper-button-prev text-white"></div>
+                <div class="swiper-button-next text-white"></div>
+            </div>
+        </div>
+
+        <!-- Next Slide Preview -->
+        <div class="col-md-4">
+            <div class="product-slide-2 position-relative text-white rounded overflow-hidden">
+                <!-- Lớp phủ làm tối ảnh để chữ dễ đọc -->
+                <!-- Nội dung -->
+                <div class="position-relative z-1 p-5">
+                    <h4 class="fw-bold text-dark">Redmi note 12 Pro+ 5g</h4>
+                    <spap class="text-muted text-dark ">Rise to the challenge</spap>
+                    <button class="btn btn-dark text-white rounded-pill px-4 mx-3">BUY NOW</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container bg-white rounded-3 my-2 p-3">
+    <!-- Categories Grid -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+        <!-- Category Item Template -->
+        <div class="col">
+            <a href="#" class="text-decoration-none">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="card-title fs-6 fw-semibold">USB</h3>
+                            <p class="card-text text-secondary small">74 Items</p>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/Lap_m1.png" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Android Category -->
+        <div class="col">
+            <a href="#" class="text-decoration-none">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="card-title fs-6 fw-semibold">Chuột máy tính</h3>
+                            <p class="card-text text-secondary small">35 Items</p>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/Lap_gaming.png" alt="Android" class=".category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- 5G Support Category -->
+        <div class="col">
+            <a href="#" class="text-decoration-none">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="card-title fs-6 fw-semibold">Cáp sạc </h3>
+                            <p class="card-text text-secondary small">12 Items</p>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/phone_gaming.png" alt="5G Support" class=".category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Gaming Category -->
+        <div class="col">
+            <a href="#" class="text-decoration-none">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="card-title fs-6 fw-semibold">Củ sạc</h3>
+                            <p class="card-text text-secondary small">9 Items</p>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/phone_5g.png" alt="Gaming" class=".category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Xiaomi Category -->
+        <div class="col">
+            <a href="#" class="text-decoration-none">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="card-title fs-6 fw-semibold">Tai nghe</h3>
+                            <p class="card-text text-secondary small">52 Items</p>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/Lap_dell.png" alt="Xiaomi" class=".category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="#" class="text-decoration-none">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div>
+                            <h3 class="card-title fs-6 fw-semibold">Pin dự phòng</h3>
+                            <p class="card-text text-secondary small">52 Items</p>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/Lap_dell.png" alt="Xiaomi" class=".category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<div class="layout-wrapper container p-3 rounded-3">
+    <!-- SIDEBAR -->
+    <div>
+        <div class="sidebar">
+            <h6 class="fw-bold mb-4">CATEGORIES</h6>
+
+            <button type="button" class="btn fw-medium text-start py-2 px-1 mb-2 text-dark bg-white px-3">
+                <i class="fa-solid fa-chevron-left text-muted"></i> All Categories
+            </button><br />
+            <button type="button" class="btn fw-medium text-start p-0 mb-2 text-dark">Cell Phones & Tablets</button>
+
+            <div class="ps-3 small d-flex flex-column gap-1 mt-2">
+                <a href="#" class="category-link">All</a>
+                <a href="#" class="category-link">iPhone</a>
+                <a href="#" class="category-link">Samsung</a>
+                <a href="#" class="category-link">Xiaomi</a>
+                <a href="#" class="category-link">Asus</a>
+                <a href="#" class="category-link">Oppo</a>
+                <a href="#" class="category-link">Gaming Smartphone</a>
+                <a href="#" class="category-link">iPad</a>
+                <a href="#" class="category-link">Windows Tablets</a>
+                <a href="#" class="category-link">eReader</a>
+                <a href="#" class="category-link">Smartphone Chargers</a>
+                <a href="#" class="category-link">5G Support Smartphone</a>
+                <a href="#" class="category-link">Smartphone Accessories</a>
+                <a href="#" class="category-link">Tablets Accessories</a>
+            </div>
+        </div>
+    </div>
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <!-- Product Carousel -->
+        <div style="background-color:white" id="productCarousel" class="carousel slide position-relative px-3 rounded-3">
+            <!-- Navigation Tabs -->
+            <h3 class="mb-4 fs-3">SẢN PHẨM LIÊN QUAN</h3>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <!-- Product 1 -->
+                        <div class="col-md-4 col-lg-2 col-xl">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <div class="save-badge">
+                                        <div class="save-label">SAVE</div>
+                                        <div class="save-amount">$199.00</div>
+                                    </div>
+                                    <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
+                                </div>
+                                <div class="review-count">(152)</div>
+                                <h3 class="product-name">Grande</h3>
+                                <p class="product-description">Blossom Pouch</p>
+                                <div class="star-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                    <span class="rating-count">43 Ratings</span>
+                                </div>
+                                <div class="price-container">
+                                    <span class="current-price">$39.49</span>
+                                    <span class="original-price">$78.66</span>
+                                    <span class="discount">50% OFF</span>
+                                </div>
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>In stock</span>
+                                </div>
+                                <button class="add-to-cart-btn my-4">Add to Cart</button>
+
+                            </div>
+                        </div>
+
+                        <!-- Product 2 -->
+                        <div class="col-md-4 col-lg-2 col-xl">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <div class="save-badge">
+                                        <div class="save-label">SAVE</div>
+                                        <div class="save-amount">$59.00</div>
+                                    </div>
+                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
+                                </div>
+                                <div class="review-count">(152)</div>
+                                <h3 class="product-name">Grande</h3>
+                                <p class="product-description">Blossom Pouch</p>
+                                <div class="star-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                    <span class="rating-count">43 Ratings</span>
+                                </div>
+                                <div class="price-container">
+                                    <span class="current-price">$39.49</span>
+                                    <span class="original-price">$78.66</span>
+                                    <span class="discount">50% OFF</span>
+                                </div>
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>In stock</span>
+                                </div>
+                                <button class="add-to-cart-btn my-4">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 3 -->
+                        <div class="col-md-4 col-lg-2 col-xl">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
+                                </div>
+                                <div class="review-count">(8)</div>
+                                <h3 class="product-name">Grande</h3>
+                                <p class="product-description">Blossom Pouch</p>
+                                <div class="star-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                    <span class="rating-count">43 Ratings</span>
+                                </div>
+                                <div class="price-container">
+                                    <span class="current-price">$39.49</span>
+                                    <span class="original-price">$78.66</span>
+                                    <span class="discount">50% OFF</span>
+                                </div>
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>In stock</span>
+                                </div>
+                                <button class="add-to-cart-btn my-4">Add to Cart</button>
+                            </div>
+                        </div>
+
+                        <!-- Product 4 -->
+                        <div class="col-md-4 col-lg-2 col-xl">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
+                                </div>
+                                <div class="review-count">(9)</div>
+                                <h3 class="product-name">Grande</h3>
+                                <p class="product-description">Blossom Pouch</p>
+                                <div class="star-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                    <span class="rating-count">43 Ratings</span>
+                                </div>
+                                <div class="price-container">
+                                    <span class="current-price">$39.49</span>
+                                    <span class="original-price">$78.66</span>
+                                    <span class="discount">50% OFF</span>
+                                </div>
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>In stock</span>
+                                </div>
+                                <button class="add-to-cart-btn my-4">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="layout-wrapper container p-3 my-3 rounded-3">
+    <!-- SIDEBAR -->
+    <div>
+        <div class="sidebar">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold text-uppercase mb-0">Categories</h6>
+                <button class="btn  btn-sm p-0 text-muted"><i class="fa-solid fa-code-compare"></i> Reset All</button>
+            </div>
+            <div class="w-100  rounded" style="max-width: 220px;">
+                <div class="mb-4 d-flex flex-wrap gap-2">
+                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
+                        10.9 inch
+                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
+                    </div>
+
+                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
+                        10.9 inch
+                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
+                    </div>
+
+                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
+                        Color: Red
+                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
+                    </div>
+
+                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
+                        128GB
+                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
+                    </div>
+                </div>
+
+
+                <!-- By Brands -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between " onclick="toggleBrandFilter()" style="cursor: pointer;">
+                        <h6 class="mb-2 small fw-medium">By Brands</h6>
+                        <i id="brand-icon" class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    <!-- Search input using Bootstrap -->
+                    <div id="brand-content" class="brand-collapse">
+                        <div class="search-box small">
+                            <input type="text" placeholder="Tìm kiếm...">
+                            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                        <div class="brand-filter my-2 px-2">
+                            <div class="form-check small my-2">
+                                <input class="form-check-input" type="checkbox" id="brand1">
+                                <label class="form-check-label d-flex  w-100" for="brand1">
+                                    <span>envato</span><span class="text-muted">&nbsp;(14)</span>
+                                </label>
+                            </div>
+                            <div class="form-check small mb-2">
+                                <input class="form-check-input" type="checkbox" id="brand2">
+                                <label class="form-check-label d-flex  w-100" for="brand2">
+                                    <span>codecanyon</span><span class="text-muted">&nbsp;(6)</span>
+                                </label>
+                            </div>
+                            <div class="form-check small mb-2">
+                                <input class="form-check-input" type="checkbox" id="brand3">
+                                <label class="form-check-label d-flex  w-100" for="brand3">
+                                    <span>valoshape</span><span class="text-muted">&nbsp;(7)</span>
+                                </label>
+                            </div>
+                            <div class="form-check small mb-2">
+                                <input class="form-check-input" type="checkbox" id="brand4">
+                                <label class="form-check-label d-flex w-100" for="brand4">
+                                    <span>photodune</span><span class="text-muted">&nbsp;(18)</span>
+                                </label>
+                            </div>
+                            <div class="form-check small">
+                                <input class="form-check-input" type="checkbox" id="brand5">
+                                <label class="form-check-label d-flex  w-100" for="brand5">
+                                    <span>microlancer</span><span class="text-muted">&nbsp;(1)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- By Price -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between " onclick="togglePriceFilter()" style="cursor: pointer;">
+                        <h6 class="small fw-medium">By Price</h6>
+                        <i id="price-icon" class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    @*Range*@
+                    <div id="price-content" class="price-collapse">
+                        <div class="range-slider position-relative my-3">
+                            <!-- Thanh nền -->
+                            <div class="slider-track"></div>
+
+                            <!-- Thanh kéo trái -->
+                            <input type="range" min="0" max="10000000" value="0" id="rangeMin" class="range-input">
+                            <!-- Thanh kéo phải -->
+                            <input type="range" min="0" max="10000000" value="10000000" id="rangeMax" class="range-input">
+
+                            <!-- Track màu xanh giữa -->
+                            <div class="slider-fill" id="sliderFill"></div>
+                        </div>
+
+                        <div class="">
+                            <div class="input-group input-group-sm me-2" style="width: 100%;">
+                                <span class="input-group-text">VND</span>
+                                <input type="text" class="form-control" id="priceMinInput" value="0">
+                            </div>
+                            <div class="my-3" style="width: 30px; height:2px; background: #1ABA1A; align-self: center;"></div>
+
+                            <div class="input-group input-group-sm me-2" style="width: 100%">
+                                <span class="input-group-text">VND</span>
+                                <input type="text" class="form-control" id="priceMaxInput" value="100000000">
+                            </div>
+                        </div>
+
+                        <button class="btn btn-sm btn-success text-white my-2 px-3 py-1">Go</button>
+                    </div>
+                </div>
+
+                <!-- By Rating -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between " onclick="toggleRatingFilter()" style="cursor: pointer;">
+                        <h6 class="small fw-medium">By Rating</h6>
+                        <i id="rating-icon" class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    <div id="rating-content" class="rating-collapse">
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="rating5">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="rating5">
+                                <span>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                </span>
+                                <span class="text-muted">(52)</span>
+                            </label>
+
+                        </div>
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="rating4">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="rating5">
+                                <span>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+
+                                </span>
+                                <span class="text-muted">(52)</span>
+                            </label>
+                        </div>
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="rating3">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="rating5">
+                                <span>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+
+                                </span>
+                                <span class="text-muted">(52)</span>
+                            </label>
+                        </div>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" id="rating2">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="rating5">
+                                <span>
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                    <i class="bi bi-star-fill text-warning"></i>
+
+                                </span>
+                                <span class="text-muted">(52)</span>
+                            </label>
+                        </div>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" id="rating2">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="rating5">
+                                <span>
+                                    <i class="bi bi-star-fill text-warning"></i>
+
+                                </span>
+                                <span class="text-muted">(52)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Screen Size -->
+                @*<div class="mb-4">
+                        <h6 class="mb-2 small fw-medium">By Screen Size</h6>
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="size1">
+                            <label class="form-check-label" for="size1">7" & Under</label>
+                        </div>
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="size2">
+                            <label class="form-check-label" for="size2">7" - 8.9"</label>
+                        </div>
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="size3">
+                            <label class="form-check-label" for="size3">9" - 10.9"</label>
+                        </div>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" id="size4">
+                            <label class="form-check-label" for="size4">11" & Greater</label>
+                        </div>
+                    </div>*@
+
+                <!-- Color -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between " onclick="toggleColorFilter()" style="cursor: pointer;">
+                        <h6 class="small fw-medium">By Color</h6>
+                        <i id="color-icon" class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    <div id="color-content" class="color-collapse">
+                        <div class="d-flex flex-wrap gap-2">
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #a42a2a;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #2f557b;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #439abb;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #222222;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: white;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #1aba1a;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #696969;"></button>
+                            <button class="btn p-0 rounded border" style="width: 24px; height: 24px; background-color: #534898;"></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between " onclick="toggleMemoryFilter()" style="cursor: pointer;">
+                        <h6 class="small fw-medium">By Memory</h6>
+                        <i id="memory-icon" class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    <div id="memory-content" class="memory-collapse">
+                        <div class="row row-cols-2 g-2 small">
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem1">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem1">
+                                    <span>12GB</span><span class="text-muted">(4)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem2">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem2">
+                                    <span>1.5GB</span><span class="text-muted">(1)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem3">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem3">
+                                    <span>8GB</span><span class="text-muted">(3)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem4">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem4">
+                                    <span>1GB</span><span class="text-muted">(1)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem5">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem5">
+                                    <span>6GB</span><span class="text-muted">(12)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem6">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem6">
+                                    <span>512MB</span><span class="text-muted">(2)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem7">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem7">
+                                    <span>4GB</span><span class="text-muted">(8)</span>
+                                </label>
+                            </div>
+                            <div class="col form-check">
+                                <input class="form-check-input" type="checkbox" id="mem8">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="mem8">
+                                    <span>3GB</span><span class="text-muted">(7)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Conditions -->
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between " onclick="toggleConditonFilter()" style="cursor: pointer;">
+                        <h6 class="small fw-medium">By Conditions</h6>
+                        <i id="condition-icon" class="fa-solid fa-chevron-up"></i>
+                    </div>
+                    <div id="condition-content" class="condition-collapse">
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="cond1">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="cond1">
+                                <span>New</span><span class="text-muted">(21)</span>
+                            </label>
+                        </div>
+                        <div class="form-check small mb-2">
+                            <input class="form-check-input" type="checkbox" id="cond2">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="cond2">
+                                <span>Like New</span><span class="text-muted">(0)</span>
+                            </label>
+                        </div>
+                        <div class="form-check small">
+                            <input class="form-check-input" type="checkbox" id="cond3">
+                            <label class="form-check-label d-flex justify-content-between w-100" for="cond3">
+                                <span>Open Box</span><span class="text-muted">(0)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 position-relative text-white" style="background-color: #222; border-radius: 10px; overflow: hidden;">
+            <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/addimg.png"
+                 alt="Product Image"
+                 class="img-fluid w-100"
+                 style="object-fit: cover; height: 200px;">
+
+            <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3"
+                 style="background: rgba(0, 0, 0, 0.4);">
+                <h6 class="fs-5 mb-3">
+                    <strong>OKODo</strong> hero 11+ <br> 5K wireless
+                </h6>
+
+                <div class="price">
+                    <p class="text-uppercase text-white small mb-1">FORM</p>
+                    <h5 class="fs-4 fw-normal">$169</h5>
+                </div>
+            </div>
+        </div>
+        <div class="mt-3 position-relative text-white" style="background-color: #222; border-radius: 10px; overflow: hidden;">
+            <img src="https://wepos.com.vn/wp-content/uploads/2021/04/Khuye%CC%82%CC%81n-ma%CC%A3i-website-mu%CC%9B%CC%80ng-da%CC%A3i-le%CC%82%CC%83.jpg"
+                 alt="Product Image"
+                 class="img-fluid w-100"
+                 style="object-fit: cover; height: 200px;">
+
+
+        </div>
+
+    </div>
+    <style>
+        .sort-btn {
+            border: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+            color: #212529;
+            border-radius: 999px;
+            padding: 6px 14px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+            .sort-btn:hover {
+                background-color: #e9ecef;
+            }
+
+            .sort-btn.active {
+                border: 1px solid #dc3545;
+                background-color: #fff0f2;
+                color: #dc3545;
+                font-weight: 500;
+            }
+    </style>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+
+        <div style="background-color:white" id="productCarousel" class="carousel slide position-relative px-2 rounded-3">
+            <!-- Navigation Tabs -->
+
+            <div class="mb-3">
+                <label class="fw-bold mb-2 d-block">Sắp xếp theo</label>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="sort-btn active" data-sort="highToLow">
+                        <i class="bi bi-sort-down-alt me-1"></i> Giá Cao - Thấp
+                    </button>
+                    <button class="sort-btn" data-sort="lowToHigh">
+                        <i class="bi bi-sort-up-alt me-1"></i> Giá Thấp - Cao
+                    </button>
+                    <button class="sort-btn" data-sort="hotDeals">
+                        <i class="bi bi-percent me-1"></i> Khuyến Mãi Hot
+                    </button>
+                    <button class="sort-btn" data-sort="mostViewed">
+                        <i class="bi bi-eye me-1"></i> Xem nhiều
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div id="product-list" class="row">
+                        <div class="col-md-3 col-lg-3 col-xl-3 mb-4">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <div class="save-badge">
+                                        <div class="save-label">SAVE</div>
+                                        <div class="save-amount">$199.00</div>
+                                    </div>
+                                    <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
+                                </div>
+                                <div class="review-count">(152)</div>
+                                <h3 class="product-name">Grande</h3>
+                                <p class="product-description">Blossom Pouch</p>
+                                <div class="star-rating">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                    <span class="rating-count">43 Ratings</span>
+                                </div>
+                                <div class="price-container">
+                                    <span class="current-price">$39.49</span>
+                                    <span class="original-price">$78.66</span>
+                                    <span class="discount">50% OFF</span>
+                                </div>
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>In stock</span>
+                                </div>
+                                <button class="add-to-cart-btn my-4">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            <!-- Previous button -->
+                            <li class="page-item disabled mx-1">
+                                <a class="page-link rounded-2" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            <li class="page-item mx-1 active">
+                                <a class="page-link rounded-2" href="#">1</a>
+                            </li>
+                            <li class="page-item mx-1">
+                                <a class="page-link rounded-2" href="#">2</a>
+                            </li>
+                            <li class="page-item mx-1">
+                                <a class="page-link rounded-2" href="#">3</a>
+                            </li>
+                            <li class="page-item disabled mx-1">
+                                <span class="page-link rounded-2">...</span>
+                            </li>
+                            <li class="page-item mx-1">
+                                <a class="page-link rounded-2" href="#">10</a>
+                            </li>
+
+                            <!-- Next button -->
+                            <li class="page-item mx-1">
+                                <a class="page-link rounded-2" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Product Reviews -->
+<div class="container py-4 rounded-3 bg-white p-4 mb-4">
+    <h2 class="h3 mb-4 fw-bold">Hỏi và đáp</h2>
+
+    <!-- Leave Comment -->
+    <div class="mb-5">
+        <div class="row g-3 align-items-start">
+            <!-- Cột textarea -->
+            <div class="col-12 col-md-11">
+                <textarea class="form-control" rows="4" placeholder="Swoo sẽ trả lời trong 1 giờ (sau 22h, phản hồi vào sáng hôm sau). Một số thông tin có thể thay đổi, Quý khách hãy đặt câu hỏi để được cập nhật mới nhất."></textarea>
+            </div>
+
+            <!-- Cột nút gửi -->
+            <div class="col-12 col-md-1 text-md-end">
+                <button class="btn btn-success w-100 w-md-auto">
+                    <i class="fas fa-paper-plane me-1"></i> Gửi
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Reviews List -->
+    <div class="space-y-5">
+        <!-- Review 1 -->
+        <div class="bg-light p-4 rounded-3 shadow mb-2">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex gap-3">
+                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
+                    <div>
+                        <div class="fw-medium">Cù Trọng Văn</div>
+
+                    </div>
+                </div>
+                <div class="small text-muted">24 January, 2023</div>
+            </div>
+            <p class="text-muted mb-3">
+                Bên shop cho mình hỏi chút, hiện tại thì sản phẩm này của mình bị rớt 1 con vít vặn ở sau, cho mình hỏi đây là loại ốc vít nào để mình có thể mua và bổ sung
+            </p>
+            <div class="d-flex gap-2 mb-3">
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 1" class="rounded" width="80" height="80">
+                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 2" class="rounded" width="80" height="80">
+            </div>
+
+            <!-- Reply Section -->
+            <!-- Reply Section -->
+            <div class="bg-white p-3  rounded-4 border shadow-sm">
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex gap-2 align-items-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Admin" class="rounded-circle" width="30" height="30">
+                        <div class="fw-medium text-danger">Quản trị viên</div><div class="px-2 py-1 bg-danger text-white rounded-3 fs-7 fw-bold"> (QTV)</div>
+                    </div>
+                    <div class="small text-muted">25 January, 2023</div>
+                </div>
+                <p class="mb-0 text-muted">
+                    Swoo xin chào Anh Văn,
+                    Dạ trường hợp này mình tham khảo hệ thống cửa hàng Điện Thoại Vui là Hệ thống cửa hàng sửa chữa – một thành viên của CellphoneS ạ: https://dienthoaivui.com.vn/ - Hoặc mình có thể nhấn vào đường link https://oa.zalo.me/1789543726746345449 để phía Điện thoại Vui hỗ trợ mình ạ
+                    Thông tin đến anh.
+                </p>
+            </div>
+        </div>
+
+
+        <div class="bg-light p-4 rounded-3 shadow mb-2">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex gap-3">
+                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
+                    <div>
+                        <div class="fw-medium">Huy</div>
+
+                    </div>
+                </div>
+                <div class="small text-muted">24 January, 2023</div>
+            </div>
+            <p class="text-muted mb-3">
+                Cho mình hỏi máy này nếu là thành viên s-student và trừ hết quà thì giá còn bao nhiêu ạ, chi phí nâng cấp RAM SSD lên tối đa hết bao nhiêu ạ
+            </p>
+
+
+            <!-- Reply Section -->
+            <!-- Reply Section -->
+            <div class="bg-white p-3 rounded-4 border shadow-sm">
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex gap-2 align-items-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Admin" class="rounded-circle" width="30" height="30">
+                        <div class="fw-medium text-danger">Quản trị viên</div><div class="px-2 py-1 bg-danger text-white rounded-3 fs-7 fw-bold"> (QTV)</div>
+                    </div>
+                    <div class="small text-muted">25 January, 2023</div>
+                </div>
+                <p class="mb-0 text-muted">
+                    Swoo xin chào anh Huy,
+                    LAPTOP ACER ASPIRE 7 A715-76G-5806 I5-12450H/16GB/512GB PCIE/15.6 FHD 144HZ/VGA 4GB RTX3050/WIN11/ĐEN giá thời điểm hiện tại là 18.990.000đ (miền Nam) ạ,
+                    Nhận thêm 1 trong các khuyến mãi sau:
+                    Tặng phiếu mua hàng 700.000
+                    Tặng đồng hồ thông minh Black Shark GT3 trị giá 990,000 (hết quà hoàn tiền 700,000)
+                    Dạ S-student Giảm 3% tối đa 400K + Tặng quà balo CpS trị giá 600K ạ,
+                    Dạ tuỳ sản phẩm SSD mình mua thay thế ạ, sản phẩm 512 GB SSD NVMe PCIe (Có thể tháo ra, lắp thanh khác tối đa 1 TB) ạ,
+                    Không biết mình ở quận nào em kiểm tra cửa hàng để tiện lên đơn giữ hàng + giá trong 24h qua SDT giúp mình ạ.
+                    Mong sớm nhận được phản hồi từ mình ạ.
+            </div>
+
+        </div>
+
+        <!-- View More Button -->
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-success">View More</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .pagination .page-link {
+        color: #1ABA1A;
+        border: 1px solid #1ABA1A;
+    }
+
+        .pagination .page-link:hover {
+            background-color: #1ABA1A;
+            color: #fff;
+        }
+
+    .pagination .page-item.active .page-link {
+        background-color: #1ABA1A;
+        border-color: #1ABA1A;
+        color: #fff;
+    }
+
+    .pagination .page-item.disabled .page-link {
+        color: #ccc;
+        border-color: #ddd;
+    }
+</style>
+<script>
+    function toggleBrandFilter() {
+        const content = document.getElementById('brand-content');
+        const icon = document.getElementById('brand-icon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+
+    function togglePriceFilter() {
+        const content = document.getElementById('price-content');
+        const icon = document.getElementById('price-icon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+    function toggleRatingFilter() {
+        const content = document.getElementById('rating-content');
+        const icon = document.getElementById('rating-icon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+    function toggleColorFilter() {
+        const content = document.getElementById('color-content');
+        const icon = document.getElementById('color-icon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+    function toggleMemoryFilter() {
+        const content = document.getElementById('memory-content');
+        const icon = document.getElementById('memory-icon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+    function toggleConditonFilter() {
+        const content = document.getElementById('condition-content');
+        const icon = document.getElementById('condition-icon');
+        content.classList.toggle('collapsed');
+        icon.classList.toggle('fa-chevron-up');
+        icon.classList.toggle('fa-chevron-down');
+    }
+</script>
+<script>
+    const rangeMin = document.getElementById("rangeMin");
+    const rangeMax = document.getElementById("rangeMax");
+    const fill = document.getElementById("sliderFill");
+    const minInput = document.getElementById("priceMinInput");
+    const maxInput = document.getElementById("priceMaxInput");
+
+    function formatVND(value) {
+        return Number(value).toLocaleString("vi-VN") + " ₫";
+    }
+
+    function unformatVND(value) {
+        return parseInt(value.replace(/[^\d]/g, '')) || 0;
+    }
+
+    function updateSliderFromRange() {
+        let minVal = parseInt(rangeMin.value);
+        let maxVal = parseInt(rangeMax.value);
+
+        if (minVal > maxVal - 1000) {
+            minVal = maxVal - 1000;
+            rangeMin.value = minVal;
+        }
+
+        if (maxVal < minVal + 1000) {
+            maxVal = minVal + 1000;
+            rangeMax.value = maxVal;
+        }
+
+        const rangeWidth = rangeMin.max - rangeMin.min;
+        const leftPercent = ((minVal - rangeMin.min) / rangeWidth) * 100;
+        const rightPercent = ((maxVal - rangeMin.min) / rangeWidth) * 100;
+
+        fill.style.left = leftPercent + "%";
+        fill.style.width = (rightPercent - leftPercent) + "%";
+
+        minInput.value = formatVND(minVal);
+        maxInput.value = formatVND(maxVal);
+    }
+
+    function updateRangeFromInput() {
+        let minVal = unformatVND(minInput.value);
+        let maxVal = unformatVND(maxInput.value);
+
+        if (minVal > maxVal - 1000) {
+            minVal = maxVal - 1000;
+        }
+
+        if (maxVal < minVal + 1000) {
+            maxVal = minVal + 1000;
+        }
+
+        minVal = Math.max(0, Math.min(minVal, 10000000));
+        maxVal = Math.max(0, Math.min(maxVal, 10000000));
+
+        rangeMin.value = minVal;
+        rangeMax.value = maxVal;
+
+        minInput.value = formatVND(minVal);
+        maxInput.value = formatVND(maxVal);
+
+        updateSliderFromRange();
+    }
+
+    // Events
+    rangeMin.addEventListener("input", updateSliderFromRange);
+    rangeMax.addEventListener("input", updateSliderFromRange);
+    minInput.addEventListener("input", () => {
+        setTimeout(updateRangeFromInput, 300);
+    });
+    maxInput.addEventListener("input", () => {
+        setTimeout(updateRangeFromInput, 300);
+    });
+
+    // Gọi khi load lần đầu
+    updateSliderFromRange();
+</script>
+<script>
+    const productList = document.getElementById('product-list');
+
+    for (let i = 1; i <= 10; i++) {
+        const productHTML = `
+       <div class="col-md-3 col-lg-3 col-xl-3 mb-4">
+            <div class="product-card">
+                <div class="product-image-container">
+                    <div class="save-badge">
+                        <div class="save-label">SAVE</div>
+                        <div class="save-amount">$199.00</div>
+                    </div>
+                    <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
+                </div>
+                <div class="review-count">(152)</div>
+                <h3 class="product-name">Grande</h3>
+                <p class="product-description">Blossom Pouch</p>
+                <div class="star-rating">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                    <span class="rating-count">43 Ratings</span>
+                </div>
+                <div class="price-container">
+                    <span class="current-price">$39.49</span>
+                    <span class="original-price">$78.66</span>
+                    <span class="discount">50% OFF</span>
+                </div>
+                <div class="free-shipping">FREE SHIPPING</div>
+                <div class="stock-status">
+                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                    <span>In stock</span>
+                </div>
+                <button class="add-to-cart-btn my-4">Add to Cart</button>
+            </div>
+        </div>
+        `;
+        productList.innerHTML += productHTML;
+    }
+</script>
+<script>
+    const swiper = new Swiper(".product-swiper", {
+        loop: true,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        grabCursor: true,
+    });
+</script>
