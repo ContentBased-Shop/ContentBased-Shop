@@ -256,21 +256,8 @@ Product */
     margin-bottom: 15px;
 }
 
-.save-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 10;
-}
 
-.save-label {
-    background-color: #1aba1a;
-    color: white;
-    font-weight: bold;
-    font-size: 0.75rem;
-    padding: 2px 8px;
-    border-start-start-radius: 5px;
-}
+
 
 .save-amount {
     background-color: #1aba1a;
@@ -508,3 +495,4 @@ Product */
     overflow: hidden;
     text-overflow: ellipsis;
 }
+

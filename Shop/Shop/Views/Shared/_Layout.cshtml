@@ -29,7 +29,6 @@
 
 <body>
     <style>
-
         body {
             background-color: rgb(226, 228, 235);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,13 +37,22 @@
     <header>
         <!-- Top bar -->
         <div class="bg-light-custom py-2">
-            <div class="container">
+            <div class="container d-flex justify-content-between">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center gap-2">
-                        <span class="fw-medium small">Hotline 24/7</span>
-                        <span class="fw-bold small">(025) 3886 25 16</span>
+                        <span class="fw-medium small">Hotline 24/7</span>&nbsp;
+                        <span class="fw-bold small">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            (025) 3886 25 16
+                        </span>
                     </div>
                 </div>
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle me-1" style="width: 20px; height: 20px; background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+                    <span style="font-size: 14px;">VN</span>
+                </div>
+
+
             </div>
         </div>
 
@@ -74,7 +82,7 @@
                                         DANH MỤC
                                         <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
-                                    
+
                                     <ul style="min-width: 275px;" class="dropdown-menu border-0 p-0 w-100" aria-labelledby="dropdownDanhMuc">
                                         <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục sản phẩm</a></li>
                                         <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục điện thoại</a></li>
@@ -113,20 +121,47 @@
                         <div class="d-flex justify-content-center justify-content-md-end align-items-center gap-3">
                             <!-- User account -->
                             <div class="d-flex align-items-center">
-                                <div class="icon-circle bg-light-custom">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="ms-2 d-none d-md-block">
-                                    <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO </p>
-                                    @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
-                                    {
-                                        <p class="fs-7 fw-medium mb-0">@Session["UserName"]</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="fs-7 fw-medium mb-0">ĐĂNG NHẬP</p>
-                                    }
-                                </div>
+
+                                @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
+                                {
+                                    <div class="icon-circle bg-light-custom">
+                                        <a href="/User/"><i class="fas fa-user"></i></a>
+                                    </div>
+                                    <div class="ms-2 d-none d-md-block">
+                                        <p class="fs-7 text-gray-custom mb-0">XIN CHÀO KHÁCH HÀNG !</p>
+                                        <p class="fs-7 fw-medium mb-0"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom"
+                                           title="Xin chào @Session["UserName"]">
+                                            @Session["UserName"]
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                { 
+                                    <div class="icon-circle bg-light-custom">
+                                       <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="ms-2 d-none d-md-block">
+                                        <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO</p>
+                                        <p class="fs-7 fw-medium mb-0"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom"
+                                           title="Click để đăng nhập">
+                                            <a href="/InnerPage/Login" class="text-success text-decoration-none">ĐĂNG NHẬP</a>
+                                        </p>
+                                    </div>
+                                }
+
+
+                                <!-- Script khởi tạo Tooltip Bootstrap -->
+                                <script>
+                                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                                    })
+                                </script>
+
                             </div>
 
                             <!-- Wishlist -->
@@ -191,7 +226,7 @@
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 
-
+    <button onclick="scrollToTop()" id="scrollTopBtn" title="Lên đầu trang">  <i class="fas fa-chevron-up"></i> <br /><span>Lên đầu</span></button>
     <footer>
         <div class="container">
             <div class="row mb-4">
@@ -320,4 +355,29 @@
     </footer>
 </body>
 </html>
+<script>
+    // Hiện nút khi cuộn xuống
+    window.onscroll = function () {
+        const btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    // Hàm cuộn lên đầu
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

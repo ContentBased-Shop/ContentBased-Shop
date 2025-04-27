@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Shop.Models;
 using Shop.Helpers;
 using System.Web.Providers.Entities;
+using System.Net.Mail;
+using System.Net;
 namespace Shop.Controllers
 {
     public class InnerPageController : Controller
@@ -126,7 +128,10 @@ namespace Shop.Controllers
                 TempData["Error"] = "Tên Email đã được sử dụng.";
                 return RedirectToAction("Register");
             }
+           
 
+               
+            
             // Mã hóa mật khẩu (ví dụ dùng AES hoặc Hash)
             string key = "mysecretkey"; // nên lưu ở cấu hình
             string encryptedPassword = SecurityHelper.EncryptPassword(password, key);
@@ -154,6 +159,8 @@ namespace Shop.Controllers
                 TrangThai = "HoatDong",
                 NgayTao = DateTime.Now,
             };
+
+
            data.KhachHangs.InsertOnSubmit(newUser);
            data.SubmitChanges();
 
@@ -165,10 +172,54 @@ namespace Shop.Controllers
             // Chuyển hướng đến trang Dashboard
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public ActionResult SendOtp(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return Json(new { success = false, message = "Email không hợp lệ" }, JsonRequestBehavior.AllowGet);
+            }
+
+            var otp = new Random().Next(100000, 999999).ToString();
+
+            var fromAddress = new MailAddress("phamnguyenvu287@gmail.com", "Swoo Techsmart");
+            var toAddress = new MailAddress(email);
+            const string fromPassword = "sryh smuc npaf tuvq"; // bỏ \r\n thừa
+
+            const string subject = "Mã OTP đăng ký tài khoản";
+            string body = $"Mã OTP của bạn là: {otp}";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            try
+            {
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+
+                // Không lưu Session
+                return Json(new { success = true, otp = otp }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi gửi email: " + ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
 
         #endregion
-        
+
         public ActionResult ForgotPassword()
         {
             return View();

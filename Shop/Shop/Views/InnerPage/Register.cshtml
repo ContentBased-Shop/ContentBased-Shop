@@ -44,12 +44,11 @@
                         <input type="text" name="name" class="form-control" id="name" placeholder="Ví dụ: Annie123" required />
                         <div class="invalid-feedback">Tên chỉ được chứa chữ cái và không có số hoặc ký tự đặc biệt.</div>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label for="phonenumber" class="form-label">Số Điện Thoại <span class="text-danger">*</span></label>
                         <input type="text" name="phonenumber" class="form-control" id="phonenumber" placeholder="Nhập số điện thoại của bạn" required pattern="^\d{10,11}$" />
                         <p class="text-muted fs-7">Vui lòng nhập số điện thoại hợp lệ (bắt đầu bằng 0 và có 10-11 số).</p>
-
                         <div id="phonenumber-feedback" class="invalid-feedback"></div>
                     </div>
                     <button type="button" class="btn btn-success-custom w-100 mb-3" onclick="validateStep1()">Tiếp tục</button>
@@ -78,9 +77,34 @@
                                class="form-control"
                                id="email"
                                placeholder="example@gmail.com"
-                               required />
+                               required 
+                               oninput="validateEmail()" />
                         <div id="email-feedback" class="invalid-feedback"></div>
                     </div>
+                    <div class="mb-3">
+                        <label>Nhập OTP</label>
+                        <input type="hidden" id="sessionOtp" value="" /> <!-- Không cần Session nữa, gán trực tiếp -->
+
+                        <div class="row g-2 align-items-center">
+                            <div class="col-9">
+                                <input placeholder="Nhập mã gửi về gmail của bạn"
+                                       type="text"
+                                       id="OtpInput"
+                                       name="OtpInput"
+                                       class="form-control"
+                                       required
+                                       onblur="verifyOtp()" />
+                            </div>
+                            <div class="col-3">
+                                <button type="button" class="btn btn-secondary w-100" id="sendOtpBtn" onclick="sendOtp()">Gửi OTP</button>
+                            </div>
+                        </div>
+
+                        <div id="otpResult" class="mt-2"></div>
+                        <div id="otpStatus" class="text-success mt-1"></div>
+                    </div>
+
+
 
                     <div class="mb-3">
                         <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
@@ -117,7 +141,7 @@
                                    maxlength="20"
                                    pattern=".{8,20}"
                                    title="Mật khẩu phải từ 8–20 ký tự" />
-                            
+
                         </div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
@@ -126,7 +150,7 @@
                         </button>
                         <button id="registerBtn" class="btn btn-success-custom w-100 mb-3" type="submit">
                             <span id="registerSpinner" class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
-                            Đăng nhập
+                            Đăng Ký
                         </button>
                     </div>
 
@@ -170,10 +194,38 @@
             isValid = false;
         }
 
-        if (isValid) {
-            showStep2(); // Chuyển sang bước tiếp theo nếu hợp lệ
-        }
+         // Kiểm tra qua AJAX nếu số điện thoại hợp lệ theo pattern
+    if (isValid) {
+        const phonenumber = phoneInput.value.trim();
+
+        $.ajax({
+            url: '@Url.Action("CheckPhoneNumber", "InnerPage")', // Đảm bảo URL chính xác
+            type: 'GET',
+            data: { phonenumber: phonenumber },  // Truyền giá trị phonenumber từ input
+            success: function (data) {
+                if (data.exists) {
+                    phoneInput.classList.add("is-invalid"); // Thêm class is-invalid cho input
+                    $('#phonenumber-feedback').text('Số điện thoại này đã được sử dụng.'); // Hiển thị thông báo lỗi
+                    isValid = false;
+                } else {
+                    $('#phonenumber-feedback').text(''); // Xoá thông báo lỗi
+                    phoneInput.classList.remove("is-invalid"); // Bỏ class is-invalid nếu hợp lệ
+                }
+
+                // Nếu không có lỗi, chuyển sang bước tiếp theo
+                if (isValid) {
+                    showStep2();
+                }
+            },
+            error: function () {
+                console.error('Lỗi khi kiểm tra số điện thoại');
+            }
+        });
+    } else {
+        console.log("Có lỗi, không thể chuyển sang bước 2.");
     }
+
+}
 
 
     function showStep2() {
@@ -218,16 +270,7 @@
             icon.classList.add("fa-eye");
         }
     }
-    document.querySelector('form').addEventListener('submit', function () {
-        const btn = document.getElementById('loginBtn');
-        const spinner = document.getElementById('loginSpinner');
 
-        // Hiện icon spinner
-        spinner.classList.remove('d-none');
-
-        // Disable nút để tránh bấm nhiều lần
-        btn.setAttribute('disabled', 'true');
-    });
     // Hàm kiểm tra độ mạnh mật khẩu
 
     function checkPasswordStrength() {
@@ -276,7 +319,7 @@
         e.preventDefault(); // Ngăn form submit thực sự để xử lý spinner (bạn có thể bỏ dòng này nếu không dùng Ajax)
 
         const btn = document.getElementById('registerBtn');
-        const spinner = document.getElementById('register');
+        const spinner = document.getElementById('registerSpinner');
 
         // Hiện spinner và disable nút
         spinner.classList.remove('d-none');
@@ -392,4 +435,77 @@ $('#phonenumber').on('blur', function () {
             }
         }
     }
+
+   =
+
+</script>
+<script>
+    function sendOtp() {
+        var email = document.getElementById("email").value;
+
+        fetch('/InnerPage/SendOtp?email=' + encodeURIComponent(email))
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('sessionOtp').value = data.otp; // Gán luôn vào hidden input
+                    document.getElementById('otpStatus').innerText = "Đã gửi OTP thành công!";
+                } else {
+                    document.getElementById('otpStatus').innerText = data.message;
+                }
+            })
+            .catch(error => {
+                document.getElementById('otpStatus').innerText = "Lỗi hệ thống: " + error;
+            });
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+
+        // Vô hiệu hóa nút gửi OTP
+        sendOtpBtn.disabled = true;
+
+        // Đặt thời gian bắt đầu đếm ngược
+        let timeLeft = 60; // 60 giây
+
+        // Cập nhật nội dung nút và thời gian đếm ngược mỗi giây
+        const countdownInterval = setInterval(function () {
+            // Cập nhật lại văn bản trên nút với thời gian còn lại
+            sendOtpBtn.innerText = `Gửi OTP (${timeLeft}s)`;
+
+            timeLeft--; // Giảm 1 giây
+
+            // Nếu thời gian hết, dừng đếm ngược và kích hoạt lại nút
+            if (timeLeft <= 0) {
+                clearInterval(countdownInterval); // Dừng đếm ngược
+                sendOtpBtn.disabled = false; // Kích hoạt lại nút
+                sendOtpBtn.innerText = 'Gửi OTP'; // Khôi phục lại tên nút  
+                document.getElementById('otpStatus').style.display = 'none';
+            }
+        }, 1000); // Cập nhật mỗi giây (1000 ms)
+    }
+    
+
+    function verifyOtp() {
+        var otpInput = document.getElementById('OtpInput').value;
+        var sessionOtp = document.getElementById('sessionOtp').value;
+
+        if (otpInput === sessionOtp) {
+            document.getElementById('otpResult').innerHTML = "<span class='text-success'>OTP hợp lệ!</span>";
+        } else {
+            document.getElementById('otpResult').innerHTML = "<span class='text-danger'>OTP không đúng!</span>";
+        }
+    }
+</script>
+<script type="text/javascript">
+    const emailPattern = new RegExp(@Html.Raw("'^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'"));
+
+    function validateEmail() {
+        var emailInput = document.getElementById('email');
+        var sendOtpBtn = document.getElementById('sendOtpBtn');
+
+        if (emailPattern.test(emailInput.value)) {
+            sendOtpBtn.disabled = false;
+        } else {
+            sendOtpBtn.disabled = true;
+        }
+    }
+
+    
 </script>

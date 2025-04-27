@@ -2,8 +2,11 @@
     ViewBag.Title = "SWOO TECH MART";
 }
 ﻿@model List<Shop.Models.HangHoa>
+
+
 <link rel="stylesheet" href="~/assets//CSS//Home//Home.css" />
-<div class="container py-4 px-0">
+<div class="container pb-2 px-0">
+    
     <div class="row g-3">
         <!-- Sidebar Column -->
         <div class="col-lg-3 col-md-4">
@@ -30,7 +33,7 @@
                 </nav>
             </div>
         </div>
-       
+
         <!-- Main Content Column -->
         <div class="col-lg-6 col-md-5">
             <!-- Main Featured Product -->
@@ -45,6 +48,15 @@
                     <div class="swiper-slide">
                         <img src="~/assets/Image/Header/Banner/ezgif.com-webp-to-jpg-converter.jpg" class="w-100 product-image" />
                     </div>
+                    <div class="swiper-slide">
+                        <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-m55.jpg" class="w-100 product-image" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="~/assets/Image/Header/Banner/Banner_apple-chinh-hang.jpg" class="w-100 product-image" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="~/assets/Image/Header/Banner/Banner_Mac_Air.jpg" class="w-100 product-image" />
+                    </div>
                 </div>
 
                 <!-- Navigation buttons -->
@@ -55,14 +67,14 @@
             <div class="row g-4">
                 <div class="col-6">
                     <div class="product-banner">
-                        <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-s25-ultra.jpg"
+                        <img src="~/assets/Image/Header/Banner/Banner_SamSungTab.jpg"
                              alt="Gaming Console"
                              class=" rounded-4 w-100 product-image ">
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="product-banner">
-                        <img src="~/assets/Image/Header/Banner/ezgif.com-webp-to-jpg-converter.jpg"
+                        <img src="~/assets/Image/Header/Banner/Banner_Poco.jpg"
                              alt="Keyboard"
                              class=" rounded-4 w-100 product-image ">
                     </div>
@@ -366,35 +378,30 @@
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
                 <div class="product-card">
-                    <div class="product-card">
-                        <div class="product-image-container">
-                            <div class="save-badge">
-                                <div class="save-label">SAVE</div>
-                                <div class="save-amount">$199.00</div>
-                            </div>
-                            <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
-                        </div>
-                        <div class="review-count">(152)</div>
-                        <h3 class="product-name">@product.TenHangHoa</h3>
-                        <p class="product-description">Blossom Pouch</p>
-                        <div class="star-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star" style="opacity: 0.3;"></i>
-                            <span class="rating-count">43 Ratings</span>
-                        </div>
-                        <div class="price-container">
-                            <span class="current-price">$39.49</span>
-                            <span class="original-price">$78.66</span>
-                            <span class="discount">50% OFF</span>
-                        </div>
-                        <div class="free-shipping">FREE SHIPPING</div>
-                        <div class="stock-status">
-                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                            <span>In stock</span>
-                        </div>
+                    <div class="product-image-container">
+
+                        <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                    </div>
+                    <div class="review-count">(152)</div>
+                    <h5 class="product-name">@product.TenHangHoa</h5>
+                    <p class="product-description">@product.MoTa</p>
+                    <div class="star-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                        <span class="rating-count">43 Ratings</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="current-price">$39.49</span>
+                        <span class="original-price">$78.66</span>
+                        <span class="discount">50% OFF</span>
+                    </div>
+                    <div class="free-shipping">FREE SHIPPING</div>
+                    <div class="stock-status">
+                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                        <span>In stock</span>
                     </div>
                 </div>
             </div>
@@ -407,35 +414,30 @@
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
                 <div class="product-card">
-                    <div class="product-card">
-                        <div class="product-image-container">
-                            <div class="save-badge">
-                                <div class="save-label">SAVE</div>
-                                <div class="save-amount">$199.00</div>
-                            </div>
-                            <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
-                        </div>
-                        <div class="review-count">(152)</div>
-                        <h3 class="product-name">@product.TenHangHoa</h3>
-                        <p class="product-description">@product.TenHangHoa</p>
-                        <div class="star-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star" style="opacity: 0.3;"></i>
-                            <span class="rating-count">43 Ratings</span>
-                        </div>
-                        <div class="price-container">
-                            <span class="current-price">$39.49</span>
-                            <span class="original-price">$78.66</span>
-                            <span class="discount">50% OFF</span>
-                        </div>
-                        <div class="free-shipping">FREE SHIPPING</div>
-                        <div class="stock-status">
-                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                            <span>In stock</span>
-                        </div>
+                    <div class="product-image-container">
+
+                        <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                    </div>
+                    <div class="review-count">(152)</div>
+                    <h5 class="product-name">@product.TenHangHoa</h5>
+                    <p class="product-description">@product.MoTa</p>
+                    <div class="star-rating">
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star-fill"></i>
+                        <i class="bi bi-star" style="opacity: 0.3;"></i>
+                        <span class="rating-count">43 Ratings</span>
+                    </div>
+                    <div class="price-container">
+                        <span class="current-price">$39.49</span>
+                        <span class="original-price">$78.66</span>
+                        <span class="discount">50% OFF</span>
+                    </div>
+                    <div class="free-shipping">FREE SHIPPING</div>
+                    <div class="stock-status">
+                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                        <span>In stock</span>
                     </div>
                 </div>
             </div>
@@ -447,38 +449,33 @@
         {
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <div class="product-card">
-                    <div class="product-card">
-                        <div class="product-image-container">
-                            <div class="save-badge">
-                                <div class="save-label">SAVE</div>
-                                <div class="save-amount">$199.00</div>
-                            </div>
-                            <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
-                        </div>
-                        <div class="review-count">(152)</div>
-                        <h3 class="product-name">@product.TenHangHoa</h3>
-                        <p class="product-description">Blossom Pouch</p>
-                        <div class="star-rating">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star" style="opacity: 0.3;"></i>
-                            <span class="rating-count">43 Ratings</span>
-                        </div>
-                        <div class="price-container">
-                            <span class="current-price">$39.49</span>
-                            <span class="original-price">$78.66</span>
-                            <span class="discount">50% OFF</span>
-                        </div>
-                        <div class="free-shipping">FREE SHIPPING</div>
-                        <div class="stock-status">
-                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                            <span>In stock</span>
-                        </div>
-                    </div>
-                </div>
+               <div class="product-card">
+                   <div class="product-image-container">
+
+                       <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                   </div>
+                   <div class="review-count">(152)</div>
+                   <h5 class="product-name">@product.TenHangHoa</h5>
+                   <p class="product-description">@product.MoTa</p>
+                   <div class="star-rating">
+                       <i class="bi bi-star-fill"></i>
+                       <i class="bi bi-star-fill"></i>
+                       <i class="bi bi-star-fill"></i>
+                       <i class="bi bi-star-fill"></i>
+                       <i class="bi bi-star" style="opacity: 0.3;"></i>
+                       <span class="rating-count">43 Ratings</span>
+                   </div>
+                   <div class="price-container">
+                       <span class="current-price">$39.49</span>
+                       <span class="original-price">$78.66</span>
+                       <span class="discount">50% OFF</span>
+                   </div>
+                   <div class="free-shipping">FREE SHIPPING</div>
+                   <div class="stock-status">
+                       <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                       <span>In stock</span>
+                   </div>
+               </div>
             </div>
         }
     </div>
@@ -658,7 +655,7 @@
             </div>
         </div>
         <div style="background-color:white" class="swiper productSwiper p-4 rounded-4">
-          
+
             <!-- Swiper Wrapper -->
             <div class="swiper-wrapper">
                 @foreach (var product in Model)
@@ -667,15 +664,12 @@
                         <div class="col-md-4 col-lg-2 col-xl">
                             <div class="product-card">
                                 <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$199.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
+
+                                    <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                                 </div>
                                 <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
+                                <h5 class="product-name">@product.TenHangHoa</h5>
+                                <p class="product-description">@product.MoTa</p>
                                 <div class="star-rating">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -844,36 +838,33 @@
                 {
                     <div class="swiper-slide">
                         <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$199.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Headphones">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-                            </div>
+                          <div class="product-card">
+                              <div class="product-image-container">
+
+                                  <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                              </div>
+                              <div class="review-count">(152)</div>
+                              <h5 class="product-name">@product.TenHangHoa</h5>
+                              <p class="product-description">@product.MoTa</p>
+                              <div class="star-rating">
+                                  <i class="bi bi-star-fill"></i>
+                                  <i class="bi bi-star-fill"></i>
+                                  <i class="bi bi-star-fill"></i>
+                                  <i class="bi bi-star-fill"></i>
+                                  <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                  <span class="rating-count">43 Ratings</span>
+                              </div>
+                              <div class="price-container">
+                                  <span class="current-price">$39.49</span>
+                                  <span class="original-price">$78.66</span>
+                                  <span class="discount">50% OFF</span>
+                              </div>
+                              <div class="free-shipping">FREE SHIPPING</div>
+                              <div class="stock-status">
+                                  <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                  <span>In stock</span>
+                              </div>
+                          </div>
                         </div>
                     </div>
                 }
