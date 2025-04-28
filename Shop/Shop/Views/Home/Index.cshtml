@@ -28,7 +28,6 @@
                         <li><a href="#" class="category-link"><i class="fa-solid fa-print"></i>  Phụ Kiện<i class="fa-solid fa-chevron-right float-end"></i></a></li>
                         <li><a href="#" class="category-link"><i class="fa-brands fa-usb"></i>  Storage, USB<i class="fa-solid fa-chevron-right float-end"></i></a></li>
                         <li><a href="#" class="category-link"><i class="fa-solid fa-keyboard">  </i>Keyboard <i class="fa-solid fa-chevron-right float-end"></i></a></li>
-
                     </ul>
                 </nav>
             </div>
@@ -370,16 +369,16 @@
         </div>
 
     </div>
-
+ 
     <!-- Danh sách sản phẩm ẩn để JS lấy nội dung -->
     <div id="product-best-seller" class="d-none">
         @foreach (var product in Model)
         {
+           
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
                 <div class="product-card">
                     <div class="product-image-container">
-
                         <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                     </div>
                     <div class="review-count">(152)</div>
@@ -399,15 +398,25 @@
                         <span class="discount">50% OFF</span>
                     </div>
                     <div class="free-shipping">FREE SHIPPING</div>
-                    <div class="stock-status">
-                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                        <span>In stock</span>
+                    <div class="d-flex justify-content-between">
+                        <div class="stock-status">
+                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                            <span>Còn hàng</span>
+                        </div>
+                        <div class="stock-status">
+                            <a href="#" class="text-decoration-none text-dark hover-shake">
+                                <i class="bi bi-heart heart-icon empty-heart"></i>
+                                <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                <span>Yêu thích</span>
+                            </a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         }
     </div>
-
+ 
     <div id="product-new-in" class="d-none">
         @foreach (var product in Model)
         {

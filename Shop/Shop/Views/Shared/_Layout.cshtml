@@ -125,7 +125,9 @@
                                 @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
                                 {
                                     <div class="icon-circle bg-light-custom">
-                                        <a href="/User/"><i class="fas fa-user"></i></a>
+                                        <a href="/User/" data-bs-toggle="tooltip" title="Trang cá nhân">
+                                            <img class="rounded-circle" src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" width="40" height="40"> 
+                                        </a>
                                     </div>
                                     <div class="ms-2 d-none d-md-block">
                                         <p class="fs-7 text-gray-custom mb-0">XIN CHÀO KHÁCH HÀNG !</p>
