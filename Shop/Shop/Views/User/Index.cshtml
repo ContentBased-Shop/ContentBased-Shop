@@ -16,8 +16,19 @@
         </ol>
     </nav>
 </div>
-<div class="container  min-vh-75 d-flex flex-column flex-md-row bg-white my-3 rounded-3 p-4 gap-5">
+<div class="container p-0">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
 
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+</div>
+
+<div class="container  min-vh-75 d-flex flex-column flex-md-row bg-white my-3 rounded-3 p-4 gap-5">
     <!-- Sidebar -->
     <div class="sidebar p-4 col-12 col-md-3 bg-light rounded-4">
         <div class="text-center mb-4">
@@ -302,7 +313,7 @@
                         <input type="text" class="form-control" id="ward" placeholder="Phường/Xã">
                     </div>
 
-                   
+
                     <div class="col-md-6">
                         <!-- Thể loại địa chỉ (Home, Office) -->
                         <label for="addressType" class="form-label">Chọn loại địa chỉ</label>
@@ -314,59 +325,195 @@
                     </div>
                 </div>
 
-              
+
 
                 <!-- Nút lưu -->
                 <button type="submit" class="btn btn-success mt-3 w-100">Lưu địa chỉ</button>
             </form>
         </div>
     </div>
+    <style>
+        .password-wrapper {
+            position: relative;
+        }
 
+            .password-wrapper input {
+                padding-right: 40px; /* Chừa khoảng trống bên phải cho icon */
+            }
+
+            .password-wrapper button {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                background: none;
+                border: none;
+                color: #6c757d;
+                cursor: pointer;
+            }
+
+                .password-wrapper button:focus {
+                    outline: none;
+                    box-shadow: none;
+                }
+
+        a.text-muted:hover {
+            color: rgb(26, 186, 26) !important; /* Màu xanh Bootstrap */
+        }
+
+
+        /* Độ mạnh mật khẩu */
+        .strength-meter {
+            margin-top: 10px;
+            height: 8px;
+            width: 100%;
+            border-radius: 4px;
+            background-color: #e0e0e0;
+            transition: background-color 0.3s ease; /* Transition cho background */
+        }
+
+            .strength-meter span {
+                display: block;
+                height: 100%;
+                border-radius: 4px;
+                width: 0%;
+                transition: width 0.3s ease; /* Transition cho width */
+            }
+
+            .strength-meter .weak {
+                background-color: red;
+            }
+
+            .strength-meter .medium {
+                background-color: orange;
+            }
+
+            .strength-meter .strong {
+                background-color: green;
+            }
+
+        #password-strength-text {
+            margin-top: 10px;
+            transition: color 0.3s ease; /* Transition cho color của văn bản */
+        }
+    </style>
 
     <!-- Change password -->
     <div id="change-password" class="flex-grow-1 p-4 tab-content d-none">
         <h2 class="mb-2 fw-bold">Đổi Mật khẩu</h2>
-        <form style="max-width: 720px;" method="POST" action="/change-password" onsubmit="return validateRecaptcha();">
-
+        <form style="max-width: 720px;" method="POST" action="/User/ChangePassword" onsubmit="return validateRecaptcha();">
             <div class="mb-3">
-                <label for="password_old" class="form-label">Nhập mật khẩu hiện tại <span class="text-danger">*</span></label>
-                <input type="password" id="password_old" name="password_old" class="form-control" placeholder="************" required>
+                <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
+                <div class="password-wrapper">
+                    <input type="password"
+                           name="password"
+                           class="form-control"
+                           id="password"
+                           placeholder="Nhập mật khẩu hiện tại"
+                           required
+                           minlength="8"
+                           maxlength="20"
+                           pattern=".{8,20}"
+                           title="Mật khẩu phải từ 8–20 ký tự"
+                           oninput="checkPasswordStrength()" />
+                    <button type="button" onclick="togglePassword(this)">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                <div id="password-strength-text" style="margin-top: 10px;"></div>
+                <div class="strength-meter" id="strengthMeter"><span></span></div>
             </div>
 
             <div class="mb-3">
                 <label for="password_new" class="form-label">Nhập mật khẩu mới <span class="text-danger">*</span></label>
-                <input type="password" id="password_new" name="password_new" class="form-control" placeholder="************" required>
+                <div class="password-wrapper">
+                    <input type="password"
+                           name="password_new"
+                           class="form-control"
+                           id="password_new"
+                           placeholder="Nhập mật khẩu mới tại đây"
+                           required
+                           minlength="8"
+                           maxlength="20"
+                           pattern=".{8,20}"
+                           title="Mật khẩu phải từ 8–20 ký tự"
+                           oninput="checkPasswordMatch_1()" />
+                    <button type="button" onclick="togglePassword(this)">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+                <div id="password-match-error" style="color: red; font-size: 0.9em; margin-top: 5px;"></div>
             </div>
 
             <div class="mb-3">
                 <label for="password_new_confirm" class="form-label">Xác nhận mật khẩu mới <span class="text-danger">*</span></label>
-                <input type="password" id="password_new_confirm" name="password_new_confirm" class="form-control" placeholder="************" required>
+                <div class="password-wrapper">
+                    <input type="password"
+                           name="password_new_confirm"
+                           class="form-control"
+                           id="password_new_confirm"
+                           placeholder="Xác nhận mật khẩu tại đây"
+                           required
+                           minlength="8"
+                           maxlength="20"
+                           pattern=".{8,20}"
+                           title="Mật khẩu phải từ 8–20 ký tự"
+                           oninput="checkPasswordMatch()" />
+                    <button type="button" onclick="togglePassword(this)">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
             </div>
-
             <div class="g-recaptcha mb-3" data-sitekey="6LfycxgrAAAAAB4Lv3Q2NHNQxmml_eVVqnTQRa2P"></div>
-
-            <button type="submit" class="btn btn-success text-white px-4 py-2 btn-changepassword" >Xác nhận đổi mật khẩu</button>
+            <div id="recaptcha-error" style="color: red; font-size: 0.9em; margin-bottom: 5px;"></div>
+            <button type="submit" class="btn btn-success text-white px-4 py-2 btn-changepassword">Xác nhận đổi mật khẩu</button>
         </form>
     </div>
 </div>
 
 
 
-
-
-
-
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script>
+    function checkPasswordMatch_1() {
+        const oldPassword = document.getElementById('password').value;
+        const newPassword = document.getElementById('password_new').value;
+        const errorDiv = document.getElementById('password-match-error');
+        const newPasswordInput = document.getElementById('password_new');
+
+        if (newPassword && newPassword === oldPassword) {
+            errorDiv.textContent = "Mật khẩu mới không được trùng với mật khẩu cũ.";
+            newPasswordInput.setCustomValidity('Mật khẩu mới không được trùng với mật khẩu cũ.');
+        } else {
+            errorDiv.textContent = "";
+            newPasswordInput.setCustomValidity('');
+        }
+    }
+    function checkPasswordMatch() {
+        const password = document.getElementById('password_new').value;
+        const confirmPassword = document.getElementById('password_new_confirm').value;
+        const confirmInput = document.getElementById('password_new_confirm');
+
+        if (confirmPassword && password !== confirmPassword) {
+            confirmInput.setCustomValidity('Mật khẩu xác nhận không khớp');
+        } else {
+            confirmInput.setCustomValidity('');
+        }
+    }
     // Xử lý không phải robot
     function validateRecaptcha() {
         const response = grecaptcha.getResponse();
+        const errorDiv = document.getElementById('recaptcha-error');
+
         if (response.length === 0) {
-            alert("Vui lòng xác minh rằng bạn không phải là robot.");
+            errorDiv.textContent = "Vui lòng xác minh rằng bạn không phải là robot.";
             return false;
+        } else {
+            errorDiv.textContent = ""; // Xóa lỗi nếu đã tick
+            return true;
         }
-        return true;
     }
+
 
     const navLinks = document.querySelectorAll('.nav-link');
     const breadcrumb = document.getElementById('breadcrumb-current');
@@ -414,4 +561,61 @@
 
         form.classList.remove('d-none');
     });
+    function togglePassword(button) {
+        const passwordInput = button.previousElementSibling;
+        const icon = button.querySelector("i");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    }
+    function checkPasswordStrength() {
+        const password = document.getElementById('password').value;
+        const meter = document.getElementById('strengthMeter');
+        const meterSpan = meter.querySelector('span');
+        const strengthText = document.getElementById('password-strength-text');
+
+        // Nếu mật khẩu rỗng, không làm gì (ẩn thanh độ mạnh và văn bản)
+        if (password === "") {
+            meterSpan.className = '';
+            meterSpan.style.width = '0%';
+            strengthText.textContent = '';
+            return;
+        }
+
+        // Kiểm tra độ mạnh mật khẩu
+        let strength = 0;
+
+        if (password.length >= 8) strength += 1;
+        if (/[A-Z]/.test(password)) strength += 1;
+        if (/[a-z]/.test(password)) strength += 1;
+        if (/\d/.test(password)) strength += 1;
+        if (/[\W_]/.test(password)) strength += 1;
+
+        // Cập nhật thanh độ mạnh và văn bản mô tả độ mạnh
+        if (strength <= 2) {
+            meterSpan.className = 'weak';
+            meterSpan.style.width = '33%';
+            strengthText.textContent = 'Yếu';
+            strengthText.style.color = 'red';
+        } else if (strength === 3 || strength === 4) {
+            meterSpan.className = 'medium';
+            meterSpan.style.width = '66%';
+            strengthText.textContent = 'Trung bình';
+            strengthText.style.color = 'orange';
+        } else if (strength === 5) {
+            meterSpan.className = 'strong';
+            meterSpan.style.width = '100%';
+            strengthText.textContent = 'Mạnh';
+            strengthText.style.color = 'green';
+        }
+    }
+
+
 </script>

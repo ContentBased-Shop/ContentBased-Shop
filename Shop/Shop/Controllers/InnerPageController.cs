@@ -53,6 +53,8 @@ namespace Shop.Controllers
                         // Lưu thông tin người dùng vào Session
                         Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
+                        Session["AccountName"] = user.TenDangNhap;
+                        Session["Password"] = user.MatKhauHash;
                         // Chuyển hướng đến trang Home
                         return RedirectToAction("Index", "Home");
                     }
@@ -66,7 +68,8 @@ namespace Shop.Controllers
                         // Lưu thông tin người dùng vào Session
                         Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
-
+                        Session["AccountName"] = user.TenDangNhap;
+                        Session["Password"] = user.MatKhauHash;
                         // Chuyển hướng đến trang Dashboard
                         return RedirectToAction("Index", "Home");
                     }
@@ -168,7 +171,8 @@ namespace Shop.Controllers
             // Lưu thông tin người dùng vào Session
             Session["UserID"] = newUser.MaKhachHang;
             Session["UserName"] = newUser.HoTen;
-
+            Session["AccountName"] = newUser.TenDangNhap;
+            Session["Password"] = newUser.MatKhauHash;
             // Chuyển hướng đến trang Dashboard
             return RedirectToAction("Index", "Home");
         }
