@@ -115,7 +115,18 @@
 
                         </nav>
                     </div>
+                    <style>
+                        .avatar-link {
+                            transition: transform 0.3s ease; /* mượt mà */
+                            display: inline-flex; /* canh icon đẹp hơn nếu cần */
+                            justify-content: center;
+                            align-items: center;
+                        }
 
+                            .avatar-link:hover {
+                                transform: scale(1.1); /* phóng to */
+                            }
+                    </style>
                     <!-- User actions -->
                     <div class="col-12 col-md-4">
                         <div class="d-flex justify-content-center justify-content-md-end align-items-center gap-3">
@@ -125,8 +136,8 @@
                                 @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
                                 {
                                     <div class="icon-circle bg-light-custom">
-                                        <a href="/User/" data-bs-toggle="tooltip" title="Trang cá nhân">
-                                            <img class="rounded-circle" src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" width="40" height="40"> 
+                                        <a href="/User/" data-bs-toggle="tooltip" title="Trang cá nhân" class="avatar-link">
+                                            <img class="rounded-circle" src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" width="40" height="40">
                                         </a>
                                     </div>
                                     <div class="ms-2 d-none d-md-block">
@@ -138,11 +149,12 @@
                                             @Session["UserName"]
                                         </p>
                                     </div>
+                                   
                                 }
                                 else
-                                { 
+                                {
                                     <div class="icon-circle bg-light-custom">
-                                       <i class="fas fa-user"></i>
+                                        <i class="fas fa-user"></i>
                                     </div>
                                     <div class="ms-2 d-none d-md-block">
                                         <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO</p>
@@ -167,15 +179,15 @@
                             </div>
 
                             <!-- Wishlist -->
-                            <div>
-                                <div class="icon-circle bg-light-custom">
+                            <div >
+                                <div class="icon-circle bg-light-custom avatar-link"  >
                                     <i class="fas fa-heart"></i>
                                 </div>
                             </div>
 
                             <!-- Cart -->
                             <div class="d-flex align-items-center position-relative">
-                                <div class="icon-circle bg-light-custom">
+                                <div class="icon-circle bg-light-custom avatar-link">
                                     <i class="fas fa-shopping-cart"></i>
                                 </div>
                                 <div class="ms-2 d-none d-md-block">

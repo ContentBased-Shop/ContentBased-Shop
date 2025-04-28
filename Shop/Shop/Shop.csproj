@@ -395,6 +395,7 @@
     <Content Include="Views\Product\AnotherProduct.cshtml" />
     <Content Include="Views\Product\PhuKien.cshtml" />
     <Content Include="Views\InnerPage\TuyenDung.cshtml" />
+    <Content Include="Views\Product\ProductWishList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

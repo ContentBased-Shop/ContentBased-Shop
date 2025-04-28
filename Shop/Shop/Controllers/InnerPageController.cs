@@ -191,7 +191,17 @@ namespace Shop.Controllers
             const string fromPassword = "sryh smuc npaf tuvq"; // bỏ \r\n thừa
 
             const string subject = "Mã OTP đăng ký tài khoản";
-            string body = $"Mã OTP của bạn là: {otp}";
+            string body = $@"Quý khách  thân mến,
+
+            Có vẻ như Quý khách đang đăng nhập vào tài khoản Swootechsmart bằng một thiết bị mới. Mã xác thực OTP của Quý khách là {otp}.
+
+            Mã xác thực này sẽ hết hiệu lực trong 2 phút.
+
+            Để đảm bảo an toàn, vui lòng không chia sẻ mã này cho bất cứ ai.
+
+            Cảm ơn Quý khách đã lựa chọn Swootechsmart.
+
+            Trân trọng,";
 
             var smtp = new SmtpClient
             {

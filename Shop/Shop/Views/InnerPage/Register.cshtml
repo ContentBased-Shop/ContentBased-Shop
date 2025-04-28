@@ -483,8 +483,13 @@ $('#phonenumber').on('blur', function () {
     
 
     function verifyOtp() {
-        var otpInput = document.getElementById('OtpInput').value;
+        var otpInput = document.getElementById('OtpInput').value.trim();
         var sessionOtp = document.getElementById('sessionOtp').value;
+
+        if (otpInput === "") {
+            // Nếu input rỗng thì không làm gì cả
+            return;
+        }
 
         if (otpInput === sessionOtp) {
             document.getElementById('otpResult').innerHTML = "<span class='text-success'>OTP hợp lệ!</span>";
@@ -492,6 +497,7 @@ $('#phonenumber').on('blur', function () {
             document.getElementById('otpResult').innerHTML = "<span class='text-danger'>OTP không đúng!</span>";
         }
     }
+
 </script>
 <script type="text/javascript">
     const emailPattern = new RegExp(@Html.Raw("'^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$'"));

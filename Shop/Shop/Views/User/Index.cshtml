@@ -43,26 +43,37 @@
             <ul class="nav flex-column gap-2">
                 <li class="nav-item">
                     <a href="#" class="nav-link active d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="account-infor" data-title="Thông tin tài khoản">
-                        <span>Thông tin tài khoản</span>
+                        <span><i class="fa-solid fa-user"></i> &nbsp; Thông tin tài khoản</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-order" data-title="Đơn hàng của tôi">
-                        <span>Đơn hàng của tôi</span>
+                        <span><i class="fa-solid fa-boxes-packing"></i> &nbsp; Đơn hàng của tôi</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-address" data-title="Địa chỉ nhận hàng">
-                        <span>Địa chỉ nhận hàng</span>
+                        <span><i class="fa-solid fa-truck-fast"></i>  &nbsp;Địa chỉ nhận hàng</span>
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
-                        <span>Đổi mật khẩu</span>
+                        <span><i class="fa-solid fa-rotate"></i>  &nbsp;Đổi mật khẩu</span>
                         <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="Provide-feedback" data-title="Đổi mật khẩu">
+                        <span><i class="fa-solid fa-comments"></i> &nbsp;Góp ý phản hồi</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/Product/ProductWishList" class="text-decoration-none d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
+                        <span><i class="fa-solid fa-heart"></i>  &nbsp;Danh sách mặt hàng yêu thích</span>
                     </a>
                 </li>
             </ul>
@@ -72,7 +83,7 @@
     <!-- Main Content -->
     @*Account*@
     <div id="account-infor" class=" flex-grow-1 p-4 tab-content ">
-        <h1 class="mb-4">Thông tin tài khoản</h1>
+        <h2 class="mb-4 fw-bold">THÔNG TIN TÀI KHOẢN</h2>
 
         <form style="max-width: 720px;">
             <div class="row g-3 mb-3">
@@ -95,15 +106,15 @@
                 <label for="phone" class="form-label">Phone Number (Optional)</label>
                 <input type="tel" class="form-control" id="phone" value="+1 0231 4554 452">
             </div>
-
-            <button type="submit" class="btn btn-success text-white px-4 py-1 btn-save">SAVE</button>
+            <div class="g-recaptcha mb-3" data-sitekey="6LfycxgrAAAAAB4Lv3Q2NHNQxmml_eVVqnTQRa2P"></div>
+            <button type="submit" class="btn btn-success text-white px-4 py-1 btn-save">Xác nhận đổi thông tin tài khoản</button>
         </form>
     </div>
 
     <!-- Order items -->
     <div id="my-order" class="flex-grow-1 overflow-scroll-container tab-content d-none">
         <div class="flex-grow-1">
-            <h1 class="h4 fw-bold mb-2 ">Đơn hàng của tôi</h1>
+            <h3 class=" fw-bold mb-2 ">ĐƠN HÀNG CỦA TÔI</h3>
             <div class="item-order mb-4 px-3 rounded-4 py-2">
                 <div class="text-end pb-2">
                     <span class="lbl-shipped fw-medium">Shipped</span>
@@ -219,7 +230,7 @@
 
     <!-- My address -->
     <div id="my-address" class=" flex-grow-1 p-3 tab-content  d-none">
-        <h2 class="mb-2 fw-bold">My Address</h2>
+        <h3 class="mb-2 fw-bold">ĐIA CHỈ VẬN CHUYỂN</h3>
 
         <!-- Home Address Card -->
         <div class=" p-3 mb-4 rounded-4 bg-light">
@@ -400,7 +411,7 @@
 
     <!-- Change password -->
     <div id="change-password" class="flex-grow-1 p-4 tab-content d-none">
-        <h2 class="mb-2 fw-bold">Đổi Mật khẩu</h2>
+        <h3 class="mb-2 fw-bold">ĐỔI MẬT KHẨU</h3>
         <form style="max-width: 720px;" method="POST" action="/User/ChangePassword" onsubmit="return validateRecaptcha();">
             <div class="mb-3">
                 <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
@@ -468,6 +479,28 @@
             <div id="recaptcha-error" style="color: red; font-size: 0.9em; margin-bottom: 5px;"></div>
             <button type="submit" class="btn btn-success text-white px-4 py-2 btn-changepassword">Xác nhận đổi mật khẩu</button>
         </form>
+    </div>
+
+
+    <!-- Change password -->
+    <div id="Provide-feedback" class="flex-grow-1 p-4 tab-content d-none">
+        <h3 class="mb-2 fw-bold">GÓP Ý PHẢN HỒI</h3>
+        <div class="d-flex p-4">
+            <img src="https://bvndtp.org.vn/wp-content/uploads/2021/10/cam-on-2.jpg" / width="300" height="300">
+            <div class="align-content-center">
+                <span>Mời bạn đánh giá mức độ hài lòng về chương trình ưu đãi, và dịch vụ hỗ trợ của SwooTechsmart. Hãy cho chúng mình thêm góp ý để cải thiện tốt hơn</span>
+            </div>
+           
+        </div>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSexiy2-lbymp7uApW2ZfDcct9ZA0ptWTF9D3GUEKdEAPAF7xQ/viewform?embedded=true"
+                width="840"
+                height="400"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                scrolling="yes">
+            Đang tải…
+        </iframe>
     </div>
 </div>
 

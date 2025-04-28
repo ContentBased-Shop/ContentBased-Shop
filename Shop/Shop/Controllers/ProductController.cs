@@ -39,5 +39,9 @@ namespace Shop.Controllers
         {
             return View();
         }
+        public ActionResult ProductWishList()
+        {
+            return View();
+        }
     }
 }
