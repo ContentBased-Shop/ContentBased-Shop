@@ -48,7 +48,7 @@
 	font-size: 12px;
 }
 
-.nav-link:hover {
+nav a:hover {
 	color: var(--swoo-green) !important;
 }
 

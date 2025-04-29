@@ -33,53 +33,74 @@
     <div class="sidebar p-4 col-12 col-md-3 bg-light rounded-4">
         <div class="text-center mb-4">
             <div class="mb-3 mx-auto">
-                <img src="https://cdn11.dienmaycholon.vn/filewebdmclnew/public/userupload/files/Image%20FP_2024/avatar-dep-2.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
+                <img src="https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-avatar-icon-abstract-user-login-icon-png-image_3917181.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
             </div>
             <h2 class="h4 fw-bold">VuzPham</h2>
             <p class="text-muted">phamnguyenvu287@gmail.com</p>
         </div>
 
         <nav>
-            <ul class="nav flex-column gap-2">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="account-infor" data-title="Thông tin tài khoản">
-                        <span><i class="fa-solid fa-user"></i> &nbsp; Thông tin tài khoản</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-order" data-title="Đơn hàng của tôi">
-                        <span><i class="fa-solid fa-boxes-packing"></i> &nbsp; Đơn hàng của tôi</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-address" data-title="Địa chỉ nhận hàng">
-                        <span><i class="fa-solid fa-truck-fast"></i>  &nbsp;Địa chỉ nhận hàng</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
-                        <span><i class="fa-solid fa-rotate"></i>  &nbsp;Đổi mật khẩu</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="Provide-feedback" data-title="Đổi mật khẩu">
-                        <span><i class="fa-solid fa-comments"></i> &nbsp;Góp ý phản hồi</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/Product/ProductWishList" class="text-decoration-none d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
-                        <span><i class="fa-solid fa-heart"></i>  &nbsp;Danh sách mặt hàng yêu thích</span>
-                    </a>
-                </li>
-            </ul>
+            <div class="sidebar-menu overflow-auto" style="max-height:250px;">
+                <ul class="nav flex-column gap-2">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="account-infor" data-title="Thông tin tài khoản">
+                            <span><i class="fa-solid fa-user"></i> &nbsp; Thông tin tài khoản</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-order" data-title="Đơn hàng của tôi">
+                            <span><i class="fa-solid fa-boxes-packing"></i> &nbsp; Đơn hàng của tôi</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="my-address" data-title="Địa chỉ nhận hàng">
+                            <span><i class="fa-solid fa-truck-fast"></i>  &nbsp;Địa chỉ nhận hàng</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
+                            <span><i class="fa-solid fa-rotate"></i>  &nbsp;Đổi mật khẩu</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="Provide-feedback" data-title="Đổi mật khẩu">
+                            <span><i class="fa-solid fa-comments"></i> &nbsp;Góp ý phản hồi</span>
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Product/ProductWishList" class="text-decoration-none d-flex justify-content-between align-items-center rounded px-3 py-2" data-target="change-password" data-title="Đổi mật khẩu">
+                            <span><i class="fa-solid fa-heart"></i>  &nbsp;Danh sách mặt hàng yêu thích</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal"
+                           class="text-decoration-none d-flex justify-content-between align-items-center rounded px-3 py-2">
+                            <span><i class="fa-solid fa-arrow-right-from-bracket"></i> &nbsp;Thoát tài khoản</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
     </div>
+    <style>
+        .sidebar-menu::-webkit-scrollbar {
+            width: 6px; /* Chiều rộng thanh cuộn dọc */
+        }
 
+        .sidebar-menu::-webkit-scrollbar-thumb {
+            background-color: #ccc; /* Màu của "nút" cuộn */
+            border-radius: 4px;
+        }
+
+        .sidebar-menu::-webkit-scrollbar-track {
+            background-color: transparent; /* Màu nền của thanh cuộn */
+        }
+    </style>
     <!-- Main Content -->
     @*Account*@
     <div id="account-infor" class=" flex-grow-1 p-4 tab-content ">
@@ -343,6 +364,9 @@
             </form>
         </div>
     </div>
+
+
+
     <style>
         .password-wrapper {
             position: relative;
@@ -504,6 +528,24 @@
     </div>
 </div>
 
+@*Xác nhận thoát tài khoản*@
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logoutModalLabel">Xác nhận đăng xuất</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn thoát tài khoản không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <a href="/logout" class="btn btn-danger">Đăng xuất</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
