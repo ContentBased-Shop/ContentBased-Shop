@@ -124,7 +124,13 @@
 
                             .avatar-link:hover {
                                 transform: scale(1.1); /* phóng to */
+                                
                             }
+                        nav a:focus,
+                        nav a:active {
+                            background-color: transparent !important;
+                            box-shadow: none !important;
+                        }
                     </style>
                     <!-- User actions -->
                     <div class="col-12 col-md-4">
@@ -140,13 +146,15 @@
                                         </a>
                                     </div>
                                     <div class="ms-2 d-none d-md-block">
-                                        <p class="fs-7 text-gray-custom mb-0">XIN CHÀO KHÁCH HÀNG !</p>
-                                        <p class="fs-7 fw-medium mb-0"
-                                           data-bs-toggle="tooltip"
-                                           data-bs-placement="bottom"
-                                           title="Xin chào @Session["UserName"]">
-                                            @Session["UserName"]
-                                        </p>
+                                        <a href="/User/" class="text-dark text-decoration-none">
+                                            <p class="fs-7 text-gray-custom mb-0">XIN CHÀO KHÁCH HÀNG !</p>
+                                            <p class="fs-7 fw-medium mb-0"
+                                               data-bs-toggle="tooltip"
+                                               data-bs-placement="bottom"
+                                               title="Xin chào @Session["UserName"]">
+                                                @Session["UserName"]
+                                            </p>
+                                        </a>
                                     </div>
                                    
                                 }
@@ -178,17 +186,23 @@
                             </div>
 
                             <!-- Wishlist -->
-                            <div >
-                                <div class="icon-circle bg-light-custom avatar-link"  >
-                                    <i class="fas fa-heart"></i>
-                                </div>
+                            <div>
+                                <a href="/Product/ProductWishList" class="text-dark" data-bs-toggle="tooltip" title="Danh sách yêu thích">
+                                    <div class="icon-circle bg-light-custom avatar-link">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                </a>
                             </div>
+                            <style>
 
+                            </style>
                             <!-- Cart -->
                             <div class="d-flex align-items-center position-relative">
-                                <div class="icon-circle bg-light-custom avatar-link">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
+                                <a href="/InnerPage/PreCart" class="text-dark" data-bs-toggle="tooltip" title="Giỏ Hàng">
+                                    <div class="icon-circle bg-light-custom avatar-link">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </a>
                                 <div class="ms-2 d-none d-md-block">
                                     <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
                                     <p class="fs-7 fw-bold mb-0">$1,689.00</p>
@@ -250,7 +264,7 @@
                     <h4 class="hotline mb-3">(025) 3686 25 16</h4>
                     <p class="mb-1">140 Lê Trọng Tấn, phường Tây Thạnh, quận Tân Phú, Thành phố Hồ Chí Minh</p>
                     <p class="mb-1">VIE 10092</p>
-                    <p class="mb-3">hufi@@edu.com.vn</p>
+                    <p class="mb-3">huit@@edu.com.vn</p>
                     <div class="d-flex mb-4">
                         <a href="#" class="social-icon">
                             <i class="fab fa-twitter"></i>
