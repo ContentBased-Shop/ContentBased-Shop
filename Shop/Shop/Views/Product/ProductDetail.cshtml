@@ -321,13 +321,213 @@
 
             <!-- Tab 2: So sánh -->
             <div class="tab-pane fade" id="comparison">
-                <h5>So sánh sản phẩm</h5>
-                <ul>
-                    <li>Bộ nhớ: @Model.SelectedBienThe.DungLuong</li>
-                    <li>Màu sắc: @Model.SelectedBienThe.MauSac</li>
-                    <li>Giá gốc: @(((double)Model.SelectedBienThe.GiaGoc).ToString("N0")) ₫</li>
-                    <li>Giá khuyến mãi: @(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫</li>
-                </ul>
+                <div class="container py-5">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview" type="button">Tổng quan</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#features" type="button">Tính năng</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#specifications" type="button">Thông số kỹ thuật</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="productTabsContent">
+                        <!-- Overview Tab -->
+                        <div class="tab-pane fade show active" id="overview">
+                            <div class="row g-4">
+                                <!-- Product 1 -->
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="position-relative">
+                                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">Giảm 20%</span>
+                                            <button class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle">
+                                                <i class="bi bi-heart"></i>
+                                            </button>
+                                            <img src="/placeholder.svg?height=300&width=300" class="card-img-top p-4" alt="Product Image" />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Premium Wireless Headphones</h5>
+                                            <div class="mb-2">
+                                                <span class="star-filled">&#9733;&#9733;&#9733;&#9733;&#189;</span>
+                                                <span class="text-muted">(4.5)</span>
+                                            </div>
+                                            <p class="card-text text-muted">
+                                                Experience premium sound quality with our wireless headphones featuring advanced noise cancellation and long-lasting battery life.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <span class="fw-bold fs-4">$299.99</span>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-outline-secondary btn-sm">So sánh</button>
+                                                    <button class="btn btn-primary btn-sm">
+                                                        <i class="bi bi-cart"></i> Thêm vào giỏ
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted fw-semibold">Màu sắc:</small>
+                                                <span class="badge rounded-pill border">Black</span>
+                                                <span class="badge rounded-pill border">Silver</span>
+                                                <span class="badge rounded-pill border">Blue</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Product 2 -->
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="position-relative">
+                                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">Giảm 10%</span>
+                                            <button class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle">
+                                                <i class="bi bi-heart"></i>
+                                            </button>
+                                            <img src="/placeholder.svg?height=300&width=300" class="card-img-top p-4" alt="Product Image" />
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Standard Wireless Headphones</h5>
+                                            <div class="mb-2">
+                                                <span class="star-filled">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
+                                                <span class="text-muted">(4.0)</span>
+                                            </div>
+                                            <p class="card-text text-muted">
+                                                Enjoy clear sound and comfortable fit with our standard wireless headphones, perfect for everyday use at an affordable price.
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <span class="fw-bold fs-4">$149.99</span>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-outline-secondary btn-sm">So sánh</button>
+                                                    <button class="btn btn-primary btn-sm">
+                                                        <i class="bi bi-cart"></i> Thêm vào giỏ
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <small class="text-muted fw-semibold">Màu sắc:</small>
+                                                <span class="badge rounded-pill border">Black</span>
+                                                <span class="badge rounded-pill border">White</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Features Tab -->
+                        <div class="tab-pane fade" id="features">
+                            <div class="card">
+                                <div class="card-body">
+                                    <table class="table table-bordered align-middle text-center">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-start">Tính năng</th>
+                                                <th>Premium Wireless Headphones</th>
+                                                <th>Standard Wireless Headphones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-start">Noise Cancellation</td>
+                                                <td>&#10003;</td>
+                                                <td>&#10007;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Battery Life</td>
+                                                <td>30 hours</td>
+                                                <td>20 hours</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Water Resistant</td>
+                                                <td>&#10003;</td>
+                                                <td>&#10007;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Bluetooth Version</td>
+                                                <td>5.2</td>
+                                                <td>5.0</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Built-in Microphone</td>
+                                                <td>&#10003;</td>
+                                                <td>&#10003;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Foldable Design</td>
+                                                <td>&#10003;</td>
+                                                <td>&#10007;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Touch Controls</td>
+                                                <td>&#10003;</td>
+                                                <td>&#10007;</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-start">Voice Assistant</td>
+                                                <td>&#10003;</td>
+                                                <td>&#10007;</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specifications Tab -->
+                        <div class="tab-pane fade" id="specifications">
+                            <div class="row g-4">
+                                <!-- Product 1 specs -->
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Premium Wireless Headphones</h5>
+                                            <ul class="list-group list-group-flush mb-3">
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Bluetooth</span><span>5.2</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Thời lượng pin</span><span>30 hours</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Chống nước</span><span>Có</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Micro tích hợp</span><span>Có</span>
+                                                </li>
+                                            </ul>
+                                            <p><strong>Màu sắc:</strong> Black, Silver, Blue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Product 2 specs -->
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Standard Wireless Headphones</h5>
+                                            <ul class="list-group list-group-flush mb-3">
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Bluetooth</span><span>5.0</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Thời lượng pin</span><span>20 hours</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Chống nước</span><span>Không</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Micro tích hợp</span><span>Có</span>
+                                                </li>
+                                            </ul>
+                                            <p><strong>Màu sắc:</strong> Black, White</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Tab 3: Thương hiệu -->
