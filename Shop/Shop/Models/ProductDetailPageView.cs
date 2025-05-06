@@ -9,6 +9,8 @@ namespace Shop.Models
     {
         public ProductDetailView Product { get; set; }
         public List<ProductDetailView> RelatedProducts { get; set; }
+
+        public BienTheHangHoa SelectedBienThe { get; set; }
     }
 
 }

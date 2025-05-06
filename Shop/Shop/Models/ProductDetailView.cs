@@ -14,7 +14,7 @@ namespace Shop.Models
         public string TenDanhMuc  { get; set; }
         public string MaThuongHieu { get; set; }
         public string TenThuongHieu { get; set; }
-
+        public string MoTaThuongHieu { get; set; }
         public string HinhAnh { get; set; }
         public string MoTa { get; set; }
         public string MoTaDai { get; set; }
@@ -29,9 +29,10 @@ namespace Shop.Models
         public double DanhGiaTrungBinh { get; set; }
 
         // Thêm thông tin từ bảng MoTaChiTietHangHoa
-        public string TieuDe { get; set; }
-        public string NoiDung { get; set; }
+       
+        public string MoTaChiTiet { get; set; }
         public DateTime? NgayCapNhat { get; set; }
+        public DateTime? NgayTaoMoTaChiTiet { get; set; }
 
     }
 

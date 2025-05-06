@@ -20,7 +20,7 @@ namespace Shop.Controllers
             return View();
         }
         #region ProductDetail
-        public ActionResult ProductDetail(string id)
+        public ActionResult ProductDetail(string id, string mabienthe)
         {
             var productList = (from hh in data.HangHoas
                                join bienThe in data.BienTheHangHoas on hh.MaHangHoa equals bienThe.MaHangHoa into bienTheGroup
@@ -46,7 +46,7 @@ namespace Shop.Controllers
                     MoTaDai = x.HangHoa.MoTaDai,
                     HinhAnh = x.HangHoa.HinhAnh,
                     NgayTao = x.HangHoa.NgayTao ?? DateTime.MinValue,
-
+                   
                     // Gán toàn bộ danh sách biến thể từ bienTheGroup
                     BienThes = x.BienThes.ToList(),  // Đã lấy từ bienTheGroup rồi, không cần query lại
 
@@ -54,20 +54,26 @@ namespace Shop.Controllers
                     DanhGiaTrungBinh = x.DanhGias.Any() ? x.DanhGias.Average(d => d.SoSao).GetValueOrDefault() : 0,
 
                     // Thêm mô tả chi tiết
-                    TieuDe = x.MoTaChiTiet?.TieuDe ?? "",
-                    NoiDung = x.MoTaChiTiet?.NoiDung ?? "",
+                    MoTaChiTiet = x.MoTaChiTiet?.NoiDung ?? "",
                     NgayCapNhat = x.MoTaChiTiet?.NgayCapNhat ?? DateTime.MinValue,
+                    NgayTaoMoTaChiTiet = x.MoTaChiTiet?.NgayTao ?? DateTime.MinValue,
                     // Thêm tên danh mục
                     TenDanhMuc = x.DanhMuc?.TenDanhMuc ?? "",
-                    TenThuongHieu = x.ThuongHieu?.TenThuongHieu ?? ""
+
+                    // Thương hiệu
+                    TenThuongHieu = x.ThuongHieu?.TenThuongHieu ?? "",
+                    MoTaThuongHieu = x.ThuongHieu?.MoTa ?? ""
                 })
                 .ToList();
-
+            // Tìm biến thể theo mã biến thể nếu có truyền
+            var selectedBienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == mabienthe)
+                                  ?? data.BienTheHangHoas.FirstOrDefault(); // fallback nếu không có mã
             var product = productList.FirstOrDefault(p => p.MaHangHoa == id);
             if (product == null) return HttpNotFound();
 
             var viewModel = new ProductDetailPageView
             {
+                SelectedBienThe = selectedBienThe,
                 Product = product,
                 RelatedProducts = productList.Where(p => p.MaHangHoa != id).ToList()
             };

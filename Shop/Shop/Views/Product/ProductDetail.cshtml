@@ -11,7 +11,6 @@
         .ToList();
 }
 
-
 <link rel="stylesheet" href="~/assets/CSS/Product/Product_Detail.css" />
 <div class="container p-3 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
@@ -67,17 +66,15 @@
                 </div>
                 <h3 class="fw-bold mt-2"> @Model.Product.TenHangHoa</h3>
             </div>
-            @{
-                var bienThe = bienThes.FirstOrDefault();
-            }
+
 
             <div class="mb-3">
                 <h4 class="fw-bold">
                     <span class="text-danger">
-                        @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫
+                        @(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫
                     </span>&nbsp;
                     <span class="text-muted text-decoration-line-through">
-                        @(((double)bienThe.GiaGoc).ToString("N0")) ₫
+                        @(((double)Model.SelectedBienThe.GiaGoc).ToString("N0")) ₫
                     </span>
 
                 </h4>
@@ -93,32 +90,53 @@
 
             <div class="border-top border-bottom py-3 mb-3">
                 <div class="mb-3">
-                    <strong>Color:</strong> <span class="text-muted">@bienThe.MauSac</span>
+                    <strong>Color:</strong> <span class="text-muted">@Model.SelectedBienThe.MauSac</span>
+                    <style>
+                        .variant-option.active {
+                            border: 2px solid #0d6efd;
+                            background-color: #e7f1ff;
+                        }
+                    </style>
+
                     <div class="d-flex gap-2 mt-2">
                         @foreach (var product in bienThes)
                         {
-                            <div class="border selected-border p-2 d-flex align-items-center gap-2 rounded-3">
+                            var isSelected = product.MaBienThe == Model.SelectedBienThe.MaBienThe;
+                            var activeClass = isSelected ? "selected-border bg-light" : "";
+
+                            <a href="@Url.Action("ProductDetail", "Product", new { id = product.MaHangHoa, mabienthe = product.MaBienThe })"
+                               class="variant-option border p-2 d-flex align-items-center gap-2 rounded-3 text-decoration-none text-dark @activeClass">
                                 <div class="color-box bg-primary">
                                     <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod4.jpg" alt="Thumb" class="img-fluid" />
                                 </div>
                                 <div>
                                     <div class="small fw-medium">@product.MauSac</div>
-                                    <div class="small">$569.00</div>
+                                    <div class="small">@(((double)product.GiaKhuyenMai).ToString("N0")) ₫</div>
                                 </div>
-                            </div>
+                            </a>
                         }
+
+
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <strong>Memory Size:</strong> <span class="text-muted">128GB</span>
+                    <strong>Memory Size:</strong>
+                    <span class="text-muted">@Model.SelectedBienThe.DungLuong</span>
                     <div class="d-flex gap-2 mt-2">
-                        <div class="btn btn-outline-secondary btn-sm rounded-3">64GB</div>
-                        <div class="btn btn-success btn-sm rounded-3">128GB</div>
-                        <div class="btn btn-outline-secondary btn-sm rounded-3">256GB</div>
-                        <div class="btn btn-outline-secondary btn-sm rounded-3">512GB</div>
+                        @foreach (var bt in bienThes.GroupBy(b => b.DungLuong).Select(g => g.First()))
+                        {
+                            var isActive = bt.DungLuong == Model.SelectedBienThe.DungLuong;
+                            var btnClass = isActive ? "btn-success" : "btn-outline-secondary";
+
+                            <a href="@Url.Action("ProductDetail", "Product", new { id = bt.MaHangHoa, mabienthe = bt.MaBienThe })"
+                               class="btn @btnClass btn-sm rounded-3">
+                                @bt.DungLuong
+                            </a>
+                        }
                     </div>
                 </div>
+
             </div>
 
             <div class="bg-light p-4 rounded-3 d-flex align-items-start gap-3 mb-4">
@@ -147,7 +165,7 @@
                 <div class="mb-4">
                     <div class="text-muted small">TỔNG TIỀN SẢN PHẨM:</div>
                     @{
-                        var giaKhuyenMai = (double)bienThe.GiaKhuyenMai;
+                        var giaKhuyenMai = (double)@Model.SelectedBienThe.GiaKhuyenMai;
                     }
                     <h2 class="fw-bold">
                         <span id="total-price">@giaKhuyenMai.ToString("N0")</span> ₫
@@ -289,41 +307,33 @@
                 <button class="nav-link active text-dark" id="desc-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">MÔ TẢ</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link  text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">SO SÁNH </button>
+                <button class="nav-link text-dark" id="compare-tab" data-bs-toggle="tab" data-bs-target="#comparison" type="button">SO SÁNH</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link  text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">GIỚI THIỆU THƯƠNG HIỆU</button>
+                <button class="nav-link text-dark" id="brand-tab" data-bs-toggle="tab" data-bs-target="#brand" type="button">GIỚI THIỆU THƯƠNG HIỆU</button>
             </li>
         </ul>
         <div class="tab-content pt-4" id="productTabsContent">
+            <!-- Tab 1: Mô tả -->
             <div class="tab-pane fade show active" id="description">
-                <p>
-                    Được thiết kế để có hiệu suất siêu nhanh, Samsung Galaxy Tab S2 mỏng và nhẹ, mang theo mọi nơi bạn đi. Hình ảnh, phim ảnh và tài liệu nổi bật trên màn hình Super AMOLED rõ nét. Bộ nhớ mở rộng giúp bạn tận hưởng nhiều nội dung yêu thích hơn. Và việc kết nối và chia sẻ giữa tất cả các thiết bị Samsung của bạn dễ dàng hơn bao giờ hết. Chào mừng bạn đến với cuộc sống cùng Samsung Galaxy Tab S2 tái tưởng tượng.
-                    Hãy xem thế giới sống động trên màn hình <strong>Super AMOLED</strong> của máy tính bảng của bạn • Với độ tương phản sâu, màu sắc phong phú và chi tiết sắc nét, bạn sẽ không bỏ lỡ điều gì.
-                </p>
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/det1.jpeg" class="img-fluid rounded my-3 object-fit-cover w-100" style="height: 500px;" />
-                <p class="fst-italic small text-muted">
-                    * Màn hình tỉ lệ 4:3 của Galaxy Tab S2 mang đến môi trường lý tưởng để thực hiện các công việc văn phòng.
-                </p>
-                <h5 class="mt-4">Từ nhà sản xuất</h5>
-                <p>
-                    Khám phá những bộ phim bom tấn mà bạn không thể chờ đợi để xem. Chuyển đổi giữa các ứng dụng yêu thích nhanh chóng và dễ dàng. Bộ vi xử lý octa-core mới và cải tiến mang đến cho bạn sức mạnh và tốc độ cần thiết để xem nhiều hơn và làm nhiều hơn. Mở rộng bộ nhớ máy tính bảng của bạn từ 32GB lên tới 128GB bổ sung và tận hưởng nhiều hơn những bài hát, hình ảnh, bộ phim và trò chơi yêu thích khi di chuyển với thẻ microSD. Với Quick Connect, bắt đầu một chương trình trên TV thông minh của bạn và chỉ với một nút chạm, bạn có thể mang theo chương trình đó trên Galaxy Tab S2 của mình.
+                @Html.Raw(Model.Product.MoTaChiTiet)
+            </div>
 
-                    Hoặc gửi video và hình ảnh từ màn hình máy tính bảng của bạn lên màn hình TV để chia sẻ với mọi người trong phòng. Làm việc mượt mà giữa máy tính bảng Samsung và smartphone Samsung của bạn với SideSync. Kéo và thả hình ảnh giữa các thiết bị một cách nhanh chóng. Và ngay cả khi nhận cuộc gọi từ điện thoại thông minh, bạn có thể trả lời ngay trên màn hình máy tính bảng.
-                </p>
+            <!-- Tab 2: So sánh -->
+            <div class="tab-pane fade" id="comparison">
+                <h5>So sánh sản phẩm</h5>
+                <ul>
+                    <li>Bộ nhớ: @Model.SelectedBienThe.DungLuong</li>
+                    <li>Màu sắc: @Model.SelectedBienThe.MauSac</li>
+                    <li>Giá gốc: @(((double)Model.SelectedBienThe.GiaGoc).ToString("N0")) ₫</li>
+                    <li>Giá khuyến mãi: @(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫</li>
+                </ul>
+            </div>
 
-                <div class="row g-3 mt-3">
-                    <div class="col-md-6">
-                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/det3.png"
-                             class="img-fluid rounded custom-img-height w-100" />
-                    </div>
-                    <div class="col-md-6">
-                        <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/det2.png"
-                             class="img-fluid rounded custom-img-height w-100" />
-                    </div>
-                </div>
-                <h5 class="mt-4">Samsung Galaxy Tab S2, 8-Inch, Màu Trắng</h5>
-                <p>Samsung Galaxy Tab S2 cung cấp camera kép: camera phía sau 8 megapixel với Auto Focus và camera phía trước 2.1 megapixel. Chụp hình ảnh và video chất lượng cao hoặc video call với bạn bè, gia đình và đồng nghiệp. Tùy chỉnh Galaxy Tab S2 của bạn với các ứng dụng bạn sử dụng nhiều nhất. Widget Samsung Galaxy Essentials cung cấp một bộ sưu tập các ứng dụng cao cấp miễn phí được tối ưu hóa cho màn hình máy tính bảng của bạn. Chọn và tải xuống các ứng dụng bạn muốn để nâng cấp trải nghiệm máy tính bảng của mình ngay lập tức.</p>
+            <!-- Tab 3: Thương hiệu -->
+            <div class="tab-pane fade" id="brand">
+                @Html.Raw(Model.Product.MoTaThuongHieu)
+
             </div>
         </div>
 
@@ -333,7 +343,7 @@
 
 <div class="container p-0 my-3">
     <div style="background-color:white" class="swiper productSwiper p-4 rounded-4">
-
+        <h3>Có thể bạn quan tâm</h3>
         <!-- Swiper Wrapper -->
         <div class="swiper-wrapper">
             @foreach (var product in Model.RelatedProducts)
@@ -344,6 +354,12 @@
                         <div class="product-image-container">
                             <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                         </div>
+                         @{
+                         var bienThe = product.BienThes.FirstOrDefault(bt => bt.MaHangHoa == product.MaHangHoa);
+                         }
+
+                         @if (bienThe != null)
+                         {
                         <div class="review-count">(@bienThe.SoLuongTonKho)</div>
                         <h5 class="product-name">@product.TenHangHoa</h5>
                         <p class="product-description">@product.MoTa</p>
@@ -361,49 +377,49 @@
                             }
                             <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
                         </div>
+                       
+                                <div class="price-container">
+                                    <span class="current-price"> @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">  @(((double)bienThe.GiaGoc).ToString("N0")) ₫</span>
 
-                        <div class="price-container">
-                            <span class="current-price"> @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
-                            <span class="original-price text-muted text-decoration-line-through">  @(((double)bienThe.GiaGoc).ToString("N0")) ₫</span>
-
-                            @{
-                                var goc = bienThe.GiaGoc;
-                                var km = bienThe.GiaKhuyenMai;
-                                var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                            }
-                        </div>
-                        @if (discount > 0)
-                        {
-                            <span class="discount text-danger">
-                                @(((double)discount).ToString("N0")) ₫
-                            </span>
-                        }
-                        <div class="free-shipping">FREE SHIPPING</div>
-                        <div class="d-flex justify-content-between">
-                            @if (bienThe.SoLuongTonKho > 0)
-                            {
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>Còn hàng</span>
+                                    @{
+                                        var goc = bienThe.GiaGoc;
+                                        var km = bienThe.GiaKhuyenMai;
+                                        var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                                    }
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="stock-status text-danger">
-                                    <i class="bi bi-x-circle-fill"></i>&nbsp;
-                                    <span>Hết hàng</span>
+                                if (discount > 0)
+                                {
+                                    <span class="discount text-danger">
+                                        @(((double)discount).ToString("N0")) %
+                                    </span>
+                                }
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="d-flex justify-content-between">
+                                    @if (bienThe.SoLuongTonKho > 0)
+                                    {
+                                        <div class="stock-status">
+                                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                            <span>Còn hàng</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="stock-status text-danger">
+                                            <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                            <span>Hết hàng</span>
+                                        </div>
+                                    }
+
+                                    <div class="stock-status">
+                                        <a href="#" class="text-decoration-none text-dark hover-shake">
+                                            <i class="bi bi-heart heart-icon empty-heart"></i>
+                                            <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                            <span>Yêu thích</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            }
-
-                            <div class="stock-status">
-                                <a href="#" class="text-decoration-none text-dark hover-shake">
-                                    <i class="bi bi-heart heart-icon empty-heart"></i>
-                                    <i class="bi bi-heart-fill heart-icon filled-heart"></i>
-                                    <span>Yêu thích</span>
-                                </a>
-                            </div>
-                        </div>
-
+                           }
                     </div>
                 </div>
             }
