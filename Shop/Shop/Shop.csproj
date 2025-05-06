@@ -146,6 +146,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HangHoaViewModel.cs" />
+    <Compile Include="Models\ProductDetailPageView.cs" />
+    <Compile Include="Models\ProductDetailView.cs" />
     <Compile Include="Models\SHOP.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

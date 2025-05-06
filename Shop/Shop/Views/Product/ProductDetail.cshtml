@@ -2,6 +2,16 @@
     ViewBag.Title = "ProductDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using Shop.Models
+@model ProductDetailPageView
+
+@{
+    var bienThes = Model.Product.BienThes
+        .Where(bt => bt.MaHangHoa == Model.Product.MaHangHoa)
+        .ToList();
+}
+
+
 <link rel="stylesheet" href="~/assets/CSS/Product/Product_Detail.css" />
 <div class="container p-3 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
@@ -9,8 +19,8 @@
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
             <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
             <li class="breadcrumb-item"><a href="/pages">Danh Mục Sản Phẩm</a></li>
-            <li class="breadcrumb-item"><a href="/pages">Điện Thoại</a></li>
-            <li class="breadcrumb-item active text-secondary" aria-current="page">Somseng Galatero X6 Ultra LTE 4G/128GB, Black Smartphone</li>
+            <li class="breadcrumb-item"><a href="/pages">@Model.Product.TenDanhMuc</a></li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">@Model.Product.TenHangHoa</li>
 
         </ol>
     </nav>
@@ -42,28 +52,38 @@
         <div class="col-lg-5">
             <div class="mb-3">
                 <div class="star-rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                    <small class="text-muted">(5)</small>
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        if (i <= Model.Product.DanhGiaTrungBinh)
+                        {
+                            <i class="bi bi-star-fill"></i>
+                        }
+                        else
+                        {
+                            <i class="bi bi-star" style="opacity: 0.3;"></i>
+                        }
+                    }
+                    <span class="rating-count">@Model.Product.SoLuongDanhGia Đánh Giá</span>
                 </div>
-                <h4 class="fw-bold mt-2">Somseng Galatero X6 Ultra LTE 4G/128GB, Black Smartphone</h4>
+                <h3 class="fw-bold mt-2"> @Model.Product.TenHangHoa</h3>
             </div>
+            @{
+                var bienThe = bienThes.FirstOrDefault();
+            }
 
             <div class="mb-3">
-                <h3 class="fw-bold">$569.00 - $609.00</h3>
-                <div class="d-flex align-items-center gap-2">
+                <h4 class="fw-bold">
+                    <span class="text-danger">
+                        @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫
+                    </span>&nbsp;
+                    <span class="text-muted text-decoration-line-through">
+                        @(((double)bienThe.GiaGoc).ToString("N0")) ₫
+                    </span>
 
-                </div>
+                </h4>
             </div>
 
-            <ul class="mb-3 ps-4">
-                <li>Socket Intel LGA 1700: Hỗ trợ CPU Intel Core thế hệ 13 và 12</li>
-                <li>Hỗ trợ DDR5: 4*SMD DIMM với bộ nhớ XMP 3.0</li>
-                <li>Thiết kế nguồn mạnh mẽ: VRM kỹ thuật số với 16+1+2 pha đôi</li>
-            </ul>
+            @Html.Raw(Model.Product.MoTaDai)
 
 
             <div class="d-flex gap-3 mb-4">
@@ -73,31 +93,20 @@
 
             <div class="border-top border-bottom py-3 mb-3">
                 <div class="mb-3">
-                    <strong>Color:</strong> <span class="text-muted">Midnight Blue</span>
+                    <strong>Color:</strong> <span class="text-muted">@bienThe.MauSac</span>
                     <div class="d-flex gap-2 mt-2">
-                        <div class="border selected-border p-2 d-flex align-items-center gap-2 rounded-3">
-                            <div class="color-box bg-primary">
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod4.jpg" alt="Thumb" class="img-fluid" />
+                        @foreach (var product in bienThes)
+                        {
+                            <div class="border selected-border p-2 d-flex align-items-center gap-2 rounded-3">
+                                <div class="color-box bg-primary">
+                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod4.jpg" alt="Thumb" class="img-fluid" />
+                                </div>
+                                <div>
+                                    <div class="small fw-medium">@product.MauSac</div>
+                                    <div class="small">$569.00</div>
+                                </div>
                             </div>
-                            <div>
-                                <div class="small fw-medium">Midnight Blue</div>
-                                <div class="small">$569.00</div>
-                            </div>
-                        </div>
-                        <div class="border p-2 d-flex align-items-center gap-2 rounded-3">
-                            <div class="color-box bg-danger"></div>
-                            <div>
-                                <div class="small fw-medium">Red</div>
-                                <div class="small">$569.00</div>
-                            </div>
-                        </div>
-                        <div class="border p-2 d-flex align-items-center gap-2 rounded-3">
-                            <div class="color-box bg-black"></div>
-                            <div>
-                                <div class="small fw-medium">Space Black</div>
-                                <div class="small">$569.00</div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div>
 
@@ -126,9 +135,9 @@
 
 
             <div class="mt-4 small text-muted">
-                <div><strong>SKU:</strong> <span class="text-dark">ABC025168</span></div>
-                <div><strong>CATEGORY:</strong> <span class="text-dark">Cell Phones & Tablets</span></div>
-                <div><strong>BRAND:</strong> <span class="text-colormain">Samsung</span></div>
+                <div><strong>Mã Hàng Hóa:</strong> <span class="text-dark">@Model.Product.MaHangHoa</span></div>
+                <div><strong>Mã DM:</strong> <span class="text-dark">@Model.Product.TenDanhMuc</span></div>
+                <div><strong>Thương Hiệu:</strong> <span class="text-colormain">@Model.Product.TenThuongHieu</span></div>
             </div>
         </div>
 
@@ -136,8 +145,13 @@
         <div class="col-lg-3 ">
             <div class="bg-gray p-4 rounded-4">
                 <div class="mb-4">
-                    <div class="text-muted small">TOTAL PRICE:</div>
-                    <h2 class="fw-bold">$609.00</h2>
+                    <div class="text-muted small">TỔNG TIỀN SẢN PHẨM:</div>
+                    @{
+                        var giaKhuyenMai = (double)bienThe.GiaKhuyenMai;
+                    }
+                    <h2 class="fw-bold">
+                        <span id="total-price">@giaKhuyenMai.ToString("N0")</span> ₫
+                    </h2>
                 </div>
                 <div class="d-flex align-items-center text-success mb-3">
                     <div class="btn-success rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
@@ -145,36 +159,36 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
                     </div>
-                    <span>In stock</span>
+                    <span>Còn hàng</span>
                 </div>
 
                 <div class="d-flex gap-3 mb-3 align-items-center justify-content-sm-between bg-white">
-                    <button class="btn btn-outline-secondary"><i class="bi bi-dash"></i></button>
-                    <span class="fs-5">1</span>
-                    <button class="btn btn-outline-secondary"><i class="bi bi-plus"></i></button>
+                    <button class="btn btn-outline-secondary" id="btn-decrease"><i class="bi bi-dash"></i></button>
+                    <span class="fs-5" id="quantity">1</span>
+                    <button class="btn btn-outline-secondary" id="btn-increase"><i class="bi bi-plus"></i></button>
                 </div>
 
-                <button class="btn btn-success w-100 mb-2 py-3">Add to Cart</button>
+                <button class="btn btn-success w-100 mb-2 py-3">Thêm vào giỏ hàng</button>
                 <button class="btn btn-warning w-100 mb-3 py-3">
-                    Buy with <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/paypal.png" alt="PayPal" height="20" />
+                    Thanh toán với <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/paypal.png" alt="PayPal" height="20" />
                 </button>
 
                 <div class="d-flex justify-content-between small mb-2 border-bottom pb-3">
-                    <button class="btn  text-muted p-0  "><i class="fa-solid fa-heart" style="color:#1aba1a"></i> Wishlist added</button>
-                    <button class="btn  text-muted p-0"><i class="fa-solid fa-code-compare"></i> Compare</button>
+                    <button class="btn  text-muted p-0  "><i class="fa-solid fa-heart" style="color:#1aba1a"></i>&nbsp;Yêu thích</button>
+                    <button class="btn  text-muted p-0"><i class="fa-solid fa-code-compare"></i> So sánh</button>
                 </div>
 
-                <div class="text-center fw-medium small">Guaranteed Safe Checkout</div>
+                <div class="text-center fw-medium small">Đảm bảo thanh toán an toàn</div>
 
                 <div class="pay-logos my-3">
                     <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/pay.png" alt="" class="w-100">
                 </div>
             </div>
             <div class="text-center bg-gray my-3 p-4 rounded-4">
-                <button class="btn btn-dark w-100">Quick Order 24/7</button>
+                <button class="btn btn-dark w-100"> Đặt hàng nhanh 24/7 </button>
                 <div class="fw-bold fs-4 mt-2">(025) 3886 25 16</div>
             </div>
-            <p class="color-000 mt-15"> <i class="fa-solid fa-truck-fast"></i> <span class="color-666"> Ships from </span> <strong> United States </strong> </p>
+            <p class="color-000 mt-15"> <i class="fa-solid fa-truck-fast"></i> <span class="color-666"> Giao hàng từ </span> <strong> Hồ Chí Minh</strong> </p>
         </div>
 
     </div>
@@ -272,13 +286,13 @@
     <div class="">
         <ul class="nav nav-tabs" id="productTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active text-dark" id="desc-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">DESCRIPTION</button>
+                <button class="nav-link active text-dark" id="desc-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">MÔ TẢ</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link  text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">REVIEWS (5)</button>
+                <button class="nav-link  text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">SO SÁNH </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link text-dark" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button">ADDITIONAL INFORMATION</button>
+                <button class="nav-link  text-dark" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">GIỚI THIỆU THƯƠNG HIỆU</button>
             </li>
         </ul>
         <div class="tab-content pt-4" id="productTabsContent">
@@ -318,187 +332,106 @@
 
 
 <div class="container p-0 my-3">
-    <!-- Product Carousel -->
-    <div style="background-color:white" id="productCarousel" class="carousel slide position-relative p-4 rounded-3">
-        <!-- Navigation Tabs -->
-        <h4 class="mb-4 ">SẢN PHẨM LIÊN QUAN</h4>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    <!-- Product 1 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="save-badge">
-                                    <div class="save-label">SAVE</div>
-                                    <div class="save-amount">$199.00</div>
+    <div style="background-color:white" class="swiper productSwiper p-4 rounded-4">
+
+        <!-- Swiper Wrapper -->
+        <div class="swiper-wrapper">
+            @foreach (var product in Model.RelatedProducts)
+            {
+                <div class="swiper-slide">
+                    <!-- Card sản phẩm BEST SELLER -->
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                        </div>
+                        <div class="review-count">(@bienThe.SoLuongTonKho)</div>
+                        <h5 class="product-name">@product.TenHangHoa</h5>
+                        <p class="product-description">@product.MoTa</p>
+                        <div class="star-rating">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                if (i <= @product.DanhGiaTrungBinh)
+                                {
+                                    <i class="bi bi-star-fill"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                }
+                            }
+                            <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
+                        </div>
+
+                        <div class="price-container">
+                            <span class="current-price"> @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">  @(((double)bienThe.GiaGoc).ToString("N0")) ₫</span>
+
+                            @{
+                                var goc = bienThe.GiaGoc;
+                                var km = bienThe.GiaKhuyenMai;
+                                var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                            }
+                        </div>
+                        @if (discount > 0)
+                        {
+                            <span class="discount text-danger">
+                                @(((double)discount).ToString("N0")) ₫
+                            </span>
+                        }
+                        <div class="free-shipping">FREE SHIPPING</div>
+                        <div class="d-flex justify-content-between">
+                            @if (bienThe.SoLuongTonKho > 0)
+                            {
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>Còn hàng</span>
                                 </div>
-                                <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
-                            </div>
-                            <div class="review-count">(152)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="save-badge">
-                                    <div class="save-label">SAVE</div>
-                                    <div class="save-amount">$59.00</div>
+                            }
+                            else
+                            {
+                                <div class="stock-status text-danger">
+                                    <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                    <span>Hết hàng</span>
                                 </div>
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
-                            </div>
-                            <div class="review-count">(152)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
+                            }
 
-                    <!-- Product 3 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
-                            </div>
-                            <div class="review-count">(8)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
                             <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
+                                <a href="#" class="text-decoration-none text-dark hover-shake">
+                                    <i class="bi bi-heart heart-icon empty-heart"></i>
+                                    <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                    <span>Yêu thích</span>
+                                </a>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Product 4 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
-                            </div>
-                            <div class="review-count">(9)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <div class="save-badge">
-                                    <div class="save-label">SAVE</div>
-                                    <div class="save-amount">$3.00</div>
-                                </div>
-                                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="USB Charger">
-                            </div>
-                            <div class="review-count">(9)</div>
-                            <h3 class="product-name">Grande</h3>
-                            <p class="product-description">Blossom Pouch</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+
+        <!-- Navigation buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
 </div>
+<style>
+    .swiper-button-next, .swiper-button-prev {
+        color: #999; /* Màu sắc xám nhạt cho các nút */
+        font-size: 18px; /* Giảm kích thước font của nút */
+        width: 30px; /* Điều chỉnh chiều rộng của nút */
+        height: 30px; /* Điều chỉnh chiều cao của nút */
+    }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 18px; /* Kích thước của mũi tên */
+        }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 <div class="container p-4 bg-white my-2 rounded-3">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h5 class="  mb-0">Sản phẩm bạn xem gần đây</h5>
@@ -553,7 +486,7 @@
                 </button>
             </div>
         </div>
-       
+
     </div>
 </div>
 
@@ -631,7 +564,7 @@
         </div>
     </div>
 
-   
+
 
 
     <!-- Reviews List -->
@@ -694,3 +627,77 @@
         <h6 class="d-block d-lg-inline-flex align-items-center fw-400 fsz-18 lh-5"> <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/star.png" alt="" class="icon-30 me-2"> Thành viên được  MIỄN PHÍ VẬN CHUYỂN không yêu cầu giá trị đơn hàng tối thiểu!. Áp dụng điều kiện <a href="#" class="fsz-14 text-decoration-underline ms-2 text-white"> Dùng thử miễn phí 30 ngày!" </a> </h6>
     </div>
 </section>
+
+<script>
+    //1
+    const swiperWrapper = document.getElementById('product-swiper-wrapper');
+    const productTabs = document.getElementById('product-tabs');
+
+    // Khởi tạo swiper với autoplay + transition mượt
+    const productSwiper = new Swiper(".productSwiper", {
+        slidesPerView: 2,
+        spaceBetween: 20,
+        loop: false,
+        speed: 1000, // tốc độ chuyển slide (ms)
+        autoplay: {
+            delay: 3000, // tự chuyển mỗi 3 giây
+            disableOnInteraction: false, // không dừng autoplay khi người dùng swipe
+        },
+        breakpoints: {
+            576: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            992: { slidesPerView: 4 },
+            1200: { slidesPerView: 5 }
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        }
+    });
+</script>
+<script>
+     const unitPrice = @giaKhuyenMai;
+    document.addEventListener('DOMContentLoaded', function () {
+        let quantity = 1;
+        const quantityDisplay = document.getElementById('quantity');
+        const btnIncrease = document.getElementById('btn-increase');
+        const btnDecrease = document.getElementById('btn-decrease');
+
+        btnIncrease.addEventListener('click', function () {
+            quantity++;
+            quantityDisplay.textContent = quantity;
+        });
+
+        btnDecrease.addEventListener('click', function () {
+            if (quantity > 1) {
+                quantity--;
+                quantityDisplay.textContent = quantity;
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let quantity = 1;
+        const pricePerItem = unitPrice; // từ Razor
+        const quantityDisplay = document.getElementById('quantity');
+        const priceDisplay = document.getElementById('total-price');
+
+        document.getElementById('btn-increase').addEventListener('click', () => {
+            quantity++;
+            updateDisplay();
+        });
+
+        document.getElementById('btn-decrease').addEventListener('click', () => {
+            if (quantity > 1) {
+                quantity--;
+                updateDisplay();
+            }
+        });
+
+        function updateDisplay() {
+            quantityDisplay.textContent = quantity;
+            priceDisplay.textContent = (quantity * pricePerItem).toLocaleString('vi-VN');
+        }
+    });
+</script>

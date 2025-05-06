@@ -322,6 +322,7 @@
       <Column Name="MoTa" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="DanhGiaTrungBinh" Type="System.Double" DbType="Float" CanBeNull="true" />
       <Column Name="NgayTao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="MoTaDai" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="HangHoa_BienTheHangHoa" Member="BienTheHangHoas" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="BienTheHangHoa" />
       <Association Name="HangHoa_CollaborativeFiltering" Member="CollaborativeFilterings" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="CollaborativeFiltering" />
       <Association Name="HangHoa_ContentBasedFiltering" Member="ContentBasedFilterings" ThisKey="MaHangHoa" OtherKey="MaHangHoa1" Type="ContentBasedFiltering" />

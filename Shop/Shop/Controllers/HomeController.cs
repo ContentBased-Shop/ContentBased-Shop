@@ -26,13 +26,9 @@ namespace Shop.Controllers
                                join dg in data.DanhGias
                                on hh.MaHangHoa equals dg.MaHangHoa into dgGroup
                                from danhGia in dgGroup.DefaultIfEmpty()
-
                                group new { bienThe, danhGia } by new
-                               {
-                                   hh.MaHangHoa,
+                               {                         
                                    hh.TenHangHoa,
-                                   hh.MaDanhMuc,
-                                   hh.MaThuongHieu,
                                    hh.HinhAnh,
                                    hh.MoTa,
                                    hh.NgayTao
@@ -40,10 +36,9 @@ namespace Shop.Controllers
 
                                select new HangHoaViewModel
                                {
-                                   MaHangHoa = g.Key.MaHangHoa,
+                                  
                                    TenHangHoa = g.Key.TenHangHoa,
-                                   MaDanhMuc = g.Key.MaDanhMuc,
-                                   MaThuongHieu = g.Key.MaThuongHieu,
+                                  
                                    HinhAnh = g.Key.HinhAnh,
                                    MoTa = g.Key.MoTa,
                                    NgayTao = g.Key.NgayTao.Value,
@@ -54,8 +49,7 @@ namespace Shop.Controllers
                                    GiaKhuyenMai = g.Where(x => x.bienThe != null)
                                                 .Select(x => x.bienThe.GiaKhuyenMai)
                                                 .FirstOrDefault() ?? 0,
-
-                                                                   SoLuongTonKho = g.Where(x => x.bienThe != null)
+                                   SoLuongTonKho = g.Where(x => x.bienThe != null)
                                                  .Select(x => x.bienThe.SoLuongTonKho)
                                                  .FirstOrDefault() ?? 0,
                                    SoLuongDanhGia = g.Count(x => x.danhGia != null),

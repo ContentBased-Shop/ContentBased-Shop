@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Models;
@@ -18,30 +19,91 @@ namespace Shop.Controllers
         {
             return View();
         }
-        public ActionResult ProductDetail()
+        #region ProductDetail
+        public ActionResult ProductDetail(string id)
         {
-            return View();
+            var productList = (from hh in data.HangHoas
+                               join bienThe in data.BienTheHangHoas on hh.MaHangHoa equals bienThe.MaHangHoa into bienTheGroup
+                               join dg in data.DanhGias on hh.MaHangHoa equals dg.MaHangHoa into danhGiaGroup
+                               join mota in data.MoTaChiTietHangHoas on hh.MaHangHoa equals mota.MaHangHoa into motaGroup
+                               join dm in data.DanhMucs on hh.MaDanhMuc equals dm.MaDanhMuc into dmGroup
+                               join th in data.ThuongHieus on hh.MaThuongHieu equals th.MaThuongHieu into thGroup
+                               select new
+                               {
+                                   HangHoa = hh,
+                                   BienThes = bienTheGroup,
+                                   DanhGias = danhGiaGroup,
+                                   MoTaChiTiet = motaGroup.FirstOrDefault(),
+                                   DanhMuc = dmGroup.FirstOrDefault(),
+                                   ThuongHieu = thGroup.FirstOrDefault()
+                               })
+                .ToList()
+                .Select(x => new ProductDetailView
+                {
+                    MaHangHoa = x.HangHoa.MaHangHoa,
+                    TenHangHoa = x.HangHoa.TenHangHoa,
+                    MoTa = x.HangHoa.MoTa,
+                    MoTaDai = x.HangHoa.MoTaDai,
+                    HinhAnh = x.HangHoa.HinhAnh,
+                    NgayTao = x.HangHoa.NgayTao ?? DateTime.MinValue,
+
+                    // Gán toàn bộ danh sách biến thể từ bienTheGroup
+                    BienThes = x.BienThes.ToList(),  // Đã lấy từ bienTheGroup rồi, không cần query lại
+
+                    SoLuongDanhGia = x.DanhGias.Count(),
+                    DanhGiaTrungBinh = x.DanhGias.Any() ? x.DanhGias.Average(d => d.SoSao).GetValueOrDefault() : 0,
+
+                    // Thêm mô tả chi tiết
+                    TieuDe = x.MoTaChiTiet?.TieuDe ?? "",
+                    NoiDung = x.MoTaChiTiet?.NoiDung ?? "",
+                    NgayCapNhat = x.MoTaChiTiet?.NgayCapNhat ?? DateTime.MinValue,
+                    // Thêm tên danh mục
+                    TenDanhMuc = x.DanhMuc?.TenDanhMuc ?? "",
+                    TenThuongHieu = x.ThuongHieu?.TenThuongHieu ?? ""
+                })
+                .ToList();
+
+            var product = productList.FirstOrDefault(p => p.MaHangHoa == id);
+            if (product == null) return HttpNotFound();
+
+            var viewModel = new ProductDetailPageView
+            {
+                Product = product,
+                RelatedProducts = productList.Where(p => p.MaHangHoa != id).ToList()
+            };
+            return View(viewModel);
         }
+        #endregion
+        #region ProductDienThoaiTabLet
         public ActionResult ProductDienThoaiTabLet()
         {
             return View();
         }
+        #endregion
+        #region ProductLapTopPC
         public ActionResult ProductLapTopPC()
         {
             return View();
         }
+        #endregion
+        #region Gaming
         public ActionResult Gaming()
         {
             return View();
         }
+        #endregion
+        #region AnotherProduct
         public ActionResult AnotherProduct()
         {
             return View();
         }
+        #endregion
+        #region PhuKien
         public ActionResult PhuKien()
         {
             return View();
         }
+        #endregion
         public ActionResult ProductWishList()
         {
             var products = (from p in data.HangHoas

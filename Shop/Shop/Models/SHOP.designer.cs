@@ -7037,6 +7037,8 @@ namespace Shop.Models
 		
 		private System.Nullable<System.DateTime> _NgayTao;
 		
+		private string _MoTaDai;
+		
 		private EntitySet<BienTheHangHoa> _BienTheHangHoas;
 		
 		private EntitySet<CollaborativeFiltering> _CollaborativeFilterings;
@@ -7083,6 +7085,8 @@ namespace Shop.Models
     partial void OnDanhGiaTrungBinhChanged();
     partial void OnNgayTaoChanging(System.Nullable<System.DateTime> value);
     partial void OnNgayTaoChanged();
+    partial void OnMoTaDaiChanging(string value);
+    partial void OnMoTaDaiChanged();
     #endregion
 		
 		public HangHoa()
@@ -7267,6 +7271,26 @@ namespace Shop.Models
 					this._NgayTao = value;
 					this.SendPropertyChanged("NgayTao");
 					this.OnNgayTaoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTaDai", DbType="NVarChar(MAX)")]
+		public string MoTaDai
+		{
+			get
+			{
+				return this._MoTaDai;
+			}
+			set
+			{
+				if ((this._MoTaDai != value))
+				{
+					this.OnMoTaDaiChanging(value);
+					this.SendPropertyChanging();
+					this._MoTaDai = value;
+					this.SendPropertyChanged("MoTaDai");
+					this.OnMoTaDaiChanged();
 				}
 			}
 		}
