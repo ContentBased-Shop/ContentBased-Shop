@@ -134,5 +134,35 @@ namespace Shop.Controllers
 
             return View(products);
         }
+
+        public JsonResult SearchSuggest(string keyword)
+        {
+            var hangHoaFull = (from hh in data.HangHoas
+                               join bt in data.BienTheHangHoas
+                               on hh.MaHangHoa equals bt.MaHangHoa into btGroup
+                               from bienThe in btGroup.DefaultIfEmpty()
+                               where hh.TenHangHoa.Contains(keyword)  // Lọc theo từ khóa
+                               group new { bienThe } by new
+                               {
+                                   hh.MaHangHoa,       // Mã hàng hóa
+                                   hh.TenHangHoa,      // Tên hàng hóa
+                                   hh.HinhAnh          // Hình ảnh
+                               } into g
+
+                               select new HangHoaViewModel
+                               {
+                                   MaHangHoa = g.Key.MaHangHoa,        // Mã hàng hóa
+                                   TenHangHoa = g.Key.TenHangHoa,      // Tên hàng hóa
+                                   HinhAnh = g.Key.HinhAnh,            // Hình ảnh
+                                   GiaGoc = g.Where(x => x.bienThe != null)
+                                              .Select(x => x.bienThe.GiaGoc)
+                                              .FirstOrDefault() ?? 0,    // Giá gốc
+                                   GiaKhuyenMai = g.Where(x => x.bienThe != null)
+                                                    .Select(x => x.bienThe.GiaKhuyenMai)
+                                                    .FirstOrDefault() ?? 0,   // Giá khuyến mãi
+                               }).ToList();
+
+            return Json(hangHoaFull, JsonRequestBehavior.AllowGet);
+        }
     }
 }

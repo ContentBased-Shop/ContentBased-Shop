@@ -16,7 +16,6 @@ namespace Shop.Controllers
         public ActionResult Index()
         {
             var hangHoaFull = (from hh in data.HangHoas
-
                                    // Gộp với tất cả biến thể theo MaHangHoa
                                join bt in data.BienTheHangHoas
                                on hh.MaHangHoa equals bt.MaHangHoa into btGroup
@@ -38,7 +37,6 @@ namespace Shop.Controllers
                                {
                                   
                                    TenHangHoa = g.Key.TenHangHoa,
-                                  
                                    HinhAnh = g.Key.HinhAnh,
                                    MoTa = g.Key.MoTa,
                                    NgayTao = g.Key.NgayTao.Value,
