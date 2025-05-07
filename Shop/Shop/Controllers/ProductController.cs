@@ -36,9 +36,9 @@ namespace Shop.Controllers
                                    MoTaChiTiet = motaGroup.FirstOrDefault(),
                                    DanhMuc = dmGroup.FirstOrDefault(),
                                    ThuongHieu = thGroup.FirstOrDefault()
-                               })
-                .ToList()
-                .Select(x => new ProductDetailView
+                                          })
+                 .ToList()
+                  .Select(x => new ProductDetailView
                 {
                     MaHangHoa = x.HangHoa.MaHangHoa,
                     TenHangHoa = x.HangHoa.TenHangHoa,
@@ -50,8 +50,22 @@ namespace Shop.Controllers
                     // Gán toàn bộ danh sách biến thể từ bienTheGroup
                     BienThes = x.BienThes.ToList(),  // Đã lấy từ bienTheGroup rồi, không cần query lại
 
+                    // Đánh giá 
                     SoLuongDanhGia = x.DanhGias.Count(),
                     DanhGiaTrungBinh = x.DanhGias.Any() ? x.DanhGias.Average(d => d.SoSao).GetValueOrDefault() : 0,
+                    DanhGiasChiTiet = x.DanhGias
+                                .Join(data.KhachHangs, d => d.MaKhachHang, k => k.MaKhachHang,
+                                    (d, k) => new DanhGiaView
+                                    {
+                                        SoSao = d.SoSao ?? 0,
+                                        BinhLuan = d.BinhLuan,
+                                        NgayTao = d.NgayTao,
+                                        HoTenKhachHang = k.HoTen
+                                    }).ToList(),
+
+                    ThongKeSoSao = x.DanhGias
+                    .GroupBy(d => d.SoSao ?? 0)
+                    .ToDictionary(g => g.Key, g => g.Count()),
 
                     // Thêm mô tả chi tiết
                     MoTaChiTiet = x.MoTaChiTiet?.NoiDung ?? "",
@@ -62,7 +76,8 @@ namespace Shop.Controllers
 
                     // Thương hiệu
                     TenThuongHieu = x.ThuongHieu?.TenThuongHieu ?? "",
-                    MoTaThuongHieu = x.ThuongHieu?.MoTa ?? ""
+                    MoTaThuongHieu = x.ThuongHieu?.MoTa ?? "",
+
                 })
                 .ToList();
             // Tìm biến thể theo mã biến thể nếu có truyền

@@ -27,13 +27,15 @@ namespace Shop.Models
         // Dữ liệu từ bảng DanhGia
         public int SoLuongDanhGia { get; set; }
         public double DanhGiaTrungBinh { get; set; }
+        public List<DanhGiaView> DanhGiasChiTiet { get; set; }
+        public Dictionary<int, int> ThongKeSoSao { get; set; } = new Dictionary<int, int>();
 
         // Thêm thông tin từ bảng MoTaChiTietHangHoa
-       
+
         public string MoTaChiTiet { get; set; }
         public DateTime? NgayCapNhat { get; set; }
         public DateTime? NgayTaoMoTaChiTiet { get; set; }
-
+        
     }
 
 }

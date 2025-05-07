@@ -709,22 +709,28 @@
 
 <!-- Product Reviews -->
 <div class="container py-4 rounded-3 bg-white p-4">
-    <h2 class="h3 mb-4 fw-bold">Reviews</h2>
-
+    <h2 class="h3 mb-4 fw-bold">Đánh giá sản phẩm</h2>
     <!-- Rating Summary -->
     <div class="row mb-5 px-4">
+                      
         <!-- Cột 25% -->
         <div class="col-12 col-md-3 mb-4 mb-md-0">
             <div class="bg-light p-4 rounded text-center mx-4 rounded-4">
-                <div class="display-6 fw-bold mb-2">4.8</div>
-                <div class="small text-muted mb-3">of 123 reviews</div>
+                <div class="display-6 fw-bold mb-2">@Model.Product.DanhGiaTrungBinh.ToString("0.0")</div>
+                <div class="small text-muted mb-3">of @Model.Product.SoLuongDanhGia reviews</div>
                 <div class="d-flex mb-2 justify-content-center">
                     <div class="d-flex ">
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-fill text-warning"></i>
-                        <i class="bi bi-star-half text-warning"></i>
+                        @for (int i = 1; i <= 5; i++)
+                        {
+                            if (i <= Model.Product.DanhGiaTrungBinh)
+                            {
+                                <i class="bi bi-star-fill text-warning"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                            }
+                        }
                     </div>
                 </div>
             </div>
@@ -732,104 +738,68 @@
 
         <!-- Cột 75% -->
         <div class="col-12 col-md-9">
-            <div class="mb-2">
-                <div class="d-flex justify-content-between">
-                    <div>Excellent</div>
-                    <div>50</div>
+            @{
+                var tongDanhGia = Model.Product.ThongKeSoSao.Values.Sum();
+                string[] nhanXet = new[] { "", "Tệ", "Không hài lòng", "Bình thường", "Tốt", "Tuyệt vời" };
+            }
+
+            @for (int sao = 5; sao >= 1; sao--)
+            {
+                var soLuong = Model.Product.ThongKeSoSao.ContainsKey(sao) ? Model.Product.ThongKeSoSao[sao] : 0;
+                var phanTram = tongDanhGia > 0 ? (soLuong * 100 / tongDanhGia) : 0;
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between">
+                        <div >@nhanXet[sao]</div>
+                        <div>@soLuong</div>
+                    </div>
+                    <div class="progress progress-sm">
+                        <div class="progress-bar bg-warning" style="width: @phanTram%"></div>
+                    </div>
                 </div>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 60%"></div>
-                </div>
-            </div>
-            <div class="mb-2">
-                <div class="d-flex justify-content-between">
-                    <div>Good</div>
-                    <div>30</div>
-                </div>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 25%"></div>
-                </div>
-            </div>
-            <div class="mb-2">
-                <div class="d-flex justify-content-between">
-                    <div>Average</div>
-                    <div>20</div>
-                </div>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 15%"></div>
-                </div>
-            </div>
-            <div class="mb-2">
-                <div class="d-flex justify-content-between">
-                    <div>Below Average</div>
-                    <div>10</div>
-                </div>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 5%"></div>
-                </div>
-            </div>
-            <div class="mb-2">
-                <div class="d-flex justify-content-between">
-                    <div>Poor</div>
-                    <div>5</div>
-                </div>
-                <div class="progress progress-sm">
-                    <div class="progress-bar bg-warning" style="width: 2%"></div>
-                </div>
-            </div>
+            }
+
         </div>
     </div>
-
-
 
 
     <!-- Reviews List -->
     <div class="space-y-5">
         <!-- Review 1 -->
-        <div class="bg-light p-4 rounded">
-            <div class="d-flex justify-content-between mb-3">
-                <div class="d-flex gap-3">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
-                    <div>
-                        <div class="fw-medium">Grace Carey</div>
-                        <div class="d-flex">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-half text-warning"></i>
+        @foreach (var danhgia in Model.Product.DanhGiasChiTiet)
+        {
+            <div class="bg-light p-4 rounded">
+                <div class="d-flex justify-content-between mb-3">
+                    <div class="d-flex gap-3">
+                        <img src="https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-avatar-icon-abstract-user-login-icon-png-image_3917181.jpg" alt="User" class="rounded-circle" width="40" height="40">
+                        <div>
+                            <div class="fw-medium">@danhgia.HoTenKhachHang</div>
+                            <div class="d-flex">
+                                <div class="star-rating">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= danhgia.SoSao)
+                                        {
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        }
+                                    }
+                                </div>
+                               
+                            </div>
                         </div>
                     </div>
+                    <div class="small text-muted">@danhgia.NgayTao</div>
                 </div>
-                <div class="small text-muted">24 January, 2023</div>
-            </div>
-            <p class="text-muted mb-3">Tôi hơi lo lắng khi mua điện thoại cũ từ Amazon, nhưng tôi không thể hạnh phúc hơn với giao dịch mua của mình!! Tôi có gói dữ liệu trả trước nên tôi lo rằng điện thoại này sẽ không kết nối được với gói dữ liệu của tôi, vì điện thoại mới không còn khay Sim vật lý nữa, nhưng không thể dễ hơn! Tôi đã mua một chiếc iPhone 14 Pro Max màu đen đã mở khóa trong tình trạng tuyệt vời và mọi thứ đều HOÀN HẢO. Nó rất dễ thiết lập và điện thoại hoạt động và trông tuyệt vời. Nó thực sự trong tình trạng tuyệt vời. Rất khuyến khích!!!🖤</p>
-            <div class="d-flex gap-2">
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 1" class="rounded" width="80" height="80">
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 2" class="rounded" width="80" height="80">
-            </div>
-        </div>
-
-        <!-- Review 2 -->
-        <div class="bg-light p-4 rounded">
-            <div class="d-flex justify-content-between mb-3">
-                <div class="d-flex gap-3">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
-                    <div>
-                        <div class="fw-medium">Ronald Richards</div>
-                        <div class="d-flex">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                            <i class="bi bi-star-fill text-warning"></i>
-                        </div>
-                    </div>
+                <p class="text-muted mb-3">@danhgia.BinhLuan</p>
+                <div class="d-flex gap-2">
+                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 1" class="rounded" width="80" height="80">
+                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 2" class="rounded" width="80" height="80">
                 </div>
-                <div class="small text-muted">24 January, 2023</div>
             </div>
-            <p class="text-muted mb-3">This phone has 1T storage and is durable...</p>
-        </div>
+        }
     </div>
 
     <!-- View More Button -->
