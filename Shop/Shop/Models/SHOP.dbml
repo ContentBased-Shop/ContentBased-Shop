@@ -295,12 +295,9 @@
       <Column Name="MaKhachHang" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TenDangNhap" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="HoTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="MatKhauHash" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="SoDienThoai" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="NgayTao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="KhachHang_CollaborativeFiltering" Member="CollaborativeFilterings" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="CollaborativeFiltering" />
       <Association Name="KhachHang_DanhGia" Member="DanhGias" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="DanhGia" />
       <Association Name="KhachHang_DonHang" Member="DonHangs" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="DonHang" />

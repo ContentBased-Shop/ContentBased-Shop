@@ -39,8 +39,7 @@ namespace Shop.Controllers
 
             // Tìm người dùng với tên đăng nhập
             var user = data.KhachHangs.FirstOrDefault(u =>
-                u.TenDangNhap == username &&
-                u.TrangThai == "HoatDong");
+                u.TenDangNhap == username );
 
             if (user != null)
             {
@@ -157,10 +156,7 @@ namespace Shop.Controllers
                 TenDangNhap = username,
                 Email = email,
                 MatKhauHash = encryptedPassword,
-                DiaChi = "SG",
                 SoDienThoai = phonenumber,
-                TrangThai = "HoatDong",
-                NgayTao = DateTime.Now,
             };
 
 

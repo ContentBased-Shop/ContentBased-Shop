@@ -6521,17 +6521,11 @@ namespace Shop.Models
 		
 		private string _HoTen;
 		
-		private string _DiaChi;
-		
 		private string _MatKhauHash;
 		
 		private string _Email;
 		
 		private string _SoDienThoai;
-		
-		private System.Nullable<System.DateTime> _NgayTao;
-		
-		private string _TrangThai;
 		
 		private EntitySet<CollaborativeFiltering> _CollaborativeFilterings;
 		
@@ -6561,18 +6555,12 @@ namespace Shop.Models
     partial void OnTenDangNhapChanged();
     partial void OnHoTenChanging(string value);
     partial void OnHoTenChanged();
-    partial void OnDiaChiChanging(string value);
-    partial void OnDiaChiChanged();
     partial void OnMatKhauHashChanging(string value);
     partial void OnMatKhauHashChanged();
     partial void OnEmailChanging(string value);
     partial void OnEmailChanged();
     partial void OnSoDienThoaiChanging(string value);
     partial void OnSoDienThoaiChanged();
-    partial void OnNgayTaoChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayTaoChanged();
-    partial void OnTrangThaiChanging(string value);
-    partial void OnTrangThaiChanged();
     #endregion
 		
 		public KhachHang()
@@ -6649,26 +6637,6 @@ namespace Shop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DiaChi", DbType="NVarChar(50)")]
-		public string DiaChi
-		{
-			get
-			{
-				return this._DiaChi;
-			}
-			set
-			{
-				if ((this._DiaChi != value))
-				{
-					this.OnDiaChiChanging(value);
-					this.SendPropertyChanging();
-					this._DiaChi = value;
-					this.SendPropertyChanged("DiaChi");
-					this.OnDiaChiChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MatKhauHash", DbType="NVarChar(255)")]
 		public string MatKhauHash
 		{
@@ -6725,46 +6693,6 @@ namespace Shop.Models
 					this._SoDienThoai = value;
 					this.SendPropertyChanged("SoDienThoai");
 					this.OnSoDienThoaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayTao", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayTao
-		{
-			get
-			{
-				return this._NgayTao;
-			}
-			set
-			{
-				if ((this._NgayTao != value))
-				{
-					this.OnNgayTaoChanging(value);
-					this.SendPropertyChanging();
-					this._NgayTao = value;
-					this.SendPropertyChanged("NgayTao");
-					this.OnNgayTaoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="NVarChar(20)")]
-		public string TrangThai
-		{
-			get
-			{
-				return this._TrangThai;
-			}
-			set
-			{
-				if ((this._TrangThai != value))
-				{
-					this.OnTrangThaiChanging(value);
-					this.SendPropertyChanging();
-					this._TrangThai = value;
-					this.SendPropertyChanged("TrangThai");
-					this.OnTrangThaiChanged();
 				}
 			}
 		}

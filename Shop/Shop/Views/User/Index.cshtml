@@ -2,8 +2,8 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@model Shop.Models.KhachHang
 <link rel="stylesheet" href="~/assets/CSS/User/User.css" />
-
 <div class="container p-4 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
@@ -33,10 +33,10 @@
     <div class="sidebar p-4 col-12 col-md-3 bg-light rounded-4">
         <div class="text-center mb-4">
             <div class="mb-3 mx-auto">
-                <img src="https://png.pngtree.com/png-clipart/20210915/ourlarge/pngtree-avatar-icon-abstract-user-login-icon-png-image_3917181.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
+                <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
             </div>
-            <h2 class="h4 fw-bold">VuzPham</h2>
-            <p class="text-muted">phamnguyenvu287@gmail.com</p>
+            <h2 class="h4 fw-bold">@Model.HoTen</h2>
+            <p class="text-muted">@Model.Email</p>
         </div>
 
         <nav>
@@ -103,34 +103,57 @@
     </style>
     <!-- Main Content -->
     @*Account*@
-    <div id="account-infor" class=" flex-grow-1 p-4 tab-content ">
-        <h2 class="mb-4 fw-bold">THÔNG TIN TÀI KHOẢN</h2>
-
-        <form style="max-width: 720px;">
-            <div class="row g-3 mb-3">
-                <div class="col-md-6">
-                    <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="firstName" value="Mark" required>
+    @using (Html.BeginForm("XacNhanDoiThongTin", "User", FormMethod.Post))
+    {
+        <div id="account-infor" class="flex-grow-1 p-4 tab-content">
+            <h2 class="mb-4 fw-bold">THÔNG TIN TÀI KHOẢN</h2>
+            <div class="container py-4" style="min-width: 720px;">
+                <div class="mb-3">
+                    <label for="firstName" class="form-label fw-medium">Họ tên </label>
+                    <input type="text" class="form-control" name="HoTen" id="firstName" value="@Model.HoTen" required />
                 </div>
-                <div class="col-md-6">
-                    <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="lastName" value="Cole" required>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-medium">Địa chỉ email </label>
+                    <input type="email" class="form-control" name="Email" id="email" value="@Model.Email" required />
+                </div>
+
+                <div class="mb-4">
+                    <label for="phone" class="form-label fw-medium">Số điện thoại</label>
+                    <input type="tel" class="form-control" name="SoDienThoai" id="phone" value="@Model.SoDienThoai" />
+                </div>
+
+                <div class="mb-4">
+                    <div class="g-recaptcha" data-sitekey="6LfycxgrAAAAAB4Lv3Q2NHNQxmml_eVVqnTQRa2P"></div>
+                </div>
+
+                <button type="button" class="btn btn-success text-white px-4 py-1 btn-save" onclick="checkRecaptchaAndShowModal()">
+                    Xác nhận đổi thông tin tài khoản
+                </button>
+
+            </div>
+
+            <!-- Modal xác nhận -->
+            <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Xác nhận</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc chắn muốn cập nhật thông tin tài khoản?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary">Xác nhận</button>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    }
 
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" id="email" value="swoo@gmail.com" required>
-            </div>
-
-            <div class="mb-4">
-                <label for="phone" class="form-label">Phone Number (Optional)</label>
-                <input type="tel" class="form-control" id="phone" value="+1 0231 4554 452">
-            </div>
-            <div class="g-recaptcha mb-3" data-sitekey="6LfycxgrAAAAAB4Lv3Q2NHNQxmml_eVVqnTQRa2P"></div>
-            <button type="submit" class="btn btn-success text-white px-4 py-1 btn-save">Xác nhận đổi thông tin tài khoản</button>
-        </form>
-    </div>
 
     <!-- Order items -->
     <div id="my-order" class="flex-grow-1 overflow-scroll-container tab-content d-none">
@@ -514,7 +537,7 @@
             <div class="align-content-center">
                 <span>Mời bạn đánh giá mức độ hài lòng về chương trình ưu đãi, và dịch vụ hỗ trợ của SwooTechsmart. Hãy cho chúng mình thêm góp ý để cải thiện tốt hơn</span>
             </div>
-           
+
         </div>
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSexiy2-lbymp7uApW2ZfDcct9ZA0ptWTF9D3GUEKdEAPAF7xQ/viewform?embedded=true"
                 width="840"
@@ -691,6 +714,16 @@
             strengthText.style.color = 'green';
         }
     }
-
-
+</script>
+<script>
+    function checkRecaptchaAndShowModal() {
+        var response = grecaptcha.getResponse();
+        if (response.length === 0) {
+            alert("Vui lòng xác thực bạn không phải là robot.");
+        } else {
+            // Nếu đã xác thực, mở modal
+            var confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            confirmModal.show();
+        }
+    }
 </script>

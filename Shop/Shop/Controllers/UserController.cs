@@ -16,7 +16,24 @@ namespace Shop.Controllers
         // GET: /User/
         public ActionResult Index()
         {
-            return View();
+            if (Session["UserID"] == null)
+                return RedirectToAction("Login", "InnerPage");
+
+            string maKhachHang = Session["UserID"].ToString();
+
+            // Truy vấn dữ liệu khách hàng từ database
+            var khachHang = data.KhachHangs
+                .Where(kh => kh.MaKhachHang == maKhachHang)
+                .FirstOrDefault();
+
+            // Kiểm tra nếu không tìm thấy khách hàng
+            if (khachHang == null)
+            {
+                return RedirectToAction("Login", "InnerPage"); // Nếu không tìm thấy, chuyển hướng đến đăng nhập
+            }
+
+            // Trả lại view với đối tượng KhachHang
+            return View(khachHang); // Truyền khách hàng vào view
         }
 
 
@@ -34,8 +51,7 @@ namespace Shop.Controllers
             if (password == sessionPassword)
             {
                 var user = data.KhachHangs.FirstOrDefault(u =>
-                    u.TenDangNhap == username &&
-                    u.TrangThai == "HoatDong");
+                    u.TenDangNhap == username );
 
                 if (user != null)
                 {
@@ -59,5 +75,30 @@ namespace Shop.Controllers
 
             return RedirectToAction("Index", "User");
         }
+
+        // POST: /User/XacNhanDoiThongTin
+        [HttpPost]
+        public ActionResult XacNhanDoiThongTin(string HoTen, string Email, string SoDienThoai)
+        {
+            var userId = Session["UserID"]?.ToString();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Auth");
+            }
+
+            var khachHang = data.KhachHangs.FirstOrDefault(k => k.MaKhachHang == userId);
+            if (khachHang != null)
+            {
+                khachHang.HoTen = HoTen;
+                khachHang.Email = Email;
+                khachHang.SoDienThoai = SoDienThoai;
+
+                data.SubmitChanges();
+            }
+
+            return RedirectToAction("Index", "User"); // quay lại trang thông tin
+        }
+
     }
 }
