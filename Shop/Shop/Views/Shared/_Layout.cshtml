@@ -223,19 +223,18 @@
                 <div class="row align-items-center">
                     <!-- Search Bar Section -->
                     <div class="col-lg-5">
-                        <div class="search-container">
-                            <input type="text" id="search-input" class="search-input"
-                                   placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm"
-                                   autocomplete="off">
+                        <div class="search-container"style="position: relative" >
                             <button class="search-button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-search" viewBox="0 0 16 16">
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
                                 </svg>
-                                <div id="search-spinner" class="spinner-border spinner-border-sm text-primary d-none" role="status">
-                                    <span class="visually-hidden">Loading...</span>
-                                </div>
+
                             </button>
+                            <input type="text" id="search-input" class="search-input"
+                                   placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm"
+                                   autocomplete="off">
+                            <span id="clear-search" style="display: none; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; font-weight: bold;">×</span>
                         </div>
                     </div>
 
@@ -478,17 +477,17 @@
                     } else {
                         data.forEach(function (item) {
                             html += `
-                                <a href="/Product/ProductDetail/${item.MaHangHoa}" class="search-result-item"
-                                   style="display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid #eee; text-decoration: none; color: #333;">
-                                    <img src="/assets/Image/Product/${item.HinhAnh}" alt="${item.TenHangHoa}"
-                                         style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;" />
-                                    <div>
-                                        <strong>${item.TenHangHoa}</strong><br />
-                                        <small><s>${item.GiaGoc.toLocaleString()}đ</s></small><br />
-                                        <small><span style="color: red;">${item.GiaKhuyenMai.toLocaleString()}đ</span></small>
-                                    </div>
-                                </a>
-                            `;
+                            <a href="/Product/ProductDetail/${item.MaHangHoa}" class="search-result-item"
+                               style="display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid #eee; text-decoration: none; color: #333;">
+                                <img src="/assets/Image/Product/${item.HinhAnh}" alt="${item.TenHangHoa}"
+                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;" />
+                                <div>
+                                    <strong>${item.TenHangHoa}</strong><br />
+                                    <small><s>${item.GiaGoc.toLocaleString()}đ</s></small><br />
+                                    <small><span style="color: red;">${item.GiaKhuyenMai.toLocaleString()}đ</span></small>
+                                </div>
+                            </a>
+                        `;
                         });
                     }
 
@@ -503,27 +502,37 @@
         $('#search-input').on('input focus', function () {
             const keyword = $(this).val().trim();
 
-            clearTimeout(debounceTimer); // Xoá timer cũ nếu có
+            // Hiện/ẩn nút "X"
+            if (keyword.length > 0) {
+                $('#clear-search').show();
+            } else {
+                $('#clear-search').hide();
+            }
+
+            clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
                 searchProduct(keyword);
-            }, 1000); // Đợi 2 giây trước khi thực hiện tìm kiếm
+            }, 500); // debounce 0.5s
         });
 
-        // Ẩn khi click ra ngoài
+        // Khi bấm nút "X" để xóa
+        $('#clear-search').on('click', function () {
+            $('#search-input').val('').focus();
+            $(this).hide();
+            $('#search-results').hide();
+        });
+
+        // Ẩn kết quả khi click ra ngoài
         $(document).on('click', function (e) {
             if (!$(e.target).closest('.search-container').length) {
                 $('#search-results').hide();
             }
         });
 
-        // Ngăn mất focus khi click trong dropdown
+        // Ngăn mất focus khi click trong kết quả
         $('#search-results').on('click', function (e) {
             e.stopPropagation();
         });
     });
-
-        
-    
-
 </script>
 

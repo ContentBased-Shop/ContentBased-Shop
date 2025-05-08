@@ -11,6 +11,7 @@ namespace Shop.Models
         public string TenHangHoa { get; set; }
         public string HinhAnh { get; set; }
         public string MoTa { get; set; }
+        public string MoTaDai { get; set; }
         public DateTime NgayTao { get; set; }
 
         public double GiaGoc { get; set; }
