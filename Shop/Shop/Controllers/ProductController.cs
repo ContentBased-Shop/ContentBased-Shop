@@ -128,11 +128,65 @@ namespace Shop.Controllers
         #endregion
         public ActionResult ProductWishList()
         {
-            var products = (from p in data.HangHoas
-                            orderby p.TenHangHoa
-                            select p).ToList(); // lấy hết, không lọc IsInStock
+            string maKhachHang = Session["UserID"] as string;
+            if (string.IsNullOrEmpty(maKhachHang))
+            {
+                return RedirectToAction("Login", "InnerPage"); // Chưa đăng nhập
+            }
 
-            return View(products);
+            var hangHoaYeuThich = (from yt in data.YeuThiches
+                                   where yt.MaKhachHang == maKhachHang
+                                   select yt.MaHangHoa).ToList();
+
+            var hangHoaFull = (from hh in data.HangHoas
+                               where hangHoaYeuThich.Contains(hh.MaHangHoa)
+
+                               join bt in data.BienTheHangHoas
+                               on hh.MaHangHoa equals bt.MaHangHoa into btGroup
+                               from bienThe in btGroup.DefaultIfEmpty()
+
+                               join dg in data.DanhGias
+                               on hh.MaHangHoa equals dg.MaHangHoa into dgGroup
+                               from danhGia in dgGroup.DefaultIfEmpty()
+
+                               group new { bienThe, danhGia } by new
+                               {
+                                   hh.MaHangHoa,
+                                   hh.MoTaDai,
+                                   hh.TenHangHoa,
+                                   hh.HinhAnh,
+                                   hh.MoTa,
+                                   hh.NgayTao
+                               } into g
+
+                               select new HangHoaViewModel
+                               {
+                                   MaHangHoa = g.Key.MaHangHoa,
+                                   MoTaDai = g.Key.MoTaDai,
+                                   TenHangHoa = g.Key.TenHangHoa,
+                                   HinhAnh = g.Key.HinhAnh,
+                                   MoTa = g.Key.MoTa,
+                                   NgayTao = g.Key.NgayTao ?? DateTime.Now,
+
+                                   GiaGoc = g.Where(x => x.bienThe != null)
+                                             .Select(x => x.bienThe.GiaGoc)
+                                             .FirstOrDefault() ?? 0,
+
+                                   GiaKhuyenMai = g.Where(x => x.bienThe != null)
+                                                   .Select(x => x.bienThe.GiaKhuyenMai)
+                                                   .FirstOrDefault() ?? 0,
+
+                                   SoLuongTonKho = g.Where(x => x.bienThe != null)
+                                                    .Select(x => x.bienThe.SoLuongTonKho)
+                                                    .FirstOrDefault() ?? 0,
+
+                                   SoLuongDanhGia = g.Count(x => x.danhGia != null),
+
+                                   DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
+                                                    ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
+                                                    : 0
+                               }).ToList();
+            return View(hangHoaFull);
         }
 
         public JsonResult SearchSuggest(string keyword)

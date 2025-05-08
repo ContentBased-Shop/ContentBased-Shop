@@ -2,7 +2,7 @@
     ViewBag.Title = "ProductWishList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-﻿@model List<Shop.Models.HangHoa>
+@model List<Shop.Models.HangHoaViewModel>
 
 
 <style>
@@ -33,7 +33,6 @@
             align-items: center;
             justify-content: center;
             z-index: 0;
-            
         }
 
         .wishlist-banner .content {
@@ -61,7 +60,7 @@
 
 
 <!-- Wishlist -->
-<div class="container p-3 bg-white mb-3 rounded-3">
+<div class="container p-3 bg-white mb-2  rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
@@ -73,11 +72,13 @@
 <div class="container p-4 bg-white rounded-3 mb-4">
     <!-- Banner -->
     <div class="wishlist-banner rounded-4">
-        <div class="bg-sale">SALE</div>
+        <div class="bg-sale"></div>
         <div class="content">
-            <p class="mb-1 fw-semibold">LIMITED TIME OFFER</p>
-            <h2 class="h4 fw-bold mb-2">Summer Sale: Up to 50% Off Wishlist Items!</h2>
-            <p class="mb-3">Add your favorite items to cart now and get an extra 10% off with code <strong class="bg-white text-dark px-2 py-1 rounded">SUMMER10</strong></p>
+            <p class="mb-1 fw-semibold">
+                KHUYẾN MẠI CÓ GIỚI HẠN
+            </p>
+            <h2 class="h4 fw-bold mb-2">Khuyến mại mùa hè: Giảm giá tới 50% cho các mặt hàng mong muốn!</h2>
+            <p class="mb-3">Thêm sản phẩm yêu thích của bạn vào giỏ hàng ngay bây giờ và được giảm thêm 10% với mã <strong class="bg-white text-dark px-2 py-1 rounded">SUMMER10</strong></p>
             <div class="d-flex justify-content-center gap-3 mb-3">
                 <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
                     <div class="h4 mb-0">2</div>
@@ -101,7 +102,7 @@
     </div>
     <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-1">
         <div>
-            <h2 class="fw-bold m-2">Sản phẩm yêu thích của tôi</h2>
+            <h2 class="fw-bold my-3">Sản phẩm yêu thích của tôi</h2>
             <p class="text-muted">Theo dõi các sản phẩm bạn yêu thích</p>
         </div>
 
@@ -183,8 +184,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h5 class="mb-1 text-success">Electronics Sale</h5>
-                        <p class="mb-0 text-success">20% off all electronics</p>
+                        <h5 class="mb-1 text-success">Đồ điện tử</h5>
+                        <p class="mb-0 text-success">Giảm 5-20% mặt hành điện tử </p>
                     </div>
                 </div>
             </div>
@@ -196,8 +197,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h5 class="mb-1 text-primary">Home & Kitchen</h5>
-                        <p class="mb-0 text-primary">Buy 2, get 1 free</p>
+                        <h5 class="mb-1 text-primary">An toàn & nhanh chóng</h5>
+                        <p class="mb-0 text-primary">Chuẩn chỉnh phục vụ</p>
                     </div>
                 </div>
             </div>
@@ -209,8 +210,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h5 class="mb-1" style="color: #6b21a8;">Accessories</h5>
-                        <p class="mb-0" style="color: #7e22ce;">Up to 30% off</p>
+                        <h5 class="mb-1" style="color: #6b21a8;">Phụ kiện </h5>
+                        <p class="mb-0" style="color: #7e22ce;">Giám giá lên đến 30% </p>
                     </div>
                 </div>
             </div>
@@ -218,7 +219,9 @@
     </div>
     <!-- Customer Reviews Section -->
     <div class="container mt-5 mb-5 bg-white p-4 rounded shadow-sm">
-        <h2 class="fs-4 fw-semibold mb-4">What Our Customers Say</h2>
+        <h2 class="fs-4 fw-semibold mb-4">
+            Khách hàng của chúng tôi nói gì
+        </h2>
         <div class="row g-4">
             <!-- Review 1 -->
             <div class="col-md-4">
@@ -228,13 +231,13 @@
                             <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Alex Johnson" class="rounded-circle" width="40" height="40">
                         </div>
                         <div>
-                            <div class="fw-medium">Alex Johnson</div>
+                            <div class="fw-medium">Trịnh Trần Phương Tuấn</div>
                             <div class="text-warning">
                                 ★★★★★
                             </div>
                         </div>
                     </div>
-                    <p class="text-muted small">The products I've purchased from my wishlist have exceeded my expectations. The quality is outstanding and delivery was faster than expected!</p>
+                    <p class="text-muted small">Tôi thích cách dễ dàng theo dõi các mặt hàng tôi muốn mua sau này. Tính năng danh sách mong muốn đã giúp tôi tiết kiệm rất nhiều thời gian và giúp tôi đưa ra quyết định mua hàng tốt hơn.</p>
                 </div>
             </div>
 
@@ -243,16 +246,16 @@
                 <div class="border rounded p-3 h-100">
                     <div class="d-flex align-items-center mb-3">
                         <div class="me-3">
-                            <img src="/placeholder.svg?height=50&width=50" alt="Sarah Williams" class="rounded-circle" width="40" height="40">
+                            <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Sarah Williams" class="rounded-circle" width="40" height="40">
                         </div>
                         <div>
-                            <div class="fw-medium">Sarah Williams</div>
+                            <div class="fw-medium">Độ Mixi</div>
                             <div class="text-warning">
                                 ★★★★☆
                             </div>
                         </div>
                     </div>
-                    <p class="text-muted small">I love how easy it is to keep track of items I want to buy later. The wishlist feature has saved me so much time and helped me make better purchasing decisions.</p>
+                    <p class="text-muted small">Tôi thích cách dễ dàng theo dõi các mặt hàng tôi muốn mua sau này. Tính năng danh sách mong muốn đã giúp tôi tiết kiệm rất nhiều thời gian và giúp tôi đưa ra quyết định mua hàng tốt hơn.</p>
                 </div>
             </div>
 
@@ -261,16 +264,16 @@
                 <div class="border rounded p-3 h-100">
                     <div class="d-flex align-items-center mb-3">
                         <div class="me-3">
-                            <img src="/placeholder.svg?height=50&width=50" alt="Michael Chen" class="rounded-circle" width="40" height="40">
+                            <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Michael Chen" class="rounded-circle" width="40" height="40">
                         </div>
                         <div>
-                            <div class="fw-medium">Michael Chen</div>
+                            <div class="fw-medium">Tui tên bô</div>
                             <div class="text-warning">
                                 ★★★★★
                             </div>
                         </div>
                     </div>
-                    <p class="text-muted small">Customer service was exceptional when I had questions about items in my wishlist. They helped me choose the right product for my needs.</p>
+                    <p class="text-muted small">Dịch vụ khách hàng rất tuyệt vời khi tôi có thắc mắc về các mặt hàng trong danh sách mong muốn của mình. Họ đã giúp tôi chọn đúng sản phẩm cho nhu cầu của mình.</p>
                 </div>
             </div>
         </div>
@@ -455,4 +458,37 @@
         }
     });
 
+</script>
+<script>
+    // Set thời gian đích đến
+    const countdownDate = new Date("2025-05-30T00:00:00").getTime();
+
+    const daysEl = document.querySelectorAll('.text-center')[0].querySelector('.h4');
+    const hoursEl = document.querySelectorAll('.text-center')[1].querySelector('.h4');
+    const minutesEl = document.querySelectorAll('.text-center')[2].querySelector('.h4');
+    const secondsEl = document.querySelectorAll('.text-center')[3].querySelector('.h4');
+
+    const countdown = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        if (distance < 0) {
+            clearInterval(countdown);
+            daysEl.textContent = "0";
+            hoursEl.textContent = "0";
+            minutesEl.textContent = "0";
+            secondsEl.textContent = "0";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+        secondsEl.textContent = seconds;
+    }, 1000);
 </script>
