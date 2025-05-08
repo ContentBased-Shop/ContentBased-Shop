@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 using Shop.Models;
 
 namespace Shop.Controllers
@@ -188,6 +189,36 @@ namespace Shop.Controllers
                                }).ToList();
             return View(hangHoaFull);
         }
+
+        [HttpPost]
+        public JsonResult AddWishList(string maHangHoa)
+        {
+            var maKhachHang = Session["UserID"] as string;
+            if (string.IsNullOrEmpty(maKhachHang))
+            {
+                return Json(new { success = false, message = "Bạn cần đăng nhập để thực hiện thao tác này." });
+            }
+
+            // Kiểm tra đã tồn tại trong bảng yêu thích chưa
+            var tonTai = data.YeuThiches.Any(y => y.MaKhachHang == maKhachHang && y.MaHangHoa == maHangHoa);
+            if (tonTai)
+            {
+                return Json(new { success = false, message = "Sản phẩm này đã có trong danh sách yêu thích!" });
+            }
+
+            // Thêm mới
+            var yeuThich = new YeuThich
+            {
+                MaKhachHang = maKhachHang,
+                MaHangHoa = maHangHoa
+            };
+
+            data.YeuThiches.InsertOnSubmit(yeuThich);
+            data.SubmitChanges();
+
+            return Json(new { success = true });
+        }
+
 
         public JsonResult SearchSuggest(string keyword)
         {

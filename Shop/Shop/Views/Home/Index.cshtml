@@ -323,18 +323,18 @@
                             double phanTramBan = soLuongGoc > 0 ? (soLuongBan * 100.0 / soLuongGoc) : 0;
                         }
 
-                    <div class="my-2">
-                        <div class="progress" style="height: 10px;">
-                            <div class="progress-bar progress-bar-custom" role="progressbar"
-                                 style="width: @phanTramBan%;"
-                                 aria-valuenow="@soLuongBan"
-                                 aria-valuemin="0"
-                                 aria-valuemax="@soLuongGoc">
+                        <div class="my-2">
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar progress-bar-custom" role="progressbar"
+                                     style="width: @phanTramBan%;"
+                                     aria-valuenow="@soLuongBan"
+                                     aria-valuemin="0"
+                                     aria-valuemax="@soLuongGoc">
+                                </div>
                             </div>
-                        </div>
-                        <div class="text-muted mt-2">Đã bán: @soLuongBan/@soLuongGoc</div>
+                            <div class="text-muted mt-2">Đã bán: @soLuongBan/@soLuongGoc</div>
 
-                    </div>
+                        </div>
 
                         <button class="btn btn-success w-100 py-3 fw-bold fs-5">Thêm Giỏ Hàng</button>
                     </div>
@@ -460,12 +460,22 @@
                         }
 
                         <div class="stock-status">
-                            <a href="#" class="text-decoration-none text-dark hover-shake">
-                                <i class="bi bi-heart heart-icon empty-heart"></i>
-                                <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                {
+                                    <i class="fas fa-heart" style="color: red; text-shadow: 0 0 8px #ff6b6b;"></i>
+
+                                }
+                                else
+                                {
+                                    <i class="bi bi-heart heart-icon empty-heart"></i>
+                                    <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                }
                                 <span>Yêu thích</span>
                             </a>
                         </div>
+
+
                     </div>
 
                 </div>
@@ -1533,4 +1543,47 @@
 
     const timer = setInterval(countdown, 1000);
     countdown(); // Gọi 1 lần đầu để không delay 1s
+</script>
+<script>
+    $(document).ready(function () {
+        $('.add-to-favorite').on('click', function (e) {
+            e.preventDefault();
+            const maHangHoa = $(this).data('mahanghoa');
+            const icon = $(this).find('.heart-icon');
+
+            $.ajax({
+                url: '/Product/AddWishList',
+                type: 'POST',
+                data: { maHangHoa: maHangHoa },
+                success: function (res) {
+                    if (res.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công',
+                            text: 'Đã thêm vào danh sách yêu thích!',
+                            timer: 1500,
+                            showConfirmButton: false
+                        });
+
+                        icon.filter('.empty-heart').addClass('d-none');
+                        icon.filter('.filled-heart').removeClass('d-none');
+                    } else {
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Thông báo',
+                            text: res.message
+                        });
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Không thể kết nối với máy chủ!'
+                    });
+                }
+            });
+        });
+    });
+
 </script>

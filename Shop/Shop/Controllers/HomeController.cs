@@ -15,6 +15,21 @@ namespace Shop.Controllers
         #region TRANG-CHU
         public ActionResult Index()
         {
+            // Hiện thị danh sách đã thêm vào ds yêu thích
+            string maKhachHang = Session["UserID"] as string;
+            List<string> dsYeuThich = new List<string>();
+
+            if (!string.IsNullOrEmpty(maKhachHang))
+            {
+                dsYeuThich = data.YeuThiches
+                                 .Where(y => y.MaKhachHang == maKhachHang)
+                                 .Select(y => y.MaHangHoa)
+                                 .ToList();
+            }
+
+            ViewBag.DanhSachYeuThich = dsYeuThich;
+
+
             var hangHoaFull = (from hh in data.HangHoas
                                    // Gộp với tất cả biến thể theo MaHangHoa
                                join bt in data.BienTheHangHoas

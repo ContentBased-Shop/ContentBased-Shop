@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\views\\product\\productwishlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\views\\product\\productwishlist.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\controllers\\innerpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\controllers\\innerpagecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\assets\\css\\home\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|solutionrelative:shop\\assets\\css\\home\\home.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0E292DF5-C3B4-4A25-BD51-66CFFEC000BD}|Shop\\Shop.csproj|c:\\users\\phamn\\onedrive\\m\u00E1y t\u00EDnh\\contentbased-shop\\shop\\shop\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,54 +38,41 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ProductWishList.cshtml",
-              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Product\\ProductWishList.cshtml",
-              "RelativeDocumentMoniker": "Shop\\Views\\Product\\ProductWishList.cshtml",
-              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Product\\ProductWishList.cshtml",
-              "RelativeToolTip": "Shop\\Views\\Product\\ProductWishList.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-08T15:01:42.451Z",
+              "DocumentIndex": 1,
+              "Title": "Home.css",
+              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Home\\Home.css",
+              "RelativeDocumentMoniker": "Shop\\assets\\CSS\\Home\\Home.css",
+              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\assets\\CSS\\Home\\Home.css",
+              "RelativeToolTip": "Shop\\assets\\CSS\\Home\\Home.css",
+              "ViewState": "AQIAAEQBAAAAAAAAAAAowFkBAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-08T17:18:17.873Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "InnerPageController.cs",
-              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\InnerPageController.cs",
-              "RelativeDocumentMoniker": "Shop\\Controllers\\InnerPageController.cs",
-              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\InnerPageController.cs",
-              "RelativeToolTip": "Shop\\Controllers\\InnerPageController.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAArwEMAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T15:00:22.889Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "Shop\\Controllers\\ProductController.cs",
-              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "Shop\\Controllers\\ProductController.cs",
-              "ViewState": "AQIAAHgAAAAAAAAAAAAkwIIAAAAwAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T14:27:21.237Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "Shop\\Controllers\\HomeController.cs",
               "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Controllers\\HomeController.cs",
               "RelativeToolTip": "Shop\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAuwDsAAAArAAAA",
+              "ViewState": "AQIAADoAAAAAAAAAAAAQwAsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-08T14:27:17.712Z",
+              "WhenOpened": "2025-05-08T17:01:30.92Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Shop\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\phamn\\OneDrive\\M\u00E1y t\u00EDnh\\ContentBased-Shop\\Shop\\Shop\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Shop\\Views\\Home\\Index.cshtml",
+              "ViewState": "AQIAAK8BAAAAAAAAAAAowNIBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-08T16:46:31.304Z",
               "EditorCaption": ""
             }
           ]
