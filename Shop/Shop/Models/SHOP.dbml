@@ -139,14 +139,6 @@
       <Association Name="DonHang_GiaoHang" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
-  <Table Name="dbo.HinhAnhHangHoa" Member="HinhAnhHangHoas">
-    <Type Name="HinhAnhHangHoa">
-      <Column Name="MaHinhAnh" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="MaHangHoa" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="UrlAnh" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Association Name="HangHoa_HinhAnhHangHoa" Member="HangHoa" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="HangHoa" IsForeignKey="true" DeleteRule="CASCADE" />
-    </Type>
-  </Table>
   <Table Name="dbo.KhuyenMaiTangKem" Member="KhuyenMaiTangKems">
     <Type Name="KhuyenMaiTangKem">
       <Column Name="IDKM" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -325,14 +317,23 @@
       <Association Name="HangHoa_ContentBasedFiltering" Member="ContentBasedFilterings" ThisKey="MaHangHoa" OtherKey="MaHangHoa1" Type="ContentBasedFiltering" />
       <Association Name="HangHoa_ContentBasedFiltering1" Member="ContentBasedFilterings1" ThisKey="MaHangHoa" OtherKey="MaHangHoa2" Type="ContentBasedFiltering" />
       <Association Name="HangHoa_DanhGia" Member="DanhGias" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="DanhGia" />
-      <Association Name="HangHoa_HinhAnhHangHoa" Member="HinhAnhHangHoas" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="HinhAnhHangHoa" />
       <Association Name="HangHoa_KhuyenMaiTangKem" Member="KhuyenMaiTangKems" ThisKey="MaHangHoa" OtherKey="MaHangHoaMua" Type="KhuyenMaiTangKem" />
       <Association Name="HangHoa_KhuyenMaiTangKem1" Member="KhuyenMaiTangKems1" ThisKey="MaHangHoa" OtherKey="MaHangHoaTangKem" Type="KhuyenMaiTangKem" />
       <Association Name="HangHoa_LichSuXem" Member="LichSuXems" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="LichSuXem" />
       <Association Name="HangHoa_YeuThich" Member="YeuThiches" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="YeuThich" />
       <Association Name="HangHoa_MoTaChiTietHangHoa" Member="MoTaChiTietHangHoas" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="MoTaChiTietHangHoa" />
+      <Association Name="HangHoa_HinhAnhHangHoa1" Member="HinhAnhHangHoas" Storage="_HinhAnhHangHoa1s" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="HinhAnhHangHoa" />
       <Association Name="DanhMuc_HangHoa" Member="DanhMuc" ThisKey="MaDanhMuc" OtherKey="MaDanhMuc" Type="DanhMuc" IsForeignKey="true" />
       <Association Name="ThuongHieu_HangHoa" Member="ThuongHieu" ThisKey="MaThuongHieu" OtherKey="MaThuongHieu" Type="ThuongHieu" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.HinhAnhHangHoa" Member="HinhAnhHangHoas">
+    <Type Name="HinhAnhHangHoa">
+      <Column Name="MaHinhAnh" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="MaHangHoa" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="UrlAnh" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="MaBienThe" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="HangHoa_HinhAnhHangHoa1" Member="HangHoa" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="HangHoa" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
 </Database>

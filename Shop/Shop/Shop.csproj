@@ -145,6 +145,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BienTheHangHoaViewModel.cs" />
     <Compile Include="Models\DanhGiaView.cs" />
     <Compile Include="Models\HangHoaViewModel.cs" />
     <Compile Include="Models\ProductDetailPageView.cs" />
@@ -218,6 +219,7 @@
     <Content Include="assets\Image\News\tecno-spark-30c-co-may-mau-th.jpg" />
     <Content Include="assets\Image\News\tinh-nang-xiaomi-15s-pro.jpg" />
     <Content Include="assets\Image\News\xiaomi-pad-7-co-may-mau-th.jpg" />
+    <Content Include="assets\Image\Product\iphone-15-pro-max-gold.jpg" />
     <Content Include="assets\Image\Product\watch_ultra2.jpg" />
     <Content Include="assets\Image\Product\archer_ax73.jpg" />
     <Content Include="assets\Image\Product\canon_r6m2.jpg" />

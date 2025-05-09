@@ -23,6 +23,19 @@ namespace Shop.Controllers
         #region ProductDetail
         public ActionResult ProductDetail(string id, string mabienthe)
         {
+            // Hiện thị danh sách đã thêm vào ds yêu thích
+            string maKhachHang = Session["UserID"] as string;
+            List<string> dsYeuThich = new List<string>();
+
+            if (!string.IsNullOrEmpty(maKhachHang))
+            {
+                dsYeuThich = data.YeuThiches
+                                 .Where(y => y.MaKhachHang == maKhachHang)
+                                 .Select(y => y.MaHangHoa)
+                                 .ToList();
+            }
+
+            ViewBag.DanhSachYeuThich = dsYeuThich;
             var productList = (from hh in data.HangHoas
                                join bienThe in data.BienTheHangHoas on hh.MaHangHoa equals bienThe.MaHangHoa into bienTheGroup
                                join dg in data.DanhGias on hh.MaHangHoa equals dg.MaHangHoa into danhGiaGroup
@@ -82,13 +95,57 @@ namespace Shop.Controllers
                 })
                 .ToList();
             // Tìm biến thể theo mã biến thể nếu có truyền
-            var selectedBienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == mabienthe)
-                                  ?? data.BienTheHangHoas.FirstOrDefault(); // fallback nếu không có mã
+
+            var selectedBienThe = (from bt in data.BienTheHangHoas
+                                   where bt.MaBienThe == mabienthe && bt.MaHangHoa == id
+                                   join ha in data.HinhAnhHangHoas
+                                   on bt.MaBienThe equals ha.MaBienThe into hinhAnhGroup
+                                   select new BienTheHangHoaViewModel
+                                   {
+                                       MaBienThe = bt.MaBienThe,
+                                       MaHangHoa = bt.MaHangHoa,
+                                       MauSac = bt.MauSac,
+                                       DungLuong = bt.DungLuong,
+                                       CPU = bt.CPU,
+                                       RAM = bt.RAM,
+                                       KichThuocManHinh = bt.KichThuocManHinh,
+                                       LoaiBoNho = bt.LoaiBoNho,
+                                       GiaGoc = bt.GiaGoc ?? 0,
+                                       GiaKhuyenMai = bt.GiaKhuyenMai ?? 0,
+                                       SoLuongTonKho = bt.SoLuongTonKho ?? 0,
+                                       UrlAnh = hinhAnhGroup.Select(x => x.UrlAnh).ToList()
+                                   }).FirstOrDefault();
+
+            // lisst bien the
+
+            var listBienThes = (from bt in data.BienTheHangHoas
+                                where bt.MaHangHoa == id
+                                join ha in data.HinhAnhHangHoas
+                                on bt.MaBienThe equals ha.MaBienThe into hinhAnhGroup
+                                select new BienTheHangHoaViewModel
+                                {
+                                    MaBienThe = bt.MaBienThe,
+                                    MaHangHoa = bt.MaHangHoa,
+                                    MauSac = bt.MauSac,
+                                    DungLuong = bt.DungLuong,
+                                    CPU = bt.CPU,
+                                    RAM = bt.RAM,
+                                    KichThuocManHinh = bt.KichThuocManHinh,
+                                    LoaiBoNho = bt.LoaiBoNho,
+                                    GiaGoc = bt.GiaGoc ?? 0,
+                                    GiaKhuyenMai = bt.GiaKhuyenMai ?? 0,
+                                    SoLuongTonKho = bt.SoLuongTonKho ?? 0,
+                                    UrlAnh = hinhAnhGroup.Select(x => x.UrlAnh).ToList()
+                                }).ToList();
+
+
+
             var product = productList.FirstOrDefault(p => p.MaHangHoa == id);
             if (product == null) return HttpNotFound();
 
             var viewModel = new ProductDetailPageView
             {
+                ListBienThes = listBienThes,
                 SelectedBienThe = selectedBienThe,
                 Product = product,
                 RelatedProducts = productList.Where(p => p.MaHangHoa != id).ToList()
@@ -198,25 +255,28 @@ namespace Shop.Controllers
             {
                 return Json(new { success = false, message = "Bạn cần đăng nhập để thực hiện thao tác này." });
             }
+            var yeuThich = data.YeuThiches
+                                .FirstOrDefault(y => y.MaKhachHang == maKhachHang && y.MaHangHoa == maHangHoa);
 
-            // Kiểm tra đã tồn tại trong bảng yêu thích chưa
-            var tonTai = data.YeuThiches.Any(y => y.MaKhachHang == maKhachHang && y.MaHangHoa == maHangHoa);
-            if (tonTai)
+            if (yeuThich != null)
             {
-                return Json(new { success = false, message = "Sản phẩm này đã có trong danh sách yêu thích!" });
+                // Nếu đã có thì xóa
+                data.YeuThiches.DeleteOnSubmit(yeuThich);
+                data.SubmitChanges();
+                return Json(new { success = true, removed = true, message = "Đã xóa khỏi danh sách yêu thích!" });
             }
-
-            // Thêm mới
-            var yeuThich = new YeuThich
+            else
             {
-                MaKhachHang = maKhachHang,
-                MaHangHoa = maHangHoa
-            };
-
-            data.YeuThiches.InsertOnSubmit(yeuThich);
-            data.SubmitChanges();
-
-            return Json(new { success = true });
+                // Nếu chưa có thì thêm
+                var newYeuThich = new YeuThich
+                {
+                    MaKhachHang = maKhachHang,
+                    MaHangHoa = maHangHoa
+                };
+                data.YeuThiches.InsertOnSubmit(newYeuThich);
+                data.SubmitChanges();
+                return Json(new { success = true, removed = false, message = "Đã thêm vào danh sách yêu thích!" });
+            }
         }
 
 

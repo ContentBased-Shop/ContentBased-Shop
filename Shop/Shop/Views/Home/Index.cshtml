@@ -463,17 +463,17 @@
                             <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
                                 @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
                                 {
-                                    <i class="fas fa-heart" style="color: red; text-shadow: 0 0 8px #ff6b6b;"></i>
-
+                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
                                 }
                                 else
                                 {
-                                    <i class="bi bi-heart heart-icon empty-heart"></i>
-                                    <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
                                 }
                                 <span>Yêu thích</span>
                             </a>
                         </div>
+
+
 
 
                     </div>
@@ -545,12 +545,19 @@
                         }
 
                         <div class="stock-status">
-                            <a href="#" class="text-decoration-none text-dark hover-shake">
-                                <i class="bi bi-heart heart-icon empty-heart"></i>
-                                <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                {
+                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                }
                                 <span>Yêu thích</span>
                             </a>
                         </div>
+
                     </div>
 
                 </div>
@@ -621,12 +628,19 @@
                         }
 
                         <div class="stock-status">
-                            <a href="#" class="text-decoration-none text-dark hover-shake">
-                                <i class="bi bi-heart heart-icon empty-heart"></i>
-                                <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                {
+                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                }
+                                else
+                                {
+                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                }
                                 <span>Yêu thích</span>
                             </a>
                         </div>
+
                     </div>
 
                 </div>
@@ -643,6 +657,12 @@
             #product-swiper-wrapper.fade-out {
                 opacity: 0;
             }
+
+        .glowing-heart {
+            color: red;
+            text-shadow: 0 0 8px #ff6b6b, 0 0 12px #ff3d3d;
+        }
+
     </style>
 
 
@@ -870,13 +890,20 @@
                                     </div>
                                 }
 
-                                <div class="stock-status">
-                                    <a href="#" class="text-decoration-none text-dark hover-shake">
-                                        <i class="bi bi-heart heart-icon empty-heart"></i>
-                                        <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                <<div class="stock-status">
+                                    <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                        @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                        {
+                                            <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                        }
                                         <span>Yêu thích</span>
                                     </a>
                                 </div>
+
                             </div>
 
                         </div>
@@ -1081,12 +1108,19 @@
                                 }
 
                                 <div class="stock-status">
-                                    <a href="#" class="text-decoration-none text-dark hover-shake">
-                                        <i class="bi bi-heart heart-icon empty-heart"></i>
-                                        <i class="bi bi-heart-fill heart-icon filled-heart"></i>
+                                    <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                        @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                        {
+                                            <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                        }
                                         <span>Yêu thích</span>
                                     </a>
                                 </div>
+
                             </div>
 
                         </div>
@@ -1548,8 +1582,8 @@
     $(document).ready(function () {
         $('.add-to-favorite').on('click', function (e) {
             e.preventDefault();
+            const $icon = $(this).find('.heart-icon');
             const maHangHoa = $(this).data('mahanghoa');
-            const icon = $(this).find('.heart-icon');
 
             $.ajax({
                 url: '/Product/AddWishList',
@@ -1557,16 +1591,19 @@
                 data: { maHangHoa: maHangHoa },
                 success: function (res) {
                     if (res.success) {
+                        if (res.removed) {
+                            $icon.removeClass('fas fa-heart glowing-heart').addClass('far fa-heart').attr('data-filled', 'false');
+                        } else {
+                            $icon.removeClass('far fa-heart').addClass('fas fa-heart glowing-heart').attr('data-filled', 'true');
+                        }
+
                         Swal.fire({
                             icon: 'success',
-                            title: 'Thành công',
-                            text: 'Đã thêm vào danh sách yêu thích!',
+                            title: 'Thông báo',
+                            text: res.message,
                             timer: 1500,
                             showConfirmButton: false
                         });
-
-                        icon.filter('.empty-heart').addClass('d-none');
-                        icon.filter('.filled-heart').removeClass('d-none');
                     } else {
                         Swal.fire({
                             icon: 'info',
@@ -1574,16 +1611,8 @@
                             text: res.message
                         });
                     }
-                },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Không thể kết nối với máy chủ!'
-                    });
                 }
             });
         });
     });
-
 </script>

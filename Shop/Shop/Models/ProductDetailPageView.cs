@@ -10,7 +10,10 @@ namespace Shop.Models
         public ProductDetailView Product { get; set; }
         public List<ProductDetailView> RelatedProducts { get; set; }
 
-        public BienTheHangHoa SelectedBienThe { get; set; }
+        public BienTheHangHoaViewModel SelectedBienThe { get; set; }
+        public List<BienTheHangHoaViewModel> ListBienThes { get; set; }
+
+
     }
 
 }
