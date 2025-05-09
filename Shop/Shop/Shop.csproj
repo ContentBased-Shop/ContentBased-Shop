@@ -219,7 +219,11 @@
     <Content Include="assets\Image\News\tecno-spark-30c-co-may-mau-th.jpg" />
     <Content Include="assets\Image\News\tinh-nang-xiaomi-15s-pro.jpg" />
     <Content Include="assets\Image\News\xiaomi-pad-7-co-may-mau-th.jpg" />
+    <Content Include="assets\Image\Product\iphone-14-pro-max-tim.jpg" />
     <Content Include="assets\Image\Product\iphone-15-pro-max-gold.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den_bt1.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den_bt2.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den_bt3.jpg" />
     <Content Include="assets\Image\Product\watch_ultra2.jpg" />
     <Content Include="assets\Image\Product\archer_ax73.jpg" />
     <Content Include="assets\Image\Product\canon_r6m2.jpg" />
@@ -237,7 +241,7 @@
     <Content Include="assets\Image\Logo\LogoBrand\Xiaomi.jpg" />
     <Content Include="assets\Image\Logo\LogoTitle\logo_header_swoo.png" />
     <Content Include="assets\Image\Logo\LogoTitle\logo_swoo_title.png" />
-    <Content Include="assets\Image\Product\iphone15_pro_max.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den.jpg" />
     <Content Include="assets\Image\Product\jbl_flip6.jpg" />
     <Content Include="assets\Image\Product\mx_master3s.jpg" />
     <Content Include="assets\Image\Product\rog_g14.jpg" />

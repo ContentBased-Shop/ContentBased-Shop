@@ -25,23 +25,38 @@
         <!-- Product Images -->
         <div class="col-lg-4">
             <div class="position-relative mb-3">
-                <span class="position-absolute top-0 start-0 badge bg-dark text-uppercase">New</span>
-                <div class=" rounded p-3 bg-white text-center">
-                    <img src="~/assets/Image/Product/@Model.SelectedBienThe.UrlAnh.FirstOrDefault()" alt="Product" class="img-fluid" />
+                <div class="main-img-wrapper text-center mb-3">
+                    <img id="mainImage" src="@Url.Content("~/assets/Image/Product/" + Model.SelectedBienThe.UrlAnh.FirstOrDefault())" class="img-fluid main-image" />
                 </div>
-            </div>
+            </div>  
             <div class="d-flex justify-content-center gap-2">
-                <div class=" p-2" style="width:80px;height:80px;cursor:pointer;">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod3.jpg" alt="Thumb" class="img-fluid" />
-                </div>
-                <div class=" p-2" style="width:80px;height:80px;cursor:pointer;">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod3.jpg" alt="Thumb" class="img-fluid" />
-                </div>
-                <div class=" p-2" style="width:80px;height:80px;cursor:pointer;">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod3.jpg" alt="Thumb" class="img-fluid" />
-                </div>
+                @foreach (var url in Model.SelectedBienThe.UrlAnh)
+                {
+                    <div class="p-2 d-flex align-items-center" style="width:80px;height:80px;cursor:pointer;">
+                        <img src="@Url.Content("~/assets/Image/Product/" + url)" alt="Thumb" class="img-fluid thumb-image" data-full="@Url.Content("~/assets/Image/Product/" + url)" />
+                    </div>
+                }
             </div>
+            <style>
+                .main-image.crop-side {
+                    object-fit: cover;
+                    object-position: center;
+                    width: 100%;
+                    height: auto;
+                    aspect-ratio: 6 / 6; /* hoặc 3 / 2 tuỳ bố cục */
+                }
+                .main-image {
+                    transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
+                    opacity: 1;
+                }
+
+                    .main-image.fade-out {
+                        opacity: 0;
+                    }
+
+            </style>
         </div>
+
 
         <!-- Product Details -->
         <div class="col-lg-5">
@@ -954,6 +969,29 @@
                     }
                 }
             });
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $(".thumb-image").click(function () {
+            var imgUrl = $(this).data("full");
+
+            // Làm mờ ảnh trước
+            $("#mainImage").addClass("fade-out");
+
+            setTimeout(function () {
+                // Đổi ảnh và hiển thị lại
+                $("#mainImage").attr("src", imgUrl).removeClass("fade-out");
+
+                // Kiểm tra ảnh có cần cắt không
+                if ($(".thumb-image").index($(this)) > 0) {
+                    $("#mainImage").addClass("crop-side");
+                } else {
+                    $("#mainImage").removeClass("crop-side");
+                }
+            }.bind(this), 200); // Delay để fade out xong rồi mới đổi
         });
     });
 </script>
