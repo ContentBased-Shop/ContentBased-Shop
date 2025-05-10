@@ -226,19 +226,22 @@
                 <div class="row align-items-center">
                     <!-- Search Bar Section -->
                     <div class="col-lg-5">
-                        <div class="search-container"style="position: relative" >
-                            <button class="search-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                </svg>
+                        <form action="/Product/ProductSearch" method="get">
+                            <div class="search-container" style="position: relative">
+                                <button type="submit" class="search-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
 
-                            </button>
-                            <input type="text" id="search-input" class="search-input"
-                                   placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm"
-                                   autocomplete="off">
-                            <span id="clear-search" style="display: none; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; font-weight: bold;">×</span>
-                        </div>
+                                </button>
+                                <input type="text" name="keyword" id="search-input" class="search-input"
+                                       placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm"
+                                       autocomplete="off">
+                                <span id="clear-search" style="display: none; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; font-weight: bold;">×</span>
+                            </div>
+                        </form>
+
                     </div>
 
                     <div id="search-results" style="
