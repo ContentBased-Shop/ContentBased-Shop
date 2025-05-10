@@ -21,6 +21,57 @@ namespace Shop.Controllers
             return View();
         }
         #region ProductDetail
+        public ActionResult ProductSearch()
+        {
+            var hangHoaFull = (from hh in data.HangHoas
+                                   // Gộp với tất cả biến thể theo MaHangHoa
+                               join bt in data.BienTheHangHoas
+                               on hh.MaHangHoa equals bt.MaHangHoa into btGroup
+                               from bienThe in btGroup.DefaultIfEmpty()
+
+                                   // Gộp với đánh giá
+                               join dg in data.DanhGias
+                               on hh.MaHangHoa equals dg.MaHangHoa into dgGroup
+                               from danhGia in dgGroup.DefaultIfEmpty()
+                               group new { bienThe, danhGia } by new
+                               {
+                                   hh.MaHangHoa,
+                                   hh.MoTaDai,
+                                   hh.TenHangHoa,
+                                   hh.HinhAnh,
+                                   hh.MoTa,
+                                   hh.NgayTao
+                               } into g
+
+                               select new HangHoaViewModel
+                               {
+                                   MaHangHoa = g.Key.MaHangHoa,
+                                   MoTaDai = g.Key.MoTaDai,
+                                   TenHangHoa = g.Key.TenHangHoa,
+                                   HinhAnh = g.Key.HinhAnh,
+                                   MoTa = g.Key.MoTa,
+                                   NgayTao = g.Key.NgayTao.Value,
+                                   MaBienThe = g.Where(x => x.bienThe != null)
+                                             .Select(x => x.bienThe.MaBienThe)
+                                             .FirstOrDefault(),
+                                   GiaGoc = g.Where(x => x.bienThe != null)
+                                              .Select(x => x.bienThe.GiaGoc)
+                                              .FirstOrDefault() ?? 0,
+                                   GiaKhuyenMai = g.Where(x => x.bienThe != null)
+                                                .Select(x => x.bienThe.GiaKhuyenMai)
+                                                .FirstOrDefault() ?? 0,
+                                   SoLuongTonKho = g.Where(x => x.bienThe != null)
+                                                 .Select(x => x.bienThe.SoLuongTonKho)
+                                                 .FirstOrDefault() ?? 0,
+                                   SoLuongDanhGia = g.Count(x => x.danhGia != null),
+                                   DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
+                                               ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
+                                               : 0
+                               }).ToList();
+            return View(hangHoaFull);
+        }
+        #endregion
+        #region ProductDetail
         public ActionResult ProductDetail(string id, string mabienthe)
         {
             // Hiện thị danh sách đã thêm vào ds yêu thích

@@ -155,6 +155,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SHOP.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -406,6 +407,7 @@
     <Content Include="Views\Product\PhuKien.cshtml" />
     <Content Include="Views\InnerPage\TuyenDung.cshtml" />
     <Content Include="Views\Product\ProductWishList.cshtml" />
+    <Content Include="Views\Product\ProductSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

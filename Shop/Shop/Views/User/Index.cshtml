@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Shop.Models.KhachHang
+@model Shop.Models.UserViewModel
 <link rel="stylesheet" href="~/assets/CSS/User/User.css" />
 <div class="container p-4 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
@@ -35,8 +35,8 @@
             <div class="mb-3 mx-auto">
                 <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Profile avatar" class="img-fluid rounded profile-img">
             </div>
-            <h2 class="h4 fw-bold">@Model.HoTen</h2>
-            <p class="text-muted">@Model.Email</p>
+            <h2 class="h4 fw-bold">@Model.KhachHang.HoTen</h2>
+            <p class="text-muted">@Model.KhachHang.Email</p>
         </div>
 
         <nav>
@@ -110,18 +110,19 @@
             <div class="container py-4" style="min-width: 720px;">
                 <div class="mb-3">
                     <label for="firstName" class="form-label fw-medium">Họ tên </label>
-                    <input type="text" class="form-control" name="HoTen" id="firstName" value="@Model.HoTen" required />
+                    <input type="text" class="form-control" name="HoTen" id="firstName" value="@Model.KhachHang.HoTen" required />
                 </div>
 
                 <div class="mb-3">
                     <label for="email" class="form-label fw-medium">Địa chỉ email </label>
-                    <input type="email" class="form-control" name="Email" id="email" value="@Model.Email" required />
+                    <input type="email" class="form-control" name="Email" id="email" value="@Model.KhachHang.Email" required />
                 </div>
 
                 <div class="mb-4">
-                    <label for="phone" class="form-label fw-medium">Số điện thoại</label>
-                    <input type="tel" class="form-control" name="SoDienThoai" id="phone" value="@Model.SoDienThoai" />
+                    <label for="userPhone" class="form-label fw-medium">Số điện thoại</label>
+                    <input type="tel" class="form-control" name="UserSoDienThoai" id="userPhone" value="@Model.KhachHang.SoDienThoai" />
                 </div>
+
 
                 <div class="mb-4">
                     <div class="g-recaptcha" data-sitekey="6LfycxgrAAAAAB4Lv3Q2NHNQxmml_eVVqnTQRa2P"></div>
@@ -275,113 +276,92 @@
     <!-- My address -->
     <div id="my-address" class=" flex-grow-1 p-3 tab-content  d-none">
         <h3 class="mb-2 fw-bold">ĐIA CHỈ VẬN CHUYỂN</h3>
+        @foreach (var product in Model.ListDiaChiKhachHangs)
+        {
+            <div class="p-3 mb-4 rounded-4 bg-light">
+                <div class="d-flex align-items-center mb-3">
+                    <input type="radio" name="address"
+                           id="home_@product.MaDiaChi"
+                           class="radio-indicator"
+                           value="@product.MaDiaChi"
+                           @(product.LaMacDinh == true ? "checked" : "")
+                           onchange="setMacDinh('@product.MaDiaChi')">
 
-        <!-- Home Address Card -->
-        <div class=" p-3 mb-4 rounded-4 bg-light">
-            <div class="d-flex align-items-center mb-3">
-                <input type="radio" name="address" id="home" class="radio-indicator" checked>
-                <label for="home" class="circle-indicator-label me-3"></label>
-                <h5 class="mb-0 me-3">2118 Thornridge</h5>
-                <span class="badge ">HOME</span>
-            </div>
-            <div class="ps-5 d-flex justify-content-between">
-                <div>
-                    <p class="mb-1 text-dark">2118 Thornridge Cir. Syracuse, Connecticut 35624</p>
-                    <p class="text-muted"><i class="fa-solid fa-user"></i><span> Phạm Nguyên Vũ</span> &emsp;<i class="fa-solid fa-phone"></i> (209) 555-0104</p>
+                    <label for="home_@product.MaDiaChi" class="circle-indicator-label me-3"></label>
+                    <h5 class="mb-0 me-3">@product.DiaChiDayDu</h5>
+                    <span class="badge">HOME</span>
                 </div>
-                <div class="d-flex justify-content-end gap-2 mt-2">
-                    <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-sm btn-light"><i class="bi bi-x"></i></button>
-                </div>
-            </div>
+                <div class="ps-5 d-flex justify-content-between">
+                    <div>
+                        <p class="mb-1 text-dark">@product.DiaChiDayDu</p>
+                        <p class="text-muted">
+                            <i class="fa-solid fa-user"></i><span> @product.TenNguoiNhan</span>
+                            &emsp;<i class="fa-solid fa-phone"></i> @product.SoDienThoai
+                        </p>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2 mt-2">
+                        <button class="btn btn-light px-3 py-2 delete-btn" data-id="@product.MaDiaChi" title="Xóa">
+                            <i class="bi bi-x fs-5"></i> <!-- fs-5 tăng size icon -->
+                        </button>
+                    </div>
 
-        </div>
-
-        <!-- Office Address Card -->
-        <div class=" p-3 mb-4 shadow-sm rounded-4 bg-light" ">
-            <div class="d-flex align-items-center mb-3">
-                <input type="radio" name="address" id="office" class="radio-indicator">
-                <label for="office" class="circle-indicator-label me-3"></label>
-                <h5 class="mb-0 me-3">Headoffice</h5>
-                <span class="badge ">OFFICE</span>
-            </div>
-            <div class="ps-5 d-flex justify-content-between">
-                <div>
-                    <p class="mb-1 text-dark">2715 Ash Dr. San Jose, South Dakota 83475</p>
-                    <p class="text-muted"><i class="fa-solid fa-user"></i><span> Phạm Nguyên Vũ</span> &emsp;<i class="fa-solid fa-phone"></i> (209) 555-0104</p>
-                </div>
-                <div class="d-flex justify-content-end gap-2 mt-2">
-                    <button class="btn btn-sm btn-light"><i class="bi bi-pencil"></i></button>
-                    <button class="btn btn-sm btn-light"><i class="bi bi-x"></i></button>
                 </div>
             </div>
+        }
 
-        </div>
+
 
         <!-- Add New Address -->
         <button id="btn-add-address" class="w-100 btn border border-2 border-dashed text-muted d-flex align-items-center justify-content-center py-3">
-            <i class="bi bi-plus-circle me-2"></i> Add New Address
+            <i class="bi bi-plus-circle me-2"></i> Thêm địa chỉ nhận hàng
         </button>
 
 
         <div id="new-address-form" class="form-container d-none animate__animated">
-            <h2 class="mb-4 text-center">Thêm Địa Chỉ Vận Chuyển</h2>
-            <form>
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Đóng" onclick="closeAddressForm()"></button>
+            <h2 class="mb-4 text-center">Thêm Địa Chỉ Nhận Hàng</h2>
+            <form id="address-form">
                 <div class="row g-3">
                     <!-- Họ và tên -->
                     <div class="col-md-6">
                         <label for="fullName" class="form-label">Họ và tên <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="fullName" placeholder="Nhập họ và tên" required>
+                        <input type="text" class="form-control" id="fullName" name="TenNguoiNhan"
+                               placeholder="Nhập họ và tên" required
+                               pattern="[A-Za-zÀ-ỹ\s]+" title="Họ và tên chỉ được nhập chữ và khoảng trắng">
                     </div>
-
                     <!-- Số điện thoại -->
                     <div class="col-md-6">
                         <label for="phone" class="form-label">Số điện thoại <span class="text-danger">*</span></label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Số điện thoại" required>
+                        <input type="tel" class="form-control" id="phone" name="SoDienThoai"
+                               placeholder="Số điện thoại" required inputmode="tel"
+                               pattern="^\d{10,15}$" title="Số điện thoại phải là một chuỗi gồm từ 10 đến 15 chữ số">
                     </div>
+                </div>
+                <!-- Địa chỉ -->
+                <div class="mb-3">
+                    <label for="address" class="form-label">Địa chỉ nhận hàng <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="address" name="DiaChiDayDu"
+                           placeholder="Số nhà, đường" required>
                 </div>
 
                 <div class="mb-3">
-                    <!-- Địa chỉ -->
-                    <label for="address" class="form-label">Địa chỉ nhận hàng <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="address" placeholder="Số nhà, đường, phường, quận, thành phố" required>
+                    <label for="province-select" class="form-label">Tỉnh thành (1)<span class="text-danger">*</span></label>
+                    <select class="form-select w-100" id="province-select" name="Tinh" required>
+                        <option value="">-- Chọn tỉnh --</option>
+                    </select>
                 </div>
-
-                <div class="row g-3">
-                    <!-- Thành phố -->
-                    <div class="col-md-6">
-                        <label for="city" class="form-label">Thành phố</label>
-                        <input type="text" class="form-control" id="city" placeholder="Thành phố">
-                    </div>
-
-                    <!-- Quận huyện -->
-                    <div class="col-md-6">
-                        <label for="district" class="form-label">Quận/Huyện</label>
-                        <input type="text" class="form-control" id="district" placeholder="Quận/Huyện">
-                    </div>
+                <div class="mb-3">
+                    <label for="district-select" class="form-label">Quận/huyện (2)<span class="text-danger">*</span></label>
+                    <select class="form-select" id="district-select" name="QuanHuyen" required disabled>
+                        <option value="">-- Chọn quận/huyện --</option>
+                    </select>
                 </div>
-
-                <div class="row g-3">
-                    <!-- Phường xã -->
-                    <div class="col-md-6">
-                        <label for="ward" class="form-label">Phường/Xã</label>
-                        <input type="text" class="form-control" id="ward" placeholder="Phường/Xã">
-                    </div>
-
-
-                    <div class="col-md-6">
-                        <!-- Thể loại địa chỉ (Home, Office) -->
-                        <label for="addressType" class="form-label">Chọn loại địa chỉ</label>
-                        <select id="addressType" class="form-select" required>
-                            <option value="">Chọn loại địa chỉ...</option>
-                            <option value="home">Home</option>
-                            <option value="office">Office</option>
-                        </select>
-                    </div>
+                <div class="mb-3">
+                    <label for="ward-select" class="form-label">Phường/xã (3)<span class="text-danger">*</span></label>
+                    <select class="form-select" id="ward-select" name="PhuongXa" required disabled>
+                        <option value="">-- Chọn phường/xã --</option>
+                    </select>
                 </div>
-
-
-
                 <!-- Nút lưu -->
                 <button type="submit" class="btn btn-success mt-3 w-100">Lưu địa chỉ</button>
             </form>
@@ -533,7 +513,7 @@
     <div id="Provide-feedback" class="flex-grow-1 p-4 tab-content d-none">
         <h3 class="mb-2 fw-bold">GÓP Ý PHẢN HỒI</h3>
         <div class="d-flex p-4">
-            <img src="https://bvndtp.org.vn/wp-content/uploads/2021/10/cam-on-2.jpg" / width="300" height="300">
+            <img src="https://bvndtp.org.vn/wp-content/uploads/2021/10/cam-on-2.jpg" width="300" height="300">
             <div class="align-content-center">
                 <span>Mời bạn đánh giá mức độ hài lòng về chương trình ưu đãi, và dịch vụ hỗ trợ của SwooTechsmart. Hãy cho chúng mình thêm góp ý để cải thiện tốt hơn</span>
             </div>
@@ -726,4 +706,212 @@
             confirmModal.show();
         }
     }
+</script>
+<script>
+    function setMacDinh(maDiaChi) {
+        fetch('/User/CapNhatDiaChiMacDinh', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ maDiaChi: maDiaChi })
+        }).then(res => {
+            if (res.ok) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: 'Đã cập nhật địa chỉ mặc định!',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Không thể cập nhật địa chỉ mặc định.'
+                });
+            }
+        }).catch(err => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi kết nối',
+                text: 'Không thể kết nối đến máy chủ.'
+            });
+        });
+    }
+</script>
+
+<script>
+    function closeAddressForm() {
+const form = document.getElementById('new-address-form');
+    const overlay = document.querySelector('.form-overlay');
+
+    form.classList.add('animate__fadeOut');
+
+setTimeout(() => {
+        form.classList.add('d-none');
+    form.classList.remove('animate__fadeOut');
+    if (overlay) overlay.remove();
+}, 300); // thời gian trùng với hiệu ứng animate.css (nếu dùng)
+}
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+const provinceSelect = document.getElementById('province-select');
+    const districtSelect = document.getElementById('district-select');
+    const wardSelect = document.getElementById('ward-select');
+
+    // Load danh sách tỉnh
+    fetch("https://provinces.open-api.vn/api/?depth=1")
+.then(res => res.json())
+.then(provinces => {
+        provinces.forEach(province => {
+            provinceSelect.innerHTML += `<option value="${province.code}">${province.name}</option>`;
+        });
+});
+
+    // Khi chọn tỉnh
+    provinceSelect.addEventListener('change', function () {
+const provinceCode = this.value;
+    districtSelect.innerHTML = '<option value="">-- Chọn quận/huyện --</option>';
+    wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+    wardSelect.disabled = true;
+
+    if (provinceCode) {
+        fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`)
+            .then(res => res.json())
+            .then(data => {
+                districtSelect.disabled = false;
+                data.districts.forEach(d => {
+                    districtSelect.innerHTML += `<option value="${d.code}">${d.name}</option>`;
+                });
+            });
+} else {
+        districtSelect.disabled = true;
+    wardSelect.disabled = true;
+}
+});
+
+    // Khi chọn quận
+    districtSelect.addEventListener('change', function () {
+    const districtCode = this.value;
+        wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+
+        if (districtCode) {
+            fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`)
+                .then(res => res.json())
+                .then(data => {
+                    wardSelect.disabled = false;
+                    data.wards.forEach(w => {
+                        wardSelect.innerHTML += `<option value="${w.code}">${w.name}</option>`;
+                    });
+                });
+    } else {
+            wardSelect.disabled = true;
+    }
+    });
+});
+
+</script>
+<script>
+    // Kiểm tra khi form được submit
+    document.querySelector('#address-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const fullName = document.getElementById('fullName').value;
+        const phone = document.getElementById('phone').value;
+
+        // Kiểm tra họ và tên (chỉ cho phép nhập chữ)
+        const nameRegex = /^[A-Za-zÀ-ỹ\s]+$/;
+        if (!nameRegex.test(fullName)) {
+            Swal.fire('Lỗi!', 'Họ và tên chỉ được nhập chữ!', 'error');
+            return;
+        }
+
+        // Kiểm tra số điện thoại (chỉ cho phép nhập số)
+        const phoneRegex = /^[0-9]+$/;
+        if (!phoneRegex.test(phone)) {
+            Swal.fire('Lỗi!', 'Số điện thoại chỉ được nhập số!', 'error');
+            return;
+        }
+
+        // Tiến hành xử lý lưu thông tin tại đây (ví dụ gửi AJAX)
+    });
+
+</script>
+<script>
+    document.querySelector('#address-form').addEventListener('submit', function (e) {
+        e.preventDefault();  // Ngừng hành động mặc định của form submit
+
+        // Lấy giá trị từ các trường trong form
+        const fullName = document.getElementById('fullName').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('address').value;
+        const province = document.getElementById('province-select').selectedOptions[0]?.text || '';
+        const district = document.getElementById('district-select').selectedOptions[0]?.text || '';
+        const ward = document.getElementById('ward-select').selectedOptions[0]?.text || '';
+
+        // Tạo địa chỉ đầy đủ
+        const fullAddress = `${address}, ${ward}, ${district}, ${province}`;
+
+        // Gửi dữ liệu đến API
+        fetch('/User/LuuDiaChiMoi', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                TenNguoiNhan: fullName,
+                SoDienThoai: phone,
+                DiaChiDayDu: fullAddress
+            })
+        })
+            .then(res => res.json())  // Chuyển phản hồi từ server thành JSON
+            .then(data => {
+                if (data.success) {
+                    // Thông báo thành công và tải lại trang sau khi thêm địa chỉ thành công
+                    Swal.fire('Thành công!', 'Địa chỉ đã được thêm.', 'success').then(() => {
+                        location.reload();  // Tải lại trang
+                    });
+                } else {
+                    // Thông báo lỗi khi có sự cố
+                    Swal.fire('Lỗi!', data.message || 'Thêm địa chỉ thất bại.', 'error');
+                }
+            })
+            .catch(error => {
+                // Thông báo nếu có lỗi xảy ra trong quá trình gửi dữ liệu
+                Swal.fire('Lỗi!', 'Không thể gửi dữ liệu đến server.', 'error');
+                console.error(error);  // In ra lỗi trong console
+            });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const addressId = this.getAttribute('data-id'); // Lấy ID địa chỉ từ thuộc tính data-id
+
+            // Gửi yêu cầu xóa địa chỉ
+            fetch(`/User/XoaDiaChi/${addressId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // Nếu xóa thành công, xóa địa chỉ khỏi DOM
+                        const addressItem = this.closest('.p-3.mb-4');
+                        addressItem.remove();  // Xóa địa chỉ khỏi giao diện
+                        Swal.fire('Thành công!', 'Địa chỉ đã được xóa.', 'success');
+                    } else {
+                        Swal.fire('Lỗi!', data.message || 'Không thể xóa địa chỉ.', 'error');
+                    }
+                })
+                .catch(error => {
+                    Swal.fire('Lỗi!', 'Có lỗi xảy ra khi xóa địa chỉ.', 'error');
+                    console.error(error);
+                });
+        });
+    });
+
+
 </script>

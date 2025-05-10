@@ -21,20 +21,140 @@ namespace Shop.Controllers
 
             string maKhachHang = Session["UserID"].ToString();
 
-            // Truy vấn dữ liệu khách hàng từ database
             var khachHang = data.KhachHangs
-                .Where(kh => kh.MaKhachHang == maKhachHang)
-                .FirstOrDefault();
+                .FirstOrDefault(kh => kh.MaKhachHang == maKhachHang);
 
-            // Kiểm tra nếu không tìm thấy khách hàng
             if (khachHang == null)
+                return RedirectToAction("Login", "InnerPage");
+
+            var diaChis = data.DiaChiKhachHangs
+                .Where(dc => dc.MaKhachHang == maKhachHang)
+                .ToList();
+
+            var viewModel = new UserViewModel
             {
-                return RedirectToAction("Login", "InnerPage"); // Nếu không tìm thấy, chuyển hướng đến đăng nhập
+                KhachHang = khachHang,
+                ListDiaChiKhachHangs = diaChis
+            };
+
+            return View(viewModel);
+        }
+        // POST: CapNhatDiaChiMacDinh
+        [HttpPost]
+        public ActionResult CapNhatDiaChiMacDinh(string maDiaChi)
+        {
+            if (Session["UserID"] == null)
+                return new HttpStatusCodeResult(401); // Unauthorized
+
+            string maKhachHang = Session["UserID"].ToString();
+
+            // Tìm tất cả địa chỉ của khách hàng
+            var diaChis = data.DiaChiKhachHangs
+                .Where(dc => dc.MaKhachHang == maKhachHang)
+                .ToList();
+
+            foreach (var dc in diaChis)
+                dc.LaMacDinh = false;
+
+            var diaChiMacDinh = diaChis.FirstOrDefault(dc => dc.MaDiaChi == maDiaChi);
+            if (diaChiMacDinh != null)
+            {
+                diaChiMacDinh.LaMacDinh = true;
+                data.SubmitChanges(); 
+                return new HttpStatusCodeResult(200);
             }
 
-            // Trả lại view với đối tượng KhachHang
-            return View(khachHang); // Truyền khách hàng vào view
+            return new HttpStatusCodeResult(400); // Bad request nếu không tìm thấy
         }
+        [HttpPost]
+        public JsonResult LuuDiaChiMoi(DiaChiKhachHang diaChi)
+        {
+            // Kiểm tra nếu người dùng chưa đăng nhập
+            if (Session["UserID"] == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." });
+            }
+
+            try
+            {
+                // Lấy ID khách hàng từ session
+                string maKhachHang = Session["UserID"].ToString();
+                diaChi.MaKhachHang = maKhachHang;
+                diaChi.LaMacDinh = false;
+
+                // Tạo mã địa chỉ ngẫu nhiên
+                string maDiaChi;
+                Random rand = new Random();
+                do
+                {
+                    maDiaChi = "DC" + rand.Next(10000, 99999).ToString();
+                } while (data.DiaChiKhachHangs.Any(d => d.MaDiaChi == maDiaChi)); // Kiểm tra mã đã tồn tại trong DB
+
+                diaChi.MaDiaChi = maDiaChi;
+
+                // Thêm địa chỉ vào cơ sở dữ liệu
+                data.DiaChiKhachHangs.InsertOnSubmit(diaChi);
+                data.SubmitChanges();
+
+                // Trả về kết quả sau khi lưu thành công
+                return Json(new
+                {
+                    success = true,
+                    diaChi.MaDiaChi,
+                    diaChi.TenNguoiNhan,
+                    diaChi.SoDienThoai,
+                    diaChi.DiaChiDayDu
+                });
+            }
+            catch (Exception ex)
+            {
+                // Nếu có lỗi xảy ra, trả về thông báo lỗi
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+           
+        [HttpDelete]
+        public JsonResult XoaDiaChi(string id)
+        {
+            try
+            {
+                // Tìm địa chỉ theo mã địa chỉ
+                var diaChi = data.DiaChiKhachHangs.FirstOrDefault(d => d.MaDiaChi == id);
+
+                // Kiểm tra nếu địa chỉ tồn tại
+                if (diaChi != null)
+                {
+                    // Xóa địa chỉ khỏi cơ sở dữ liệu
+                    data.DiaChiKhachHangs.DeleteOnSubmit(diaChi);
+                    data.SubmitChanges();
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, message = "Địa chỉ không tồn tại." });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Nếu có lỗi xảy ra, trả về thông báo lỗi
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+        [HttpGet]
+        public ActionResult Edit(string id)
+        {
+            var diaChi = data.DiaChiKhachHangs.FirstOrDefault(d => d.MaDiaChi == id);
+            if (diaChi == null)
+            {
+                return HttpNotFound(); // hoặc RedirectToAction nếu muốn chuyển trang
+            }
+
+            return View(diaChi);
+        }
+
+
+       
+
 
 
         // POST: /User/ChangePassword
@@ -60,7 +180,6 @@ namespace Shop.Controllers
 
                     // Cập nhật session password mới luôn
                     Session["password"] = SecurityHelper.EncryptPassword(password_new, "mysecretkey"); ;
-
                     TempData["SuccessMessage"] = "Đổi mật khẩu thành công!";
                 }
                 else
