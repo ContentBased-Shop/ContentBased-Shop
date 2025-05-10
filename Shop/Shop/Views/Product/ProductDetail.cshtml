@@ -28,7 +28,7 @@
                 <div class="main-img-wrapper text-center mb-3">
                     <img id="mainImage" src="@Url.Content("~/assets/Image/Product/" + Model.SelectedBienThe.UrlAnh.FirstOrDefault())" class="img-fluid main-image" />
                 </div>
-            </div>  
+            </div>
             <div class="d-flex justify-content-center gap-2">
                 @foreach (var url in Model.SelectedBienThe.UrlAnh)
                 {
@@ -45,6 +45,7 @@
                     height: auto;
                     aspect-ratio: 6 / 6; /* hoặc 3 / 2 tuỳ bố cục */
                 }
+
                 .main-image {
                     transition: opacity 0.5s ease-in-out, transform 0.3s ease-in-out;
                     opacity: 1;
@@ -53,7 +54,6 @@
                     .main-image.fade-out {
                         opacity: 0;
                     }
-
             </style>
         </div>
 
@@ -154,10 +154,12 @@
                 <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/gift.png" alt="Gift" height="64" />
                 <div>
                     <ul class="ps-3 mb-1">
-                        <li>Buy <span class="text-danger fw-bold">02</span> boxes get a <span class="fw-bold">Snack Tray</span></li>
-                        <li>Buy <span class="text-danger fw-bold">04</span> boxes get a free <span class="fw-bold">Block Toys</span></li>
+                        <li>Mua <span class="text-danger fw-bold">01</span> điện thoại tặng kèm  <span class="fw-bold">ốp lưng cao cấp</span></li>
+                        <li>Mua <span class="text-danger fw-bold">01</span> điện thoại tặng kèm <span class="fw-bold">kính cường lực kingkong </span></li>
+                        <li>Bảo hành lên đến <span class="text-danger fw-bold">01</span> năm <span class="fw-bold">cho sản phẩm</span></li>
+                        <li>Kèm <span class="text-danger fw-bold">01</span> củ sạc theo máy<span class="fw-bold"></span></li>
                     </ul>
-                    <div class="small text-muted">Promotion expires at: 9:00 PM, 25/5/2024</div>
+                    <div class="small text-muted">Khuyến mãi kết thúc lúc: 21:00, 25/05/2024</div>
                 </div>
             </div>
 
@@ -197,7 +199,7 @@
                     <button class="btn btn-outline-secondary" id="btn-increase"><i class="bi bi-plus"></i></button>
                 </div>
 
-                <button class="btn btn-success w-100 mb-2 py-3">Thêm vào giỏ hàng</button>
+                <button class="btn btn-success w-100 mb-2 py-3"> <i class="bi bi-cart-plus me-2"></i> <!-- Biểu tượng giỏ hàng -->Thêm vào giỏ hàng</button>
                 <button class="btn btn-warning w-100 mb-3 py-3">
                     Thanh toán với <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/paypal.png" alt="PayPal" height="20" />
                 </button>
@@ -225,10 +227,23 @@
                     <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/pay.png" alt="" class="w-100">
                 </div>
             </div>
-            <div class="text-center bg-gray my-3 p-4 rounded-4">
-                <button class="btn btn-dark w-100"> Đặt hàng nhanh 24/7 </button>
-                <div class="fw-bold fs-4 mt-2">(025) 3886 25 16</div>
+            <div class="text-center bg-light my-3 p-4 rounded-4 shadow-sm">
+                <button class="btn btn-dark w-100 mb-2" onclick="handleCallClick()">
+                    Đặt hàng nhanh 24/7
+                </button>
+                <div class="fw-bold fs-4 mt-2">
+                    <a href="tel:0334328540" id="callLink" class="text-decoration-none text-dark">
+                        <i class="bi bi-telephone-fill me-2"></i> (03) 3432 85 40
+                    </a>
+                </div>
+                <small class="text-muted d-block mt-1">
+                    Click để gọi nếu bạn đang dùng điện thoại. Trên máy tính, hệ thống sẽ hỗ trợ sao chép số.
+                </small>
             </div>
+
+
+
+
             <p class="color-000 mt-15"> <i class="fa-solid fa-truck-fast"></i> <span class="color-666"> Giao hàng từ </span> <strong> Hồ Chí Minh</strong> </p>
         </div>
 
@@ -241,65 +256,93 @@
         <div class="col-lg-9">
             <!-- Bundle Section -->
             <div class="rounded p-4">
-                <h2 class="mb-4 fw-bold text-dark">Mua kèm giảm giá lên tới 10%</h2>
-                <div class="d-flex align-items-center justify-content-around flex-wrap gap-3 mb-4">
-                    <!-- Product 1 -->
-                    <div>
-                        <img src="~/assets/Image/Product/@Model.Product.HinhAnh"
-                             class="img-fluid mb-2" width="190" height="200" />
+                <h2 class="mb-4 fw-bold text-dark">Khuyến mãi tặng Kèm dành riêng</h2>
 
-                    </div>
-                    <div>
-                        <span class="plus fw-bolder fs-3">
-                            <i class="fal fa-plus"></i>
-                        </span>
-                    </div>
-                    <!-- Product 2 -->
-                    <div>
-                        <img src="http://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/sin_product/prod6.jpg"
-                             class="img-fluid" width="190" height="200" />
-                    </div>
 
-                    <!-- Price + Buttons -->
-                    <div>
-                        <div class="mb-2">
-                            <div class="small text-muted">TOTAL PRICE:</div>
-                            <div class="h4 fw-bold">$1067.00</div>
+                @{
+                    var maHangHoa = Model.SelectedBienThe.MaHangHoa; // Mã sản phẩm chính
+                    var khuyenMaiTangKemList = Model.ListKhuyenMais
+                        .Where(km => km.MaHangHoaMua == maHangHoa)
+                        .ToList();
+                }
+                @if (khuyenMaiTangKemList.Any())
+                {
+                    <div class="d-flex align-items-center justify-content-around flex-wrap gap-3 mb-4">
+                        <!-- Product 1 -->
+                        <a href="@Url.Content("~/Product/ProductDetail/" + Model.SelectedBienThe.MaHangHoa + "?mabienthe=" + Model.SelectedBienThe.MaBienThe)" class="text-decoration-none text-dark">
+                            <div class="text-center me-3">
+                                <img src="@Url.Content("~/assets/Image/Product/" + Model.SelectedBienThe.UrlAnh.FirstOrDefault())"
+                                     class="img-fluid mb-2" width="190" height="200" />
+
+                                <p class="mt-2 mb-0 small">@Model.Product.TenHangHoa</p>
+
+                                <!-- Thêm giá tiền từ biến thể -->
+                                <p class="text-danger">@(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫</p>
+                            </div>
+                        </a>
+                        <div>
+                            <span class="plus fw-bolder fs-3">
+                                <i class="fal fa-plus"></i>
+                            </span>
                         </div>
-                        <div class="d-flex gap-2 mb-3 ">
-                            <button class="btn btn-success text-white w-100 py-2">ADD TO CART</button>
+                        @foreach (var km in khuyenMaiTangKemList)
+                        {
+                            var quatang = Model.RelatedProducts.FirstOrDefault(p => p.MaHangHoa == km.MaHangHoaTangKem);
+                            if (quatang != null)
+                            {
+                                // Tìm biến thể của sản phẩm quà tặng (nếu có)
+                                var bienThe = Model.ListBienTheTatCaHangHoa.FirstOrDefault(bt => bt.MaHangHoa == quatang.MaHangHoa);
+                                <a href="@Url.Content("~/Product/ProductDetail/" + bienThe.MaHangHoa + "?mabienthe=" + bienThe.MaBienThe)" class="text-decoration-none text-dark">
+                                    <div class="gift-item text-center me-3">
+                                        <img src="~/assets/Image/Product/@quatang.HinhAnh"
+                                             alt="@quatang.TenHangHoa"
+                                             class="img-fluid"
+                                             width="190" height="200" />
+                                        <p class="mt-2 mb-0 small">@quatang.TenHangHoa</p>
+                                        <!-- Thêm giá tiền từ biến thể -->
+                                        <p class="text-danger">@(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</p>
+                                        <span c lass="badge bg-success">Số Lượng tặng: @km.SoLuongTang</span>
+                                        <br />
+                                        <!-- Hiển thị ngày kết thúc với định dạng mong muốn -->
+                                        @if (km.NgayKetThuc != null)
+                                        {
+                                            <span class="text-muted">
+                                                Hạn chót: @km.NgayKetThuc.Value.ToString("dd/MM/yyyy")
+                                            </span>
+                                        }
+                                    </div>
+                                </a>
+                            }
+                        }
+
+                        <!-- Price + Buttons -->
+                        <div>
+                            <div class="mb-2 ">
+                                <div class="small text-muted h2">Tổng tiền:</div>
+                                <div class="h4 fw-bold">@(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫</div>
+                            </div>
+                            <div class="d-flex gap-2 mb-3">
+                                <button class="btn btn-success text-white w-100 py-2">
+                                    <i class="bi bi-cart-plus me-2"></i> <!-- Biểu tượng giỏ hàng -->
+                                    Thêm giỏ hàng ngay bây giờ
+                                </button>
+                            </div>
+
 
                         </div>
-                        <button class="btn btn-outline-secondary">
-                            <i class="bi bi-heart"></i> Ad all to Wishlist
-                        </button>
                     </div>
-                </div>
 
+                    <div class="gift-policy border rounded p-3 bg-light">
+                        <div class="mt-3">
+                            <h6 class="text-danger">Lưu ý:</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="bi bi-exclamation-circle-fill text-warning"></i> Quà tặng không được quy đổi thành tiền mặt.</li>
+                                <li><i class="bi bi-exclamation-circle-fill text-warning"></i> Quà tặng không áp dụng chính sách đổi trả.</li>
+                            </ul>
+                        </div>
 
-                <div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" checked id="item1">
-                        <label class="form-check-label" for="item1">
-                            <strong>Sản phẩm :</strong> Samsung Galaxy X6 Ultra LTE 4G/128 Gb, Điện thoại màu Đen
-                            (<span class="text-primary-custom">$569.00</span>)
-                        </label>
                     </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" checked id="item2">
-                        <label class="form-check-label" for="item2">
-                            <strong>Sản phẩm :</strong> Tai nghe BOSO Z Wireless On Ear
-                            (<span class="text-primary-custom">$369.00</span>)
-                        </label>
-                    </div>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" checked id="item3">
-                        <label class="form-check-label" for="item3">
-                            <strong>Sản phẩm :</strong> Đồng hồ Oppo Watch Series 8 GPS + Cellular
-                            (<span class="text-primary-custom">$129.00</span>)
-                        </label>
-                    </div>
-                </div>
+                }
 
             </div>
         </div>
@@ -994,4 +1037,24 @@
             }.bind(this), 200); // Delay để fade out xong rồi mới đổi
         });
     });
+</script>
+
+<script>
+    function isMobileDevice() {
+        return /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    }
+
+    function handleCallClick() {
+        if (isMobileDevice()) {
+            document.getElementById("callLink").click();
+        } else {
+            navigator.clipboard.writeText("0334328540");
+            Swal.fire({
+                icon: "info",
+                title: "Gọi điện từ máy tính",
+                text: "Số điện thoại đã được sao chép: 0334328540. Vui lòng dùng Skype, Zoom hoặc điện thoại để gọi.",
+                confirmButtonText: "Đã hiểu"
+            });
+        }
+    }
 </script>

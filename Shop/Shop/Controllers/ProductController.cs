@@ -142,9 +142,14 @@ namespace Shop.Controllers
 
             var product = productList.FirstOrDefault(p => p.MaHangHoa == id);
             if (product == null) return HttpNotFound();
-
+            var ListKhuyenMais = data.KhuyenMaiTangKems
+                    .ToList();
+            var ListBienTheTatCaHangHoa = data.BienTheHangHoas
+                   .ToList();
             var viewModel = new ProductDetailPageView
             {
+                ListBienTheTatCaHangHoa= ListBienTheTatCaHangHoa,
+                ListKhuyenMais = ListKhuyenMais,
                 ListBienThes = listBienThes,
                 SelectedBienThe = selectedBienThe,
                 Product = product,
@@ -296,6 +301,9 @@ namespace Shop.Controllers
 
                                select new HangHoaViewModel
                                {
+                                   MaBienThe = g.Where(x => x.bienThe != null)
+                                             .Select(x => x.bienThe.MaBienThe)
+                                             .FirstOrDefault(),
                                    MaHangHoa = g.Key.MaHangHoa,        // Mã hàng hóa
                                    TenHangHoa = g.Key.TenHangHoa,      // Tên hàng hóa
                                    HinhAnh = g.Key.HinhAnh,            // Hình ảnh

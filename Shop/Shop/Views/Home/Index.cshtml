@@ -403,82 +403,80 @@
     <div id="product-best-seller" class="d-none">
         @foreach (var product in Model)
         {
-
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
-                    </div>
-                    <div class="review-count">(@product.SoLuongTonKho)</div>
-                    <h5 class="product-name">@product.TenHangHoa</h5>
-                    <p class="product-description">@product.MoTa</p>
-                    <div class="star-rating">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            if (i <= @product.DanhGiaTrungBinh)
+                <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                        </div>
+                        <div class="review-count">(@product.SoLuongTonKho)</div>
+                        <h5 class="product-name">@product.TenHangHoa</h5>
+                        <p class="product-description">@product.MoTa</p>
+                        <div class="star-rating">
+                            @for (int i = 1; i <= 5; i++)
                             {
-                                <i class="bi bi-star-fill"></i>
-                            }
-                            else
-                            {
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                            }
-                        }
-                        <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
-                    </div>
-
-                    <div class="price-container">
-                        <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                        <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
-
-                        @{
-                            var goc = product.GiaGoc;
-                            var km = product.GiaKhuyenMai;
-                            var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                        }
-                    </div>
-                    @if (discount > 0)
-                    {
-                        <span class="discount text-danger">@discount.ToString("0")% OFF</span>
-                    }
-                    <div class="free-shipping">FREE SHIPPING</div>
-                    <div class="d-flex justify-content-between">
-                        @if (product.SoLuongTonKho > 0)
-                        {
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>Còn hàng</span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="stock-status text-danger">
-                                <i class="bi bi-x-circle-fill"></i>&nbsp;
-                                <span>Hết hàng</span>
-                            </div>
-                        }
-
-                        <div class="stock-status">
-                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
-                                @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                if (i <= @product.DanhGiaTrungBinh)
                                 {
-                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 }
                                 else
                                 {
-                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
                                 }
-                                <span>Yêu thích</span>
-                            </a>
+                            }
+                            <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
                         </div>
 
+                        <div class="price-container">
+                            <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
 
+                            @{
+                                var goc = product.GiaGoc;
+                                var km = product.GiaKhuyenMai;
+                                var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                            }
+                        </div>
+                        @if (discount > 0)
+                        {
+                            <span class="discount text-danger">@discount.ToString("0")% OFF</span>
+                        }
+                        <div class="free-shipping">FREE SHIPPING</div>
+                        <div class="d-flex justify-content-between">
+                            @if (product.SoLuongTonKho > 0)
+                            {
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>Còn hàng</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="stock-status text-danger">
+                                    <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                    <span>Hết hàng</span>
+                                </div>
+                            }
 
-
+                            <div class="stock-status">
+                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                    @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                    {
+                                        <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                    }
+                                    <span>Yêu thích</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </a>
 
-                </div>
             </div>
         }
     </div>
@@ -491,76 +489,77 @@
 
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
-                    </div>
-                    <div class="review-count">(@product.SoLuongTonKho)</div>
-                    <h5 class="product-name">@product.TenHangHoa</h5>
-                    <p class="product-description">@product.MoTa</p>
-                    <div class="star-rating">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            if (i <= @product.DanhGiaTrungBinh)
+                <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                        </div>
+                        <div class="review-count">(@product.SoLuongTonKho)</div>
+                        <h5 class="product-name">@product.TenHangHoa</h5>
+                        <p class="product-description">@product.MoTa</p>
+                        <div class="star-rating">
+                            @for (int i = 1; i <= 5; i++)
                             {
-                                <i class="bi bi-star-fill"></i>
-                            }
-                            else
-                            {
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                            }
-                        }
-                        <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
-                    </div>
-
-                    <div class="price-container">
-                        <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                        <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
-
-                        @{
-                            var goc = product.GiaGoc;
-                            var km = product.GiaKhuyenMai;
-                            var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                        }
-                    </div>
-                    @if (discount > 0)
-                    {
-                        <span class="discount text-danger">@discount.ToString("0")% OFF</span>
-                    }
-                    <div class="free-shipping">FREE SHIPPING</div>
-                    <div class="d-flex justify-content-between">
-                        @if (product.SoLuongTonKho > 0)
-                        {
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>Còn hàng</span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="stock-status text-danger">
-                                <i class="bi bi-x-circle-fill"></i>&nbsp;
-                                <span>Hết hàng</span>
-                            </div>
-                        }
-
-                        <div class="stock-status">
-                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
-                                @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                if (i <= @product.DanhGiaTrungBinh)
                                 {
-                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 }
                                 else
                                 {
-                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
                                 }
-                                <span>Yêu thích</span>
-                            </a>
+                            }
+                            <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
                         </div>
 
-                    </div>
+                        <div class="price-container">
+                            <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
 
-                </div>
+                            @{
+                                var goc = product.GiaGoc;
+                                var km = product.GiaKhuyenMai;
+                                var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                            }
+                        </div>
+                        @if (discount > 0)
+                        {
+                            <span class="discount text-danger">@discount.ToString("0")% OFF</span>
+                        }
+                        <div class="free-shipping">FREE SHIPPING</div>
+                        <div class="d-flex justify-content-between">
+                            @if (product.SoLuongTonKho > 0)
+                            {
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>Còn hàng</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="stock-status text-danger">
+                                    <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                    <span>Hết hàng</span>
+                                </div>
+                            }
+
+                            <div class="stock-status">
+                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                    @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                    {
+                                        <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                    }
+                                    <span>Yêu thích</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
             </div>
         }
     </div>
@@ -574,76 +573,77 @@
 
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
-                    </div>
-                    <div class="review-count">(@product.SoLuongTonKho)</div>
-                    <h5 class="product-name">@product.TenHangHoa</h5>
-                    <p class="product-description">@product.MoTa</p>
-                    <div class="star-rating">
-                        @for (int i = 1; i <= 5; i++)
-                        {
-                            if (i <= @product.DanhGiaTrungBinh)
+                <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                        </div>
+                        <div class="review-count">(@product.SoLuongTonKho)</div>
+                        <h5 class="product-name">@product.TenHangHoa</h5>
+                        <p class="product-description">@product.MoTa</p>
+                        <div class="star-rating">
+                            @for (int i = 1; i <= 5; i++)
                             {
-                                <i class="bi bi-star-fill"></i>
-                            }
-                            else
-                            {
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                            }
-                        }
-                        <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
-                    </div>
-
-                    <div class="price-container">
-                        <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                        <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
-
-                        @{
-                            var goc = product.GiaGoc;
-                            var km = product.GiaKhuyenMai;
-                            var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                        }
-                    </div>
-                    @if (discount > 0)
-                    {
-                        <span class="discount text-danger">@discount.ToString("0")% OFF</span>
-                    }
-                    <div class="free-shipping">FREE SHIPPING</div>
-                    <div class="d-flex justify-content-between">
-                        @if (product.SoLuongTonKho > 0)
-                        {
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>Còn hàng</span>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="stock-status text-danger">
-                                <i class="bi bi-x-circle-fill"></i>&nbsp;
-                                <span>Hết hàng</span>
-                            </div>
-                        }
-
-                        <div class="stock-status">
-                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
-                                @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                if (i <= @product.DanhGiaTrungBinh)
                                 {
-                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                    <i class="bi bi-star-fill"></i>
                                 }
                                 else
                                 {
-                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
                                 }
-                                <span>Yêu thích</span>
-                            </a>
+                            }
+                            <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
                         </div>
 
-                    </div>
+                        <div class="price-container">
+                            <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
 
-                </div>
+                            @{
+                                var goc = product.GiaGoc;
+                                var km = product.GiaKhuyenMai;
+                                var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                            }
+                        </div>
+                        @if (discount > 0)
+                        {
+                            <span class="discount text-danger">@discount.ToString("0")% OFF</span>
+                        }
+                        <div class="free-shipping">FREE SHIPPING</div>
+                        <div class="d-flex justify-content-between">
+                            @if (product.SoLuongTonKho > 0)
+                            {
+                                <div class="stock-status">
+                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                    <span>Còn hàng</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="stock-status text-danger">
+                                    <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                    <span>Hết hàng</span>
+                                </div>
+                            }
+
+                            <div class="stock-status">
+                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                    @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                    {
+                                        <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                    }
+                                    <span>Yêu thích</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
             </div>
         }
     </div>
@@ -837,76 +837,77 @@
 
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
-                            </div>
-                            <div class="review-count">(@product.SoLuongTonKho)</div>
-                            <h5 class="product-name">@product.TenHangHoa</h5>
-                            <p class="product-description">@product.MoTa</p>
-                            <div class="star-rating">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    if (i <= @product.DanhGiaTrungBinh)
+                        <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                                </div>
+                                <div class="review-count">(@product.SoLuongTonKho)</div>
+                                <h5 class="product-name">@product.TenHangHoa</h5>
+                                <p class="product-description">@product.MoTa</p>
+                                <div class="star-rating">
+                                    @for (int i = 1; i <= 5; i++)
                                     {
-                                        <i class="bi bi-star-fill"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    }
-                                }
-                                <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
-                            </div>
-
-                            <div class="price-container">
-                                <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                                <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
-
-                                @{
-                                    var goc = product.GiaGoc;
-                                    var km = product.GiaKhuyenMai;
-                                    var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                                }
-                            </div>
-                            @if (discount > 0)
-                            {
-                                <span class="discount text-danger">@discount.ToString("0")% OFF</span>
-                            }
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="d-flex justify-content-between">
-                                @if (product.SoLuongTonKho > 0)
-                                {
-                                    <div class="stock-status">
-                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                        <span>Còn hàng</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="stock-status text-danger">
-                                        <i class="bi bi-x-circle-fill"></i>&nbsp;
-                                        <span>Hết hàng</span>
-                                    </div>
-                                }
-
-                                <<div class="stock-status">
-                                    <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
-                                        @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                        if (i <= @product.DanhGiaTrungBinh)
                                         {
-                                            <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                            <i class="bi bi-star-fill"></i>
                                         }
                                         else
                                         {
-                                            <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                            <i class="bi bi-star" style="opacity: 0.3;"></i>
                                         }
-                                        <span>Yêu thích</span>
-                                    </a>
+                                    }
+                                    <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
                                 </div>
 
-                            </div>
+                                <div class="price-container">
+                                    <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
 
-                        </div>
+                                    @{
+                                        var goc = product.GiaGoc;
+                                        var km = product.GiaKhuyenMai;
+                                        var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                                    }
+                                </div>
+                                @if (discount > 0)
+                                {
+                                    <span class="discount text-danger">@discount.ToString("0")% OFF</span>
+                                }
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="d-flex justify-content-between">
+                                    @if (product.SoLuongTonKho > 0)
+                                    {
+                                        <div class="stock-status">
+                                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                            <span>Còn hàng</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="stock-status text-danger">
+                                            <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                            <span>Hết hàng</span>
+                                        </div>
+                                    }
+
+                                    <div class="stock-status">
+                                        <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                            @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                            {
+                                                <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                            }
+                                            <span>Yêu thích</span>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                         </a>
                     </div>
                 }
             </div>
@@ -1054,76 +1055,77 @@
                 {
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
-                        <div class="product-card">
-                            <div class="product-image-container">
-                                <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
-                            </div>
-                            <div class="review-count">(@product.SoLuongTonKho)</div>
-                            <h5 class="product-name">@product.TenHangHoa</h5>
-                            <p class="product-description">@product.MoTa</p>
-                            <div class="star-rating">
-                                @for (int i = 1; i <= 5; i++)
-                                {
-                                    if (i <= @product.DanhGiaTrungBinh)
+                        <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                            <div class="product-card">
+                                <div class="product-image-container">
+                                    <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                                </div>
+                                <div class="review-count">(@product.SoLuongTonKho)</div>
+                                <h5 class="product-name">@product.TenHangHoa</h5>
+                                <p class="product-description">@product.MoTa</p>
+                                <div class="star-rating">
+                                    @for (int i = 1; i <= 5; i++)
                                     {
-                                        <i class="bi bi-star-fill"></i>
-                                    }
-                                    else
-                                    {
-                                        <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    }
-                                }
-                                <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
-                            </div>
-
-                            <div class="price-container">
-                                <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                                <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
-
-                                @{
-                                    var goc = product.GiaGoc;
-                                    var km = product.GiaKhuyenMai;
-                                    var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                                }
-                            </div>
-                            @if (discount > 0)
-                            {
-                                <span class="discount text-danger">@discount.ToString("0")% OFF</span>
-                            }
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="d-flex justify-content-between">
-                                @if (product.SoLuongTonKho > 0)
-                                {
-                                    <div class="stock-status">
-                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                        <span>Còn hàng</span>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="stock-status text-danger">
-                                        <i class="bi bi-x-circle-fill"></i>&nbsp;
-                                        <span>Hết hàng</span>
-                                    </div>
-                                }
-
-                                <div class="stock-status">
-                                    <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
-                                        @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                        if (i <= @product.DanhGiaTrungBinh)
                                         {
-                                            <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                            <i class="bi bi-star-fill"></i>
                                         }
                                         else
                                         {
-                                            <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                            <i class="bi bi-star" style="opacity: 0.3;"></i>
                                         }
-                                        <span>Yêu thích</span>
-                                    </a>
+                                    }
+                                    <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
                                 </div>
 
-                            </div>
+                                <div class="price-container">
+                                    <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
 
-                        </div>
+                                    @{
+                                        var goc = product.GiaGoc;
+                                        var km = product.GiaKhuyenMai;
+                                        var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                                    }
+                                </div>
+                                @if (discount > 0)
+                                {
+                                    <span class="discount text-danger">@discount.ToString("0")% OFF</span>
+                                }
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="d-flex justify-content-between">
+                                    @if (product.SoLuongTonKho > 0)
+                                    {
+                                        <div class="stock-status">
+                                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                            <span>Còn hàng</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="stock-status text-danger">
+                                            <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                            <span>Hết hàng</span>
+                                        </div>
+                                    }
+
+                                    <div class="stock-status">
+                                        <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                            @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
+                                            {
+                                                <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                            }
+                                            <span>Yêu thích</span>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 }
             </div>
@@ -1588,7 +1590,7 @@
             $.ajax({
                 url: '/Product/AddWishList',
                 type: 'POST',
-                data: { maHangHoa: maHangHoa },
+                data: { maHangHoa:   maHangHoa },
                 success: function (res) {
                     if (res.success) {
                         if (res.removed) {

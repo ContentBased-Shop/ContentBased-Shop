@@ -13,7 +13,9 @@ namespace Shop.Models
         public BienTheHangHoaViewModel SelectedBienThe { get; set; }
         public List<BienTheHangHoaViewModel> ListBienThes { get; set; }
 
+        public List<KhuyenMaiTangKem> ListKhuyenMais { get; set; }
 
+        public List<BienTheHangHoa> ListBienTheTatCaHangHoa { get; set; }
     }
 
 }

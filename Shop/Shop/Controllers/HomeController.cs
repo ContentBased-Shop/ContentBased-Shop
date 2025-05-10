@@ -58,7 +58,9 @@ namespace Shop.Controllers
                                    HinhAnh = g.Key.HinhAnh,
                                    MoTa = g.Key.MoTa,
                                    NgayTao = g.Key.NgayTao.Value,
-
+                                   MaBienThe = g.Where(x => x.bienThe != null)
+                                             .Select(x => x.bienThe.MaBienThe)
+                                             .FirstOrDefault(),
                                    GiaGoc = g.Where(x => x.bienThe != null)
                                               .Select(x => x.bienThe.GiaGoc)
                                               .FirstOrDefault() ?? 0,
