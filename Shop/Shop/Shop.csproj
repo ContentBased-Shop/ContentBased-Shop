@@ -150,6 +150,7 @@
     <Compile Include="Models\HangHoaViewModel.cs" />
     <Compile Include="Models\ProductDetailPageView.cs" />
     <Compile Include="Models\ProductDetailView.cs" />
+    <Compile Include="Models\ProductRecentViewModel.cs" />
     <Compile Include="Models\SHOP.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -408,6 +409,7 @@
     <Content Include="Views\InnerPage\TuyenDung.cshtml" />
     <Content Include="Views\Product\ProductWishList.cshtml" />
     <Content Include="Views\Product\ProductSearch.cshtml" />
+    <Content Include="Views\Shared\_RecentlyViewedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

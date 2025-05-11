@@ -8,6 +8,7 @@ namespace Shop.Models
     public class ProductDetailView
     {
         // Thông tin cơ bản từ HangHoa
+        public string MaBienThe { get; set; }
         public string MaHangHoa { get; set; }
         public string TenHangHoa { get; set; }
         public string MaDanhMuc { get; set; }

@@ -16,6 +16,8 @@ namespace Shop.Models
         public List<KhuyenMaiTangKem> ListKhuyenMais { get; set; }
 
         public List<BienTheHangHoa> ListBienTheTatCaHangHoa { get; set; }
+        public List<ProductRecentViewModel> RecentlyViewedPartial { get; set; }
+
     }
 
 }

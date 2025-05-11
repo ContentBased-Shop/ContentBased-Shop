@@ -13,9 +13,11 @@
         .swiper-button-next::after, .swiper-button-prev::after {
             font-size: 18px; /* Kích thước của mũi tên */
         }
+
     .swiper-pagination-bullet {
         background-color: white !important;
     }
+
     .product-slide-2 {
         background-image: url('https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/banner1.png');
         background-size: cover;
@@ -847,7 +849,7 @@
 
 
 <!-- Product Reviews -->
-<div class="container py-4 rounded-3 bg-white p-4 mb-4">
+<div class="container py-4 rounded-3 bg-white p-4 mb-2">
     <h2 class="h3 mb-4 fw-bold">Hỏi và đáp</h2>
 
     <!-- Leave Comment -->
@@ -955,6 +957,7 @@
         </div>
     </div>
 </div>
+@Html.Action("RecentlyViewedPartial", "Product")
 
 <style>
     .pagination .page-link {

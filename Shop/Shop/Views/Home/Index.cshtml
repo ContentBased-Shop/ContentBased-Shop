@@ -405,7 +405,7 @@
         {
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
 
                     <div class="product-card">
                         <div class="product-image-container">
@@ -489,7 +489,7 @@
 
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
                     <div class="product-card">
                         <div class="product-image-container">
                             <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
@@ -573,7 +573,7 @@
 
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
-                <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
                     <div class="product-card">
                         <div class="product-image-container">
                             <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
@@ -837,7 +837,7 @@
 
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
-                        <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
                             <div class="product-card">
                                 <div class="product-image-container">
                                     <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
@@ -907,7 +907,7 @@
 
                                 </div>
                             </div>
-                         </a>
+                        </a>
                     </div>
                 }
             </div>
@@ -1055,7 +1055,7 @@
                 {
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
-                        <a href="@Url.Content("~/Product/ProductDetail/" + product.MaHangHoa + "?mabienthe=" + product.MaBienThe)" class="text-decoration-none text-dark">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
                             <div class="product-card">
                                 <div class="product-image-container">
                                     <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">

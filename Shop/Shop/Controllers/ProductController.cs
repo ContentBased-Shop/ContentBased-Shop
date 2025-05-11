@@ -118,9 +118,9 @@ namespace Shop.Controllers
                     MoTaDai = x.HangHoa.MoTaDai,
                     HinhAnh = x.HangHoa.HinhAnh,
                     NgayTao = x.HangHoa.NgayTao ?? DateTime.MinValue,
-                   
-                    // Gán toàn bộ danh sách biến thể từ bienTheGroup
-                    BienThes = x.BienThes.ToList(),  // Đã lấy từ bienTheGroup rồi, không cần query lại
+                    MaBienThe = x.BienThes.FirstOrDefault()?.MaBienThe,
+                      // Gán toàn bộ danh sách biến thể từ bienTheGroup
+                      BienThes = x.BienThes.ToList(),  // Đã lấy từ bienTheGroup rồi, không cần query lại
 
                     // Đánh giá 
                     SoLuongDanhGia = x.DanhGias.Count(),
@@ -375,5 +375,63 @@ namespace Shop.Controllers
 
             return Json(hangHoaFull, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public ActionResult AddRecentProduct(string maHangHoa, string maBienThe)
+        {
+            var list = HttpRuntime.Cache["RecentProducts"] as List<string> ?? new List<string>();
+
+            if (list.Contains(maHangHoa))
+                list.Remove(maHangHoa);
+
+            list.Insert(0, maHangHoa);
+
+            if (list.Count > 10)
+                list = list.Take(10).ToList();
+
+            HttpRuntime.Cache["RecentProducts"] = list;
+
+            // Redirect đến trang chi tiết sản phẩm
+            return RedirectToAction("ProductDetail", "Product", new { id = maHangHoa, maBienThe = maBienThe });
+        }
+
+        [ChildActionOnly]                     // <-- thêm thuộc tính này (tùy chọn)
+        public ActionResult RecentlyViewedPartial()
+        {
+            var dsMaHangHoa = HttpRuntime.Cache["RecentProducts"] as List<string> ?? new List<string>();
+
+            var recentProducts =
+                (from hh in data.HangHoas
+                 join bt in data.BienTheHangHoas on hh.MaHangHoa equals bt.MaHangHoa into btGroup
+                 from bienThe in btGroup.DefaultIfEmpty()
+                 where dsMaHangHoa.Contains(hh.MaHangHoa)
+                 group new { hh, bienThe } by new
+                 {
+                     hh.MaHangHoa,
+                     hh.TenHangHoa,
+                     hh.HinhAnh,
+                     hh.MoTa
+                 } into g
+                 select new ProductRecentViewModel
+                 {
+                     MaHangHoa = g.Key.MaHangHoa,
+                     TenHangHoa = g.Key.TenHangHoa,
+                     HinhAnh = g.Key.HinhAnh,
+                     MoTa = g.Key.MoTa,
+                     MaBienThe = g.Select(x => x.bienThe.MaBienThe).FirstOrDefault(),
+                     GiaGoc = g.Select(x => x.bienThe.GiaGoc ?? 0).FirstOrDefault(),
+                     GiaKhuyenMai = g.Select(x => x.bienThe.GiaKhuyenMai ?? 0).FirstOrDefault(),
+                     SoLuongTonKho = g.Select(x => x.bienThe.SoLuongTonKho ?? 0).FirstOrDefault()
+                 }).ToList();
+
+            // sắp xếp lại đúng thứ tự người dùng vừa xem
+            var ordered = dsMaHangHoa
+                          .Select(ma => recentProducts.FirstOrDefault(p => p.MaHangHoa == ma))
+                          .Where(p => p != null)
+                          .ToList();
+
+            return PartialView("_RecentlyViewedPartial", ordered);   // model = List<ProductRecentViewModel>
+        }
+
     }
 }
