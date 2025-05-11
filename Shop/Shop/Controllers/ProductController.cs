@@ -72,6 +72,7 @@ namespace Shop.Controllers
                                                    ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
                                                    : 0
                                    }).ToList();
+            ViewBag.Keyword = keyword;
 
             return View("ProductSearch", hangHoaFiltered);
         }
