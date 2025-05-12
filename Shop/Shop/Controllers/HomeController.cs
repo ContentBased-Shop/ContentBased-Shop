@@ -61,8 +61,8 @@ namespace Shop.Controllers
                                    MaBienThe = g.Where(x => x.bienThe != null)
                                              .Select(x => x.bienThe.MaBienThe)
                                              .FirstOrDefault(),
-                                   GiaGoc = g.Where(x => x.bienThe != null)
-                                              .Select(x => x.bienThe.GiaGoc)
+                                   GiaBan = g.Where(x => x.bienThe != null)
+                                              .Select(x => x.bienThe.GiaBan)
                                               .FirstOrDefault() ?? 0,
                                    GiaKhuyenMai = g.Where(x => x.bienThe != null)
                                                 .Select(x => x.bienThe.GiaKhuyenMai)

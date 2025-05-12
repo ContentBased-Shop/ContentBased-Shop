@@ -67,7 +67,7 @@
                                          class="card-img-top p-2"
                                          style="height: 180px; object-fit: contain;" />
                                     @{
-                                        double giaGoc = (double)product.GiaGoc;
+                                        double giaGoc = (double)product.GiaBan;
                                         double giaKM = (double)product.GiaKhuyenMai;
                                         int phanTramGiam = giaGoc > 0 ? (int)Math.Round((giaGoc - giaKM) / giaGoc * 100) : 0;
                                     }
@@ -108,7 +108,7 @@
                                                 @(((double)product.GiaKhuyenMai).ToString("N0")) ₫
                                             </span>
                                             <del class="text-muted small">
-                                                @(((double)product.GiaGoc).ToString("N0")) ₫
+                                                @(((double)product.GiaBan).ToString("N0")) ₫
                                             </del>
                                         </div>
                                     </div>

@@ -30,9 +30,9 @@
                             <!-- Giá -->
                             <div class="mb-1">
                                 <span class="fw-bold text-danger">@product.GiaKhuyenMai.ToString("N0") ₫</span><br />
-                                @if (product.GiaGoc > product.GiaKhuyenMai)
+                                @if (product.GiaBan > product.GiaKhuyenMai)
                                 {
-                                    <small class="text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</small>
+                                    <small class="text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</small>
                                 }
                             </div>
                         </div>

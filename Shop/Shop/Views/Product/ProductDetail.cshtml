@@ -85,7 +85,7 @@
                         @(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫
                     </span>&nbsp;
                     <span class="text-muted text-decoration-line-through">
-                        @(((double)Model.SelectedBienThe.GiaGoc).ToString("N0")) ₫
+                        @(((double)Model.SelectedBienThe.GiaBan).ToString("N0")) ₫
                     </span>
 
                 </h4>
@@ -262,7 +262,7 @@
                 @{
                     var maHangHoa = Model.SelectedBienThe.MaHangHoa; // Mã sản phẩm chính
                     var khuyenMaiTangKemList = Model.ListKhuyenMais
-                        .Where(km => km.MaHangHoaMua == maHangHoa)
+                        .Where(km => km.MaHangHoaTangKem == maHangHoa)
                         .ToList();
                 }
                 @if (khuyenMaiTangKemList.Any())
@@ -647,10 +647,10 @@
 
                                 <div class="price-container">
                                     <span class="current-price"> @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
-                                    <span class="original-price text-muted text-decoration-line-through">  @(((double)bienThe.GiaGoc).ToString("N0")) ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">  @(((double)bienThe.GiaBan).ToString("N0")) ₫</span>
 
                                     @{
-                                        var goc = bienThe.GiaGoc;
+                                        var goc = bienThe.GiaBan;
                                         var km = bienThe.GiaKhuyenMai;
                                         var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
                                     }

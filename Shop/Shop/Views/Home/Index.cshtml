@@ -257,9 +257,8 @@
                     <!-- Image Section -->
                     <div class="col-md-6 ">
                         @{
-                            var tietKiem = sanPhamTonNhieuNhat.GiaGoc - sanPhamTonNhieuNhat.GiaKhuyenMai;
-                            var tietKiemPercent = Math.Round(((sanPhamTonNhieuNhat.GiaGoc - sanPhamTonNhieuNhat.GiaKhuyenMai) / sanPhamTonNhieuNhat.GiaGoc) * 100, 0); // làm tròn đến số nguyên
-
+                            var tietKiem = sanPhamTonNhieuNhat.GiaBan - sanPhamTonNhieuNhat.GiaKhuyenMai;
+                            var tietKiemPercent = Math.Round(((sanPhamTonNhieuNhat.GiaBan - sanPhamTonNhieuNhat.GiaKhuyenMai) / sanPhamTonNhieuNhat.GiaBan) * 100, 0); // làm tròn đến số nguyên
 
                         }
 
@@ -288,7 +287,7 @@
                                     @sanPhamTonNhieuNhat.GiaKhuyenMai.ToString("N0")đ
                                 </span>
                                 <span class="text-muted text-decoration-line-through fs-5">
-                                    @sanPhamTonNhieuNhat.GiaGoc.ToString("N0")đ
+                                    @sanPhamTonNhieuNhat.GiaBan.ToString("N0")đ
                                 </span>&nbsp;
                                 <span class="text-danger  text-decoration-none"> @tietKiemPercent.ToString()%</span>
                             </div>
@@ -431,10 +430,10 @@
 
                         <div class="price-container">
                             <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                            <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
 
                             @{
-                                var goc = product.GiaGoc;
+                                var goc = product.GiaBan;
                                 var km = product.GiaKhuyenMai;
                                 var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
                             }
@@ -514,10 +513,10 @@
 
                         <div class="price-container">
                             <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                            <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
 
                             @{
-                                var goc = product.GiaGoc;
+                                var goc = product.GiaBan;
                                 var km = product.GiaKhuyenMai;
                                 var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
                             }
@@ -598,10 +597,10 @@
 
                         <div class="price-container">
                             <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                            <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
+                            <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
 
                             @{
-                                var goc = product.GiaGoc;
+                                var goc = product.GiaBan;
                                 var km = product.GiaKhuyenMai;
                                 var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
                             }
@@ -862,10 +861,10 @@
 
                                 <div class="price-container">
                                     <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
 
                                     @{
-                                        var goc = product.GiaGoc;
+                                        var goc = product.GiaBan;
                                         var km = product.GiaKhuyenMai;
                                         var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
                                     }
@@ -1080,10 +1079,10 @@
 
                                 <div class="price-container">
                                     <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
-                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaGoc.ToString("N0") ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
 
                                     @{
-                                        var goc = product.GiaGoc;
+                                        var goc = product.GiaBan;
                                         var km = product.GiaKhuyenMai;
                                         var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
                                     }
@@ -1554,7 +1553,7 @@
 
 <script>
     // Set ngày kết thúc (định dạng: "YYYY-MM-DDTHH:MM:SS")
-    const endTime = new Date("2025-05-10T23:59:59").getTime();
+    const endTime = new Date("2025-05-30T23:59:59").getTime();
 
     const countdown = () => {
         const now = new Date().getTime();

@@ -14,7 +14,7 @@ namespace Shop.Models
         public string MoTa { get; set; }
    
         public string MaBienThe { get; set; }
-        public double GiaGoc { get; set; }
+        public double GiaBan { get; set; }
         public double GiaKhuyenMai { get; set; }
         public int SoLuongTonKho { get; set; }
     }

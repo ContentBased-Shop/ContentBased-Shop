@@ -58,8 +58,8 @@ namespace Shop.Controllers
                                        MaBienThe = g.Where(x => x.bienThe != null)
                                                  .Select(x => x.bienThe.MaBienThe)
                                                  .FirstOrDefault(),
-                                       GiaGoc = g.Where(x => x.bienThe != null)
-                                                  .Select(x => x.bienThe.GiaGoc)
+                                       GiaBan = g.Where(x => x.bienThe != null)
+                                                  .Select(x => x.bienThe.GiaBan)
                                                   .FirstOrDefault() ?? 0,
                                        GiaKhuyenMai = g.Where(x => x.bienThe != null)
                                                     .Select(x => x.bienThe.GiaKhuyenMai)
@@ -169,7 +169,7 @@ namespace Shop.Controllers
                                        RAM = bt.RAM,
                                        KichThuocManHinh = bt.KichThuocManHinh,
                                        LoaiBoNho = bt.LoaiBoNho,
-                                       GiaGoc = bt.GiaGoc ?? 0,
+                                       GiaBan = bt.GiaBan ?? 0,
                                        GiaKhuyenMai = bt.GiaKhuyenMai ?? 0,
                                        SoLuongTonKho = bt.SoLuongTonKho ?? 0,
                                        UrlAnh = hinhAnhGroup.Select(x => x.UrlAnh).ToList()
@@ -191,7 +191,7 @@ namespace Shop.Controllers
                                     RAM = bt.RAM,
                                     KichThuocManHinh = bt.KichThuocManHinh,
                                     LoaiBoNho = bt.LoaiBoNho,
-                                    GiaGoc = bt.GiaGoc ?? 0,
+                                    GiaBan = bt.GiaBan ?? 0,
                                     GiaKhuyenMai = bt.GiaKhuyenMai ?? 0,
                                     SoLuongTonKho = bt.SoLuongTonKho ?? 0,
                                     UrlAnh = hinhAnhGroup.Select(x => x.UrlAnh).ToList()
@@ -290,8 +290,8 @@ namespace Shop.Controllers
                                    MoTa = g.Key.MoTa,
                                    NgayTao = g.Key.NgayTao ?? DateTime.Now,
 
-                                   GiaGoc = g.Where(x => x.bienThe != null)
-                                             .Select(x => x.bienThe.GiaGoc)
+                                   GiaBan = g.Where(x => x.bienThe != null)
+                                             .Select(x => x.bienThe.GiaBan)
                                              .FirstOrDefault() ?? 0,
 
                                    GiaKhuyenMai = g.Where(x => x.bienThe != null)
@@ -366,8 +366,8 @@ namespace Shop.Controllers
                                    MaHangHoa = g.Key.MaHangHoa,        // Mã hàng hóa
                                    TenHangHoa = g.Key.TenHangHoa,      // Tên hàng hóa
                                    HinhAnh = g.Key.HinhAnh,            // Hình ảnh
-                                   GiaGoc = g.Where(x => x.bienThe != null)
-                                              .Select(x => x.bienThe.GiaGoc)
+                                   GiaBan = g.Where(x => x.bienThe != null)
+                                              .Select(x => x.bienThe.GiaBan)
                                               .FirstOrDefault() ?? 0,    // Giá gốc
                                    GiaKhuyenMai = g.Where(x => x.bienThe != null)
                                                     .Select(x => x.bienThe.GiaKhuyenMai)
@@ -420,7 +420,7 @@ namespace Shop.Controllers
                      HinhAnh = g.Key.HinhAnh,
                      MoTa = g.Key.MoTa,
                      MaBienThe = g.Select(x => x.bienThe.MaBienThe).FirstOrDefault(),
-                     GiaGoc = g.Select(x => x.bienThe.GiaGoc ?? 0).FirstOrDefault(),
+                     GiaBan = g.Select(x => x.bienThe.GiaBan ?? 0).FirstOrDefault(),
                      GiaKhuyenMai = g.Select(x => x.bienThe.GiaKhuyenMai ?? 0).FirstOrDefault(),
                      SoLuongTonKho = g.Select(x => x.bienThe.SoLuongTonKho ?? 0).FirstOrDefault()
                  }).ToList();
