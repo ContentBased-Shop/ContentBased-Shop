@@ -1,0 +1,494 @@
+﻿@{
+    ViewBag.Title = "ProductWishList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<Shop.Models.HangHoaViewModel>
+
+
+<style>
+    .breadcrumb-item a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #1aba1a;
+        }
+
+    .wishlist-banner {
+        background: linear-gradient(to right, #f43f5e, #a855f7);
+        color: white;
+        position: relative;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+
+        .wishlist-banner .bg-sale {
+            font-size: 8rem;
+            font-weight: 900;
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 0;
+        }
+
+        .wishlist-banner .content {
+            position: relative;
+            z-index: 1;
+        }
+
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .floating-banner {
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 0.75rem;
+        padding: 1rem;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+</style>
+
+
+<!-- Wishlist -->
+<div class="container p-3 bg-white mb-2  rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
+            <li class="breadcrumb-item"><a href="/pages">Sản phẩm yêu thích</a></li>
+        </ol>
+    </nav>
+</div>
+<div class="container p-4 bg-white rounded-3 mb-4">
+    <!-- Banner -->
+    <div class="wishlist-banner rounded-4">
+        <div class="bg-sale"></div>
+        <div class="content">
+            <p class="mb-1 fw-semibold">
+                KHUYẾN MẠI CÓ GIỚI HẠN
+            </p>
+            <h2 class="h4 fw-bold mb-2">Khuyến mại mùa hè: Giảm giá tới 50% cho các mặt hàng mong muốn!</h2>
+            <p class="mb-3">Thêm sản phẩm yêu thích của bạn vào giỏ hàng ngay bây giờ và được giảm thêm 10% với mã <strong class="bg-white text-dark px-2 py-1 rounded">SUMMER10</strong></p>
+            <div class="d-flex justify-content-center gap-3 mb-3">
+                <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
+                    <div class="h4 mb-0">2</div>
+                    <small>Days</small>
+                </div>
+                <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
+                    <div class="h4 mb-0">18</div>
+                    <small>Hours</small>
+                </div>
+                <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
+                    <div class="h4 mb-0">45</div>
+                    <small>Minutes</small>
+                </div>
+                <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
+                    <div class="h4 mb-0">30</div>
+                    <small>Seconds</small>
+                </div>
+            </div>
+            <a href="#" class="btn btn-light text-danger fw-bold">Shop Now</a>
+        </div>
+    </div>
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-1">
+        <div>
+            <h2 class="fw-bold my-3">Sản phẩm yêu thích của tôi</h2>
+            <p class="text-muted">Theo dõi các sản phẩm bạn yêu thích</p>
+        </div>
+
+    </div>
+
+    <!-- Filter and Sort -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-heart-fill text-danger"></i>
+            <span class="fw-medium">6 items</span>
+        </div>
+
+        <div class="d-flex flex-wrap gap-3">
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-success btn-sm"><i class="bi bi-cart-plus"></i> Chuyển tất cả vào giỏ hàng</button>
+            </div>
+            <select class="form-select form-select-sm" style="width: 180px;">
+                <option selected>Sort by</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Highest Rated</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="background-color:white" class="swiper productSwiper p-4 rounded-4">
+
+        <!-- Swiper Wrapper -->
+        <div class="swiper-wrapper">
+            @foreach (var product in Model)
+            {
+                <div class="swiper-slide">
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <div class="product-card">
+                            <div class="product-image-container">
+
+                                <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                            </div>
+                            <div class="review-count">(152)</div>
+                            <h5 class="product-name">@product.TenHangHoa</h5>
+                            <p class="product-description">@product.MoTa</p>
+                            <div class="star-rating">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                <span class="rating-count">43 Ratings</span>
+                            </div>
+                            <div class="price-container">
+                                <span class="current-price">$39.49</span>
+                                <span class="original-price">$78.66</span>
+                                <span class="discount">50% OFF</span>
+                            </div>
+                            <div class="free-shipping">FREE SHIPPING</div>
+                            <div class="stock-status">
+                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                <span>In stock</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+
+    <!-- Category promotion banner -->
+    <div class="container mt-4 mb-4 p-0">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="d-flex align-items-center p-3 border rounded bg-light" style="background-color: #ecfdf5; border-color: #d1fae5;">
+                    <div class="p-3 rounded-circle me-3" style="background-color: #d1fae5;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.2l-4.2-4.2L3 14.8l6 6L21 8.8l-1.8-1.8z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="mb-1 text-success">Đồ điện tử</h5>
+                        <p class="mb-0 text-success">Giảm 5-20% mặt hành điện tử </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex align-items-center p-3 border rounded bg-light" style="background-color: #eff6ff; border-color: #dbeafe;">
+                    <div class="p-3 rounded-circle me-3" style="background-color: #dbeafe;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-primary" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.2l-4.2-4.2L3 14.8l6 6L21 8.8l-1.8-1.8z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="mb-1 text-primary">An toàn & nhanh chóng</h5>
+                        <p class="mb-0 text-primary">Chuẩn chỉnh phục vụ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="d-flex align-items-center p-3 border rounded bg-light" style="background-color: #f5f3ff; border-color: #ddd6fe;">
+                    <div class="p-3 rounded-circle me-3" style="background-color: #ddd6fe;">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-purple" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M9 16.2l-4.2-4.2L3 14.8l6 6L21 8.8l-1.8-1.8z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="mb-1" style="color: #6b21a8;">Phụ kiện </h5>
+                        <p class="mb-0" style="color: #7e22ce;">Giám giá lên đến 30% </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Customer Reviews Section -->
+    <div class="container mt-5 mb-5 bg-white p-4 rounded shadow-sm">
+        <h2 class="fs-4 fw-semibold mb-4">
+            Khách hàng của chúng tôi nói gì
+        </h2>
+        <div class="row g-4">
+            <!-- Review 1 -->
+            <div class="col-md-4">
+                <div class="border rounded p-3 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Alex Johnson" class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div>
+                            <div class="fw-medium">Trịnh Trần Phương Tuấn</div>
+                            <div class="text-warning">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted small">Tôi thích cách dễ dàng theo dõi các mặt hàng tôi muốn mua sau này. Tính năng danh sách mong muốn đã giúp tôi tiết kiệm rất nhiều thời gian và giúp tôi đưa ra quyết định mua hàng tốt hơn.</p>
+                </div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="col-md-4">
+                <div class="border rounded p-3 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Sarah Williams" class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div>
+                            <div class="fw-medium">Độ Mixi</div>
+                            <div class="text-warning">
+                                ★★★★☆
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted small">Tôi thích cách dễ dàng theo dõi các mặt hàng tôi muốn mua sau này. Tính năng danh sách mong muốn đã giúp tôi tiết kiệm rất nhiều thời gian và giúp tôi đưa ra quyết định mua hàng tốt hơn.</p>
+                </div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="col-md-4">
+                <div class="border rounded p-3 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-3">
+                            <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Michael Chen" class="rounded-circle" width="40" height="40">
+                        </div>
+                        <div>
+                            <div class="fw-medium">Tui tên bô</div>
+                            <div class="text-warning">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-muted small">Dịch vụ khách hàng rất tuyệt vời khi tôi có thắc mắc về các mặt hàng trong danh sách mong muốn của mình. Họ đã giúp tôi chọn đúng sản phẩm cho nhu cầu của mình.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<style>
+    .swiper-button-next, .swiper-button-prev {
+        color: #999; /* Màu sắc xám nhạt cho các nút */
+        font-size: 18px; /* Giảm kích thước font của nút */
+        width: 30px; /* Điều chỉnh chiều rộng của nút */
+        height: 30px; /* Điều chỉnh chiều cao của nút */
+    }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 18px; /* Kích thước của mũi tên */
+        }
+
+    .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    Product */
+    .nav-tabs {
+        border-bottom: none;
+    }
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #666666;
+        font-size: 1.1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+        .nav-tabs .nav-link.active {
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+            background-color: transparent;
+        }
+
+    .product-card {
+        text-align: center;
+        position: relative;
+        padding: 15px;
+    }
+
+    .product-image-container {
+        height: 180px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+    }
+
+
+
+
+    .save-amount {
+        background-color: #1aba1a;
+        color: white;
+        font-weight: bold;
+        padding: 2px 8px;
+        border-end-end-radius: 5px;
+    }
+
+    .review-count {
+        color: #666666;
+        font-size: 0.9rem;
+    }
+
+    .product-name {
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .product-description {
+        color: #666666;
+        margin-bottom: 0.5rem;
+    }
+
+    .star-rating {
+        color: #ff8c4b;
+        margin-bottom: 0.5rem;
+    }
+
+    .rating-count {
+        font-size: 0.9rem;
+        margin-left: 5px;
+    }
+
+    .price-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 0.25rem;
+    }
+
+    .current-price {
+        font-weight: bold;
+    }
+
+    .original-price {
+        color: #666666;
+        text-decoration: line-through;
+        font-size: 0.9rem;
+    }
+
+    .discount {
+        color: #e21d1d;
+        font-weight: bold;
+    }
+
+    .free-shipping {
+        color: #1aba1a;
+        font-size: 0.9rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    .stock-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+    }
+
+    .in-stock-icon {
+        color: #1aba1a;
+        margin-right: 5px;
+    }
+
+    .heart-icon {
+        color: red;
+        margin-right: 2px;
+    }
+
+    .empty-heart {
+        display: inline;
+    }
+
+    .filled-heart {
+        display: none;
+    }
+
+    .hover-shake:hover .empty-heart {
+        display: none;
+    }
+
+    .hover-shake:hover .filled-heart {
+        display: inline;
+    }
+</style>
+<script>
+    const swiperWrapper = document.getElementById('product-swiper-wrapper');
+    const productTabs = document.getElementById('product-tabs');
+
+    // Khởi tạo swiper với autoplay + transition mượt
+    const productSwiper = new Swiper(".productSwiper", {
+        slidesPerView: 2,
+        spaceBetween: 20,
+        loop: false,
+        speed: 1000, // tốc độ chuyển slide (ms)
+        autoplay: {
+            delay: 3000, // tự chuyển mỗi 3 giây
+            disableOnInteraction: false, // không dừng autoplay khi người dùng swipe
+        },
+        breakpoints: {
+            576: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            992: { slidesPerView: 4 },
+            1200: { slidesPerView: 5 }
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+        }
+    });
+
+</script>
+<script>
+    // Set thời gian đích đến
+    const countdownDate = new Date("2025-05-30T00:00:00").getTime();
+
+    const daysEl = document.querySelectorAll('.text-center')[0].querySelector('.h4');
+    const hoursEl = document.querySelectorAll('.text-center')[1].querySelector('.h4');
+    const minutesEl = document.querySelectorAll('.text-center')[2].querySelector('.h4');
+    const secondsEl = document.querySelectorAll('.text-center')[3].querySelector('.h4');
+
+    const countdown = setInterval(function () {
+        const now = new Date().getTime();
+        const distance = countdownDate - now;
+
+        if (distance < 0) {
+            clearInterval(countdown);
+            daysEl.textContent = "0";
+            hoursEl.textContent = "0";
+            minutesEl.textContent = "0";
+            secondsEl.textContent = "0";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+        secondsEl.textContent = seconds;
+    }, 1000);
+</script>

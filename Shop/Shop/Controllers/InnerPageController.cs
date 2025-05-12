@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Shop.Models;
 using Shop.Helpers;
 using System.Web.Providers.Entities;
+using System.Net.Mail;
+using System.Net;
 namespace Shop.Controllers
 {
     public class InnerPageController : Controller
@@ -37,8 +39,7 @@ namespace Shop.Controllers
 
             // Tìm người dùng với tên đăng nhập
             var user = data.KhachHangs.FirstOrDefault(u =>
-                u.TenDangNhap == username &&
-                u.TrangThai == "HoatDong");
+                u.TenDangNhap == username );
 
             if (user != null)
             {
@@ -51,6 +52,8 @@ namespace Shop.Controllers
                         // Lưu thông tin người dùng vào Session
                         Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
+                        Session["AccountName"] = user.TenDangNhap;
+                        Session["Password"] = user.MatKhauHash;
                         // Chuyển hướng đến trang Home
                         return RedirectToAction("Index", "Home");
                     }
@@ -64,7 +67,8 @@ namespace Shop.Controllers
                         // Lưu thông tin người dùng vào Session
                         Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
-
+                        Session["AccountName"] = user.TenDangNhap;
+                        Session["Password"] = user.MatKhauHash;
                         // Chuyển hướng đến trang Dashboard
                         return RedirectToAction("Index", "Home");
                     }
@@ -126,7 +130,10 @@ namespace Shop.Controllers
                 TempData["Error"] = "Tên Email đã được sử dụng.";
                 return RedirectToAction("Register");
             }
+           
 
+               
+            
             // Mã hóa mật khẩu (ví dụ dùng AES hoặc Hash)
             string key = "mysecretkey"; // nên lưu ở cấu hình
             string encryptedPassword = SecurityHelper.EncryptPassword(password, key);
@@ -149,11 +156,10 @@ namespace Shop.Controllers
                 TenDangNhap = username,
                 Email = email,
                 MatKhauHash = encryptedPassword,
-                DiaChi = "SG",
                 SoDienThoai = phonenumber,
-                TrangThai = "HoatDong",
-                NgayTao = DateTime.Now,
             };
+
+
            data.KhachHangs.InsertOnSubmit(newUser);
            data.SubmitChanges();
 
@@ -161,14 +167,69 @@ namespace Shop.Controllers
             // Lưu thông tin người dùng vào Session
             Session["UserID"] = newUser.MaKhachHang;
             Session["UserName"] = newUser.HoTen;
-
+            Session["AccountName"] = newUser.TenDangNhap;
+            Session["Password"] = newUser.MatKhauHash;
             // Chuyển hướng đến trang Dashboard
             return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public ActionResult SendOtp(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                return Json(new { success = false, message = "Email không hợp lệ" }, JsonRequestBehavior.AllowGet);
+            }
+
+            var otp = new Random().Next(100000, 999999).ToString();
+
+            var fromAddress = new MailAddress("phamnguyenvu287@gmail.com", "Swoo Techsmart");
+            var toAddress = new MailAddress(email);
+            const string fromPassword = "sryh smuc npaf tuvq"; // bỏ \r\n thừa
+
+            const string subject = "Mã OTP đăng ký tài khoản";
+            string body = $@"Quý khách  thân mến,
+
+            Có vẻ như Quý khách đang đăng nhập vào tài khoản Swootechsmart bằng một thiết bị mới. Mã xác thực OTP của Quý khách là {otp}.
+
+            Mã xác thực này sẽ hết hiệu lực trong 2 phút.
+
+            Để đảm bảo an toàn, vui lòng không chia sẻ mã này cho bất cứ ai.
+
+            Cảm ơn Quý khách đã lựa chọn Swootechsmart.
+
+            Trân trọng,";
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+            };
+
+            try
+            {
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
+
+                // Không lưu Session
+                return Json(new { success = true, otp = otp }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi gửi email: " + ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
 
         #endregion
-        
+
         public ActionResult ForgotPassword()
         {
             return View();
@@ -195,6 +256,10 @@ namespace Shop.Controllers
             return View();
         }
         public ActionResult Promotion()
+        {
+            return View();
+        }
+        public ActionResult TuyenDung()
         {
             return View();
         }

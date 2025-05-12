@@ -12,7 +12,7 @@
 }
 
     .sidebar .nav-link.active {
-        background-color: #1aba1a;
+        background-color: #1aba1a !important;
         color: #fff !important;
     }
 
