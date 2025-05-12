@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -33,50 +33,63 @@
                    <strong class="text-danger">*</strong> @TempData["Error"]
                </div>
             }
-        <form method="post" action="/InnerPage/Login">
-            <div class="mb-3">
-                <label for="accountname" class="form-label">Tên đăng nhập</label>
-                <input type="text"
-                       name="username"
-                       class="form-control"
-                       id="accountname"
-                       placeholder="Ví dụ: DavidNg123"
-                       maxlength="12"
-                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{5,12}$"
-                       title="Tên đăng nhập phải từ 5 đến 12 ký tự, chỉ gồm chữ cái và số, và phải chứa ít nhất một chữ cái và một số"
-                       required />
-            </div>
-
-            <div class="mb-3">
-                <label for="password" class="form-label">Mật khẩu</label>
-                <div class="password-wrapper">
-                    <input type="password"
-                           name="password"
-                           class="form-control"
-                           id="password"
-                           placeholder="Nhập mật khẩu tại đây"
-                           required
-                           minlength="8"
-                           maxlength="20"
-                           pattern=".{8,20}"
-                           title="Mật khẩu phải từ 8–20 ký tự" />
-                    <button type="button" onclick="togglePassword(this)" id="togglePasswordBtn">
-                        <i class="fa-solid fa-eye"></i>
-                    </button>
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger my-1 p-2">
+                    <strong class="text-danger">*</strong> @ViewBag.Error
                 </div>
-            </div>
+            }
+            <form action="@Url.Action("Login", "InnerPage")" method="post" id="loginForm">
+                <input type="hidden" name="returnUrl" value="@ViewBag.ReturnUrl" />
+                <input type="hidden" name="tempCart" id="tempCart" />
 
-            <div class="text-end my-2">
-                <a href="/InnerPage/ForgotPassword" class="text-muted small text-decoration-none d-inline-flex align-items-center" style="transition: color 0.3s;">
-                    Quên mật khẩu &nbsp;<i class="bi bi-question-circle me-1"></i>
-                </a>
-            </div>
-            <button id="loginBtn" class="btn btn-success-custom w-100 mb-3" type="submit">
-                <span id="loginSpinner" class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
-                Đăng nhập
-            </button>
-           
-        </form>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Tên đăng nhập</label>
+                    <input type="text"
+                           name="username"
+                           class="form-control"
+                           id="username"
+                           placeholder="Ví dụ: DavidNg123"
+                           maxlength="12"
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{5,12}$"
+                           title="Tên đăng nhập phải từ 5 đến 12 ký tự, chỉ gồm chữ cái và số, và phải chứa ít nhất một chữ cái và một số"
+                           required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Mật khẩu</label>
+                    <div class="input-group">
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               id="password"
+                               placeholder="Nhập mật khẩu tại đây"
+                               required
+                               minlength="8"
+                               maxlength="20"
+                               pattern=".{8,20}"
+                               title="Mật khẩu phải từ 8–20 ký tự" />
+                        <button type="button" onclick="togglePassword(this)" id="togglePasswordBtn">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="remember">
+                        <label class="form-check-label text-muted" for="remember">
+                            Ghi nhớ đăng nhập
+                        </label>
+                    </div>
+                    <a href="@Url.Action("ForgotPassword", "InnerPage")" class="text-decoration-none text-primary">Quên mật khẩu?</a>
+                </div>
+
+                <button id="loginBtn" class="btn btn-success-custom w-100 mb-3" type="submit">
+                    <span id="loginSpinner" class="spinner-border spinner-border-sm d-none me-2" role="status" aria-hidden="true"></span>
+                    Đăng nhập
+                </button>
+            </form>
 
             <div class="text-center small">
                 <span class="text-muted">NGƯỜI DÙNG MỚI ? </span>
@@ -85,7 +98,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     function togglePassword(button) {
@@ -123,4 +135,21 @@
         }, 1000); // 1000ms = 1s
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+        // Thêm giỏ hàng từ sessionStorage vào form
+        const loginForm = document.getElementById('loginForm');
+        const tempCartInput = document.getElementById('tempCart');
+        
+        loginForm.addEventListener('submit', function(e) {
+            // Lấy giỏ hàng từ sessionStorage
+            const cart = sessionStorage.getItem('cart');
+            
+            if (cart && cart !== '[]') {
+                // Thêm vào input hidden
+                tempCartInput.value = cart;
+                // Xóa giỏ hàng khỏi sessionStorage sau khi đã lấy
+                sessionStorage.removeItem('cart');
+            }
+        });
+    });
 </script>

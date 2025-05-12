@@ -208,13 +208,12 @@
                                 <a href="/InnerPage/PreCart" class="text-dark" data-bs-toggle="tooltip" title="Giỏ Hàng">
                                     <div class="icon-circle bg-light-custom avatar-link">
                                         <i class="fas fa-shopping-cart"></i>
+                                        <span class="cart-count badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle" style="display: none;">0</span>
                                     </div>
                                 </a>
                                 <div class="ms-2 d-none d-md-block">
                                     <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
-                                    <p class="fs-7 fw-bold mb-0">$1,689.00</p>
                                 </div>
-                                <span class="cart-badge bg-green-custom text-white">5</span>
                             </div>
                         </div>
                     </div>
@@ -539,6 +538,46 @@
         $('#search-results').on('click', function (e) {
             e.stopPropagation();
         });
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCartCount();
+        
+        // Cập nhật số lượng hiển thị trên icon giỏ hàng
+        function updateCartCount() {
+            const cartCountElement = document.querySelector('.cart-count');
+            if (!cartCountElement) return;
+            
+            // Kiểm tra người dùng đã đăng nhập chưa
+            const isLoggedIn = @(Session["UserID"] != null ? "true" : "false");
+            
+            if (isLoggedIn) {
+                // Nếu đã đăng nhập, lấy số lượng từ server
+                fetch('/InnerPage/GetCartItems')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Hiển thị số lượng loại sản phẩm trong giỏ hàng
+                            const totalItems = data.cartItems.length;
+                            cartCountElement.textContent = totalItems;
+                            cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
+                        }
+                    })
+                    .catch(error => console.error('Lỗi khi lấy giỏ hàng:', error));
+            } else {
+                // Nếu chưa đăng nhập, lấy số lượng từ sessionStorage
+                const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+                // Hiển thị số lượng loại sản phẩm trong giỏ hàng
+                const totalItems = cart.length;
+                cartCountElement.textContent = totalItems;
+                cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+        }
+        
+        // Lắng nghe sự kiện cập nhật giỏ hàng
+        window.addEventListener('cartUpdated', updateCartCount);
     });
 </script>
 
