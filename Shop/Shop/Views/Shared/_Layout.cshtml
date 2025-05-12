@@ -10,7 +10,8 @@
     <!-- Bootstrap CSS -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-
+    <!-- Bootstrap JS (kèm Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="~/assets//CSS//Layout//header.css">
@@ -22,14 +23,20 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
 
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <!-- jquery JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- SweetAlert2 CSS + JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
     <style>
-
         body {
             background-color: rgb(226, 228, 235);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,13 +45,22 @@
     <header>
         <!-- Top bar -->
         <div class="bg-light-custom py-2">
-            <div class="container">
+            <div class="container d-flex justify-content-between">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center gap-2">
-                        <span class="fw-medium small">Hotline 24/7</span>
-                        <span class="fw-bold small">(025) 3886 25 16</span>
+                        <span class="fw-medium small">Hotline 24/7</span>&nbsp;
+                        <span class="fw-bold small">
+                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            (025) 3886 25 16
+                        </span>
                     </div>
                 </div>
+                <div class="d-flex align-items-center">
+                    <div class="rounded-circle me-1" style="width: 20px; height: 20px; background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+                    <span style="font-size: 14px;">VN</span>
+                </div>
+
+
             </div>
         </div>
 
@@ -64,17 +80,17 @@
                         <nav>
                             <ul class="nav justify-content-center">
                                 <li class="nav-item mx-2">
-                                    <a href="/Home" class="nav-link text-dark fw-medium d-flex align-items-center">
+                                    <a href="/" class="py-2 px-2 text-dark fw-medium d-flex align-items-center text-decoration-none">
                                         TRANG CHỦ
                                     </a>
                                 </li>
 
                                 <li class="nav-item dropdown mx-2">
-                                    <a href="#" class="nav-link  text-dark fw-medium d-flex align-items-center" id="dropdownDanhMuc" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a href="#" class="py-2 px-2 text-dark fw-medium d-flex align-items-center text-decoration-none " id="dropdownDanhMuc" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         DANH MỤC
                                         <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
-                                    
+
                                     <ul style="min-width: 275px;" class="dropdown-menu border-0 p-0 w-100" aria-labelledby="dropdownDanhMuc">
                                         <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục sản phẩm</a></li>
                                         <li><a class="dropdown-item border-bottom py-2" href="#">Danh mục điện thoại</a></li>
@@ -85,7 +101,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown mx-2">
-                                    <a href="#" class="nav-link text-dark fw-medium d-flex align-items-center" id="dropdownLienKet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a href="#" class="py-2 px-2 text-dark fw-medium d-flex align-items-center text-decoration-none" id="dropdownLienKet" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         LIÊN KẾT TRANG
                                         <i class="fas fa-chevron-down ms-1 small"></i>
                                     </a>
@@ -101,46 +117,99 @@
                                 </li>
 
                                 <li class="nav-item mx-2">
-                                    <a href="/InnerPage/Contact" class="nav-link text-dark fw-medium">LIÊN HỆ</a>
+                                    <a href="/InnerPage/Contact" class="py-2 px-2 text-dark fw-medium d-flex align-items-center text-decoration-none">LIÊN HỆ</a>
                                 </li>
                             </ul>
-
                         </nav>
                     </div>
+                    <style>
+                        .avatar-link {
+                            transition: transform 0.3s ease; /* mượt mà */
+                            display: inline-flex; /* canh icon đẹp hơn nếu cần */
+                            justify-content: center;
+                            align-items: center;
+                        }
 
+                            .avatar-link:hover {
+                                transform: scale(1.1); /* phóng to */
+                            }
+
+                        nav a:focus,
+                        nav a:active {
+                            background-color: transparent !important;
+                            box-shadow: none !important;
+                        }
+                    </style>
                     <!-- User actions -->
                     <div class="col-12 col-md-4">
                         <div class="d-flex justify-content-center justify-content-md-end align-items-center gap-3">
                             <!-- User account -->
                             <div class="d-flex align-items-center">
-                                <div class="icon-circle bg-light-custom">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="ms-2 d-none d-md-block">
-                                    <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO </p>
-                                    @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
-                                    {
-                                        <p class="fs-7 fw-medium mb-0">@Session["UserName"]</p>
-                                    }
-                                    else
-                                    {
-                                        <p class="fs-7 fw-medium mb-0">ĐĂNG NHẬP</p>
-                                    }
-                                </div>
+
+                                @if (Session["UserName"] != null && !string.IsNullOrWhiteSpace(Session["UserName"].ToString()))
+                                {
+                                    <div class="icon-circle bg-light-custom">
+                                        <a href="/User/" data-bs-toggle="tooltip" title="Trang cá nhân" class="avatar-link">
+                                            <img class="rounded-circle" src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" width="40" height="40">
+                                        </a>
+                                    </div>
+                                    <div class="ms-2 d-none d-md-block">
+                                        <a href="/User/" class="text-dark text-decoration-none">
+                                            <p class="fs-7 text-gray-custom mb-0">XIN CHÀO KHÁCH HÀNG !</p>
+                                            <p class="fs-7 fw-medium mb-0"
+                                               data-bs-toggle="tooltip"
+                                               data-bs-placement="bottom"
+                                               title="Xin chào @Session["UserName"]">
+                                                @Session["UserName"]
+                                            </p>
+                                        </a>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <div class="icon-circle bg-light-custom">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div class="ms-2 d-none d-md-block">
+                                        <p class="fs-7 text-gray-custom mb-0">CHÀO MỪNG ĐẾN VỚI SWOO</p>
+                                        <p class="fs-7 fw-medium mb-0"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="bottom"
+                                           title="Click để đăng nhập">
+                                            <a href="/InnerPage/Login" class="text-success text-decoration-none">ĐĂNG NHẬP</a>
+                                        </p>
+                                    </div>
+                                }
+
+
+                                <!-- Script khởi tạo Tooltip Bootstrap -->
+                                <script>
+                                    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+                                    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                                        return new bootstrap.Tooltip(tooltipTriggerEl)
+                                    })
+                                </script>
+
                             </div>
 
                             <!-- Wishlist -->
                             <div>
-                                <div class="icon-circle bg-light-custom">
-                                    <i class="fas fa-heart"></i>
-                                </div>
+                                <a href="/Product/ProductWishList" class="text-dark" data-bs-toggle="tooltip" title="Danh sách yêu thích">
+                                    <div class="icon-circle bg-light-custom avatar-link">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                </a>
                             </div>
-
+                            <style>
+                            </style>
                             <!-- Cart -->
                             <div class="d-flex align-items-center position-relative">
-                                <div class="icon-circle bg-light-custom">
-                                    <i class="fas fa-shopping-cart"></i>
-                                </div>
+                                <a href="/InnerPage/PreCart" class="text-dark" data-bs-toggle="tooltip" title="Giỏ Hàng">
+                                    <div class="icon-circle bg-light-custom avatar-link">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                </a>
                                 <div class="ms-2 d-none d-md-block">
                                     <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
                                     <p class="fs-7 fw-bold mb-0">$1,689.00</p>
@@ -152,21 +221,75 @@
                 </div>
             </div>
         </div>
-        <div class="header-container">
+        <div class="header-container" style="position: relative">
             <div class="container">
                 <div class="row align-items-center">
                     <!-- Search Bar Section -->
                     <div class="col-lg-5">
-                        <div class="search-container">
+                        <form action="/Product/ProductSearch" method="get">
+                            <div class="search-container" style="position: relative">
+                                <button type="submit" class="search-button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
 
-                            <input type="text" class="search-input" placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm">
-                            <button class="search-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                                </svg>
-                            </button>
-                        </div>
+                                </button>
+                                <input type="text" name="keyword" id="search-input" class="search-input"
+                                       placeholder="Nhập tên điện thoại, máy tính, phụ kiện... cần tìm"
+                                       autocomplete="off">
+                                <span id="clear-search" style="display: none; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); cursor: pointer; font-weight: bold;">×</span>
+                            </div>
+                        </form>
+
                     </div>
+
+                    <div id="search-results" style="
+                        position: absolute;
+                        top: 88%;
+                        left: 7%;
+                        right: 0;
+                        background: white;
+                        border: 1px solid #ccc;
+                        z-index: 1000;
+                        display: none;
+                        max-height: 300px;
+                        overflow-y: auto;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                        padding: 10px;
+                        max-width:540px;
+                        border-radius:12px;
+                    "></div>
+                    <style>
+                        #search-results {
+                            position: absolute;
+                            top: calc(100% + 5px);
+                            left: 0;
+                            right: 0;
+                            background: white;
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                            z-index: 1000;
+                            max-height: 400px;
+                            overflow-y: auto;
+                        }
+
+                        .search-result-item:hover {
+                            text-decoration: none;
+                            transition: background-color 0.2s ease;
+                        }
+
+                        .search-result-item img {
+                            transition: transform 0.2s ease;
+                        }
+
+                        .search-result-item:hover img {
+                            transform: scale(1.05);
+                        }
+                    </style>
+
+
 
                     <!-- Promotional Messages Section -->
                     <div class="col-lg-7">
@@ -183,6 +306,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -191,7 +315,7 @@
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
 
-
+    <button onclick="scrollToTop()" id="scrollTopBtn" title="Lên đầu trang">  <i class="fas fa-chevron-up"></i> <br /><span>Lên đầu</span></button>
     <footer>
         <div class="container">
             <div class="row mb-4">
@@ -202,7 +326,7 @@
                     <h4 class="hotline mb-3">(025) 3686 25 16</h4>
                     <p class="mb-1">140 Lê Trọng Tấn, phường Tây Thạnh, quận Tân Phú, Thành phố Hồ Chí Minh</p>
                     <p class="mb-1">VIE 10092</p>
-                    <p class="mb-3">hufi@@edu.com.vn</p>
+                    <p class="mb-3">huit@@edu.com.vn</p>
                     <div class="d-flex mb-4">
                         <a href="#" class="social-icon">
                             <i class="fab fa-twitter"></i>
@@ -320,4 +444,101 @@
     </footer>
 </body>
 </html>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Hiện nút khi cuộn xuống
+    window.onscroll = function () {
+        const btn = document.getElementById("scrollTopBtn");
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+
+    // Hàm cuộn lên đầu
+    function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => {
+            new bootstrap.Tooltip(el);
+        });
+    });
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        let debounceTimer;
+
+        function searchProduct(keyword) {
+            if (keyword.length >= 1) {
+                $.get('/Product/SearchSuggest', { keyword: keyword }, function (data) {
+                    let html = '';
+
+                    if (!data || data.length === 0) {
+                        html = '<div style="padding: 10px;">Không có kết quả tìm kiếm</div>';
+                    } else {
+                        data.forEach(function (item) {
+                            html += `
+                           <a href="/Product/ProductDetail/${item.MaHangHoa}?maBienThe=${item.MaBienThe}" class="search-result-item"
+                               style="display: flex; align-items: center; gap: 10px; padding: 8px; border-bottom: 1px solid #eee; text-decoration: none; color: #333;">
+                                <img src="/assets/Image/Product/${item.HinhAnh}" alt="${item.TenHangHoa}"
+                                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 4px;" />
+                                <div>
+                                    <strong>${item.TenHangHoa}</strong><br />
+                                    <small><s>${item.GiaGoc.toLocaleString()}đ</s></small><br />
+                                    <small><span style="color: red;">${item.GiaKhuyenMai.toLocaleString()}đ</span></small>
+                                </div>
+                            </a>
+                        `;
+                        });
+                    }
+
+                    $('#search-results').html(html).show();
+                });
+            } else {
+                $('#search-results').hide();
+            }
+        }
+
+        // Lắng nghe input & focus
+        $('#search-input').on('input focus', function () {
+            const keyword = $(this).val().trim();
+
+            // Hiện/ẩn nút "X"
+            if (keyword.length > 0) {
+                $('#clear-search').show();
+            } else {
+                $('#clear-search').hide();
+            }
+
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                searchProduct(keyword);
+            }, 500); // debounce 0.5s
+        });
+
+        // Khi bấm nút "X" để xóa
+        $('#clear-search').on('click', function () {
+            $('#search-input').val('').focus();
+            $(this).hide();
+            $('#search-results').hide();
+        });
+
+        // Ẩn kết quả khi click ra ngoài
+        $(document).on('click', function (e) {
+            if (!$(e.target).closest('.search-container').length) {
+                $('#search-results').hide();
+            }
+        });
+
+        // Ngăn mất focus khi click trong kết quả
+        $('#search-results').on('click', function (e) {
+            e.stopPropagation();
+        });
+    });
+</script>
+

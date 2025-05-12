@@ -145,11 +145,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BienTheHangHoaViewModel.cs" />
+    <Compile Include="Models\DanhGiaView.cs" />
+    <Compile Include="Models\HangHoaViewModel.cs" />
+    <Compile Include="Models\ProductDetailPageView.cs" />
+    <Compile Include="Models\ProductDetailView.cs" />
+    <Compile Include="Models\ProductRecentViewModel.cs" />
     <Compile Include="Models\SHOP.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SHOP.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,8 +175,11 @@
     <Content Include="assets\Image\Header\Banner\banner_harmankardon.png" />
     <Content Include="assets\Image\Header\Banner\Banner_iphone-16-pro-max.jpg" />
     <Content Include="assets\Image\Header\Banner\Banner_mac.jpg" />
+    <Content Include="assets\Image\Header\Banner\Banner_Mac_Air.jpg" />
     <Content Include="assets\Image\Header\Banner\banner_maychieu.png" />
     <Content Include="assets\Image\Header\Banner\banner_mouse.png" />
+    <Content Include="assets\Image\Header\Banner\Banner_Poco.jpg" />
+    <Content Include="assets\Image\Header\Banner\Banner_SamSungTab.jpg" />
     <Content Include="assets\Image\Header\Banner\banner_swatek.png" />
     <Content Include="assets\Image\Header\Banner\Banner_top_lap.png" />
     <Content Include="assets\Image\Header\Banner\Banner_top_phone.png" />
@@ -211,7 +221,16 @@
     <Content Include="assets\Image\News\tecno-spark-30c-co-may-mau-th.jpg" />
     <Content Include="assets\Image\News\tinh-nang-xiaomi-15s-pro.jpg" />
     <Content Include="assets\Image\News\xiaomi-pad-7-co-may-mau-th.jpg" />
-    <Content Include="assets\Image\Product\iphone.png" />
+    <Content Include="assets\Image\Product\iphone-14-pro-max-tim.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_gold.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den_bt1.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den_bt2.jpg" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den_bt3.jpg" />
+    <Content Include="assets\Image\Product\watch_ultra2.jpg" />
+    <Content Include="assets\Image\Product\archer_ax73.jpg" />
+    <Content Include="assets\Image\Product\canon_r6m2.jpg" />
+    <Content Include="assets\Image\Product\dell_xps13.jpg" />
+    <Content Include="assets\Image\Product\iphone.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\Acer.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\Asus.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\Gigabyte.jpg" />
@@ -224,6 +243,12 @@
     <Content Include="assets\Image\Logo\LogoBrand\Xiaomi.jpg" />
     <Content Include="assets\Image\Logo\LogoTitle\logo_header_swoo.png" />
     <Content Include="assets\Image\Logo\LogoTitle\logo_swoo_title.png" />
+    <Content Include="assets\Image\Product\iphone15_pro_max_den.jpg" />
+    <Content Include="assets\Image\Product\jbl_flip6.jpg" />
+    <Content Include="assets\Image\Product\mx_master3s.jpg" />
+    <Content Include="assets\Image\Product\rog_g14.jpg" />
+    <Content Include="assets\Image\Product\s24_ultra.jpg" />
+    <Content Include="assets\Image\Product\xiaomi_pad6.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -372,11 +397,19 @@
     <Content Include="Views\InnerPage\About.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Product\ProductDetail.cshtml" />
-    <Content Include="Views\Product\ProductCategories.cshtml" />
+    <Content Include="Views\Product\ProductDienThoaiTabLet.cshtml" />
     <Content Include="Views\InnerPage\Promotion.cshtml" />
     <Content Include="Views\Error\General.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Product\ProductLapTopPC.cshtml" />
+    <Content Include="Views\Product\Gaming.cshtml" />
+    <Content Include="Views\Product\AnotherProduct.cshtml" />
+    <Content Include="Views\Product\PhuKien.cshtml" />
+    <Content Include="Views\InnerPage\TuyenDung.cshtml" />
+    <Content Include="Views\Product\ProductWishList.cshtml" />
+    <Content Include="Views\Product\ProductSearch.cshtml" />
+    <Content Include="Views\Shared\_RecentlyViewedPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
