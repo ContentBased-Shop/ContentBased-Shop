@@ -242,11 +242,22 @@ Product */
             background-color: transparent;
         }
 
+
 .product-card {
     text-align: center;
-    position: relative;
-    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.7s ease;
+    cursor: pointer;
+    transform: scale(1); /* mặc định không zoom */
 }
+
+    .product-card:hover {
+        border-color: #1ABA1A;
+        transform: scale(1.05); /* phóng to nhẹ khi hover */
+    }
+
 
 .product-image-container {
     height: 180px;
