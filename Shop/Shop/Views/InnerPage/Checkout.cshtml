@@ -83,17 +83,18 @@
             <div class="mb-4">
                 <h2 class="h5 fw-bold mb-3">Phương thức thanh toán</h2>
                 <div class="card border p-3">
-                    <div class="form-check mb-2">
+                    <div class="form-check mb-3">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="TheTinDung">
                         <label class="form-check-label" for="bankTransfer">
                             Thẻ tín dụng / Thẻ ghi nợ
                         </label>
                         <small class="d-block text-muted mt-1">
-                            Thanh toán an toàn qua cổng thanh toán thẻ.
+                            Thanh toán an toàn qua cổng thanh toán PayPal.
+                            <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" alt="PayPal" class="ms-2" height="20">
                         </small>
                     </div>
 
-                    <div class="form-check mb-2">
+                    <div class="form-check mb-3">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="COD" checked>
                         <label class="form-check-label" for="cod">Thanh toán khi nhận hàng</label>
                     </div>
@@ -458,47 +459,80 @@
                 phuongThucThanhToan: paymentMethod,
                 ghiChu: orderNotes
             };
-
-            // Gửi dữ liệu đơn hàng lên server
-            fetch('/InnerPage/CreateOrder', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(orderData)
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    // Xóa dữ liệu sản phẩm đã chọn
-                    sessionStorage.removeItem('selectedItems');
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Đặt hàng thành công',
-                        text: 'Cảm ơn bạn đã mua hàng tại cửa hàng chúng tôi!',
-                        confirmButtonColor: '#1aba1a'
-                    }).then(() => {
-                        window.location.href = result.redirectUrl || '/InnerPage/OrderSuccess/' + result.maDonHang;
-
-                    });
-                } else {
+            
+            // Nếu phương thức thanh toán là TheTinDung (PayPal)
+            if (paymentMethod === 'TheTinDung') {
+                // Gọi API thanh toán PayPal
+                fetch('/Payment/PayWithPaypal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        // Chuyển hướng đến trang thanh toán PayPal
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: result.message || 'Có lỗi xảy ra khi thanh toán',
+                            confirmButtonColor: '#1aba1a'
+                        });
+                    }
+                })
+                .catch(error => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi',
-                        text: result.message || 'Có lỗi xảy ra khi đặt hàng',
+                        text: 'Có lỗi xảy ra khi kết nối đến server',
                         confirmButtonColor: '#1aba1a'
                     });
-                }
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Có lỗi xảy ra khi kết nối đến server',
-                    confirmButtonColor: '#1aba1a'
                 });
-            });
+            } else {
+                // Các phương thức thanh toán khác (không phải PayPal)
+                fetch('/InnerPage/CreateOrder', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        // Xóa dữ liệu sản phẩm đã chọn
+                        sessionStorage.removeItem('selectedItems');
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Đặt hàng thành công',
+                            text: 'Cảm ơn bạn đã mua hàng tại cửa hàng chúng tôi!',
+                            confirmButtonColor: '#1aba1a'
+                        }).then(() => {
+                            window.location.href = result.redirectUrl || '/InnerPage/OrderSuccess/' + result.maDonHang;
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: result.message || 'Có lỗi xảy ra khi đặt hàng',
+                            confirmButtonColor: '#1aba1a'
+                        });
+                    }
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Có lỗi xảy ra khi kết nối đến server',
+                        confirmButtonColor: '#1aba1a'
+                    });
+                });
+            }
         });
 
         // Lấy danh sách tỉnh/thành phố

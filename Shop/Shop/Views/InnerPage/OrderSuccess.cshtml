@@ -203,4 +203,11 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Xóa các sản phẩm đã thanh toán khỏi sessionStorage
+        sessionStorage.removeItem('selectedItems');
+    });
+</script> 
