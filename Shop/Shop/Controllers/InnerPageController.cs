@@ -344,6 +344,373 @@ namespace Shop.Controllers
         }
         #endregion
         
+        #region Checkout
+        // Trang thanh toán
+        public ActionResult Checkout()
+        {
+            // Kiểm tra đăng nhập
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login", new { returnUrl = Url.Action("PreCart", "InnerPage") });
+            }
+            
+            return View();
+        }
+        
+        // Lấy danh sách địa chỉ của người dùng
+        [HttpGet]
+        public ActionResult GetUserAddresses()
+        {
+            if (Session["UserID"] == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." }, JsonRequestBehavior.AllowGet);
+            }
+            
+            string maKhachHang = Session["UserID"].ToString();
+            
+            try
+            {
+                var addresses = data.DiaChiKhachHangs
+                    .Where(d => d.MaKhachHang == maKhachHang)
+                    .Select(d => new AddressModel
+                    {
+                        maDiaChi = d.MaDiaChi,
+                        tenNguoiNhan = d.TenNguoiNhan,
+                        soDienThoai = d.SoDienThoai,
+                        diaChiDayDu = d.DiaChiDayDu,
+                        laMacDinh = (bool)d.LaMacDinh
+                    })
+                    .ToList();
+                
+                return Json(new { success = true, addresses }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        
+        // Thêm địa chỉ mới cho người dùng
+        [HttpPost]
+        public ActionResult AddUserAddress(AddressModel model)
+        {
+            if (Session["UserID"] == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." });
+            }
+            
+            string maKhachHang = Session["UserID"].ToString();
+            
+            try
+            {
+                // Tạo mã địa chỉ mới
+                string GenerateUniqueAddressId()
+                {
+                    Random rand = new Random();
+                    string code;
+                    do
+                    {
+                        int number = rand.Next(0, 100000); // 0 -> 99999
+                        code = "DC" + number.ToString("D5"); // Ví dụ: DC04212
+                    } while (data.DiaChiKhachHangs.Any(dc => dc.MaDiaChi == code));
+                    return code;
+                }
+                
+                // Nếu đặt làm địa chỉ mặc định, cập nhật các địa chỉ khác
+                if (model.laMacDinh)
+                {
+                    var existingDefaultAddresses = data.DiaChiKhachHangs
+                        .Where(d => d.MaKhachHang == maKhachHang && d.LaMacDinh == true);
+                    
+                    foreach (var addr in existingDefaultAddresses)
+                    {
+                        addr.LaMacDinh = false;
+                    }
+                }
+                
+                // Tạo địa chỉ mới
+                var newAddress = new DiaChiKhachHang
+                {
+                    MaDiaChi = GenerateUniqueAddressId(),
+                    MaKhachHang = maKhachHang,
+                    TenNguoiNhan = model.tenNguoiNhan,
+                    SoDienThoai = model.soDienThoai,
+                    DiaChiDayDu = model.diaChiDayDu,
+                    LaMacDinh = model.laMacDinh
+                };
+                
+                data.DiaChiKhachHangs.InsertOnSubmit(newAddress);
+                data.SubmitChanges();
+                
+                return Json(new { success = true, maDiaChi = newAddress.MaDiaChi });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+        
+        // Tạo đơn hàng
+        [HttpPost]
+        public ActionResult CreateOrder(OrderModel model)
+        {
+            if (Session["UserID"] == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." });
+            }
+            
+            string maKhachHang = Session["UserID"].ToString();
+            
+            try
+            {
+                // Kiểm tra địa chỉ
+                var address = data.DiaChiKhachHangs
+                    .FirstOrDefault(d => d.MaDiaChi == model.maDiaChi && d.MaKhachHang == maKhachHang);
+                
+                if (address == null)
+                {
+                    return Json(new { success = false, message = "Địa chỉ giao hàng không hợp lệ." });
+                }
+                
+                // Kiểm tra danh sách sản phẩm
+                if (model.sanPham == null || model.sanPham.Count == 0)
+                {
+                    return Json(new { success = false, message = "Không có sản phẩm nào để đặt hàng." });
+                }
+                
+                // Kiểm tra tồn kho
+                foreach (var item in model.sanPham)
+                {
+                    var bienThe = data.BienTheHangHoas.FirstOrDefault(b => b.MaBienThe == item.maBienThe);
+                    if (bienThe == null)
+                    {
+                        return Json(new { success = false, message = $"Sản phẩm không tồn tại: {item.maBienThe}" });
+                    }
+                    
+                    if (bienThe.SoLuongTonKho < item.soLuong)
+                    {
+                        var hangHoa = data.HangHoas.FirstOrDefault(h => h.MaHangHoa == bienThe.MaHangHoa);
+                        return Json(new { 
+                            success = false, 
+                            message = $"Sản phẩm '{hangHoa?.TenHangHoa}' chỉ còn {bienThe.SoLuongTonKho} sản phẩm."
+                        });
+                    }
+                }
+                
+                // Tạo mã đơn hàng mới
+                string GenerateUniqueOrderId()
+                {
+                    Random rand = new Random();
+                    string code;
+                    do
+                    {
+                        int number = rand.Next(0, 100000); // 0 -> 99999
+                        code = "DH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: DH2305250001
+                    } while (data.DonHangs.Any(hd => hd.MaDonHang == code));
+                    return code;
+                }
+                
+                // Tạo mã thanh toán mới
+                string GenerateUniquePaymentId()
+                {
+                    Random rand = new Random();
+                    string code;
+                    do
+                    {
+                        int number = rand.Next(0, 100000); // 0 -> 99999
+                        code = "TT" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: TT2305250001
+                    } while (data.ThanhToans.Any(tt => tt.MaThanhToan == code));
+                    return code;
+                }
+                
+                // Tạo mã giao hàng mới
+                string GenerateUniqueShippingId()
+                {
+                    Random rand = new Random();
+                    string code;
+                    do
+                    {
+                        int number = rand.Next(0, 100000); // 0 -> 99999
+                        code = "GH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: GH2305250001
+                    } while (data.GiaoHangs.Any(gh => gh.MaGiaoHang == code));
+                    return code;
+                }
+                
+                // Tạo mã chi tiết đơn hàng mới
+                string GenerateUniqueOrderDetailId()
+                {
+                    Random rand = new Random();
+                    string code;
+                    do
+                    {
+                        int number = rand.Next(0, 100000); // 0 -> 99999
+                        code = "CT" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: CT2305250001
+                    } while (data.ChiTietDonHangs.Any(ct => ct.MaChiTietDonHang == code));
+                    return code;
+                }
+                
+                // Tạo mã vận đơn mới
+                string GenerateUniqueTrackingId()
+                {
+                    Random rand = new Random();
+                    string code;
+                    int number = rand.Next(100000000, 999999999); // 9 chữ số
+                    code = "VD" + number.ToString();
+                    return code;
+                }
+                
+                // Tạo đơn hàng mới
+                var donHang = new DonHang
+                {
+                    MaDonHang = GenerateUniqueOrderId(),
+                    MaKhachHang = maKhachHang,
+                    TongTien = 0, // Sẽ được cập nhật sau
+                    TrangThaiThanhToan = "ChoThanhToan",
+                    TrangThaiDonHang = "DangXuLy",
+                    NgayTao = DateTime.Now
+                };
+                
+                data.DonHangs.InsertOnSubmit(donHang);
+                
+                // Tính tổng tiền
+                decimal tongTien = 0;
+                
+                // Thêm chi tiết đơn hàng
+                foreach (var item in model.sanPham)
+                {
+                    var bienThe = data.BienTheHangHoas.FirstOrDefault(b => b.MaBienThe == item.maBienThe);
+                    
+                    // Lấy giá sản phẩm
+                    decimal donGia = Convert.ToDecimal(bienThe.GiaKhuyenMai ?? bienThe.GiaBan ?? 0);
+                    decimal thanhTien = donGia * item.soLuong;
+                    tongTien += thanhTien;
+                    
+                    // Thêm chi tiết đơn hàng
+                    var chiTietDonHang = new ChiTietDonHang
+                    {
+                        MaChiTietDonHang = GenerateUniqueOrderDetailId(),
+                        MaDonHang = donHang.MaDonHang,
+                        MaBienThe = item.maBienThe,
+                        SoLuong = item.soLuong,
+                        DonGia = Convert.ToSingle(donGia)
+                    };
+                    
+                    data.ChiTietDonHangs.InsertOnSubmit(chiTietDonHang);
+                    
+                    // Cập nhật số lượng tồn kho
+                    bienThe.SoLuongTonKho -= item.soLuong;
+                    
+                    // Xóa sản phẩm khỏi giỏ hàng (nếu có)
+                    var gioHang = data.GioHangs.FirstOrDefault(g => g.MaKhachHang == maKhachHang);
+                    if (gioHang != null)
+                    {
+                        var chiTietGioHang = data.ChiTietGioHangs
+                            .FirstOrDefault(ct => ct.MaGioHang == gioHang.MaGioHang && ct.MaBienThe == item.maBienThe);
+                        
+                        if (chiTietGioHang != null)
+                        {
+                            data.ChiTietGioHangs.DeleteOnSubmit(chiTietGioHang);
+                        }
+                    }
+                }
+                
+                // Cập nhật tổng tiền đơn hàng
+                donHang.TongTien = Convert.ToSingle(tongTien);
+                
+                // Tạo thanh toán
+                var thanhToan = new ThanhToan
+                {
+                    MaThanhToan = GenerateUniquePaymentId(),
+                    MaDonHang = donHang.MaDonHang,
+                    PhuongThucThanhToan = model.phuongThucThanhToan,
+                    TrangThai = "ChoXuLy"
+                };
+                
+                if (model.phuongThucThanhToan == "COD")
+                {
+                    thanhToan.TrangThai = "ChoXuLy";
+                }
+                
+                data.ThanhToans.InsertOnSubmit(thanhToan);
+                
+                // Tạo giao hàng
+                var giaoHang = new GiaoHang
+                {
+                    MaGiaoHang = GenerateUniqueShippingId(),
+                    MaDonHang = donHang.MaDonHang,
+                    MaDiaChi = model.maDiaChi,
+                    MaVanDon = GenerateUniqueTrackingId(),
+                    TrangThaiGiaoHang = "ChuanBiHang"
+                };
+                
+                data.GiaoHangs.InsertOnSubmit(giaoHang);
+                
+                // Lưu thay đổi vào CSDL
+                data.SubmitChanges();
+                
+                return Json(new { 
+                    success = true, 
+                    message = "Đặt hàng thành công", 
+                    maDonHang = donHang.MaDonHang,
+                    redirectUrl = Url.Action("OrderSuccess", "InnerPage", new { id = donHang.MaDonHang })
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+        
+        // Trang thông báo đặt hàng thành công
+        public ActionResult OrderSuccess(string id)
+        {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            
+            string maKhachHang = Session["UserID"].ToString();
+            
+            // Lấy thông tin đơn hàng
+            var donHang = data.DonHangs.FirstOrDefault(dh => dh.MaDonHang == id && dh.MaKhachHang == maKhachHang);
+            
+            if (donHang == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
+            // Lấy thông tin thanh toán
+            var thanhToan = data.ThanhToans.FirstOrDefault(tt => tt.MaDonHang == id);
+            
+            // Lấy thông tin giao hàng
+            var giaoHang = data.GiaoHangs.FirstOrDefault(gh => gh.MaDonHang == id);
+            
+            // Lấy địa chỉ giao hàng
+            var diaChi = giaoHang != null ? data.DiaChiKhachHangs.FirstOrDefault(dc => dc.MaDiaChi == giaoHang.MaDiaChi) : null;
+            
+            // Lấy danh sách sản phẩm trong đơn hàng
+            var chiTietDonHang = data.ChiTietDonHangs
+                .Where(ct => ct.MaDonHang == id)
+                .Select(ct => new
+                {
+                    ct.MaBienThe,
+                    ct.SoLuong,
+                    ct.DonGia,
+                    BienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == ct.MaBienThe),
+                    HangHoa = data.HangHoas.FirstOrDefault(hh => hh.MaHangHoa == data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == ct.MaBienThe).MaHangHoa)
+                })
+                .ToList();
+            
+            ViewBag.DonHang = donHang;
+            ViewBag.ThanhToan = thanhToan;
+            ViewBag.GiaoHang = giaoHang;
+            ViewBag.DiaChi = diaChi;
+            ViewBag.ChiTietDonHang = chiTietDonHang;
+            
+            return View();
+        }
+        #endregion
+
         #region Register
         [HttpGet]
         public JsonResult CheckPhoneNumber(string phonenumber)
@@ -508,14 +875,6 @@ namespace Shop.Controllers
             return View();
         }
 
-        public ActionResult Checkout()
-        {
-            return View();
-        }
-        public ActionResult Checkout_ShoppingCart()
-        {
-            return View();
-        }
         public ActionResult Contact()
         {
             return View();
@@ -556,5 +915,31 @@ namespace Shop.Controllers
         public string maBienThe { get; set; }
         public int soLuong { get; set; }
         public string action { get; set; } // "add", "update", or "remove"
+    }
+    
+    // Model cho địa chỉ giao hàng
+    public class AddressModel
+    {
+        public string maDiaChi { get; set; }
+        public string tenNguoiNhan { get; set; }
+        public string soDienThoai { get; set; }
+        public string diaChiDayDu { get; set; }
+        public bool laMacDinh { get; set; }
+    }
+    
+    // Model cho đơn hàng
+    public class OrderModel
+    {
+        public string maDiaChi { get; set; }
+        public List<OrderItemModel> sanPham { get; set; }
+        public string phuongThucThanhToan { get; set; }
+        public string ghiChu { get; set; }
+    }
+    
+    // Model cho sản phẩm trong đơn hàng
+    public class OrderItemModel
+    {
+        public string maBienThe { get; set; }
+        public int soLuong { get; set; }
     }
 }

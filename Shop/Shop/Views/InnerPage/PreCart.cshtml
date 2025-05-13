@@ -127,7 +127,12 @@
 <template id="cartItemTemplate">
     <div class="card border-0 mb-4 position-relative cart-item">
         <div class="row g-0 p-3 align-items-center">
-            <div class="col-md-3 text-center">
+            <div class="col-md-1 text-center">
+                <div class="form-check">
+                    <input class="form-check-input item-checkbox" type="checkbox" checked>
+                </div>
+            </div>
+            <div class="col-md-2 text-center">
                 <img src="" alt="Sản phẩm" class="img-fluid product-image">
             </div>
             <div class="col-md-9">
@@ -172,6 +177,7 @@
         const cartItemsContainer = document.getElementById("cartItemsContainer");
         const emptyCartMessage = document.getElementById("emptyCartMessage");
         const cartItemTemplate = document.getElementById("cartItemTemplate");
+        const checkoutBtn = document.getElementById("btnCheckout");
         
         let cart = [];
         let shippingFee = 30000; // Phí vận chuyển mặc định
@@ -297,11 +303,16 @@
             });
         }
 
-        // Tính tổng tiền
+        // Tính tổng tiền cho các sản phẩm đã chọn
         function calculateTotal() {
-            const subtotal = cart.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
+            const selectedItems = cart.filter((item, index) => {
+                const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
+                return checkbox && checkbox.checked;
+            });
+
+            const subtotal = selectedItems.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
             const tax = subtotal * taxRate;
-            const shipping = cart.length > 0 ? shippingFee : 0;
+            const shipping = selectedItems.length > 0 ? shippingFee : 0;
             const total = subtotal + tax + shipping;
 
             document.getElementById("subtotal").textContent = formatCurrency(subtotal);
@@ -309,9 +320,8 @@
             document.getElementById("shipping").textContent = formatCurrency(shipping);
             document.getElementById("total").textContent = formatCurrency(total);
 
-            // Vô hiệu hóa nút thanh toán nếu giỏ hàng trống
-            const checkoutBtn = document.getElementById("btnCheckout");
-            checkoutBtn.classList.toggle("disabled", cart.length === 0);
+            // Vô hiệu hóa nút thanh toán nếu không có sản phẩm nào được chọn
+            checkoutBtn.classList.toggle("disabled", selectedItems.length === 0);
         }
 
         // Hiển thị giỏ hàng
@@ -373,6 +383,11 @@
                     cartItemNode.querySelector('.remove-product').addEventListener('click', function() {
                         removeItem(index);
                     });
+
+                    // Thiết lập sự kiện khi checkbox thay đổi
+                    cartItemNode.querySelector('.item-checkbox').addEventListener('change', function() {
+                        calculateTotal();
+                    });
                     
                     cartItemsContainer.appendChild(cartItemNode);
                 });
@@ -380,6 +395,36 @@
             
             // Cập nhật tổng tiền
             calculateTotal();
+        }
+
+        // Xử lý nút thanh toán
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function(e) {
+                if (checkoutBtn.classList.contains('disabled')) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Thông báo',
+                        text: 'Vui lòng chọn ít nhất một sản phẩm để thanh toán',
+                        confirmButtonColor: '#1aba1a'
+                    });
+                    return;
+                }
+
+                e.preventDefault();
+
+                // Lấy danh sách sản phẩm đã chọn
+                const selectedItems = cart.filter((item, index) => {
+                    const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
+                    return checkbox && checkbox.checked;
+                });
+
+                // Lưu vào sessionStorage để sử dụng trong trang thanh toán
+                sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+
+                // Chuyển đến trang thanh toán
+                window.location.href = '@Url.Action("Checkout", "InnerPage")';
+            });
         }
 
         // Khởi tạo trang
