@@ -267,6 +267,8 @@ namespace Shop.Controllers
             };
             return View(productCategory);
         }
+
+
         #endregion
         #region ProductLapTopPC
         public ActionResult ProductLapTopPC()
@@ -476,6 +478,11 @@ namespace Shop.Controllers
 
             return PartialView("_RecentlyViewedPartial", ordered);   // model = List<ProductRecentViewModel>
         }
+
+
+
+
+
 
     }
 }

@@ -141,7 +141,7 @@
         <!-- FEATURED BRANDS SECTION -->
         <div class="w-100 w-lg-50 bg-white rounded-4 px-4 py-3">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="section-title fw-bold">Nhãn hàng đặc trưng</h2>
+                <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">Nhãn hàng đặc trưng</h4>
             </div>
 
             <div class="brands-container">
@@ -209,7 +209,7 @@
         <!-- TOP CATEGORIES SECTION -->
         <div class="w-100 w-lg-50 bg-white rounded-4 px-4 py-3">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2 class="section-title fw-bold">TOP DANH MỤC</h2>
+                <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">TOP DANH MỤC</h4>
             </div>
 
             <div class="categories-container">
@@ -424,8 +424,21 @@
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
                 <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
-
-                    <div class="product-card">
+                    <div class="product-card position-relative my-3">
+                        <span class="discount-badge position-absolute top-0 end-0">
+                            @((int)(100 - (product.GiaKhuyenMai / product.GiaBan * 100)))% OFF
+                        </span>
+                        <style>
+                            .discount-badge {
+                                background-color: #dc3545; /* đỏ rực */
+                                color: white;
+                                font-weight: bold;
+                                font-size: 0.75rem;
+                                padding: 4px 8px;
+                                border-bottom-left-radius: 8px;
+                                z-index: 10;
+                            }
+                        </style>
                         <div class="product-image-container">
                             <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                         </div>
@@ -451,16 +464,8 @@
                             <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
                             <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
 
-                            @{
-                                var goc = product.GiaBan;
-                                var km = product.GiaKhuyenMai;
-                                var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
-                            }
                         </div>
-                        @if (discount > 0)
-                        {
-                            <span class="discount text-danger">@discount.ToString("0")% OFF</span>
-                        }
+
                         <div class="free-shipping">FREE SHIPPING</div>
                         <div class="d-flex justify-content-between">
                             @if (product.SoLuongTonKho > 0)
@@ -508,7 +513,10 @@
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
                 <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
-                    <div class="product-card">
+                    <div class="product-card position-relative my-3">
+                        <span class="discount-badge position-absolute top-0 end-0">
+                            @((int)(100 - (product.GiaKhuyenMai / product.GiaBan * 100)))% OFF
+                        </span>
                         <div class="product-image-container">
                             <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                         </div>
@@ -592,7 +600,10 @@
             <div class="swiper-slide">
                 <!-- Card sản phẩm BEST SELLER -->
                 <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
-                    <div class="product-card">
+                    <div class="product-card position-relative my-3">
+                        <span class="discount-badge position-absolute top-0 end-0">
+                            @((int)(100 - (product.GiaKhuyenMai / product.GiaBan * 100)))% OFF
+                        </span>
                         <div class="product-image-container">
                             <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                         </div>
@@ -687,7 +698,7 @@
 
     <div class="p-4 my-3 bg-white rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold fs-4">BRAND NEW FOR YOU</h2>
+            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">BRAND NEW FOR YOU</h4>
 
         </div>
 
@@ -741,7 +752,7 @@
 
     <div class="p-4 my-3 bg-white rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold fs-4">TOP Điện thoại & Tablet  bán chạy</h2>
+            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">TOP Điện thoại & Tablet  bán chạy</h4>
         </div>
         <div class="row g-4">
             <!-- Redmi Banner -->
@@ -856,7 +867,10 @@
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
                         <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
-                            <div class="product-card">
+                            <div class="product-card position-relative my-3">
+                                <span class="discount-badge position-absolute top-0 end-0">
+                                    @((int)(100 - (product.GiaKhuyenMai / product.GiaBan * 100)))% OFF
+                                </span>
                                 <div class="product-image-container">
                                     <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                                 </div>
@@ -957,7 +971,7 @@
 
     <div class="p-4 my-3 bg-white rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold fs-4">Top Laptop & PC bán chạy</h2>
+            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">Top Laptop & PC bán chạy</h4>
         </div>
         <div class="row g-4">
             <!-- Redmi Banner -->
@@ -1074,7 +1088,10 @@
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
                         <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
-                            <div class="product-card">
+                            <div class="product-card position-relative my-3">
+                                <span class="discount-badge position-absolute top-0 end-0">
+                                    @((int)(100 - (product.GiaKhuyenMai / product.GiaBan * 100)))% OFF
+                                </span>
                                 <div class="product-image-container">
                                     <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                                 </div>
@@ -1362,7 +1379,7 @@
 
     <!-- Section Header -->
     <div class="d-flex justify-content-between mt-3 mb-2">
-        <h2 class="section-title">TIN CÔNG NGHỆ</h2>
+        <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">TIN CÔNG NGHỆ</h4>
         <a href="#" class="view-all">Xem tất cả</a>
     </div>
 

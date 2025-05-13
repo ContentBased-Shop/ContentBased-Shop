@@ -20,7 +20,7 @@
 
 .layout-wrapper {
     display: flex;
-    min-height: 75vh;
+    min-height: 65vh;
     background-color: #fff;
 }
 
@@ -100,13 +100,15 @@
             background-color: transparent;
         }
 
+
+
 .product-card {
     position: relative;
     border: 1px solid transparent;
     border-radius: 8px;
-    padding: 1.5rem 0.5rem;
+    padding: 1.5rem 1rem;
     transition: all 0.7s ease;
-    cursor:pointer;
+    cursor: pointer;
 }
 
     .product-card:hover {
@@ -128,27 +130,10 @@
 }
 
 
-.save-label {
-    background-color: #1aba1a;
-    color: white;
-    font-weight: bold;
-    font-size: 0.75rem;
-    padding: 2px 8px;
-    border-start-start-radius: 5px;
-}
-
-.save-amount {
-    background-color: #1aba1a;
-    color: white;
-    font-weight: bold;
-    padding: 2px 8px;
-    border-end-end-radius: 5px;
-}
-
 .review-count {
     color: #666666;
     font-size: 0.9rem;
-}
+}memory-collapse
 
 
 

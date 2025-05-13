@@ -41,7 +41,9 @@
 
 
 <div class="container bg-white p-4 rounded-3 mb-4">
-    <h4 class="mb-4 fw-bold">TOP CELL PHONES & TABLETS</h4>
+    <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">
+        TOP CELL PHONES & TABLETS
+    </h4>
     <div class="row g-4">
         <!-- Current Slide -->
         <div class="col-md-8">
@@ -98,6 +100,103 @@
     </div>
 </div>
 
+<div class="layout-wrapper container p-3 pb-0 rounded-3">
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">
+            Được mọi người yêu thích
+        </h4>
+
+        <!-- Product Carousel -->
+        <div style="background-color:white" id="productCarousel" class="carousel slide position-relative px-3 rounded-3">
+            <!-- Navigation Tabs -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        @foreach (var hangHoa in Model.HangHoas
+                               .OrderByDescending(h => h.DanhGiaTrungBinh ?? 0)
+                               .Take(8))
+                        {
+                            foreach (var bienThe in Model.BienTheHangHoas.Where(bt => bt.MaHangHoa == hangHoa.MaHangHoa))
+                            {
+                                <div class="col-12 col-sm-6 col-md-4 col-lg-3 position-relative">
+                                    <span class="discount-badge position-absolute top-0 end-0">
+                                        @((int)(100 - (bienThe.GiaKhuyenMai / bienThe.GiaBan * 100)))% OFF
+                                    </span>
+                                    <div class="product-card">
+                                        <div class="product-image-container">
+                                            <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
+                                        </div>
+
+                                        <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong)</h6>
+                                        <p class="product-description text-center ">@hangHoa.MoTa</p>
+                                        @{
+                                            double rating = hangHoa.DanhGiaTrungBinh ?? 0;
+                                            int fullStars = (int)Math.Floor(rating);
+                                            bool hasHalfStar = rating - fullStars >= 0.5;
+                                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                                        }
+                                        <div class="star-rating text-center">
+                                            @for (int i = 0; i < fullStars; i++)
+                                            {
+                                                <i class="bi bi-star-fill "></i>
+                                            }
+
+                                            @if (hasHalfStar)
+                                            {
+                                                <i class="bi bi-star-half "></i>
+                                            }
+
+                                            @for (int i = 0; i < emptyStars; i++)
+                                            {
+                                                <i class="bi bi-star "></i>
+                                            }
+
+
+                                        </div>
+                                        <div class="price-container">
+                                            <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0")</span>
+                                            <span class="original-price">@bienThe.GiaBan.ToString("N0")</span>
+                                        </div>
+
+                                        <div class="free-shipping text-center">FREE SHIPPING</div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="stock-status">
+                                                @if (bienThe.SoLuongTonKho > 0)
+                                                {
+                                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                    <span>In stock</span>
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-x-circle-fill out-of-stock-icon"></i>
+                                                    <span>Out of stock</span>
+                                                }
+                                            </div>
+                                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
+                                                @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
+                                                {
+                                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                                }
+                                                <span>Yêu thích</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 <div class="container bg-white rounded-3 my-2 p-3">
     <!-- Categories Grid -->
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
@@ -195,189 +294,6 @@
 
 
 
-<div class="layout-wrapper container p-3 rounded-3">
-    <!-- SIDEBAR -->
-    <div>
-        <div class="sidebar">
-            <h6 class="fw-bold mb-4">THỂ LOẠI</h6>
-
-            <button type="button" class="btn fw-medium text-start py-2 px-1 mb-2 text-dark bg-white px-3">
-                <i class="fa-solid fa-chevron-left text-muted"></i> TẤT CẢ THỂ LOẠI
-            </button><br />
-            <button type="button" class="btn fw-medium text-start p-0 mb-2 text-dark">Cell Phones & Tablets</button>
-
-            <div class="ps-3 small d-flex flex-column gap-1 mt-2">
-                <a href="#" class="category-link">All</a>
-                <a href="#" class="category-link">iPhone</a>
-                <a href="#" class="category-link">Samsung</a>
-                <a href="#" class="category-link">Xiaomi</a>
-                <a href="#" class="category-link">Asus</a>
-                <a href="#" class="category-link">Oppo</a>
-                <a href="#" class="category-link">Gaming Smartphone</a>
-                <a href="#" class="category-link">iPad</a>
-                <a href="#" class="category-link">Windows Tablets</a>
-                <a href="#" class="category-link">eReader</a>
-                <a href="#" class="category-link">Smartphone Chargers</a>
-                <a href="#" class="category-link">5G Support Smartphone</a>
-                <a href="#" class="category-link">Smartphone Accessories</a>
-                <a href="#" class="category-link">Tablets Accessories</a>
-            </div>
-        </div>
-    </div>
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        <!-- Product Carousel -->
-        <div style="background-color:white" id="productCarousel" class="carousel slide position-relative px-3 rounded-3">
-            <!-- Navigation Tabs -->
-            <h3 class="mb-4 fs-3">SẢN PHẨM LIÊN QUAN</h3>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <!-- Product 1 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$199.00</div>
-                                    </div>
-                                    <img src="~/assets/Image/Product/iphone.png" alt="Headphones">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Product 2 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <div class="save-badge">
-                                        <div class="save-label">SAVE</div>
-                                        <div class="save-amount">$59.00</div>
-                                    </div>
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Tablet">
-                                </div>
-                                <div class="review-count">(152)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Product 3 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple TV">
-                                </div>
-                                <div class="review-count">(8)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <!-- Product 4 -->
-                        <div class="col-md-4 col-lg-2 col-xl">
-                            <div class="product-card">
-                                <div class="product-image-container">
-                                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/products/prod12.png" alt="Apple Watch">
-                                </div>
-                                <div class="review-count">(9)</div>
-                                <h3 class="product-name">Grande</h3>
-                                <p class="product-description">Blossom Pouch</p>
-                                <div class="star-rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                    <span class="rating-count">43 Ratings</span>
-                                </div>
-                                <div class="price-container">
-                                    <span class="current-price">$39.49</span>
-                                    <span class="original-price">$78.66</span>
-                                    <span class="discount">50% OFF</span>
-                                </div>
-                                <div class="free-shipping">FREE SHIPPING</div>
-                                <div class="stock-status">
-                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                    <span>In stock</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"><i class="fa-solid fa-chevron-left"></i></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"><i class="fa-solid fa-chevron-right"></i></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-    </div>
-</div>
 
 <div class="layout-wrapper container p-3 my-3 rounded-3">
     <!-- SIDEBAR -->
@@ -385,40 +301,21 @@
         <div class="sidebar">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h6 class="fw-bold text-uppercase mb-0">Thể loại</h6>
-                <button class="btn  btn-sm p-0 text-muted"><i class="fa-solid fa-code-compare"></i> Reset All</button>
+                <button class="btn btn-sm p-0 text-muted" id="resetFilters">
+                    <i class="fa-solid fa-code-compare"></i> Reset All
+                </button>
+
             </div>
             <div class="w-100  rounded" style="max-width: 220px;">
-                <div class="mb-4 d-flex flex-wrap gap-2">
-                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
-                        10.9 inch
-                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
-                    </div>
-
-                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
-                        10.9 inch
-                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
-                    </div>
-
-                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
-                        Color: Red
-                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
-                    </div>
-
-                    <div class="badge bg-white border text-muted d-flex align-items-center px-3 py-2 rounded-pill">
-                        128GB
-                        <a href="#" class="text-muted ms-2" style="text-decoration: none;">&times;</a>
-                    </div>
-                </div>
-
 
                 <!-- By Brands -->
                 <div class="mb-4">
                     <div class="d-flex justify-content-between " onclick="toggleBrandFilter()" style="cursor: pointer;">
                         <h6 class="mb-2 small fw-medium">Lọc Theo Thương Hiệu</h6>
-                        <i id="brand-icon" class="fa-solid fa-chevron-up"></i>
+                        <i id="brand-icon" class="fa-solid fa-chevron-down"></i>
                     </div>
                     <!-- Search input using Bootstrap -->
-                    <div id="brand-content" class="brand-collapse">
+                    <div id="brand-content" class="brand-collapse collapsed">
                         <div class="search-box small">
                             <input type="text" placeholder="Tìm kiếm ...">
                             <button><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -436,7 +333,7 @@
                                 var soBienThe = Model.BienTheHangHoas.Count(bt => maHangHoas.Contains(bt.MaHangHoa));
 
                                 <div class="form-check small my-2">
-                                    <input class="form-check-input" type="checkbox" id="brand_@thuonghieu.MaThuongHieu">
+                                    <input class="form-check-input brand-checkbox" type="checkbox" id="brand_@thuonghieu.MaThuongHieu" value="@thuonghieu.MaThuongHieu">
                                     <label class="form-check-label d-flex w-100" for="brand_@thuonghieu.MaThuongHieu">
                                         <img width="70px" height="20px" src="~/assets/Image/Logo/LogoBrand/@thuonghieu.Logo" alt="@thuonghieu.TenThuongHieu" />
                                         &nbsp;
@@ -444,8 +341,6 @@
                                     </label>
                                 </div>
                             }
-
-
                         </div>
                     </div>
                 </div>
@@ -456,18 +351,18 @@
                 <div class="mb-4">
                     <div class="d-flex justify-content-between " onclick="togglePriceFilter()" style="cursor: pointer;">
                         <h6 class="small fw-medium">Lọc Theo Giá</h6>
-                        <i id="price-icon" class="fa-solid fa-chevron-up"></i>
+                        <i id="price-icon" class="fa-solid fa-chevron-down"></i>
                     </div>
                     @*Range*@
-                    <div id="price-content" class="price-collapse">
+                    <div id="price-content" class="price-collapse collapsed">
                         <div class="range-slider position-relative my-3">
                             <!-- Thanh nền -->
                             <div class="slider-track"></div>
 
                             <!-- Thanh kéo trái -->
-                            <input type="range" min="0" max="10000000" value="0" id="rangeMin" class="range-input">
+                            <input type="range" min="0" max="100000000" value="0" id="rangeMin" class="range-input">
                             <!-- Thanh kéo phải -->
-                            <input type="range" min="0" max="10000000" value="10000000" id="rangeMax" class="range-input">
+                            <input type="range" min="0" max="100000000" value="100000000" id="rangeMax" class="range-input">
 
                             <!-- Track màu xanh giữa -->
                             <div class="slider-fill" id="sliderFill"></div>
@@ -485,8 +380,7 @@
                                 <input type="text" class="form-control" id="priceMaxInput" value="100000000">
                             </div>
                         </div>
-
-                        <button class="btn btn-sm btn-success text-white my-2 px-3 py-1">Go</button>
+                        <button class="btn btn-sm btn-success text-white my-2 px-3 py-1" id="filterByPrice">Go</button>
                     </div>
                 </div>
 
@@ -494,7 +388,7 @@
                 <div class="mb-4">
                     <div class="d-flex justify-content-between " onclick="toggleRatingFilter()" style="cursor: pointer;">
                         <h6 class="small fw-medium">Lọc Theo Đánh Giá</h6>
-                        <i id="rating-icon" class="fa-solid fa-chevron-up"></i>
+                        <i id="rating-icon" class="fa-solid fa-chevron-down"></i>
                     </div>
                     @{
                         // Làm tròn rating xuống số nguyên (1–5) và đếm số hàng hóa tương ứng
@@ -508,13 +402,14 @@
 
                     }
 
-                    <div id="rating-content" class="rating-collapse">
+                    <div id="rating-content" class="rating-collapse collapsed">
                         @for (int rating = 5; rating >= 1; rating--)
                         {
                             var count = ratingCounts.ContainsKey(rating) ? ratingCounts[rating] : 0;
                             <div class="form-check small mb-2">
-                                <input class="form-check-input" type="checkbox" id="rating@rating">
-                                <label class="form-check-label d-flex justify-content-between w-100" for="rating@rating">
+                                <input class="form-check-input rating-checkbox" value="@rating" type="checkbox">
+
+                                <label class="form-check-label d-flex justify-content-between w-100" for="rating@rating" value="@rating">
                                     <span>
                                         @for (int i = 0; i < rating; i++)
                                         {
@@ -533,7 +428,7 @@
                 <div class="mb-2">
                     <div class="d-flex justify-content-between " onclick="toggleMemoryFilter()" style="cursor: pointer;">
                         <h6 class="small fw-medium">Dung Lượng</h6>
-                        <i id="condition-icon" class="fa-solid fa-chevron-up"></i>
+                        <i id="memory-icon" class="fa-solid fa-chevron-down"></i>
                     </div>
                     @{
                         var dungLuongCounts = Model.BienTheHangHoas
@@ -545,19 +440,19 @@
 
                         int index = 1;
                     }
-                    <div id="memory-content" class="memory-collapse">
-                        <div class="row row-cols-2 g-2 small">
-                            @foreach (var item in dungLuongCounts)
-                            {
-                                var checkboxId = "mem" + (index++);
-                                <div class="col form-check">
-                                    <input class="form-check-input" type="checkbox" id="@checkboxId">
-                                    <label class="form-check-label d-flex justify-content-between w-100" for="@checkboxId">
-                                        <span>@item.Key</span><span class="text-muted">(@item.Value)</span>
-                                    </label>
-                                </div>
-                            }
-                        </div>
+                    <div id="memory-content" class="memory-collapse collapsed">
+
+                        @foreach (var item in dungLuongCounts)
+                        {
+                            var checkboxId = "mem" + (index++);
+                            <div class="col form-check  small mb-2">
+                                <input class="form-check-input memory-checkbox" value="@item.Key" type="checkbox" id="@checkboxId">
+                                <label class="form-check-label d-flex justify-content-between w-100" for="@checkboxId">
+                                    <span>@item.Key</span><span class="text-muted">(@item.Value)</span>
+                                </label>
+                            </div>
+                        }
+
                     </div>
                 </div>
 
@@ -571,14 +466,14 @@
                 <div class="mb-2">
                     <div class="d-flex justify-content-between " onclick="toggleRamFilter()" style="cursor: pointer;">
                         <h6 class="small fw-medium">RAM</h6>
-                        <i id="ram-icon" class="fa-solid fa-chevron-up"></i>
+                        <i id="ram-icon" class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div id="ram-content" class="ram-collapse">
+                    <div id="ram-content" class="ram-collapse collapsed">
                         @foreach (var item in ramCounts)
                         {
                             var id = "ram_" + item.Key.Replace(" ", "").Replace(".", "").Replace("GB", "").ToLower();
                             <div class="form-check small mb-2">
-                                <input class="form-check-input" type="checkbox" id="@id" />
+                                <input class="form-check-input ram-checkbox" value="@item.Key" type="checkbox" id="@id" />
                                 <label class="form-check-label d-flex justify-content-between w-100" for="@id">
                                     <span>@item.Key GB</span><span class="text-muted">(@item.Value)</span>
                                 </label>
@@ -598,14 +493,14 @@
                 <div class="mb-2">
                     <div class="d-flex justify-content-between " onclick="toggleMonitorFilter()" style="cursor: pointer;">
                         <h6 class="small fw-medium">Kích Thước Màn Hình</h6>
-                        <i id="monitor-icon" class="fa-solid fa-chevron-up"></i>
+                        <i id="monitor-icon" class="fa-solid fa-chevron-down"></i>
                     </div>
-                    <div id="monitor-content" class="monitor-collapse">
+                    <div id="monitor-content" class="monitor-collapse collapsed">
                         @foreach (var item in manHinhCounts)
                         {
                             var id = "monitor_" + item.Key.Replace(" ", "").Replace(".", "").Replace("\"", "").ToLower();
                             <div class="form-check small mb-2">
-                                <input class="form-check-input" type="checkbox" id="@id" />
+                                <input class="form-check-input monitor-checkbox" value="@item.Key" type="checkbox" id="@id" />
                                 <label class="form-check-label d-flex justify-content-between w-100" for="@id">
                                     <span>@item.Key</span><span class="text-muted">(@item.Value)</span>
                                 </label>
@@ -615,7 +510,7 @@
                 </div>
 
             </div>
-            </div>
+        </div>
         <div class="mt-3 position-relative text-white" style="background-color: #222; border-radius: 10px; overflow: hidden;">
             <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/addimg.png"
                  alt="Product Image"
@@ -635,11 +530,11 @@
             </div>
         </div>
         @*<div class="mt-3 position-relative text-white" style="background-color: #222; border-radius: 10px; overflow: hidden;">
-            <img src="https://wepos.com.vn/wp-content/uploads/2021/04/Khuye%CC%82%CC%81n-ma%CC%A3i-website-mu%CC%9B%CC%80ng-da%CC%A3i-le%CC%82%CC%83.jpg"
-                 alt="Product Image"
-                 class="img-fluid w-100"
-                 style="object-fit: cover; height: 200px;">
-        </div>*@
+                <img src="https://wepos.com.vn/wp-content/uploads/2021/04/Khuye%CC%82%CC%81n-ma%CC%A3i-website-mu%CC%9B%CC%80ng-da%CC%A3i-le%CC%82%CC%83.jpg"
+                     alt="Product Image"
+                     class="img-fluid w-100"
+                     style="object-fit: cover; height: 200px;">
+            </div>*@
 
     </div>
     <style>
@@ -674,7 +569,7 @@
             <!-- Navigation Tabs -->
 
             <div class="mb-3">
-                <label class="fw-bold mb-2 d-block">Sắp xếp theo</label>
+                <label class="fw-bold text-uppercase border-start border-4 border-success ps-3 my-2">Sắp xếp theo</label>
                 <div class="d-flex flex-wrap gap-2">
                     <button class="sort-btn active" data-sort="highToLow">
                         <i class="bi bi-sort-down-alt me-1"></i> Giá Cao - Thấp
@@ -686,88 +581,116 @@
                         <i class="bi bi-percent me-1"></i> Khuyến Mãi Hot
                     </button>
                     <button class="sort-btn" data-sort="mostViewed">
-                        <i class="bi bi-eye me-1"></i> Xem nhiều
+                        <i class="bi bi-eye me-1"></i> Phổ biến
                     </button>
                 </div>
             </div>
 
-
+            <style>
+                .discount-badge {
+                    background-color: #dc3545; /* đỏ rực */
+                    color: white;
+                    font-weight: bold;
+                    font-size: 0.75rem;
+                    padding: 4px 8px;
+                    border-bottom-left-radius: 8px;
+                    z-index: 10;
+                }
+            </style>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <div id="product-list" class="row">
+                    <div id="product-list" class="row product-list">
                         @foreach (var hangHoa in Model.HangHoas)
                         {
                             foreach (var bienThe in Model.BienTheHangHoas.Where(bt => bt.MaHangHoa == hangHoa.MaHangHoa))
                             {
-                               <div class="col-md-3 col-lg-3 col-xl-3 mb-4">
-                                   <div class="product-card">
-                                       <div class="product-image-container">
-                                           <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
-                                       </div>
+                                <div class="col-md-3 col-lg-3 col-xl-3 mb-4 product-item"
+                                     data-thuong-hieu="@hangHoa.MaThuongHieu"
+                                     data-rating="@Math.Floor(hangHoa.DanhGiaTrungBinh ?? 0)"
+                                     data-ram="@bienThe.RAM"
+                                     data-memory="@bienThe.DungLuong"
+                                     data-monitor="@bienThe.KichThuocManHinh"
+                                     data-price="@bienThe.GiaKhuyenMai.ToString("N0") đ"
+                                     data-original-price="@bienThe.GiaBan.ToString("N0") đ">
+                                    <div class="product-card position-relative">
+                                        <span class="discount-badge position-absolute top-0 end-0">
+                                            @((int)(100 - (bienThe.GiaKhuyenMai / bienThe.GiaBan * 100)))% OFF
+                                        </span>
+                                        <div class="product-image-container">
+                                            <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
+                                        </div>
 
-                                       <h6 class="product-name fw-bold">@hangHoa.TenHangHoa (@bienThe.MauSac)</h6>
-                                       <p class="product-description">@hangHoa.MoTa</p>
-                                       @{
-                                           double rating = hangHoa.DanhGiaTrungBinh ?? 0;
-                                           int fullStars = (int)Math.Floor(rating);
-                                           bool hasHalfStar = rating - fullStars >= 0.5;
-                                           int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-                                       }
+                                        <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong) </h6>
+                                        <p class="product-description  text-center">@hangHoa.MoTa</p>
+                                        @{
+                                            double rating = hangHoa.DanhGiaTrungBinh ?? 0;
+                                            int fullStars = (int)Math.Floor(rating);
+                                            bool hasHalfStar = rating - fullStars >= 0.5;
+                                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                                        }
 
-                                       <div class="star-rating">
-                                           @for (int i = 0; i < fullStars; i++)
-                                           {
-                                               <i class="bi bi-star-fill text-warning"></i>
-                                           }
+                                        <div class="star-rating text-center">
+                                            @for (int i = 0; i < fullStars; i++)
+                                            {
+                                                <i class="bi bi-star-fill "></i>
+                                            }
 
-                                           @if (hasHalfStar)
-                                           {
-                                               <i class="bi bi-star-half text-warning"></i>
-                                           }
+                                            @if (hasHalfStar)
+                                            {
+                                                <i class="bi bi-star-half "></i>
+                                            }
 
-                                           @for (int i = 0; i < emptyStars; i++)
-                                           {
-                                               <i class="bi bi-star text-warning"></i>
-                                           }
+                                            @for (int i = 0; i < emptyStars; i++)
+                                            {
+                                                <i class="bi bi-star "></i>
+                                            }
 
-                                           <span class="rating-count ms-2">(@rating.ToString("0.0"))</span>
-                                       </div>
+                                        </div>
 
-                                       <div class="price-container">
+                                        <div class="price-container">
 
-                                           <div class="d-flex">
-                                               <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0") đ</span>
-                                               <span class="original-price text-muted text-decoration-line-through ms-2">
-                                                   @bienThe.GiaBan.ToString("N0") đ
-                                               </span>
-                                           </div>
+                                            <div class="d-flex">
+                                                <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0") đ</span>
+                                                <span class="original-price text-muted text-decoration-line-through ms-2">
+                                                    @bienThe.GiaBan.ToString("N0") đ
+                                                </span>
+                                            </div>
 
-                                       </div>
+                                        </div>
 
 
-                                       <div class="free-shipping text-center">FREE SHIPPING</div>
-                                       <div class="d-flex justify-content-between">
-                                           <div class="stock-status">
-                                               <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                               <span>In stock</span>
-                                           </div>
-                                           <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
-                                               @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
-                                               {
-                                                   <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
-                                               }
-                                               else
-                                               {
-                                                   <i class="far fa-heart heart-icon" data-filled="false"></i>
-                                               }
-                                               <span>Yêu thích</span>
-                                           </a>
-                                       </div>
-                                
-                                   </div>
-                               </div>
+                                        <div class="free-shipping text-center">FREE SHIPPING</div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="stock-status">
+                                                @if (bienThe.SoLuongTonKho > 0)
+                                                {
+                                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                    <span>In stock</span>
+
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-x-circle-fill out-of-stock-icon"></i>
+                                                    <span>Out of stock</span>
+                                                }
+                                            </div>
+                                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
+                                                @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
+                                                {
+                                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                                }
+                                                <span>Yêu thích</span>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                </div>
                             }
-                            
+
                         }
 
                     </div>
@@ -849,8 +772,7 @@
                 Bên shop cho mình hỏi chút, hiện tại thì sản phẩm này của mình bị rớt 1 con vít vặn ở sau, cho mình hỏi đây là loại ốc vít nào để mình có thể mua và bổ sung
             </p>
             <div class="d-flex gap-2 mb-3">
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 1" class="rounded" width="80" height="80">
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 2" class="rounded" width="80" height="80">
+               
             </div>
 
             <!-- Reply Section -->
@@ -965,7 +887,7 @@
         icon.classList.toggle('fa-chevron-up');
         icon.classList.toggle('fa-chevron-down');
     }
-   
+
     function toggleMemoryFilter() {
         const content = document.getElementById('memory-content');
         const icon = document.getElementById('memory-icon');
@@ -980,14 +902,14 @@
         icon.classList.toggle('fa-chevron-up');
         icon.classList.toggle('fa-chevron-down');
     }
-    function toggleMornitorFilter() {
+    function toggleMonitorFilter() {
         const content = document.getElementById('monitor-content');
         const icon = document.getElementById('monitor-icon');
         content.classList.toggle('collapsed');
         icon.classList.toggle('fa-chevron-up');
         icon.classList.toggle('fa-chevron-down');
     }
-    
+
 
 </script>
 <script>
@@ -1028,6 +950,7 @@
 
         minInput.value = formatVND(minVal);
         maxInput.value = formatVND(maxVal);
+
     }
 
     function updateRangeFromInput() {
@@ -1122,6 +1045,131 @@
                     }
                 }
             });
+        });
+    });
+</script>
+
+<script>
+    const filterSelectors = [
+        '.brand-checkbox',
+        '.rating-checkbox',
+        '.ram-checkbox',
+        '.memory-checkbox',
+        '.monitor-checkbox'
+    ];
+
+    filterSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(cb => {
+            cb.addEventListener('change', filterProducts);
+        });
+    });
+
+    function filterProducts() {
+        const getSelectedValues = (selector) => {
+            return Array.from(document.querySelectorAll(selector + ':checked')).map(cb => cb.value);
+        };
+
+        const selectedBrands = getSelectedValues('.brand-checkbox');
+        const selectedRatings = getSelectedValues('.rating-checkbox').map(Number);
+        const selectedRAMs = getSelectedValues('.ram-checkbox');
+        const selectedMemory = getSelectedValues('.memory-checkbox');
+        const selectedMonitors = getSelectedValues('.monitor-checkbox');
+
+        document.querySelectorAll('.product-item').forEach(product => {
+            const brand = product.dataset.thuongHieu;
+            const rating = parseInt(product.dataset.rating);
+            const ram = product.dataset.ram;
+            const memory = product.dataset.memory;
+            const monitor = product.dataset.monitor;
+
+            const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(brand);
+            const ratingMatch = selectedRatings.length === 0 || selectedRatings.includes(rating);
+            const ramMatch = selectedRAMs.length === 0 || selectedRAMs.includes(ram);
+            const memoryMatch = selectedMemory.length === 0 || selectedMemory.includes(memory);
+            const monitorMatch = selectedMonitors.length === 0 || selectedMonitors.includes(monitor);
+
+            const show = brandMatch && ratingMatch && ramMatch && memoryMatch && monitorMatch;
+
+            product.style.display = show ? 'block' : 'none';
+        });
+    }
+
+    document.getElementById("resetFilters").addEventListener("click", function () {
+        // Bỏ chọn tất cả các checkbox
+        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+
+        // Hiển thị lại tất cả sản phẩm
+        document.querySelectorAll('.product-item').forEach(product => {
+            product.style.display = 'block';
+        });
+        document.getElementById("priceMinInput").value = "0";
+        document.getElementById("priceMaxInput").value = "100000000";
+
+    });
+
+</script>
+<script>
+    document.getElementById("filterByPrice").addEventListener("click", function () {
+        const min = parseInt(document.getElementById("priceMinInput").value) || 0;
+        const max = parseInt(document.getElementById("priceMaxInput").value) || 100000000;
+
+        document.querySelectorAll(".product-item").forEach(item => {
+            const price = parseInt(item.getAttribute("data-price")) || 0;
+            if (price >= min && price <= max) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    });
+</script>
+<script>
+    document.querySelectorAll(".sort-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            // Bỏ active các nút khác
+            document.querySelectorAll(".sort-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+
+            const sortType = this.dataset.sort;
+            const productList = document.querySelector(".product-list");
+            const items = Array.from(productList.querySelectorAll(".product-item"));
+
+            // Hàm parse số từ chuỗi có "đ" và dấu chấm
+            const getPriceValue = el => {
+                const priceText = el.dataset.price || "0";
+                return parseInt(priceText.replace(/[^\d]/g, "")) || 0;
+            };
+
+            const getRatingValue = el => {
+                return parseFloat(el.dataset.rating) || 0;
+            };
+
+            let sortedItems = [];
+
+            switch (sortType) {
+                case "highToLow":
+                    sortedItems = items.sort((a, b) => getPriceValue(b) - getPriceValue(a));
+                    break;
+                case "lowToHigh":
+                    sortedItems = items.sort((a, b) => getPriceValue(a) - getPriceValue(b));
+                    break;
+                case "hotDeals":
+                    sortedItems = items.sort((a, b) => {
+                        const discountA = getPriceValue(a) / parseInt(a.dataset.originalPrice.replace(/[^\d]/g, "")) || 1;
+                        const discountB = getPriceValue(b) / parseInt(b.dataset.originalPrice.replace(/[^\d]/g, "")) || 1;
+                        return discountA - discountB; // discount thấp hơn là giảm giá cao hơn
+                    });
+                    break;
+                case "mostViewed":
+                    sortedItems = items.sort((a, b) => getRatingValue(b) - getRatingValue(a));
+                    break;
+                default:
+                    sortedItems = items;
+            }
+
+            // Xóa cũ và gắn lại theo thứ tự mới
+            productList.innerHTML = "";
+            sortedItems.forEach(item => productList.appendChild(item));
         });
     });
 </script>
