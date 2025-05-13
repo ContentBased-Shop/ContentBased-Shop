@@ -22,17 +22,36 @@
                 <!-- Category Navigation -->
                 <nav class="category-nav">
                     <ul class="list-unstyled">
-                        <li><a href="#" class="category-link "><i class="fa-solid fa-laptop"></i>  Laptops <i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-server"></i>  PC & Computers <i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-mobile-screen"></i>  Cell Phones<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-tablet-screen-button"></i>  Tablets<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-gamepad"></i>  Gaming & VR<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-wifi"></i>  Networking<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-camera-retro"></i>  Cameras<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-calendar"></i>  Sounds<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-print"></i>  Phụ Kiện<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-brands fa-usb"></i>  Storage, USB<i class="fa-solid fa-chevron-right float-end"></i></a></li>
-                        <li><a href="#" class="category-link"><i class="fa-solid fa-keyboard">  </i>Keyboard <i class="fa-solid fa-chevron-right float-end"></i></a></li>
+                        @foreach (var dm in ViewBag.DanhMucList as List<Shop.Models.DanhMuc>)
+                        {
+                            string hrefValue = "#"; // mặc định không liên kết
+
+                            switch (dm.MaDanhMuc)
+                            {
+                                case "DM001":
+                                case "DM003":
+                                    hrefValue = Url.Action("ProductDienThoaiTabLet", "Product", new { maDm = dm.MaDanhMuc });
+                                    break;
+                                case "DM002":
+                                    hrefValue = Url.Action("ProductLaptop", "Product", new { maDm = dm.MaDanhMuc });
+                                    break;
+                                case "DM004":
+                                    hrefValue = Url.Action("ProductPhuKien", "Product", new { maDm = dm.MaDanhMuc });
+                                    break;
+                                // Thêm các case khác nếu cần
+                                default:
+                                    hrefValue = "#"; // hoặc link đến trang mặc định
+                                    break;
+                            }
+
+                            <li>
+                                <a href="@hrefValue" class="category-link">
+                                    @Html.Raw(dm.TenDanhMuc)
+                                    <i class="fa-solid fa-chevron-right float-end"></i>
+                                </a>
+                            </li>
+                        }
+
                     </ul>
                 </nav>
             </div>

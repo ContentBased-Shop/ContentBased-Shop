@@ -28,8 +28,10 @@ namespace Shop.Controllers
             }
 
             ViewBag.DanhSachYeuThich = dsYeuThich;
+            var danhMucs = data.DanhMucs
+                     .ToList();
 
-
+            ViewBag.DanhMucList = danhMucs;
             var hangHoaFull = (from hh in data.HangHoas
                                    // Gộp với tất cả biến thể theo MaHangHoa
                                join bt in data.BienTheHangHoas

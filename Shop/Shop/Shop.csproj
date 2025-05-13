@@ -148,6 +148,7 @@
     <Compile Include="Models\BienTheHangHoaViewModel.cs" />
     <Compile Include="Models\DanhGiaView.cs" />
     <Compile Include="Models\HangHoaViewModel.cs" />
+    <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\ProductDetailPageView.cs" />
     <Compile Include="Models\ProductDetailView.cs" />
     <Compile Include="Models\ProductRecentViewModel.cs" />

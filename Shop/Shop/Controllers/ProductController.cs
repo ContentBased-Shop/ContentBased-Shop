@@ -77,7 +77,6 @@ namespace Shop.Controllers
             return View("ProductSearch", hangHoaFiltered);
         }
 
-
         #endregion
         #region ProductDetail
         public ActionResult ProductDetail(string id, string mabienthe)
@@ -219,9 +218,54 @@ namespace Shop.Controllers
 
         #endregion
         #region ProductDienThoaiTabLet
-        public ActionResult ProductDienThoaiTabLet()
+        public ActionResult ProductDienThoaiTabLet(string maDm)
         {
-            return View();
+            // Hiện thị danh sách đã thêm vào ds yêu thích
+            string maKhachHang = Session["UserID"] as string;
+            List<string> dsYeuThich = new List<string>();
+
+            if (!string.IsNullOrEmpty(maKhachHang))
+            {
+                dsYeuThich = data.YeuThiches
+                                 .Where(y => y.MaKhachHang == maKhachHang)
+                                 .Select(y => y.MaHangHoa)
+                                 .ToList();
+            }
+
+            ViewBag.DanhSachYeuThich = dsYeuThich;                                        
+            var selectedBienThes = (from bt in data.BienTheHangHoas
+                                    join ha in data.HinhAnhHangHoas
+                                    on bt.MaBienThe equals ha.MaBienThe into hinhAnhGroup
+                                    select new BienTheHangHoaViewModel
+                                    {
+                                        MaBienThe = bt.MaBienThe,
+                                        MaHangHoa = bt.MaHangHoa,
+                                        MauSac = bt.MauSac,
+                                        DungLuong = bt.DungLuong,
+                                        CPU = bt.CPU,
+                                        RAM = bt.RAM,
+                                        KichThuocManHinh = bt.KichThuocManHinh,
+                                        LoaiBoNho = bt.LoaiBoNho,
+                                        GiaBan = bt.GiaBan ?? 0,
+                                        GiaKhuyenMai = bt.GiaKhuyenMai ?? 0,
+                                        SoLuongTonKho = bt.SoLuongTonKho ?? 0,
+                                        UrlAnh = hinhAnhGroup.Select(x => x.UrlAnh).ToList()
+                                    }).ToList();
+            var hangHoas = data.HangHoas
+                     .Where(h => h.MaDanhMuc == maDm)
+                     .ToList();
+            // Nếu đã có danh sách mã thương hiệu cần lấy
+            var thuongHieuIds = hangHoas.Select(h => h.MaThuongHieu).Distinct().ToList();
+
+            var thuongHieus = data.ThuongHieus
+                .ToList();
+            var productCategory = new ProductCategory
+            {
+                BienTheHangHoas = selectedBienThes,
+                HangHoas = hangHoas,
+                ThuongHieus = thuongHieus
+            };
+            return View(productCategory);
         }
         #endregion
         #region ProductLapTopPC
@@ -342,7 +386,6 @@ namespace Shop.Controllers
                 return Json(new { success = true, removed = false, message = "Đã thêm vào danh sách yêu thích!" });
             }
         }
-
 
         public JsonResult SearchSuggest(string keyword)
         {
