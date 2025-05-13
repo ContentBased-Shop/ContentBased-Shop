@@ -688,18 +688,43 @@ namespace Shop.Controllers
             // Lấy địa chỉ giao hàng
             var diaChi = giaoHang != null ? data.DiaChiKhachHangs.FirstOrDefault(dc => dc.MaDiaChi == giaoHang.MaDiaChi) : null;
             
-            // Lấy danh sách sản phẩm trong đơn hàng
-            var chiTietDonHang = data.ChiTietDonHangs
+            // Lấy chi tiết đơn hàng cơ bản
+            var chiTietDonHangCoSo = data.ChiTietDonHangs
                 .Where(ct => ct.MaDonHang == id)
-                .Select(ct => new
-                {
-                    ct.MaBienThe,
-                    ct.SoLuong,
-                    ct.DonGia,
-                    BienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == ct.MaBienThe),
-                    HangHoa = data.HangHoas.FirstOrDefault(hh => hh.MaHangHoa == data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == ct.MaBienThe).MaHangHoa)
-                })
                 .ToList();
+                
+            var chiTietDonHang = new List<OrderSuccessItemModel>();
+            
+            // Biến đổi thành OrderSuccessItemModel
+            foreach (var ct in chiTietDonHangCoSo)
+            {
+                var bienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == ct.MaBienThe);
+                string tenHangHoa = "Sản phẩm";
+                string mauSac = null;
+                string dungLuong = null;
+                
+                if (bienThe != null)
+                {
+                    var hangHoa = data.HangHoas.FirstOrDefault(hh => hh.MaHangHoa == bienThe.MaHangHoa);
+                    if (hangHoa != null)
+                    {
+                        tenHangHoa = hangHoa.TenHangHoa;
+                    }
+                    
+                    mauSac = bienThe.MauSac;
+                    dungLuong = bienThe.DungLuong;
+                }
+                
+                chiTietDonHang.Add(new OrderSuccessItemModel
+                {
+                    MaBienThe = ct.MaBienThe,
+                    SoLuong = ct.SoLuong.HasValue ? ct.SoLuong.Value : 0,
+                    DonGia = ct.DonGia.HasValue ? (decimal)ct.DonGia.Value : 0m,
+                    TenSanPham = tenHangHoa,
+                    MauSac = mauSac,
+                    DungLuong = dungLuong
+                });
+            }
             
             ViewBag.DonHang = donHang;
             ViewBag.ThanhToan = thanhToan;
@@ -941,5 +966,15 @@ namespace Shop.Controllers
     {
         public string maBienThe { get; set; }
         public int soLuong { get; set; }
+    }
+    
+    public class OrderSuccessItemModel
+    {
+        public string MaBienThe { get; set; }
+        public int SoLuong { get; set; }
+        public decimal DonGia { get; set; }
+        public string TenSanPham { get; set; }
+        public string MauSac { get; set; }
+        public string DungLuong { get; set; }
     }
 }
