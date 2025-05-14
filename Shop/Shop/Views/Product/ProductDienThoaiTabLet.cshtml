@@ -170,7 +170,7 @@
                                                 else
                                                 {
                                                     <i class="bi bi-x-circle-fill out-of-stock-icon"></i>
-                                                    <span>Out of stock</span>
+                                                    <span>&nbsp; Out stock</span>
                                                 }
                                             </div>
                                             <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
@@ -604,7 +604,7 @@
                         {
                             foreach (var bienThe in Model.BienTheHangHoas.Where(bt => bt.MaHangHoa == hangHoa.MaHangHoa))
                             {
-                                <div class="col-md-3 col-lg-3 col-xl-3 mb-4 product-item"
+                                <div class="col-md-3 col-lg-3 col-xl-3 mb-4 product-item d-none"
                                      data-thuong-hieu="@hangHoa.MaThuongHieu"
                                      data-rating="@Math.Floor(hangHoa.DanhGiaTrungBinh ?? 0)"
                                      data-ram="@bienThe.RAM"
@@ -670,8 +670,8 @@
                                                 }
                                                 else
                                                 {
-                                                    <i class="bi bi-x-circle-fill out-of-stock-icon"></i>
-                                                    <span>Out of stock</span>
+                                                    <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
+                                                    <span>&nbsp;Out stock</span>
                                                 }
                                             </div>
                                             <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
@@ -694,36 +694,19 @@
                         }
 
                     </div>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination justify-content-center">
-                            <!-- Previous button -->
-                            <li class="page-item disabled mx-1">
-                                <a class="page-link rounded-2" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
+                    <div class="text-center mt-4">
+                        <button id="loadMoreBtn" class="btn btn-outline-primary">
+                            Xem thêm @Model.BienTheHangHoas.Count() - 8 sản phẩm còn lại
+                        </button>
+                    </div>
 
-                            <!-- Page Numbers -->
-                            <li class="page-item mx-1 active">
-                                <a class="page-link rounded-2" href="#">1</a>
-                            </li>
-                            <li class="page-item mx-1">
-                                <a class="page-link rounded-2" href="#">2</a>
-                            </li>
-                            <li class="page-item mx-1">
-                                <a class="page-link rounded-2" href="#">3</a>
-                            </li>
-                            <li class="page-item disabled mx-1">
-                                <span class="page-link rounded-2">...</span>
-                            </li>
-                            <li class="page-item mx-1">
-                                <a class="page-link rounded-2" href="#">10</a>
-                            </li>
 
-                            <!-- Next button -->
-                            <li class="page-item mx-1">
-                                <a class="page-link rounded-2" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    <div id="load-more-spinner" class="text-center my-3" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -772,7 +755,7 @@
                 Bên shop cho mình hỏi chút, hiện tại thì sản phẩm này của mình bị rớt 1 con vít vặn ở sau, cho mình hỏi đây là loại ốc vít nào để mình có thể mua và bổ sung
             </p>
             <div class="d-flex gap-2 mb-3">
-               
+
             </div>
 
             <!-- Reply Section -->
@@ -1173,3 +1156,51 @@
         });
     });
 </script>
+<script>
+    const items = document.querySelectorAll('.product-item');
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    const spinner = document.getElementById('load-more-spinner');
+
+    let visibleCount = 0;
+    const initialShow = 8;
+    const itemsPerClick = 4;
+
+    function updateButtonText() {
+        const remaining = items.length - visibleCount;
+        loadMoreBtn.innerText = `Xem thêm ${remaining} sản phẩm còn lại`;
+    }
+
+    function showItems(count) {
+        let shown = 0;
+        for (let i = visibleCount; i < items.length && shown < count; i++) {
+            items[i].classList.remove('d-none');
+            shown++;
+        }
+        visibleCount += shown;
+
+        if (visibleCount >= items.length) {
+            loadMoreBtn.style.display = 'none';
+        } else {
+            updateButtonText();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        showItems(initialShow);
+        updateButtonText();
+    });
+
+    loadMoreBtn.addEventListener('click', function () {
+        loadMoreBtn.style.display = 'none';
+        spinner.style.display = 'block';
+
+        setTimeout(function () {
+            showItems(itemsPerClick);
+            spinner.style.display = 'none';
+            if (visibleCount < items.length) {
+                loadMoreBtn.style.display = 'inline-block';
+            }
+        }, 1000);
+    });
+</script>
+
