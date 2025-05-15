@@ -41,7 +41,7 @@
 
 <div class="container bg-white p-4 rounded-3 mb-4">
     <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">
-        TOP LAPTOP  
+        TOP LAPTOP
     </h4>
     <div class="row g-4">
         <!-- Current Slide -->
@@ -129,12 +129,247 @@
         </div>
     </div>
 </div>
+<div class="container bg-white rounded-3 my-2 p-3">
+    <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 my-4">
+        Danh Mục Sản phẩm Khác
+    </h4>
+    <!-- Categories Grid -->
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
+        <!-- Category Item Template -->
+        <div class="col">
+            <a href="http://localhost:65154/Product/ProductDienThoaiTabLet?maDm=DM001" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            var maDanhMucCanDem = "DM001";
+                            var soLuongSanPham = Model.BienTheHangHoas
+                                .Count(bt => Model.HangHoas.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Điện Thoại</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="http://localhost:65154/Product/ProductDienThoaiTabLet?maDm=DM003" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM003";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Tablet</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://cdn.tgdd.vn/Products/Images/522/325517/ipad-pro-13-inch-m4-wifi-black-thumb-600x600.jpg" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="http://localhost:65154/Product/ProductLaptopPC?maDm=DM002" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM002";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">LapTop</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="~/assets/Image/Header/Product_Feature/Lap_mac.png" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="http://localhost:65154/Product/AnotherProduct?maDm=DM004" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM004";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Bàn Phím</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/4547/337862/ban-phim-co-bluetooth-akko-5098b-black-gold-v3-piano-pro-090525-103858-370-600x600.jpg" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="http://localhost:65154/Product/AnotherProduct?maDm=DM006" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM006";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Loa - Tai Nghe</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://cdn2.cellphones.com.vn/insecure/rs:fill:0:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/j/b/jbl_flip_6_4.png" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col d-none" data-extra="true">
+            <a href="http://localhost:65154/Product/AnotherProduct?maDm=DM007" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM007";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Máy Ảnh</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://imagedelivery.net/ZeGtsGSjuQe1P3UP_zk3fQ/09bd243f-a2ca-4e60-fc6e-6bc0dc13b400/storedata" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col d-none" data-extra="true">
+            <a href="http://localhost:65154/Product/AnotherProduct?maDm=DM008" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM008";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Tivi</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://cdn.tgdd.vn/Products/Images/1942/324928/tivi-qned-lg-4k-65-inch-65qned80tsa-240424-092712-550x340.jpg" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col d-none" data-extra="true">
+            <a href="http://localhost:65154/Product/Gaming?maDm=DM009" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM009";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Gaming</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://store.sony.com.vn/cdn/shop/products/DSE_08_PR_CMYK_WithNotice_1_2000x.jpg?v=1675771709" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col d-none" data-extra="true">
+            <a href="http://localhost:65154/Product/AnotherProduct?maDm=DM010" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM010";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Thiết bị mạng</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://cdn.tgdd.vn/Products/Images/4727/235817/router-chuan-wifi-6-ax1500-tp-link-archer-ax10-100822-044850-600x600.jpg" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col d-none" data-extra="true">
+            <a href="http://localhost:65154/Product/AnotherProduct?maDm=DM011" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM011";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Màn hình</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://anphat.com.vn/media/product/45507_ta.jpg" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col d-none" data-extra="true">
+            <a href="http://localhost:65154/Product/PhuKien?maDm=DM005" class="text-decoration-none text-dark">
+                <div class="card category-card h-100 border">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        @{
+                            maDanhMucCanDem = "DM005";
+                            soLuongSanPham = Model.ListBienTheGoc
+                                .Count(bt => Model.ListHangHoaGoc.Any(hh => hh.MaHangHoa == bt.MaHangHoa && hh.MaDanhMuc == maDanhMucCanDem));
+                        }
+                        <div class="card-body d-flex justify-content-between align-items-center">
+                            <div>
+                                <h3 class="card-title fs-6 fw-semibold">Phụ kiện</h3>
+                                <p class="card-text text-secondary small">@soLuongSanPham sản phẩm</p>
+                            </div>
+                        </div>
+                        <img src="https://www.tnc.com.vn/uploads/product/vy2023/ext/sac-du-phong-baseus-qpow2-10000mah-black-125982.jpg" alt="iPhone" class="category-image-top-cell">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    <!-- Nút Xem tất cả -->
+    <div class="text-center mt-3">
+        <button class="btn btn-outline-success" id="toggleButton" onclick="toggleCategories()">Xem tất cả</button>
+    </div>
+</div>
+
 
 <div class=" container p-0 rounded-3">
     <!-- Product Carousel -->
     <div style="background-color:white" id="productCarousel" class="carousel slide position-relative px-3 rounded-3">
         <!-- Navigation Tabs -->
-
         @{
             var products = (from hh in Model.HangHoas
                             join bt in Model.BienTheHangHoas on hh.MaHangHoa equals bt.MaHangHoa
@@ -149,7 +384,7 @@
         }
         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 m-4">
+                <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 my-4">
                     Được mọi người yêu thích
                 </h4>
                 @for (int i = 0; i < totalSlides; i++)
@@ -250,113 +485,12 @@
                     <span class="carousel-control-next-icon"></span>
                 </button>
             }
-
-
-
-
-
         </div>
     </div>
 </div>
 
 
 
-
-
-<div class="container bg-white rounded-3 my-2 p-3">
-    <!-- Categories Grid -->
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-3">
-        <!-- Category Item Template -->
-        <div class="col">
-            <a href="#" class="text-decoration-none">
-                <div class="card category-card h-100 border">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="card-title fs-6 fw-semibold">iPhone (iOS)</h3>
-                            <p class="card-text text-secondary small">74 Items</p>
-                        </div>
-                        <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class="category-image-top-cell">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Android Category -->
-        <div class="col">
-            <a href="#" class="text-decoration-none">
-                <div class="card category-card h-100 border">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="card-title fs-6 fw-semibold">Android</h3>
-                            <p class="card-text text-secondary small">35 Items</p>
-                        </div>
-                        <img src="~/assets/Image/Header/Product_Feature/phone_adr.png" alt="Android" class=".category-image-top-cell">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- 5G Support Category -->
-        <div class="col">
-            <a href="#" class="text-decoration-none">
-                <div class="card category-card h-100 border">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="card-title fs-6 fw-semibold">5G Support</h3>
-                            <p class="card-text text-secondary small">12 Items</p>
-                        </div>
-                        <img src="~/assets/Image/Header/Product_Feature/phone_5g.png" alt="5G Support" class=".category-image-top-cell">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Gaming Category -->
-        <div class="col">
-            <a href="#" class="text-decoration-none">
-                <div class="card category-card h-100 border">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="card-title fs-6 fw-semibold">Gaming</h3>
-                            <p class="card-text text-secondary small">9 Items</p>
-                        </div>
-                        <img src="~/assets/Image/Header/Product_Feature/phone_gaming.png" alt="Gaming" class=".category-image-top-cell">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Xiaomi Category -->
-        <div class="col">
-            <a href="#" class="text-decoration-none">
-                <div class="card category-card h-100 border">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="card-title fs-6 fw-semibold">Xiaomi</h3>
-                            <p class="card-text text-secondary small">52 Items</p>
-                        </div>
-                        <img src="~/assets/Image/Header/Product_Feature/phone_xiaomi.png" alt="Xiaomi" class=".category-image-top-cell">
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Accessories Category -->
-        <div class="col">
-            <a href="#" class="text-decoration-none">
-                <div class="card category-card h-100 border">
-                    <div class="card-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <h3 class="card-title fs-6 fw-semibold">Accessories</h3>
-                            <p class="card-text text-secondary small">29 Items</p>
-                        </div>
-                        <img src="~/assets/Image/Header/Product_Feature/phone_acces.png" alt="Accessories" class=".category-image-top-cell">
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-</div>
 
 
 
@@ -726,99 +860,96 @@
                     <div id="product-list" class="row product-list">
                         @foreach (var hangHoa in Model.HangHoas)
                         {
-                        foreach (var bienThe in Model.BienTheHangHoas.Where(bt => bt.MaHangHoa == hangHoa.MaHangHoa))
-                        {
-                        <div class="col-md-3 col-lg-3 col-xl-3 mb-4 product-item d-none"
-                             data-thuong-hieu="@hangHoa.MaThuongHieu"
-                             data-rating="@Math.Floor(hangHoa.DanhGiaTrungBinh ?? 0)"
-                             data-ram="@bienThe.RAM"
-                             data-memory="@bienThe.DungLuong"
-                             data-monitor="@bienThe.KichThuocManHinh"
-                             data-price="@bienThe.GiaKhuyenMai.ToString(" N0") đ"
-                             data-original-price="@bienThe.GiaBan.ToString(" N0") đ"
-                             data-bonho="@bienThe.LoaiBoNho"
+                            foreach (var bienThe in Model.BienTheHangHoas.Where(bt => bt.MaHangHoa == hangHoa.MaHangHoa))
+                            {
+                                <div class="col-md-3 col-lg-3 col-xl-3 mb-4 product-item d-none"
+                                     data-thuong-hieu="@hangHoa.MaThuongHieu"
+                                     data-rating="@Math.Floor(hangHoa.DanhGiaTrungBinh ?? 0)"
+                                     data-ram="@bienThe.RAM"
+                                     data-memory="@bienThe.DungLuong"
+                                     data-monitor="@bienThe.KichThuocManHinh"
+                                     data-price="@bienThe.GiaKhuyenMai.ToString(" N0") đ"
+                                     data-original-price="@bienThe.GiaBan.ToString(" N0") đ"
+                                     data-bonho="@bienThe.LoaiBoNho">
 
-                             
-                             >
-                            
-                            <div class="product-card position-relative">
-                                <span class="discount-badge position-absolute top-0 end-0">
-                                    @((int)(100 - (bienThe.GiaKhuyenMai / bienThe.GiaBan * 100)))% OFF
-                                </span>
-                                <div class="product-image-container">
-                                    <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
-                                </div>
-
-                                <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong) </h6>
-                                <p class="product-description  text-center">@hangHoa.MoTa</p>
-                                @{
-                                double rating = hangHoa.DanhGiaTrungBinh ?? 0;
-                                int fullStars = (int)Math.Floor(rating);
-                                bool hasHalfStar = rating - fullStars >= 0.5;
-                                int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-                                }
-
-                                <div class="star-rating text-center">
-                                    @for (int i = 0; i < fullStars; i++)
-                                    {
-                                    <i class="bi bi-star-fill "></i>
-                                    }
-
-                                    @if (hasHalfStar)
-                                    {
-                                    <i class="bi bi-star-half "></i>
-                                    }
-
-                                    @for (int i = 0; i < emptyStars; i++)
-                                    {
-                                    <i class="bi bi-star "></i>
-                                    }
-
-                                </div>
-
-                                <div class="price-container">
-
-                                    <div class="d-flex">
-                                        <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0") đ</span>
-                                        <span class="original-price text-muted text-decoration-line-through ms-2">
-                                            @bienThe.GiaBan.ToString("N0") đ
+                                    <div class="product-card position-relative">
+                                        <span class="discount-badge position-absolute top-0 end-0">
+                                            @((int)(100 - (bienThe.GiaKhuyenMai / bienThe.GiaBan * 100)))% OFF
                                         </span>
+                                        <div class="product-image-container">
+                                            <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
+                                        </div>
+
+                                        <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong) </h6>
+                                        <p class="product-description  text-center">@hangHoa.MoTa</p>
+                                        @{
+                                            double rating = hangHoa.DanhGiaTrungBinh ?? 0;
+                                            int fullStars = (int)Math.Floor(rating);
+                                            bool hasHalfStar = rating - fullStars >= 0.5;
+                                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                                        }
+
+                                        <div class="star-rating text-center">
+                                            @for (int i = 0; i < fullStars; i++)
+                                            {
+                                                <i class="bi bi-star-fill "></i>
+                                            }
+
+                                            @if (hasHalfStar)
+                                            {
+                                                <i class="bi bi-star-half "></i>
+                                            }
+
+                                            @for (int i = 0; i < emptyStars; i++)
+                                            {
+                                                <i class="bi bi-star "></i>
+                                            }
+
+                                        </div>
+
+                                        <div class="price-container">
+
+                                            <div class="d-flex">
+                                                <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0") đ</span>
+                                                <span class="original-price text-muted text-decoration-line-through ms-2">
+                                                    @bienThe.GiaBan.ToString("N0") đ
+                                                </span>
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="free-shipping text-center">FREE SHIPPING</div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="stock-status">
+                                                @if (bienThe.SoLuongTonKho > 0)
+                                                {
+                                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                    <span>In stock</span>
+
+                                                }
+                                                else
+                                                {
+                                                    <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
+                                                    <span>&nbsp;Out stock</span>
+                                                }
+                                            </div>
+                                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
+                                                @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
+                                                {
+                                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                                }
+                                                <span>Yêu thích</span>
+                                            </a>
+                                        </div>
+
                                     </div>
-
                                 </div>
-
-
-                                <div class="free-shipping text-center">FREE SHIPPING</div>
-                                <div class="d-flex justify-content-between">
-                                    <div class="stock-status">
-                                        @if (bienThe.SoLuongTonKho > 0)
-                                        {
-                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                        <span>In stock</span>
-
-                                        }
-                                        else
-                                        {
-                                        <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
-                                        <span>&nbsp;Out stock</span>
-                                        }
-                                    </div>
-                                    <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
-                                        @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
-                                        {
-                                        <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
-                                        }
-                                        else
-                                        {
-                                        <i class="far fa-heart heart-icon" data-filled="false"></i>
-                                        }
-                                        <span>Yêu thích</span>
-                                    </a>
-                                </div>
-
-                            </div>
-                        </div>
-                        }
+                            }
 
                         }
 
@@ -1027,7 +1158,7 @@
         content.classList.toggle('collapsed');
         icon.classList.toggle('fa-chevron-up');
         icon.classList.toggle('fa-chevron-down');
-    } 
+    }
 </script>
 <script>
     const rangeMin = document.getElementById("rangeMin");
@@ -1341,3 +1472,14 @@
     });
 </script>
 
+<script>
+    function toggleCategories() {
+        const extras = document.querySelectorAll('[data-extra="true"]');
+        const btn = document.getElementById("toggleButton");
+
+        const isHidden = extras[0].classList.contains('d-none');
+        extras.forEach(el => el.classList.toggle('d-none'));
+
+        btn.textContent = isHidden ? 'Thu gọn' : 'Xem tất cả';
+    }
+</script>

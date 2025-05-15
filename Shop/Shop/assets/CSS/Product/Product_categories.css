@@ -17,14 +17,24 @@
         text-decoration: underline;
         font-weight: 500;
     }
-
+.category-image-top-cell{
+    width:60px;
+    height:60px;
+}
 .layout-wrapper {
     display: flex;
     min-height: 65vh;
     background-color: #fff;
-    width:100%;
+    width: 100%;
+}
+.transition-container {
+    max-height: 360px; /* chiều cao ban đầu, đủ chứa 1 hàng */
+    transition: max-height 0.5s ease-in-out;
 }
 
+    .transition-container.expanded {
+        max-height: 999px; /* hoặc bạn có thể dùng chiều cao phù hợp với nội dung */
+    }
 .sidebar {
     width: 100%;
     min-width: 220px;

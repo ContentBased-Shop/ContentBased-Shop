@@ -12,6 +12,7 @@ namespace Shop.Models
         public List<HangHoa> HangHoas { get; set; }
         public List<ThuongHieu> ThuongHieus { get; set; }
 
-
+        public List<BienTheHangHoa> ListBienTheGoc { get; set; }
+        public List<HangHoa> ListHangHoaGoc { get; set; }
     }
 }
