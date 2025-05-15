@@ -22,6 +22,7 @@
     display: flex;
     min-height: 65vh;
     background-color: #fff;
+    width:100%;
 }
 
 .sidebar {
@@ -49,37 +50,6 @@
 
 /*Product */
 
-.carousel-control-prev,
-.carousel-control-next {
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    width: 20px;
-    height: 20px;
-    mask-size: 100%;
-    color: dimgray
-}
-
-.carousel-control-prev {
-    left: -20px;
-}
-
-.carousel-control-next {
-    right: -20px;
-}
-
-.carousel-inner {
-    padding: 0 20px;
-}
 
 .nav-tabs {
     border-bottom: none;
@@ -249,44 +219,56 @@
     }
 }
 
-.carousel-control-prev,
-.carousel-control-next {
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 1;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    width: 20px;
-    height: 20px;
-    mask-size: 100%;
-    color: dimgray
-}
-
-.carousel-control-prev {
-    left: -20px;
-}
-
-.carousel-control-next {
-    right: -20px;
-}
-
-.carousel-inner {
-    padding: 0 10px;
-}
 
 @media (max-width: 768px) {
     .product-card {
         margin-bottom: 30px;
     }
 }
+.carousel-item .row {
+    display: flex;
+    justify-content: flex-start;
+}
 
+
+.col-custom-5 {
+    width: 20%;
+    float: left;
+    padding: 0 0.5rem; /* padding giữa các cột */
+    box-sizing: border-box;
+}
+@media (max-width: 992px) {
+    .col-custom-5 {
+        width: 50%; /* 2 sp / hàng trên mobile */
+    }
+}
+@media (max-width: 576px) {
+    .col-custom-5 {
+        width: 100%; /* 1 sp / hàng trên màn nhỏ */
+    }
+}
+.carousel-control-prev,
+.carousel-control-next {
+    width: 50px;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border-radius: 50%; /* Bo tròn */
+    opacity: 1;
+    transition: background-color 0.3s ease;
+}
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        background-color: lightgray;
+    }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 60% 60%;
+    filter: invert(1); /* Màu trắng */
+}
 
 .badge:hover {
     background-color: #1ABA1A !important;
@@ -386,6 +368,7 @@
         background-color: #1ABA1A; /* màu nền khi được chọn */
         border-color: #1ABA1A; /* viền khi được chọn */
     }
+.bonho-collapse,
 .monitor-collapse,
 .ram-collapse,
 .condition-collapse,
@@ -399,6 +382,7 @@
     max-height: 1000px; /* đủ cao để chứa nội dung */
     opacity: 1;
 }
+    .bonho-collapse.collapsed,
     .monitor-collapse.collapsed,
     .ram-collapse.collapsed,
     .condition-collapse.collapsed,
