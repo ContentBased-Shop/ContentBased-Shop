@@ -53,6 +53,36 @@ namespace Shop.Controllers
                 double phiVanChuyen = 0; // Đặt phí vận chuyển bằng 0
                 double tongThanhToan = tongTien + thue + phiVanChuyen;
 
+                // Xử lý voucher nếu có
+                if (!string.IsNullOrWhiteSpace(model.maVoucherCode))
+                {
+                    var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == model.maVoucherCode);
+                    if (voucher != null)
+                    {
+                        // Áp dụng giảm giá
+                        double soTienGiam = 0;
+                        if (voucher.LoaiGiamGia == "TienMat")
+                        {
+                            // Giảm tiền mặt
+                            soTienGiam = (double)voucher.GiaTriGiamGia;
+                        }
+                        else if (voucher.LoaiGiamGia == "PhanTram")
+                        {
+                            // Giảm phần trăm (áp dụng trên tổng đã bao gồm thuế)
+                            soTienGiam = tongThanhToan * ((double)voucher.GiaTriGiamGia / 100);
+                        }
+
+                        // Đảm bảo số tiền giảm không vượt quá tổng tiền
+                        if (soTienGiam > tongThanhToan)
+                        {
+                            soTienGiam = tongThanhToan;
+                        }
+
+                        // Trừ tiền giảm giá
+                        tongThanhToan -= soTienGiam;
+                    }
+                }
+
                 // Chuyển đổi từ VND sang USD (tỷ giá 1 USD = 23000 VND)
                 double usdExchangeRate = 26000;
                 double tongTienUSD = Math.Round(tongThanhToan / usdExchangeRate, 2);
