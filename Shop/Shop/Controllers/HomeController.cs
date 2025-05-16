@@ -44,6 +44,7 @@ namespace Shop.Controllers
                                from danhGia in dgGroup.DefaultIfEmpty()
                                group new { bienThe, danhGia } by new
                                {             
+                                   hh.MaDanhMuc,
                                    hh.MaHangHoa,
                                    hh.MoTaDai,
                                    hh.TenHangHoa,
@@ -54,6 +55,7 @@ namespace Shop.Controllers
 
                                select new HangHoaViewModel
                                {
+                                   MaDanhMuc = g.Key.MaDanhMuc,
                                    MaHangHoa = g.Key.MaHangHoa,
                                    MoTaDai = g.Key.MoTaDai,
                                    TenHangHoa = g.Key.TenHangHoa,

@@ -46,7 +46,7 @@
                                     break;
                                 case "DM008":
                                 case "DM011":
-                                    hrefValue = Url.Action("AnotherProduct", "Product", new { maDm = dm.MaDanhMuc });
+                                    hrefValue = Url.Action("ProductManHinh", "Product", new { maDm = dm.MaDanhMuc });
                                     break;
                                 case "DM009":
                                     hrefValue = Url.Action("Gaming", "Product", new { maDm = dm.MaDanhMuc });
@@ -162,28 +162,27 @@
                 <div class="row row-cols-5 g-4 mb-4">
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Acer.jpg" alt="JAMK" asp-append-version="true">
-
+                            <img src="~/assets/Image/Logo/LogoBrand/Acer.jpg" alt="Acer" title="Acer" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Xiaomi.jpg" alt="Digitek">
+                            <img src="~/assets/Image/Logo/LogoBrand/Xiaomi.jpg" alt="Xiaomi" title="Xiaomi" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Samsung.jpg" alt="TekReact">
+                            <img src="~/assets/Image/Logo/LogoBrand/Samsung.jpg" alt="Samsung" title="Samsung" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Macbook.jpg" alt="Grafbase">
+                            <img src="~/assets/Image/Logo/LogoBrand/Macbook.jpg" alt="Macbook" title="Macbook" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Oppo.jpg" alt="MSI">
+                            <img src="~/assets/Image/Logo/LogoBrand/Oppo.jpg" alt="Oppo" title="Oppo" data-bs-toggle="tooltip">
                         </div>
                     </div>
                 </div>
@@ -192,31 +191,32 @@
                 <div class="row row-cols-5 g-4">
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Logitech.jpg" alt="Ohbear">
+                            <img src="~/assets/Image/Logo/LogoBrand/Logitech.jpg" alt="Logitech" title="Logitech" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/JBL.jpg" alt="OAK">
+                            <img src="~/assets/Image/Logo/LogoBrand/JBL.jpg" alt="JBL" title="JBL" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Honor.jpg" alt="Snyk">
+                            <img src="~/assets/Image/Logo/LogoBrand/Honor.jpg" alt="Honor" title="Honor" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Gigabyte.jpg" alt="Sonex">
+                            <img src="~/assets/Image/Logo/LogoBrand/Gigabyte.jpg" alt="Gigabyte" title="Gigabyte" data-bs-toggle="tooltip">
                         </div>
                     </div>
                     <div class="col">
                         <div class="brand-item">
-                            <img src="~/assets/Image/Logo/LogoBrand/Asus.jpg" alt="Stropi">
+                            <img src="~/assets/Image/Logo/LogoBrand/Asus.jpg" alt="Asus" title="Asus" data-bs-toggle="tooltip">
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- TOP CATEGORIES SECTION -->
@@ -229,42 +229,51 @@
                 <div class="row row-cols-2 row-cols-md-4 g-4">
                     <!-- Laptops Category -->
                     <div class="col">
-                        <div class="category-item text-center">
-                            <div class="category-image mb-1">
-                                <img src="~/assets/Image/Header/Banner/prod4_lap.png" alt="Laptops">
+                        <a href="/Product/ProductLaptopPC?maDm=DM002" class="text-decoration-none text-dark">
+                            <div class="category-item text-center">
+                                <div class="category-image mb-1">
+                                    <img src="~/assets/Image/Header/Banner/prod4_lap.png" alt="Laptops">
+                                </div>
+                                <h3 class="category-name">Laptops</h3>
                             </div>
-                            <h3 class="category-name">Laptops</h3>
-                        </div>
+                        </a>
                     </div>
 
-                    <!-- PC Gaming Category -->
+
+                    <!-- ĐienThoai Category -->
                     <div class="col">
-                        <div class="category-item text-center">
-                            <div class="category-image mb-1">
-                                <img src="~/assets/Image/Header/Banner/prod1_PC.png" alt="PC Gaming">
+                        <a href="/Product/ProductDienThoaiTabLet?maDm=DM003" class="text-decoration-none text-dark">
+                            <div class="category-item text-center">
+                                <div class="category-image mb-1">
+                                    <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="Điện Thoại">
+                                </div>
+                                <h3 class="category-name">Điện Thoại</h3>
                             </div>
-                            <h3 class="category-name">PC Gaming</h3>
-                        </div>
+                        </a>
                     </div>
 
                     <!-- Headphones Category -->
                     <div class="col">
-                        <div class="category-item text-center">
-                            <div class="category-image mb-1">
-                                <img src="~/assets/Image/Header/Banner/prod2_headphone.png" alt="Headphones">
+                        <a href="/Product/AnotherProduct?maDm=DM006" class="text-decoration-none text-dark">
+                            <div class="category-item text-center">
+                                <div class="category-image mb-1">
+                                    <img src="~/assets/Image/Header/Banner/prod2_headphone.png" alt="Tai Nghe">
+                                </div>
+                                <h3 class="category-name">Tai Nghe</h3>
                             </div>
-                            <h3 class="category-name">Headphones</h3>
-                        </div>
+                        </a>
                     </div>
 
                     <!-- Monitors Category -->
                     <div class="col">
-                        <div class="category-item text-center">
-                            <div class="category-image mb-1">
-                                <img src="~/assets/Image/Header/Banner/prod3_monitor.png" alt="Monitors">
+                        <a href="/Product/ProductManHinh?maDm=DM011" class="text-decoration-none text-dark">
+                            <div class="category-item text-center">
+                                <div class="category-image mb-1">
+                                    <img src="~/assets/Image/Header/Banner/prod3_monitor.png" alt="Màn Hình">
+                                </div>
+                                <h3 class="category-name">Màn Hình</h3>
                             </div>
-                            <h3 class="category-name">Monitors</h3>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -711,49 +720,47 @@
 
     <div class="p-4 my-3 bg-white rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">BRAND NEW FOR YOU</h4>
-
+            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">Sản phẩm sắp tới </h4>
         </div>
 
         <div class="row g-4">
             <!-- Card -->
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_4.jpg" alt="Product"></a>
+                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_4.jpg" alt="Product"></a>
                     <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        <a href=""><h5 class="fw-bold text-black">Surface Laptop 5 13.5 inch</h5></a>
+                        <p class="text-muted small">CPU là Intel Alder Lake thế hệ 12th, loại bỏ phiên bản AMD Ryzen.</p>
+                     
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_3.jpg" alt="Product"></a>
+                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_3.jpg" alt="Product"></a>
                     <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        <a href=""><h5 class="fw-bold text-black">PC Gaming STAR Relaw </h5></a>
+                        <p class="text-muted small">Intel I5 14400F, RTX 4060, B760M, RAM 16GB, SSD 500GB</p>
+                       
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_2.jpg" alt="Product"></a>
+                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_2.jpg" alt="Product"></a>
                     <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        <a href=""><h5 class="fw-bold text-black">Màn hình Viewsonic VA2708-2K-MHD 27 inch</h5></a>
+                        <p class="text-muted small">Độ phân giải 2K mang đến chất lượng hiển thị video và hình ảnh chân thực</p>
+                     
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href=""> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_1.jpg" alt="Product"></a>
+                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_1.jpg" alt="Product"></a>
                     <div class="p-3">
-                        <a href=""><h5 class="fw-bold text-black">Zumac Steel Computer Case</h5></a>
-                        <p class="text-muted small">And an option to upgrade every three years</p>
-                        <button class="btn-shopnnow w-100 rounded-pill">SHOP NOW</button>
+                        <a href=""><h5 class="fw-bold text-black">Ghế Gaming fantasix Gundam Universe</h5></a>
+                        <p class="text-muted small">Thiết kế nhỏ gọn, kiểu dáng mạnh mẽ và phù hợp với người dùng Việt Nam</p>
                     </div>
                 </div>
             </div>
@@ -765,14 +772,14 @@
 
     <div class="p-4 my-3 bg-white rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">TOP Điện thoại & Tablet  bán chạy</h4>
+            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">TOP Điện thoại & Tablet được yêu thích</h4>
         </div>
         <div class="row g-4">
             <!-- Redmi Banner -->
             <div class="col-12 col-md-6">
                 <img class="banner-gradien position-absolute shadow-sm" src="~/assets/Image/Header/Banner/Banner_top_phone.png" alt="Redmi Note 12 Pro+ 5G phones" />
                 <h2 class="position-relative p-4">Redmi note <br>12 Pro+(5G)</h2>
-                <a class="position-relative mx-5 px-4 py-2 rounded-4  shop-now-btn">MUA NGAY</a>
+                <a href="/Product/ProductDetail/HH001?mabienthe=BT001" class="position-relative mx-5 px-4 py-2 rounded-4 shop-now-btn">MUA NGAY</a>
             </div>
 
             <!-- Categories Grid -->
@@ -780,27 +787,26 @@
                 <div class="row g-3">
                     <!-- iPhone Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "iphone" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">iPhone (iOS)</h3>
-                                        <p class="card-text text-secondary small">74 Items</p>
                                     </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class=".category-image-top-cell">
+                                    <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class="category-image-top-cell">
                                 </div>
                             </div>
                         </a>
                     </div>
 
+
                     <!-- Android Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Samsung" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Android</h3>
-                                        <p class="card-text text-secondary small">35 Items</p>
+                                        <h3 class="card-title fs-6 fw-semibold">Samsung</h3>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/phone_adr.png" alt="Android" class=".category-image-top-cell">
                                 </div>
@@ -810,12 +816,11 @@
 
                     <!-- 5G Support Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "5G" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">5G Support</h3>
-                                        <p class="card-text text-secondary small">12 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/phone_5g.png" alt="5G Support" class=".category-image-top-cell">
                                 </div>
@@ -825,12 +830,11 @@
 
                     <!-- Gaming Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Gaming" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">Gaming</h3>
-                                        <p class="card-text text-secondary small">9 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/phone_gaming.png" alt="Gaming" class=".category-image-top-cell">
                                 </div>
@@ -840,12 +844,11 @@
 
                     <!-- Xiaomi Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Xiaomi" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">Xiaomi</h3>
-                                        <p class="card-text text-secondary small">52 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/phone_xiaomi.png" alt="Xiaomi" class=".category-image-top-cell">
                                 </div>
@@ -855,12 +858,11 @@
 
                     <!-- Accessories Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Phụ kiện" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Accessories</h3>
-                                        <p class="card-text text-secondary small">29 Items</p>
+                                        <h3 class="card-title fs-6 fw-semibold">Phụ kiện</h3>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/phone_acces.png" alt="Accessories" class=".category-image-top-cell">
                                 </div>
@@ -876,7 +878,8 @@
             <div class="swiper-wrapper">
                 @foreach (var product in Model)
                 {
-
+                    if (product.MaDanhMuc == "DM001" || product.MaDanhMuc == "DM003")
+                    {
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
                         <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
@@ -954,6 +957,7 @@
                             </div>
                         </a>
                     </div>
+                    }
                 }
             </div>
 
@@ -984,7 +988,7 @@
 
     <div class="p-4 my-3 bg-white rounded-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">Top Laptop & PC bán chạy</h4>
+            <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">Top Laptop được yêu thích</h4>
         </div>
         <div class="row g-4">
             <!-- Redmi Banner -->
@@ -994,7 +998,7 @@
                     Macbook Air  <br>superchard
                     by M2
                 </h2>
-                <a class="position-relative mx-5 px-4 py-2 rounded-4  shop-now-btn">MUA NGAY</a>
+                <a href="/Product/ProductDetail/HH001?mabienthe=BT001" class="position-relative mx-5 px-4 py-2 rounded-4 shop-now-btn">MUA NGAY</a>
             </div>
 
             <!-- Categories Grid -->
@@ -1007,7 +1011,6 @@
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">Macbook</h3>
-                                        <p class="card-text text-secondary small">74 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/Lap_mac.png" alt="iPhone" class=".category-image-top-cell">
                                 </div>
@@ -1017,12 +1020,11 @@
 
                     <!-- Android Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "PC" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">PC Gaming</h3>
-                                        <p class="card-text text-secondary small">35 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/Lap_PC.png" alt="Android" class=".category-image-top-cell">
                                 </div>
@@ -1032,12 +1034,11 @@
 
                     <!-- 5G Support Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "acer" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Laptop Office</h3>
-                                        <p class="card-text text-secondary small">12 Items</p>
+                                        <h3 class="card-title fs-6 fw-semibold">Laptop văn phòng</h3>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/Lap_office.png" alt="5G Support" class=".category-image-top-cell">
                                 </div>
@@ -1047,12 +1048,11 @@
 
                     <!-- Gaming Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Gaming" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">Laptop Gaming</h3>
-                                        <p class="card-text text-secondary small">9 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/Lap_gaming.png" alt="Gaming" class=".category-image-top-cell">
                                 </div>
@@ -1062,12 +1062,11 @@
 
                     <!-- Xiaomi Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "MAC M1" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">MAC M1</h3>
-                                        <p class="card-text text-secondary small">52 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/Lap_m1.png" alt="Xiaomi" class=".category-image-top-cell">
                                 </div>
@@ -1077,12 +1076,11 @@
 
                     <!-- Accessories Category -->
                     <div class="col-4">
-                        <a href="#" class="text-decoration-none">
+                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Dell" })" class="text-decoration-none">
                             <div class="card category-card h-100 border-light">
                                 <div class="card-body d-flex justify-content-between align-items-center">
                                     <div>
                                         <h3 class="card-title fs-6 fw-semibold">Laptop Dell</h3>
-                                        <p class="card-text text-secondary small">29 Items</p>
                                     </div>
                                     <img src="~/assets/Image/Header/Product_Feature/Lap_dell.png" alt="Accessories" class=".category-image-top-cell">
                                 </div>
@@ -1098,6 +1096,8 @@
             <div class="swiper-wrapper">
                 @foreach (var product in Model)
                 {
+                    if (product.MaDanhMuc == "DM002" )
+                    {
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
                         <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
@@ -1175,6 +1175,7 @@
                             </div>
                         </a>
                     </div>
+                    }
                 }
             </div>
 
@@ -1193,55 +1194,59 @@
             <div class="p-4 rounded-4 bg-white shadow-sm">
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
-                    <a href="#" class="text-secondary text-decoration-none">View All</a>
+                    <h1 class="fw-bold fs-4 mb-0 border-start border-4 border-success">&nbsp;Audio & CAMERA</h1>
                 </div>
 
                 <!-- Featured Product Banner -->
-                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
-                    <!-- Image full background -->
-                    <img src="~/assets/Image/Header/Banner/banner_harmankardon.png"
-                         alt="Harman Kardon Speaker"
-                         class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
+                <a href="/Product/ProductDetail/HH007?maBienThe=BT004" class="text-decoration-none d-block">
+                    <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
+                        <!-- Ảnh nền -->
+                        <img src="~/assets/Image/Header/Banner/banner_harmankardon.png"
+                             alt="Harman Kardon Speaker"
+                             class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
 
-                    <!-- Overlay text -->
-                    <div class="position-absolute top-0 start-0 p-3 z-1 text-white  bg-opacity-75 rounded-end">
-                        <h2 class="fw-bold mb-0">Best</h2>
-                        <h2 class="fw-bold mb-0">Speaker</h2>
-                        <h2 class="fw-bold mb-0">2023</h2>
+                        <!-- Overlay chữ -->
+                        <div class="position-absolute top-0 start-0 p-3 z-1 text-white bg-opacity-75 rounded-end">
+                            <h2 class="fw-bold mb-0">Loa</h2>
+                            <h2 class="fw-bold mb-0">Tốt nhất</h2>
+                            <h2 class="fw-bold mb-0">2025</h2>
+                        </div>
                     </div>
-                </div>
+                </a>
+
+
 
                 <!-- Divider -->
                 <hr class="my-4">
-
                 <!-- Categories Grid -->
                 <div class="row row-cols-2 g-3">
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/speaker.png" alt="Speaker" class="pb-1">
-                        <h5 class="fw-bold mb-0">Speaker</h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/Camera.png" alt="DSLR Camera" class="pb-1">
+                    <a href="/Product/AnotherProduct?maDm=DM006" class="text-dark">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/speaker.png" alt="Speaker" class="pb-1">
+                            <h5 class="fw-bold mb-0">Loa</h5>
+                        </div>
+                    </a>
+                    <a href="/Product/AnotherProduct?maDm=DM007" class="text-dark">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/Camera.png" alt="Máy Ảnh" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Máy Ảnh
+                            </h5>
+                        </div>
+                    </a>
+                    <a href="/Product/AnotherProduct?maDm=DM007" class="text-dark">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/earphone.png" alt="Earbuds" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Tai nghe
+                            </h5>
+                        </div>
+                    </a>
+                    <div class="product-item col text-center" title="Đang về hàng">
+                        <img src="~/assets/Image/Header/Product_Feature/Orther/mic.png" alt="Earbuds" class="pb-1">
                         <h5 class="fw-bold mb-0">
-                            DSLR Camera
+                            Tai nghe
                         </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/earphone.png" alt="Earbuds" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Earbuds
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/mic.png" alt="Microphone" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Microphone
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
                     </div>
                 </div>
             </div>
@@ -1251,56 +1256,57 @@
             <div class="p-4 rounded-4 bg-white shadow-sm">
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
-                    <a href="#" class="text-secondary text-decoration-none">View All</a>
+                    <h1 class="fw-bold fs-4 mb-0 border-start border-4 border-success">&nbsp;Gaming</h1>
                 </div>
+                <a href="Product/ProductDetail/HH007?maBienThe=BT004" class="text-decoration-none d-block">
+                    <!-- Featured Product Banner -->
+                    <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
+                        <!-- Image full background -->
+                        <img src="~/assets/Image/Header/Banner/banner_mouse.png"
+                             alt="Harman Kardon Speaker"
+                             class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
 
-                <!-- Featured Product Banner -->
-                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
-                    <!-- Image full background -->
-                    <img src="~/assets/Image/Header/Banner/banner_mouse.png"
-                         alt="Harman Kardon Speaker"
-                         class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
-
-                    <!-- Overlay text -->
-                    <div class="position-absolute top-0 start-0 p-2 z-1 text-dark  bg-opacity-75 rounded-end">
-                        <h3 class="fw-semibold mb-0 ">wireless rgb</h3>
-                        <h3 class="fw-semibold mb-0 ">gaming</h3>
-                        <h3 class="fw-semibold mb-0 ">mouse  </h3>
+                        <!-- Overlay text -->
+                        <div class="position-absolute top-0 start-0 p-2 z-1 text-dark  bg-opacity-75 rounded-end">
+                            <h3 class="fw-semibold mb-0 ">Chuột RGB</h3>
+                            <h3 class="fw-semibold mb-0 ">gaming</h3>
+                            <h3 class="fw-semibold mb-0 ">mouse  </h3>
+                        </div>
                     </div>
-                </div>
-
+                </a>
                 <!-- Divider -->
                 <hr class="my-4">
 
                 <!-- Categories Grid -->
                 <div class="row row-cols-2 g-3">
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/monitor.png" alt="Monitors" class="pb-1">
-                        <h5 class="fw-bold mb-0">Monitors</h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
+                    <a href="/Product/ProductManHinh?maDm=DM0011" class="text-dark">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/monitor.png" alt="Monitors" class="pb-1">
+                            <h5 class="fw-bold mb-0">Màn hình</h5>
+                        </div>
+                    </a>
+                    <div class="product-item col text-center" title="Đang về hàng">
                         <img src="~/assets/Image/Header/Product_Feature/Orther/chair.png" alt="Chair" class="pb-1">
                         <h5 class="fw-bold mb-0">
-                            Chair
+                            Ghế Gaming
                         </h5>
-                        <p class="text-secondary small">12 Items</p>
                     </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/handgame.png" alt="Controller" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Controller
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/keyboard.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Keyboards
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
+                    <a href="/Product/Gaming?maDm=DM009" class="text-dark">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/handgame.png" alt="Controller" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Tay Cầm
+                            </h5>
+                        </div>
+                    </a>
+                    <a href="/Product/AnotherProduct?maDm=DM004" class="text-dark" >
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/keyboard.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Bàn Phím
+                            </h5>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1308,12 +1314,11 @@
             <div class="p-4 rounded-4 bg-white shadow-sm">
                 <!-- Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h1 class="fw-bold fs-4 mb-0">AUDIOS & CAMERAS</h1>
-                    <a href="#" class="text-secondary text-decoration-none">View All</a>
+                    <h1 class="fw-bold fs-4 mb-0 border-start border-4 border-success">&nbsp;Router và sản phẩm khác</h1>
                 </div>
-
                 <!-- Featured Product Banner -->
-                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;">
+
+                <div class="position-relative bg-white rounded-3 mb-4 overflow-hidden" style="height: 200px;" title="Đang về hàng">
                     <!-- Image full background -->
                     <img src="~/assets/Image/Header/Banner/banner_maychieu.png"
                          alt="Harman Kardon Speaker"
@@ -1321,43 +1326,38 @@
 
                     <!-- Overlay text -->
                     <div class="position-absolute top-0 start-0 py-3 z-1 text-white bg-opacity-75 rounded-end mx-5">
-                        <h6 class="mb-0 ">Home Thearther 4k</h6>
+                        <h6 class="mb-0 ">Máy Chiếu 4k</h6>
                         <h2 class="fw-semibold mb-0 ">Laser Projector</h2>
                     </div>
                 </div>
-
                 <!-- Divider -->
                 <hr class="my-4">
 
                 <!-- Categories Grid -->
                 <div class="row row-cols-2 g-3">
-                    <div class="product-item col text-center">
+                    <div class="product-item col text-center" title="Đang về hàng">
                         <img src="~/assets/Image/Header/Product_Feature/Orther/printer.png" alt="Keyboards" class="pb-1">
                         <h5 class="fw-bold mb-0">
-                            Printers
+                            Máy in
                         </h5>
-                        <p class="text-secondary small">12 Items</p>
                     </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/network.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Network
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
-                    </div>
-                    <div class="product-item col text-center">
+                    <a href="/Product/AnotherProduct?maDm=DM010" class="text-dark">
+                        <div class="product-item col text-center">
+                            <img src="~/assets/Image/Header/Product_Feature/Orther/network.png" alt="Keyboards" class="pb-1">
+                            <h5 class="fw-bold mb-0">
+                                Thiết bị mạng
+                            </h5>
+                        </div>
+                    </a>
+                    <div class="product-item col text-center" title="Đang về hàng">
                         <img src="~/assets/Image/Header/Product_Feature/Orther/camera_1.png" alt="Keyboards" class="pb-1">
                         <h5 class="fw-bold mb-0">
-                            Security
+                            Camera
                         </h5>
-                        <p class="text-secondary small">12 Items</p>
                     </div>
-                    <div class="product-item col text-center">
-                        <img src="~/assets/Image/Header/Product_Feature/Orther/projector.png" alt="Keyboards" class="pb-1">
-                        <h5 class="fw-bold mb-0">
-                            Projectors
-                        </h5>
-                        <p class="text-secondary small">12 Items</p>
+                    <div class="product-item col text-center" title="Đang về hàng">
+                        <img src="~/assets/Image/Header/Product_Feature/Orther/projector.png" alt="Máy Chiếu" class="pb-1">
+                        <h5 class="fw-bold mb-0">Máy Chiếu</h5>
                     </div>
 
                 </div>

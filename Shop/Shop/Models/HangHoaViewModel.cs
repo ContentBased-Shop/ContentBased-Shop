@@ -7,6 +7,7 @@ namespace Shop.Models
 {
     public class HangHoaViewModel
     {
+        public string MaDanhMuc { get; set; }
         public string MaBienThe { get; set; }
         public string MaHangHoa { get; set; }
         public string TenHangHoa { get; set; }
