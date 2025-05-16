@@ -84,11 +84,12 @@
                     <h4 class="mb-4">Thông tin đơn hàng</h4>
 
                     <div class="mb-3">
-                        <label for="voucher" class="form-label">Voucher Code</label>
+                        <label for="voucher" class="form-label">Nhập mã giảm giá</label>
                         <div class="input-group">
                             <input type="text" id="voucher" class="form-control" placeholder="Nhập voucher code">
-                            <button class="btn btn-outline-secondary" type="button">Áp dụng</button>
+                            <button class="btn btn-outline-secondary" type="button" id="btnApplyVoucher">Áp dụng</button>
                         </div>
+                        <div id="voucherMessage" class="small mt-2 d-none"></div>
                     </div>
 
                     <ul class="list-unstyled mb-4">
@@ -100,10 +101,15 @@
                             <span class="text-muted">Phí vận chuyển:</span>
                             <span id="shipping">0 ₫</span>
                         </li>
-                        <li class="d-flex justify-content-between border-bottom pb-2 mb-2">
+                        <li class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Thuế:</span>
                             <span id="tax">0 ₫</span>
                         </li>
+                        <li class="d-flex justify-content-between mb-2 text-success d-none" id="discountRow">
+                            <span>Giảm giá:</span>
+                            <span id="discount">0 ₫</span>
+                        </li>
+                        <li class="d-flex justify-content-between border-bottom pb-2 mb-2"></li>
                         <li class="d-flex justify-content-between fw-bold fs-5">
                             <span>Tổng đơn hàng:</span>
                             <span id="total">0 ₫</span>
@@ -179,9 +185,17 @@
         const cartItemTemplate = document.getElementById("cartItemTemplate");
         const checkoutBtn = document.getElementById("btnCheckout");
         
+        // Phần mới thêm cho voucher
+        const btnApplyVoucher = document.getElementById("btnApplyVoucher");
+        const voucherInput = document.getElementById("voucher");
+        const voucherMessage = document.getElementById("voucherMessage");
+        const discountRow = document.getElementById("discountRow");
+        const discountAmount = document.getElementById("discount");
+        
         let cart = [];
         let shippingFee = 30000; // Phí vận chuyển mặc định
         let taxRate = 0.08; // Thuế 8%
+        let appliedVoucher = null; // Thông tin voucher đã áp dụng
 
         // Định dạng tiền tệ VND
         function formatCurrency(amount) {
@@ -313,12 +327,44 @@
             const subtotal = selectedItems.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
             const tax = subtotal * taxRate;
             const shipping = selectedItems.length > 0 ? shippingFee : 0;
-            const total = subtotal + tax + shipping;
+            
+            // Tính giảm giá từ voucher nếu có
+            let discount = 0;
+            if (appliedVoucher) {
+                if (appliedVoucher.loaiGiamGia === 'TienMat') {
+                    discount = appliedVoucher.giaTriGiamGia;
+                } else if (appliedVoucher.loaiGiamGia === 'PhanTram') {
+                    discount = subtotal * (appliedVoucher.giaTriGiamGia / 100);
+                }
+                
+                // Đảm bảo số tiền giảm không vượt quá tổng tiền
+                if (discount > subtotal) {
+                    discount = subtotal;
+                }
+                
+                // Hiển thị dòng giảm giá
+                discountRow.classList.remove('d-none');
+                discountAmount.textContent = formatCurrency(discount);
+            } else {
+                discountRow.classList.add('d-none');
+            }
+            
+            const total = subtotal + tax + shipping - discount;
 
             document.getElementById("subtotal").textContent = formatCurrency(subtotal);
             document.getElementById("tax").textContent = formatCurrency(tax);
             document.getElementById("shipping").textContent = formatCurrency(shipping);
             document.getElementById("total").textContent = formatCurrency(total);
+
+            // Lưu các sản phẩm đã chọn vào sessionStorage để sử dụng trong trang thanh toán
+            sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+            
+            // Lưu thông tin voucher vào sessionStorage nếu có
+            if (appliedVoucher) {
+                sessionStorage.setItem('appliedVoucher', JSON.stringify(appliedVoucher));
+            } else {
+                sessionStorage.removeItem('appliedVoucher');
+            }
 
             // Vô hiệu hóa nút thanh toán nếu không có sản phẩm nào được chọn
             checkoutBtn.classList.toggle("disabled", selectedItems.length === 0);
@@ -393,8 +439,90 @@
                 });
             }
             
+            // Kiểm tra xem có voucher đã áp dụng trước đó không
+            let savedVoucher = JSON.parse(sessionStorage.getItem('appliedVoucher'));
+            if (savedVoucher) {
+                appliedVoucher = savedVoucher;
+                showVoucherMessage('Đã áp dụng mã giảm giá: ' + savedVoucher.tenVoucher, 'success');
+            }
+            
             // Cập nhật tổng tiền
             calculateTotal();
+        }
+        
+        // Xử lý áp dụng voucher
+        btnApplyVoucher.addEventListener('click', function() {
+            const voucherCode = voucherInput.value.trim();
+            
+            if (!voucherCode) {
+                showVoucherMessage('Vui lòng nhập mã giảm giá', 'warning');
+                return;
+            }
+            
+            // Kiểm tra có sản phẩm được chọn không
+            const selectedItems = cart.filter((item, index) => {
+                const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
+                return checkbox && checkbox.checked;
+            });
+            
+            if (selectedItems.length === 0) {
+                showVoucherMessage('Vui lòng chọn ít nhất một sản phẩm để áp dụng mã giảm giá', 'warning');
+                return;
+            }
+            
+            // Tính tổng tiền hàng
+            const subtotal = selectedItems.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
+            
+            // Gọi API kiểm tra voucher
+            fetch('/InnerPage/CheckVoucher', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    maVoucherCode: voucherCode,
+                    tongTien: parseFloat(subtotal.toFixed(2))
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Lưu thông tin voucher
+                    appliedVoucher = result.voucher;
+                    
+                    // Hiển thị thông báo thành công
+                    showVoucherMessage('Áp dụng mã giảm giá thành công!', 'success');
+                    
+                    // Cập nhật tổng tiền
+                    calculateTotal();
+                    
+                    // Xóa trống ô nhập
+                    voucherInput.value = '';
+                } else {
+                    // Hiển thị thông báo lỗi
+                    showVoucherMessage(result.message, 'danger');
+                    appliedVoucher = null;
+                    calculateTotal();
+                }
+            })
+            .catch(error => {
+                showVoucherMessage('Có lỗi xảy ra khi kiểm tra mã giảm giá', 'danger');
+                console.error('Lỗi:', error);
+            });
+        });
+        
+        // Hiển thị thông báo voucher
+        function showVoucherMessage(message, type) {
+            voucherMessage.textContent = message;
+            voucherMessage.className = `small mt-2 text-${type}`;
+            voucherMessage.classList.remove('d-none');
+            
+            // Tự động ẩn sau 5 giây nếu là thông báo thành công
+            if (type === 'success') {
+                setTimeout(() => {
+                    voucherMessage.classList.add('d-none');
+                }, 5000);
+            }
         }
 
         // Xử lý nút thanh toán
@@ -410,7 +538,7 @@
                     });
                     return;
                 }
-
+                
                 e.preventDefault();
 
                 // Lấy danh sách sản phẩm đã chọn
@@ -418,8 +546,15 @@
                     const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
                     return checkbox && checkbox.checked;
                 });
+                
+                // Lưu thông tin voucher nếu có vào sessionStorage
+                if (appliedVoucher) {
+                    sessionStorage.setItem('appliedVoucher', JSON.stringify(appliedVoucher));
+                } else {
+                    sessionStorage.removeItem('appliedVoucher');
+                }
 
-                // Lưu vào sessionStorage để sử dụng trong trang thanh toán
+                // Lưu sản phẩm đã chọn vào sessionStorage để sử dụng trong trang thanh toán
                 sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
 
                 // Chuyển đến trang thanh toán

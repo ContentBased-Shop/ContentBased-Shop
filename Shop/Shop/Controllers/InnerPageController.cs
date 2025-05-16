@@ -617,6 +617,54 @@ namespace Shop.Controllers
                 // Cập nhật tổng tiền đơn hàng
                 donHang.TongTien = Convert.ToSingle(tongTien);
                 
+                // Xử lý voucher nếu có
+                if (!string.IsNullOrWhiteSpace(model.maVoucherCode))
+                {
+                    var validationResult = ValidateVoucher(maKhachHang, model.maVoucherCode, Convert.ToSingle(tongTien));
+                    
+                    if (validationResult.success)
+                    {
+                        // Trừ tiền giảm giá từ voucher
+                        float discountValue = validationResult.discountValue;
+                        donHang.TongTien -= Convert.ToSingle(discountValue);
+                        
+                        // Lấy voucher từ CSDL
+                        var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == model.maVoucherCode);
+                        if (voucher != null)
+                        {
+                            // Cập nhật mã voucher vào đơn hàng
+                            donHang.MaVoucher = voucher.MaVoucher;
+                            
+                            // Cập nhật số lượng đã sử dụng
+                            voucher.SoLuongDaDung += 1;
+                            
+                            // Kiểm tra và cập nhật trạng thái phân phối voucher
+                            var phanPhoi = data.PhanPhoiVouchers
+                                .FirstOrDefault(pv => pv.MaVoucher == voucher.MaVoucher && pv.MaKhachHang == maKhachHang);
+                            
+                            if (phanPhoi != null)
+                            {
+                                // Đã có trong bảng phân phối, cập nhật trạng thái
+                                phanPhoi.DaSuDung = true;
+                                phanPhoi.NgaySuDung = DateTime.Now;
+                            }
+                            else
+                            {
+                                // Chưa có trong bảng phân phối, thêm mới
+                                var newPhanPhoi = new PhanPhoiVoucher
+                                {
+                                    MaVoucher = voucher.MaVoucher,
+                                    MaKhachHang = maKhachHang,
+                                    DaSuDung = true,
+                                    NgaySuDung = DateTime.Now
+                                };
+                                
+                                data.PhanPhoiVouchers.InsertOnSubmit(newPhanPhoi);
+                            }
+                        }
+                    }
+                }
+                
                 // Tạo thanh toán
                 var thanhToan = new ThanhToan
                 {
@@ -688,15 +736,53 @@ namespace Shop.Controllers
             // Lấy địa chỉ giao hàng
             var diaChi = giaoHang != null ? data.DiaChiKhachHangs.FirstOrDefault(dc => dc.MaDiaChi == giaoHang.MaDiaChi) : null;
             
-            // Lấy chi tiết đơn hàng cơ bản
-            var chiTietDonHangCoSo = data.ChiTietDonHangs
+            // Lấy thông tin voucher nếu có
+            VoucherDetailModel voucherModel = null;
+            if (donHang.MaVoucher.HasValue)
+            {
+                var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucher == donHang.MaVoucher);
+                if (voucher != null)
+                {
+                    // Lấy chi tiết đơn hàng cơ bản
+                    var chiTietDonHangCoSo = data.ChiTietDonHangs
+                        .Where(ct => ct.MaDonHang == id)
+                        .ToList();
+                        
+                    // Tính tổng đơn hàng trước khi giảm giá từ chi tiết đơn hàng
+                    float tongTienTruocGiamGia = 0;
+                    foreach (var ct in chiTietDonHangCoSo)
+                    {
+                        if (ct.SoLuong.HasValue && ct.DonGia.HasValue)
+                        {
+                            tongTienTruocGiamGia += (float)(ct.SoLuong.Value * ct.DonGia.Value);
+                        }
+                    }
+                    
+                    // Tính số tiền được giảm (chênh lệch giữa tổng đơn hàng trước và sau khi áp dụng voucher)
+                    float soTienGiam = tongTienTruocGiamGia - (float)donHang.TongTien;
+                    
+                    voucherModel = new VoucherDetailModel
+                    {
+                        MaVoucher = voucher.MaVoucher,
+                        MaVoucherCode = voucher.MaVoucherCode,
+                        TenVoucher = voucher.TenVoucher,
+                        LoaiGiamGia = voucher.LoaiGiamGia,
+                        GiaTriGiamGia = Convert.ToSingle(voucher.GiaTriGiamGia),
+                        MoTa = voucher.MoTa,
+                        SoTienGiam = soTienGiam
+                    };
+                }
+            }
+            
+            // Lấy chi tiết đơn hàng cơ bản (cho phần hiển thị)
+            var chiTietDonHangView = data.ChiTietDonHangs
                 .Where(ct => ct.MaDonHang == id)
                 .ToList();
                 
             var chiTietDonHang = new List<OrderSuccessItemModel>();
             
             // Biến đổi thành OrderSuccessItemModel
-            foreach (var ct in chiTietDonHangCoSo)
+            foreach (var ct in chiTietDonHangView)
             {
                 var bienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == ct.MaBienThe);
                 string tenHangHoa = "Sản phẩm";
@@ -731,6 +817,7 @@ namespace Shop.Controllers
             ViewBag.GiaoHang = giaoHang;
             ViewBag.DiaChi = diaChi;
             ViewBag.ChiTietDonHang = chiTietDonHang;
+            ViewBag.Voucher = voucherModel;
             
             return View();
         }
@@ -916,6 +1003,225 @@ namespace Shop.Controllers
         {
             return View();
         }
+
+        #region Voucher
+        // Model voucher cho response API
+        public class VoucherModel
+        {
+            public int maVoucher { get; set; }
+            public string maVoucherCode { get; set; }
+            public string tenVoucher { get; set; }
+            public string loaiGiamGia { get; set; }
+            public float giaTriGiamGia { get; set; }
+            public float donHangToiThieu { get; set; }
+            public string moTa { get; set; }
+            public bool daApDung { get; set; }
+            public float soTienGiam { get; set; }
+        }
+        
+        // Model VoucherDetailModel cho hiển thị chi tiết
+        public class VoucherDetailModel
+        {
+            public int MaVoucher { get; set; }
+            public string MaVoucherCode { get; set; }
+            public string TenVoucher { get; set; }
+            public string LoaiGiamGia { get; set; }
+            public float GiaTriGiamGia { get; set; }
+            public float SoTienGiam { get; set; }
+            public string MoTa { get; set; }
+        }
+        
+        // Model request kiểm tra voucher
+        public class VoucherCheckModel
+        {
+            public string maVoucherCode { get; set; }
+            public float tongTien { get; set; }
+        }
+        
+        // API kiểm tra voucher
+        [HttpPost]
+        public ActionResult CheckVoucher(VoucherCheckModel model)
+        {
+            if (!IsLoggedIn())
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." });
+            }
+            
+            string maKhachHang = Session["UserID"].ToString();
+            
+            if (string.IsNullOrWhiteSpace(model.maVoucherCode))
+            {
+                return Json(new { success = false, message = "Mã voucher không hợp lệ." });
+            }
+            
+            try
+            {
+                // Chuyển đổi rõ ràng từ float sang float (nếu cần)
+                float tongTien = Convert.ToSingle(model.tongTien);
+                
+                // Kiểm tra và áp dụng voucher
+                var validationResult = ValidateVoucher(maKhachHang, model.maVoucherCode, tongTien);
+                
+                if (!validationResult.success)
+                {
+                    return Json(new { success = false, message = validationResult.message });
+                }
+                
+                var voucher = validationResult.voucher;
+                float discountValue = validationResult.discountValue;
+                
+                return Json(new { 
+                    success = true, 
+                    message = "Áp dụng voucher thành công.", 
+                    voucher = new VoucherModel {
+                        maVoucher = voucher.MaVoucher,
+                        maVoucherCode = voucher.MaVoucherCode,
+                        tenVoucher = voucher.TenVoucher,
+                        loaiGiamGia = voucher.LoaiGiamGia,
+                        giaTriGiamGia = Convert.ToSingle(voucher.GiaTriGiamGia),
+                        donHangToiThieu = Convert.ToSingle(voucher.DonHangToiThieu),
+                        moTa = voucher.MoTa,
+                        daApDung = true,
+                        soTienGiam = discountValue
+                    } 
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi hệ thống: " + ex.Message });
+            }
+        }
+        
+        // Hàm kiểm tra voucher
+        private dynamic ValidateVoucher(string maKhachHang, string maVoucherCode, float tongTien)
+        {
+            // Tìm voucher trong CSDL
+            var voucher = data.Vouchers.FirstOrDefault(v => 
+                v.MaVoucherCode == maVoucherCode && 
+                v.TrangThai == "HoatDong");
+            
+            if (voucher == null)
+            {
+                return new { success = false, message = "Mã voucher không tồn tại hoặc đã hết hạn." };
+            }
+            
+            // Kiểm tra thời gian hiệu lực
+            DateTime now = DateTime.Now;
+            if (now < voucher.NgayBatDau || now > voucher.NgayKetThuc)
+            {
+                return new { success = false, message = "Mã voucher đã hết hạn hoặc chưa đến thời gian sử dụng." };
+            }
+            
+            // Kiểm tra giá trị đơn hàng tối thiểu
+            if (tongTien < voucher.DonHangToiThieu)
+            {
+                return new { 
+                    success = false, 
+                    message = $"Đơn hàng tối thiểu để sử dụng voucher là {voucher.DonHangToiThieu:N0} đ." 
+                };
+            }
+            
+            // Kiểm tra số lượng voucher còn lại (nếu là voucher công khai)
+            if ((bool)voucher.IsPublic && voucher.SoLuong <= voucher.SoLuongDaDung)
+            {
+                return new { success = false, message = "Mã voucher đã hết số lượng sử dụng." };
+            }
+            
+            // Kiểm tra xem người dùng đã sử dụng voucher này chưa
+            var userVoucher = data.PhanPhoiVouchers
+                .FirstOrDefault(pv => pv.MaVoucher == voucher.MaVoucher && pv.MaKhachHang == maKhachHang);
+            
+            // Nếu là voucher riêng (không công khai)
+            if (!(bool)voucher.IsPublic)
+            {
+                // Voucher riêng: người dùng phải được phân phối và chưa sử dụng
+                if (userVoucher == null)
+                {
+                    return new { success = false, message = "Bạn không thể sử dụng mã voucher này." };
+                }
+                
+                if ((bool)userVoucher.DaSuDung)
+                {
+                    return new { success = false, message = "Bạn đã sử dụng mã voucher này rồi." };
+                }
+            }
+            // Nếu là voucher công khai
+            else
+            {
+                // Voucher công khai: mỗi người dùng chỉ dùng 1 lần
+                if (userVoucher != null && (bool) userVoucher.DaSuDung)
+                {
+                    return new { success = false, message = "Bạn đã sử dụng mã voucher này rồi." };
+                }
+            }
+            
+            // Tính giá trị giảm giá
+            float discountValue = 0;
+            if (voucher.LoaiGiamGia == "TienMat")
+            {
+                discountValue = Convert.ToSingle(voucher.GiaTriGiamGia);
+            }
+            else if (voucher.LoaiGiamGia == "PhanTram")
+            {
+                // Giảm theo phần trăm, tính ra tiền
+                discountValue = tongTien * (Convert.ToSingle(voucher.GiaTriGiamGia) / 100);
+            }
+            
+            // Đảm bảo số tiền giảm không vượt quá tổng tiền
+            if (discountValue > tongTien)
+            {
+                discountValue = tongTien;
+            }
+            
+            return new { success = true, voucher, discountValue };
+        }
+        
+        // Hàm áp dụng voucher khi đặt hàng
+        private void ApplyVoucher(string maKhachHang, string maVoucherCode, string maDonHang)
+        {
+            if (string.IsNullOrWhiteSpace(maVoucherCode)) return;
+            
+            var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == maVoucherCode);
+            if (voucher == null) return;
+            
+            // Cập nhật số lượng đã sử dụng
+            voucher.SoLuongDaDung += 1;
+            
+            // Kiểm tra và cập nhật trạng thái phân phối voucher
+            var phanPhoi = data.PhanPhoiVouchers
+                .FirstOrDefault(pv => pv.MaVoucher == voucher.MaVoucher && pv.MaKhachHang == maKhachHang);
+            
+            if (phanPhoi != null)
+            {
+                // Đã có trong bảng phân phối, cập nhật trạng thái
+                phanPhoi.DaSuDung = true;
+                phanPhoi.NgaySuDung = DateTime.Now;
+            }
+            else
+            {
+                // Chưa có trong bảng phân phối, thêm mới
+                var newPhanPhoi = new PhanPhoiVoucher
+                {
+                    MaVoucher = voucher.MaVoucher,
+                    MaKhachHang = maKhachHang,
+                    DaSuDung = true,
+                    NgaySuDung = DateTime.Now
+                };
+                
+                data.PhanPhoiVouchers.InsertOnSubmit(newPhanPhoi);
+            }
+            
+            // Cập nhật mã voucher vào đơn hàng
+            var donHang = data.DonHangs.FirstOrDefault(dh => dh.MaDonHang == maDonHang);
+            if (donHang != null)
+            {
+                donHang.MaVoucher = voucher.MaVoucher;
+            }
+            
+            // Lưu thay đổi
+            data.SubmitChanges();
+        }
+        #endregion
     }
     
     // Models for cart items
@@ -959,6 +1265,7 @@ namespace Shop.Controllers
         public List<OrderItemModel> sanPham { get; set; }
         public string phuongThucThanhToan { get; set; }
         public string ghiChu { get; set; }
+        public string maVoucherCode { get; set; }  // Thêm trường mã voucher
     }
     
     // Model cho sản phẩm trong đơn hàng
