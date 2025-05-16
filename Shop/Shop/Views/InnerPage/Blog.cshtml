@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .hero-section {
+        background-color: #f8f9fa;
+    }
+
+    .aspect-video {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%;
+    }
+
+        .aspect-video img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+<!-- Hero -->
+<section class="hero-section py-5">
+    <div class="container">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">Tin tức công nghệ</h1>
+                <p class="lead text-muted">Khám phá những bài viết hấp dẫn về công nghệ, cuộc sống và văn hóa. Cập nhật tin tức mới nhất và chia sẻ kiến thức.</p>
+                
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8G3E9Y-5sHk2YfYZ94lm_8lmm1xrV7WzFpw&s" alt="Blog Hero" class="img-fluid rounded shadow">
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Featured Posts -->
+<section class="py-5 bg-white">
+    <div class="container text-center">
+        <div class="mb-4">
+            <div class="badge bg-light text-dark mb-2">Bài viết mới nhất</div>
+            <h2 class="fw-bold">Khám phá nội dung mới</h2>
+            <p class="text-muted">Những bài viết mới nhất và hấp dẫn nhất từ các tác giả của chúng tôi.</p>
+        </div>
+        <div class="row g-4">
+            <!-- Post card -->
+            <!-- Repeat this block for each post -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/adminsforum/danh-gia-nubia-neo-104.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">Đánh giá Nubia Neo 3: Gaming phone giá rẻ đáng mua dưới 4 triệu!</h5>
+                        <p class="card-text line-clamp-2">Sau một tuần sử dụng, mình đánh giá Nubia Neo 3 – Smartphone gaming giá rẻ đáng chú ý với hiệu năng mạnh mẽ và tính năng trigger hỗ trợ trải nghiệm chơi game chuyên nghiệp. Nubia Neo 3 là một chiếc smartphone gaming giá rẻ với thiết kế ấn</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/thongvo/danh-gia-hieu-nang-asus-tuf-gaming-f15-fx507/danh-gia-asus-tuf-a15-cover-2.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">ASUS TUF Gaming F15: Với RTX 4060, liệu có đủ “gánh team” mọi tựa game AAA trong 2 năm tới?</h5>
+                        <p class="card-text line-clamp-2">Đánh giá hiệu năng ASUS TUF Gaming F15 với bộ vi xử lý Intel Core i7-13620H cùng card đồ họa RTX 4060 liệu có còn đủ mạnh để chiến game tiếp trong vài năm tới? Sau hơn 2 năm ra mắt, ASUS TUF Gaming F15 được coi là cỗ máy</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/dinhnhan/Tren-tay-SoundPEATS-Air-5-Pro/tren-tay-soundpeats-air-5-pro-cover.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">Trên tay SoundPEATS Air 5 Pro: Quá nhiều công nghệ: chuẩn HiFi, chống ồn 55dB, giá chỉ 1.59 triệu đồng</h5>
+                        <p class="card-text line-clamp-2">Trên tay SoundPEATS Air 5 Pro , chiếc tai nghe True Wireless mới nhất đến từ SoundPEATS với công nghệ âm thanh mạnh mẽ, khả năng chống ồn AI Hybrid ANC cực đỉnh, cùng thời lượng pin lên tới 35 giờ. Nếu anh em đang tìm một chiếc tai nghe</p>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 post-item d-none">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/trannghia/trannghia/Polygon-Foldable-Concept-1.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">Samsung giới thiệu concept Polygon Fold với thiết kế táo bạo, lấy cảm hứng từ mẫu xe Tesla Cybertruck</h5>
+                        <p class="card-text line-clamp-2">Mẫu điện thoại concept mới của Samsung gây ấn tượng với thiết kế độc đáo, giúp thu hút mọi ánh nhìn. Tại Display Week 2025, Samsung đã giới thiệu một mẫu điện thoại concept nổi bật: Polygon Fold. Sản phẩm này có thiết kế kim loại độc đáo và dường.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 post-item d-none">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/trannghia/trannghia/OPPO-A5x-ra-mat-1.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">OPPO A5x ra mắt: Chip Snapdragon 6s Gen 1, camera 32MP và pin 6000 mAh</h5>
+                        <p class="card-text line-clamp-2">Điện thoại OPPO A5x đã chính thức ra mắt cùng bộ đôi OPPO A5 và A5 5G, mang đến cho người dùng lựa chọn tuyệt vời trong phân khúc smartphone giá rẻ. Sau một thời gian xuất hiện dưới dạng tin đồn thì mới đây, OPPO đã chính thức ra</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 post-item d-none">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/trannghia/trannghia/su-kien-huawei-1.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">Sự kiện ra mắt sản phẩm sáng tạo Huawei tại Việt Nam</h5>
+                        <p class="card-text line-clamp-2">Sự kiện sắp tới của Huawei tại Việt Nam nhiều khả năng sẽ chứng kiến sự ra mắt của smartwatch Huawei Watch 5 cùng bộ đôi Huawei Watch Fit 4 và Fit 4 Pro. Huawei Việt Nam mới đây vừa chia sẻ thông tin cho biết, họ sẽ tổ chức</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 post-item d-none">
+                <div class="card h-100">
+                    <div class="aspect-video">
+                        <img src="https://cdn-media.sforum.vn/storage/app/media/trannghia/trannghia/bo-xu-ly-galaxy-s25-fe.jpg" alt="10 Xu hướng công nghệ hàng đầu năm 2024">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-muted">15/05/2024 • Công nghệ</small>
+                        <h5 class="card-title line-clamp-2 mt-2">Galaxy S25 FE lộ hiệu năng khá tốt trên Geekbench, xác nhận dùng chip Exynos 2400</h5>
+                        <p class="card-text line-clamp-2">Thông tin rò rỉ mới nhất cho thấy Samsung có thể mang đến những nâng cấp ấn tượng về hiệu suất cho Galaxy S25 FE . Samsung đã ra mắt Galaxy S24 FE vào tháng 10 năm ngoái nên không ngạc nhiên khi công ty đang phát triển mẫu máy</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Lặp lại card trên cho các bài viết khác -->
+            <!-- Bạn chỉ cần copy/paste và thay nội dung -->
+        </div>
+        <div class="mt-4">
+            <button class="btn btn-outline-secondary" id="load-more-btn">Xem thêm bài viết</button>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter -->
+<section class="hero-section py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold">Đăng ký nhận bản tin</h2>
+        <p class="text-muted">Nhận thông báo về các bài viết mới nhất và nội dung độc quyền.</p>
+        <form class="d-flex justify-content-center gap-2 mt-3">
+            <input type="email" class="form-control w-50" placeholder="Email của bạn">
+            <button type="submit" class="btn btn-primary">Đăng ký</button>
+        </form>
+        <p class="small text-muted mt-2">Chúng tôi tôn trọng quyền riêng tư của bạn. Bạn có thể hủy đăng ký bất cứ lúc nào.</p>
+    </div>
+</section>
+
+<script>
+    document.getElementById('load-more-btn').addEventListener('click', function () {
+        var hiddenCards = document.querySelectorAll('.post-item.d-none');
+        var maxToShow = 3;
+        for (var i = 0; i < maxToShow && i < hiddenCards.length; i++) {
+            hiddenCards[i].classList.remove('d-none');
+        }
+        if (document.querySelectorAll('.post-item.d-none').length === 0) {
+            this.style.display = 'none';
+        }
+    });
+</script>

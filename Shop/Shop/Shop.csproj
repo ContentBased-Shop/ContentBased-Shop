@@ -412,6 +412,7 @@
     <Content Include="Views\Product\ProductSearch.cshtml" />
     <Content Include="Views\Shared\_RecentlyViewedPartial.cshtml" />
     <Content Include="Views\Product\ProductManHinh.cshtml" />
+    <Content Include="Views\InnerPage\Blog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
