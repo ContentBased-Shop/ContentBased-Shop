@@ -153,10 +153,6 @@
                     <span id="subtotal" class="fs-8">0 ₫</span>
                 </div>
                 <div class="d-flex justify-content-between mt-3 fw-semibold">
-                    <span>Chi phí vận chuyển:</span>
-                    <span id="shipping" class="fs-8">0 ₫</span>
-                </div>
-                <div class="d-flex justify-content-between mt-3 fw-semibold border-bottom">
                     <span>Thuế:</span>
                     <span id="tax" class="fs-8">0 ₫</span>
                 </div>
@@ -296,12 +292,26 @@
         function calculateTotal() {
             const subtotal = selectedItems.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
             const tax = subtotal * taxRate;
-            const shipping = selectedItems.length > 0 ? shippingFee : 0;
+            const subtotalWithTax = subtotal + tax;
             
             // Tính giảm giá từ voucher nếu có
             let discount = 0;
             if (appliedVoucher) {
-                discount = appliedVoucher.soTienGiam;
+                if (appliedVoucher.loaiGiamGia === 'TienMat') {
+                    // Giảm tiền mặt: giảm trực tiếp
+                    discount = appliedVoucher.giaTriGiamGia;
+                } else if (appliedVoucher.loaiGiamGia === 'PhanTram') {
+                    // Giảm phần trăm: áp dụng sau khi đã tính thuế
+                    discount = subtotalWithTax * (appliedVoucher.giaTriGiamGia / 100);
+                } else {
+                    // Nếu không có thông tin loạiGiamGia, sử dụng soTienGiam
+                    discount = appliedVoucher.soTienGiam;
+                }
+                
+                // Đảm bảo số tiền giảm không vượt quá tổng tiền
+                if (discount > subtotalWithTax) {
+                    discount = subtotalWithTax;
+                }
             }
             
             // Cập nhật hiển thị giảm giá
@@ -312,12 +322,11 @@
                 discountRow.classList.add('d-none');
             }
             
-            // Tổng tiền sau khi trừ giảm giá
-            const total = subtotal + tax + shipping - discount;
+            // Tổng tiền sau khi thêm thuế và trừ giảm giá
+            const total = subtotalWithTax - discount;
 
             document.getElementById("subtotal").textContent = formatCurrency(subtotal);
             document.getElementById("tax").textContent = formatCurrency(tax);
-            document.getElementById("shipping").textContent = formatCurrency(shipping);
             document.getElementById("total").textContent = formatCurrency(total);
         }
 

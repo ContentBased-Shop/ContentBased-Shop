@@ -215,13 +215,22 @@
                                         @String.Format("{0:N0} ₫", tongTienHang)
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td colspan="3" class="text-end">Thuế (8%):</td>
+                                    <td class="text-end">
+                                        @{
+                                            decimal thue = tongTienHang * 0.08m;
+                                        }
+                                        @String.Format("{0:N0} ₫", thue)
+                                    </td>
+                                </tr>
                                 @if (voucher != null)
                                 {
                                     <tr class="text-success">
                                         <td colspan="3" class="text-end">Giảm giá:</td>
                                         <td class="text-end">
                                             @{
-                                                decimal giamGia = tongTienHang - (decimal)donHang.TongTien;
+                                                decimal giamGia = (tongTienHang + thue) - (decimal)donHang.TongTien;
                                             }
                                             - @String.Format("{0:N0} ₫", giamGia)
                                         </td>

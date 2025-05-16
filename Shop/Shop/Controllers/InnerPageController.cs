@@ -614,13 +614,19 @@ namespace Shop.Controllers
                     }
                 }
                 
-                // Cập nhật tổng tiền đơn hàng
-                donHang.TongTien = Convert.ToSingle(tongTien);
+                // Tính thuế (8% tổng tiền hàng)
+                decimal thue = tongTien * 0.08m;
+                
+                // Cộng thuế vào tổng tiền đơn hàng (không tính phí vận chuyển)
+                decimal tongTienSauThue = tongTien + thue;
+                
+                // Cập nhật tổng tiền đơn hàng (đã bao gồm thuế)
+                donHang.TongTien = Convert.ToSingle(tongTienSauThue);
                 
                 // Xử lý voucher nếu có
                 if (!string.IsNullOrWhiteSpace(model.maVoucherCode))
                 {
-                    var validationResult = ValidateVoucher(maKhachHang, model.maVoucherCode, Convert.ToSingle(tongTien));
+                    var validationResult = ValidateVoucher(maKhachHang, model.maVoucherCode, Convert.ToSingle(tongTienSauThue));
                     
                     if (validationResult.success)
                     {
@@ -1159,11 +1165,12 @@ namespace Shop.Controllers
             float discountValue = 0;
             if (voucher.LoaiGiamGia == "TienMat")
             {
+                // Giảm trực tiếp theo giá trị tiền mặt
                 discountValue = Convert.ToSingle(voucher.GiaTriGiamGia);
             }
             else if (voucher.LoaiGiamGia == "PhanTram")
             {
-                // Giảm theo phần trăm, tính ra tiền
+                // Giảm theo phần trăm của tổng tiền (đã bao gồm thuế)
                 discountValue = tongTien * (Convert.ToSingle(voucher.GiaTriGiamGia) / 100);
             }
             
