@@ -84,7 +84,7 @@
                 <h2 class="h5 fw-bold mb-3">Phương thức thanh toán</h2>
                 <div class="card border p-3">
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="TheTinDung">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="TheTinDung" checked>
                         <label class="form-check-label" for="bankTransfer">
                             Thẻ tín dụng / Thẻ ghi nợ
                         </label>
@@ -240,7 +240,7 @@
         const selectedItemTemplate = document.getElementById('selectedItemTemplate');
 
         let selectedItems = [];
-        let shippingFee = 30000;
+        let shippingFee = 0;
         let taxRate = 0.08;
         let selectedAddressId = null;
         let appliedVoucher = null;   // Thêm biến lưu voucher đã áp dụng

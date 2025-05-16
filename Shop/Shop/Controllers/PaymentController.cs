@@ -50,11 +50,11 @@ namespace Shop.Controllers
 
                 // Tính thuế và phí vận chuyển
                 double thue = tongTien * 0.08;
-                double phiVanChuyen = 30000;
+                double phiVanChuyen = 0; // Đặt phí vận chuyển bằng 0
                 double tongThanhToan = tongTien + thue + phiVanChuyen;
 
                 // Chuyển đổi từ VND sang USD (tỷ giá 1 USD = 23000 VND)
-                double usdExchangeRate = 23000;
+                double usdExchangeRate = 26000;
                 double tongTienUSD = Math.Round(tongThanhToan / usdExchangeRate, 2);
 
                 // Lưu thông tin đơn hàng vào Session để sử dụng sau khi thanh toán
@@ -323,10 +323,65 @@ namespace Shop.Controllers
                         }
                     }
 
-                    // Tính thuế và phí vận chuyển
+                    // Tính thuế (phí vận chuyển = 0)
                     decimal thue = tongTien * 0.08m;
-                    decimal phiVanChuyen = 30000;
+                    decimal phiVanChuyen = 0;
                     decimal tongThanhToan = tongTien + thue + phiVanChuyen;
+
+                    // Xử lý voucher nếu có
+                    if (!string.IsNullOrWhiteSpace(orderModel.maVoucherCode))
+                    {
+                        var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == orderModel.maVoucherCode);
+                        if (voucher != null)
+                        {
+                            // Áp dụng giảm giá
+                            decimal soTienGiam = 0;
+                            if (voucher.LoaiGiamGia == "TienMat")
+                            {
+                                // Giảm tiền mặt
+                                soTienGiam = (decimal)voucher.GiaTriGiamGia;
+                            }
+                            else if (voucher.LoaiGiamGia == "PhanTram")
+                            {
+                                // Giảm phần trăm (áp dụng trên tổng đã bao gồm thuế)
+                                soTienGiam = tongThanhToan * ((decimal)voucher.GiaTriGiamGia / 100);
+                            }
+
+                            // Đảm bảo số tiền giảm không vượt quá tổng tiền
+                            if (soTienGiam > tongThanhToan)
+                            {
+                                soTienGiam = tongThanhToan;
+                            }
+
+                            // Trừ tiền giảm giá
+                            tongThanhToan -= soTienGiam;
+
+                            // Cập nhật voucher vào đơn hàng
+                            donHang.MaVoucher = voucher.MaVoucher;
+                            voucher.SoLuongDaDung += 1;
+
+                            // Kiểm tra và cập nhật trạng thái phân phối voucher
+                            var phanPhoi = data.PhanPhoiVouchers
+                                .FirstOrDefault(pv => pv.MaVoucher == voucher.MaVoucher && pv.MaKhachHang == maKhachHang);
+
+                            if (phanPhoi != null)
+                            {
+                                phanPhoi.DaSuDung = true;
+                                phanPhoi.NgaySuDung = DateTime.Now;
+                            }
+                            else
+                            {
+                                var newPhanPhoi = new PhanPhoiVoucher
+                                {
+                                    MaVoucher = voucher.MaVoucher,
+                                    MaKhachHang = maKhachHang,
+                                    DaSuDung = true,
+                                    NgaySuDung = DateTime.Now
+                                };
+                                data.PhanPhoiVouchers.InsertOnSubmit(newPhanPhoi);
+                            }
+                        }
+                    }
 
                     // Cập nhật tổng tiền đơn hàng
                     donHang.TongTien = (double)tongThanhToan;
