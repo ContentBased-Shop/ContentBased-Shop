@@ -959,6 +959,96 @@
     </div>
 </div>
 
+<h2>Người dùng - Gửi câu hỏi</h2>
+<input id="username" placeholder="Tên bạn" />
+<input id="question" placeholder="Câu hỏi của bạn" />
+<button onclick="sendQuestion()">Gửi</button>
+
+<h3>Câu trả lời:</h3>
+<div id="answerSection"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDOmM_iFG3hOUoZ7D053NpXzJc7bYQ9Jho",
+        authDomain: "swootechsmart.firebaseapp.com",
+        databaseURL: "https://swootechsmart-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "swootechsmart",
+        storageBucket: "swootechsmart.firebasestorage.app",
+        messagingSenderId: "243392421629",
+        appId: "1:243392421629:web:1238116e5f3ecf87e22894"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    let sessionId = null;
+
+    function sendQuestion() {
+        const username = document.getElementById('username').value;
+        const question = document.getElementById('question').value;
+
+        sessionId = Date.now(); // đơn giản hóa bằng timestamp
+
+        db.ref('qa/' + sessionId).set({
+            question: question,
+            askedBy: username,
+            timestamp: new Date().toISOString(),
+            answer: "",
+            answeredBy: ""
+        });
+
+        listenForAnswer(sessionId);
+    }
+
+    function listenForAnswer(id) {
+        db.ref('qa/' + id + '/answer').on('value', (snapshot) => {
+            const answer = snapshot.val();
+            if (answer) {
+                document.getElementById('answerSection').innerText = "Trả lời: " + answer;
+            }
+        });
+    }
+</script>
+
+<h2>Admin - Trả lời câu hỏi</h2>
+<ul id="questionList"></ul>
+
+
+<script>
+  
+
+    firebase.initializeApp(firebaseConfig);
+
+    db.ref('qa').on('value', (snapshot) => {
+        const data = snapshot.val();
+        const list = document.getElementById('questionList');
+        list.innerHTML = "";
+
+        for (let id in data) {
+            const q = data[id];
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <strong>${q.askedBy}</strong>: ${q.question}<br/>
+                <input id="answer-${id}" placeholder="Trả lời..." />
+                <button onclick="sendAnswer('${id}')">Gửi trả lời</button>
+                <hr/>
+            `;
+            list.appendChild(li);
+        }
+    });
+
+    function sendAnswer(id) {
+        const input = document.getElementById('answer-' + id);
+        db.ref('qa/' + id).update({
+            answer: input.value,
+            answeredBy: "admin",
+        });
+    }
+</script>
+
 
 
 <!-- Product Reviews -->
@@ -1069,6 +1159,8 @@
         </div>
     </div>
 </div>
+
+
 @Html.Action("RecentlyViewedPartial", "Product")
 
 <style>
