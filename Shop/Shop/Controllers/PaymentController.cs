@@ -115,6 +115,43 @@ namespace Shop.Controllers
                     });
                 }
 
+                // Thêm item giảm giá nếu có voucher
+                if (!string.IsNullOrWhiteSpace(model.maVoucherCode))
+                {
+                    var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == model.maVoucherCode);
+                    if (voucher != null)
+                    {
+                        double soTienGiam = 0;
+                        if (voucher.LoaiGiamGia == "TienMat")
+                        {
+                            soTienGiam = (double)voucher.GiaTriGiamGia;
+                        }
+                        else if (voucher.LoaiGiamGia == "PhanTram")
+                        {
+                            // Tính lại tổng tiền đã bao gồm thuế
+                            double tongTienTruocGiam = tongTien + thue + phiVanChuyen;
+                            soTienGiam = tongTienTruocGiam * ((double)voucher.GiaTriGiamGia / 100);
+                        }
+
+                        if (soTienGiam > tongThanhToan)
+                        {
+                            soTienGiam = tongThanhToan;
+                        }
+
+                        if (soTienGiam > 0)
+                        {
+                            itemList.items.Add(new Item()
+                            {
+                                name = "Voucher giảm giá",
+                                currency = "USD",
+                                price = (-Math.Round(soTienGiam / usdExchangeRate, 2)).ToString("0.00"),
+                                quantity = "1",
+                                sku = "DISCOUNT"
+                            });
+                        }
+                    }
+                }
+
                 // Thiết lập thông tin giao dịch
                 var payer = new Payer() { payment_method = "paypal" };
 
