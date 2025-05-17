@@ -136,6 +136,7 @@
     <Content Include="assets\CSS\InnerPage\Contact.css" />
     <Content Include="assets\CSS\InnerPage\Checkout.css" />
     <Content Include="assets\CSS\InnerPage\Error.css" />
+    <Compile Include="Controllers\AdminQuestionController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InnerPageController.cs" />
@@ -413,6 +414,7 @@
     <Content Include="Views\Shared\_RecentlyViewedPartial.cshtml" />
     <Content Include="Views\Product\ProductManHinh.cshtml" />
     <Content Include="Views\InnerPage\Blog.cshtml" />
+    <Content Include="Views\AdminQuestion\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
