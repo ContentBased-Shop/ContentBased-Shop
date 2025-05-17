@@ -10,7 +10,7 @@ namespace Shop.Controllers
 {
     public class UserController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
+        SHOPDataContext data = new SHOPDataContext("Data Source=ACERNITRO5;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
                  "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
         //
         // GET: /User/
@@ -152,10 +152,130 @@ namespace Shop.Controllers
             return View(diaChi);
         }
 
+        [HttpGet]
+        public JsonResult GetDonHang()
+        {
+            if (Session["UserID"] == null)
+                return Json(new { success = false, message = "Vui lòng đăng nhập" }, JsonRequestBehavior.AllowGet);
 
-       
+            string maKhachHang = Session["UserID"].ToString();
 
+            var donHangs = data.DonHangs
+                .Where(dh => dh.MaKhachHang == maKhachHang)
+                .OrderByDescending(dh => dh.NgayTao)
+                .Select(dh => new DonHangViewModel
+                {
+                    MaDonHang = dh.MaDonHang,
+                    MaKhachHang = dh.MaKhachHang,
+                    MaVoucher = dh.MaVoucher,
+                    TongTien = (double)dh.TongTien,
+                    TrangThaiThanhToan = dh.TrangThaiThanhToan,
+                    TrangThaiDonHang = dh.TrangThaiDonHang,
+                    NgayTao = (DateTime)dh.NgayTao,
+                    ChiTietDonHangs = data.ChiTietDonHangs
+                        .Where(ct => ct.MaDonHang == dh.MaDonHang)
+                        .Select(ct => new ChiTietDonHangViewModel
+                        {
+                            MaChiTietDonHang = ct.MaChiTietDonHang,
+                            MaDonHang = ct.MaDonHang,
+                            MaBienThe = ct.MaBienThe,
+                            SoLuong = (int)ct.SoLuong,
+                            DonGia = (double)ct.DonGia,
+                            TenHangHoa = data.HangHoas
+                                .Where(hh => hh.MaHangHoa == data.BienTheHangHoas
+                                    .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                    .Select(bth => bth.MaHangHoa)
+                                    .FirstOrDefault())
+                                .Select(hh => hh.TenHangHoa)
+                                .FirstOrDefault(),
+                            HinhAnh = data.HangHoas
+                                .Where(hh => hh.MaHangHoa == data.BienTheHangHoas
+                                    .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                    .Select(bth => bth.MaHangHoa)
+                                    .FirstOrDefault())
+                                .Select(hh => hh.HinhAnh)
+                                .FirstOrDefault(),
+                            MauSac = data.BienTheHangHoas
+                                .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                .Select(bth => bth.MauSac)
+                                .FirstOrDefault(),
+                            DungLuong = data.BienTheHangHoas
+                                .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                .Select(bth => bth.DungLuong)
+                                .FirstOrDefault(),
+                            CPU = data.BienTheHangHoas
+                                .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                .Select(bth => bth.CPU)
+                                .FirstOrDefault(),
+                            RAM = data.BienTheHangHoas
+                                .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                .Select(bth => bth.RAM)
+                                .FirstOrDefault(),
+                            KichThuocManHinh = data.BienTheHangHoas
+                                .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                .Select(bth => bth.KichThuocManHinh)
+                                .FirstOrDefault(),
+                            LoaiBoNho = data.BienTheHangHoas
+                                .Where(bth => bth.MaBienThe == ct.MaBienThe)
+                                .Select(bth => bth.LoaiBoNho)
+                                .FirstOrDefault()
+                        }).ToList(),
+                    GiaoHang = data.GiaoHangs
+                        .Where(gh => gh.MaDonHang == dh.MaDonHang)
+                        .Select(gh => new GiaoHangViewModel
+                        {
+                            MaGiaoHang = gh.MaGiaoHang,
+                            MaDonHang = gh.MaDonHang,
+                            MaDiaChi = gh.MaDiaChi,
+                            MaVanDon = gh.MaVanDon,
+                            DonViVanChuyen = gh.DonViVanChuyen,
+                            TrangThaiGiaoHang = gh.TrangThaiGiaoHang,
+                            NgayGuiHang = gh.NgayGuiHang,
+                            NgayNhanHang = gh.NgayNhanHang,
+                            DiaChiDayDu = data.DiaChiKhachHangs
+                                .Where(dc => dc.MaDiaChi == gh.MaDiaChi)
+                                .Select(dc => dc.DiaChiDayDu)
+                                .FirstOrDefault(),
+                            TenNguoiNhan = data.DiaChiKhachHangs
+                                .Where(dc => dc.MaDiaChi == gh.MaDiaChi)
+                                .Select(dc => dc.TenNguoiNhan)
+                                .FirstOrDefault(),
+                            SoDienThoai = data.DiaChiKhachHangs
+                                .Where(dc => dc.MaDiaChi == gh.MaDiaChi)
+                                .Select(dc => dc.SoDienThoai)
+                                .FirstOrDefault()
+                        }).FirstOrDefault()
+                }).ToList();
 
+            return Json(new { success = true, data = donHangs }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult HuyDonHang(string maDonHang)
+        {
+            if (Session["UserID"] == null)
+                return Json(new { success = false, message = "Vui lòng đăng nhập" });
+
+            try
+            {
+                var donHang = data.DonHangs.FirstOrDefault(dh => dh.MaDonHang == maDonHang);
+                if (donHang == null)
+                    return Json(new { success = false, message = "Không tìm thấy đơn hàng" });
+
+                if (donHang.TrangThaiDonHang != "DangXuLy" || donHang.TrangThaiThanhToan != "ChoThanhToan")
+                    return Json(new { success = false, message = "Không thể hủy đơn hàng này" });
+
+                donHang.TrangThaiDonHang = "DaHuy";
+                donHang.TrangThaiThanhToan = "DaHuy";
+                data.SubmitChanges();
+
+                return Json(new { success = true, message = "Hủy đơn hàng thành công" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
 
         // POST: /User/ChangePassword
         public ActionResult ChangePassword(string password, string password_new)

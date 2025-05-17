@@ -159,115 +159,9 @@
     <!-- Order items -->
     <div id="my-order" class="flex-grow-1 overflow-scroll-container tab-content d-none">
         <div class="flex-grow-1">
-            <h3 class=" fw-bold mb-2 ">ĐƠN HÀNG CỦA TÔI</h3>
-            <div class="item-order mb-4 px-3 rounded-4 py-2">
-                <div class="text-end pb-2">
-                    <span class="lbl-shipped fw-medium">Shipped</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-start pb-2">
-                    <div class="d-flex gap-3">
-                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
-                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
-                        </div>
-                        <div>
-                            <h5 class="fw-medium mb-1">Artisanal Avocado Oil Premium French Imported</h5>
-                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
-                        </div>
-                    </div>
-                    <span class="fw-medium">$ 20.99</span>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-start  pb-2 ">
-                    <div class="d-flex gap-3">
-                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
-                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
-                        </div>
-                        <div>
-                            <h5 class="fw-medium mb-1">Artisanal</h5>
-                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
-                        </div>
-                    </div>
-                    <span class="fw-medium">$ 20.99</span>
-                </div>
-
-                <div class="text-end text-muted small">
-                    <p>Còn 2+ sản phẩm khác</p>
-                </div>
-
-                <div class="border-top pt-1 text-end">
-                    <span class="h6 fw-medium me-2">Tổng tiền(4 sản phẩm):</span>
-                    <span class="h4 fw-bold">$ 41.82</span>
-                </div>
-                <!-- Shipping notification -->
-                <div class="bg-warning bg-opacity-25 rounded p-2 my-2">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="icon-shipped fw-bold">
-                            <i class="fa-solid fa-truck-fast"></i> Shipped
-                        </div>
-                        <span>Đơn hàng đang vận chuyển</span>
-                    </div>
-                </div>
-                <!-- Action buttons -->
-                <div class="d-flex justify-content-end gap-2 ">
-                    <button class="btn btn-dark">Refund</button>
-                    <button class="btn btn-Confirm btn-success">Confirm</button>
-                </div>
-            </div>
-
-
-            <div class="item-order mb-4 px-3 rounded-4 py-2">
-                <div class="text-end pb-2">
-                    <span class="text-danger fw-medium">Closed</span>
-                </div>
-                <div class="d-flex justify-content-between align-items-start pb-2">
-                    <div class="d-flex gap-3">
-                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
-                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
-                        </div>
-                        <div>
-                            <h5 class="fw-medium mb-1">Artisanal Avocado Oil Premium French Imported</h5>
-                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
-                        </div>
-                    </div>
-                    <span class="fw-medium">$ 20.99</span>
-                </div>
-
-                <div class="d-flex justify-content-between align-items-start  pb-2 ">
-                    <div class="d-flex gap-3">
-                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
-                            <img src="/placeholder.svg?height=64&width=64" alt="Product" class="img-fluid h-100 w-100 object-fit-cover">
-                        </div>
-                        <div>
-                            <h5 class="fw-medium mb-1">Artisanal</h5>
-                            <p class="text-muted small mb-0">Avocado oil 100ML *1</p>
-                        </div>
-                    </div>
-                    <span class="fw-medium">$ 20.99</span>
-                </div>
-
-                <div class="text-end text-muted small">
-                    <p>Còn 2+ sản phẩm khác</p>
-                </div>
-
-                <div class="border-top pt-1 text-end">
-                    <span class="h6 fw-medium me-2">Tổng tiền(4 sản phẩm):</span>
-                    <span class="h4 fw-bold">$ 41.82</span>
-                </div>
-
-                <!-- Order confirmation -->
-                <div class="bg-success bg-opacity-25 rounded p-2 my-2">
-                    <div class="d-flex align-items-center gap-2">
-                        <div class="icon-check fw-bold">
-                            <i class="bi bi-check-circle-fill"></i> Signed
-                        </div>
-                        <span> Your order has been received and signed...</span>
-                    </div>
-                </div>
-
-                <!-- Buy again button -->
-                <div class="text-end 2">
-                    <button class="btn btn-buyagain btn-success">Buy Again</button>
-                </div>
+            <h3 class="fw-bold mb-2">ĐƠN HÀNG CỦA TÔI</h3>
+            <div id="order-list">
+                <!-- Danh sách đơn hàng sẽ được load động bằng JavaScript -->
             </div>
         </div>
     </div>
@@ -911,6 +805,130 @@
                     console.error(error);
                 });
         });
+    });
+</script>
+
+<script>
+    // Thêm đoạn JavaScript để load và hiển thị đơn hàng
+    function loadDonHang() {
+        $.ajax({
+            url: '/User/GetDonHang',
+            type: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    const orderList = $('#order-list');
+                    orderList.empty();
+
+                    response.data.forEach(donHang => {
+                        let orderHtml = `
+                            <div class="item-order mb-4 px-3 rounded-4 py-2">
+                                <div class="text-end pb-2">
+                                    <span class="lbl-shipped fw-medium">${donHang.TrangThaiDonHang}</span>
+                                </div>`;
+
+                        // Hiển thị chi tiết sản phẩm
+                        donHang.ChiTietDonHangs.forEach(ct => {
+                            orderHtml += `
+                                <div class="d-flex justify-content-between align-items-start pb-2">
+                                    <div class="d-flex gap-3">
+                                        <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
+                                            <img src="${ct.HinhAnh}" alt="${ct.TenHangHoa}" class="img-fluid h-100 w-100 object-fit-cover">
+                                        </div>
+                                        <div>
+                                            <h5 class="fw-medium mb-1">${ct.TenHangHoa}</h5>
+                                            <p class="text-muted small mb-0">
+                                                ${ct.MauSac ? `Màu: ${ct.MauSac}` : ''}
+                                                ${ct.DungLuong ? ` - Dung lượng: ${ct.DungLuong}` : ''}
+                                                ${ct.CPU ? ` - CPU: ${ct.CPU}` : ''}
+                                                ${ct.RAM ? ` - RAM: ${ct.RAM}` : ''}
+                                                ${ct.KichThuocManHinh ? ` - Màn hình: ${ct.KichThuocManHinh}` : ''}
+                                                ${ct.LoaiBoNho ? ` - Ổ cứng: ${ct.LoaiBoNho}` : ''}
+                                                x ${ct.SoLuong}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span class="fw-medium">${ct.DonGia.toLocaleString('vi-VN')}đ</span>
+                                </div>`;
+                        });
+
+                        // Thông tin giao hàng
+                        if (donHang.GiaoHang) {
+                            orderHtml += `
+                                <div class="bg-warning bg-opacity-25 rounded p-2 my-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="icon-shipped fw-bold">
+                                            <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.TrangThaiGiaoHang}
+                                        </div>
+                                        <span>Đơn hàng đang vận chuyển</span>
+                                    </div>
+                                </div>`;
+                        }
+
+                        // Tổng tiền
+                        orderHtml += `
+                            <div class="border-top pt-1 text-end">
+                                <span class="h6 fw-medium me-2">Tổng tiền(${donHang.ChiTietDonHangs.length} sản phẩm):</span>
+                                <span class="h4 fw-bold">${donHang.TongTien.toLocaleString('vi-VN')}đ</span>
+                            </div>`;
+
+                        // Nút hành động
+                        orderHtml += `<div class="d-flex justify-content-end gap-2 mt-3">`;
+                        
+                        if (donHang.TrangThaiDonHang === "DangXuLy" && donHang.TrangThaiThanhToan === "ChoThanhToan") {
+                            orderHtml += `
+                                <button class="btn btn-danger" onclick="huyDonHang('${donHang.MaDonHang}')">
+                                    Hủy đơn hàng
+                                </button>`;
+                        }
+                        
+                        if (donHang.TrangThaiDonHang === "HoanThanh") {
+                            orderHtml += `
+                                <button class="btn btn-success" onclick="danhGiaDonHang('${donHang.MaDonHang}')">
+                                    Đánh giá
+                                </button>`;
+                        }
+                        
+                        orderHtml += `</div></div>`;
+                        
+                        orderList.append(orderHtml);
+                    });
+                }
+            },
+            error: function() {
+                alert('Có lỗi xảy ra khi tải danh sách đơn hàng');
+            }
+        });
+    }
+
+    function huyDonHang(maDonHang) {
+        if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
+            $.ajax({
+                url: '/User/HuyDonHang',
+                type: 'POST',
+                data: { maDonHang: maDonHang },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Hủy đơn hàng thành công');
+                        loadDonHang(); // Tải lại danh sách đơn hàng
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function() {
+                    alert('Có lỗi xảy ra khi hủy đơn hàng');
+                }
+            });
+        }
+    }
+
+    function danhGiaDonHang(maDonHang) {
+        // Chuyển hướng đến trang đánh giá
+        window.location.href = `/DanhGia/Create?maDonHang=${maDonHang}`;
+    }
+
+    // Load đơn hàng khi chuyển đến tab đơn hàng
+    $('.nav-link[data-target="my-order"]').click(function() {
+        loadDonHang();
     });
 </script>
 

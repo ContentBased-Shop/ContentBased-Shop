@@ -159,6 +159,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBSHOP.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DonHangViewModel.cs" />
     <Compile Include="Models\HangHoaViewModel.cs" />
     <Compile Include="Models\PaypalConfiguration.cs" />
     <Compile Include="Models\ProductDetailPageView.cs" />
