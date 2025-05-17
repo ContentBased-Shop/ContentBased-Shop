@@ -901,24 +901,52 @@
     }
 
     function huyDonHang(maDonHang) {
-        if (confirm('Bạn có chắc chắn muốn hủy đơn hàng này?')) {
-            $.ajax({
-                url: '/User/HuyDonHang',
-                type: 'POST',
-                data: { maDonHang: maDonHang },
-                success: function(response) {
-                    if (response.success) {
-                        alert('Hủy đơn hàng thành công');
-                        loadDonHang(); // Tải lại danh sách đơn hàng
-                    } else {
-                        alert(response.message);
+        Swal.fire({
+            title: 'Xác nhận hủy đơn hàng',
+            text: 'Bạn có chắc chắn muốn hủy đơn hàng này?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#1aba1a',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '/User/HuyDonHang',
+                    type: 'POST',
+                    data: { maDonHang: maDonHang },
+                    success: function(response) {
+                        if (response.success) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Thành công',
+                                text: 'Đơn hàng đã được hủy thành công',
+                                timer: 1500,
+                                showConfirmButton: false
+                            }).then(() => {
+                                loadDonHang(); // Tải lại danh sách đơn hàng
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi',
+                                text: response.message,
+                                confirmButtonColor: '#1aba1a'
+                            });
+                        }
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Có lỗi xảy ra khi kết nối đến server',
+                            confirmButtonColor: '#1aba1a'
+                        });
                     }
-                },
-                error: function() {
-                    alert('Có lỗi xảy ra khi hủy đơn hàng');
-                }
-            });
-        }
+                });
+            }
+        });
     }
 
     function danhGiaDonHang(maDonHang) {
