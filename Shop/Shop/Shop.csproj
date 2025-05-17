@@ -142,6 +142,7 @@
     <Content Include="assets\CSS\InnerPage\Contact.css" />
     <Content Include="assets\CSS\InnerPage\Checkout.css" />
     <Content Include="assets\CSS\InnerPage\Error.css" />
+    <Compile Include="Controllers\DanhGiaController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InnerPageController.cs" />
