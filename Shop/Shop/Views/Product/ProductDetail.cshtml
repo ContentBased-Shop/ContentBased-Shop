@@ -14,7 +14,7 @@
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
             <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
             <li class="breadcrumb-item"><a href="/pages">Danh Mục Sản Phẩm</a></li>
-            <li class="breadcrumb-item"><a href="/pages">@Model.Product.TenDanhMuc</a></li>
+            <li class="breadcrumb-item"><a href="/pages"> @Html.Raw(Model.Product.TenDanhMuc)</a></li>
             <li class="breadcrumb-item active text-secondary" aria-current="page">@Model.Product.TenHangHoa</li>
 
         </ol>

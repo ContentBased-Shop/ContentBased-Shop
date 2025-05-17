@@ -872,6 +872,12 @@
 
 
 <!-- Product Reviews -->
+<script>
+    const userid = "@Session["UserId"]";
+    const hoten = "@Session["UserName"]";
+</script>
+
+<!-- Product Reviews -->
 <div class="container py-4 rounded-3 bg-white p-4 mb-2">
     <h2 class="h3 mb-4 fw-bold">Hỏi và đáp</h2>
 
@@ -880,105 +886,244 @@
         <div class="row g-3 align-items-start">
             <!-- Cột textarea -->
             <div class="col-12 col-md-11">
-                <textarea class="form-control" rows="4" placeholder="Swoo sẽ trả lời trong 1 giờ (sau 22h, phản hồi vào sáng hôm sau). Một số thông tin có thể thay đổi, Quý khách hãy đặt câu hỏi để được cập nhật mới nhất."></textarea>
+                <textarea id="question" class="form-control" rows="4"
+                          placeholder="Swoo sẽ trả lời trong 1 giờ (sau 22h, phản hồi vào sáng hôm sau). Một số thông tin có thể thay đổi, Quý khách hãy đặt câu hỏi để được cập nhật mới nhất."></textarea>
             </div>
 
             <!-- Cột nút gửi -->
             <div class="col-12 col-md-1 text-md-end">
-                <button class="btn btn-success w-100 w-md-auto">
+                <button class="btn btn-success w-100 w-md-auto" onclick="sendQuestion()">
                     <i class="fas fa-paper-plane me-1"></i> Gửi
                 </button>
             </div>
         </div>
     </div>
 
-
-    <!-- Reviews List -->
-    <div class="space-y-5">
-        <!-- Review 1 -->
-        <div class="bg-light p-4 rounded-3 shadow mb-2">
-            <div class="d-flex justify-content-between mb-3">
-                <div class="d-flex gap-3">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
-                    <div>
-                        <div class="fw-medium">Cù Trọng Văn</div>
-
-                    </div>
-                </div>
-                <div class="small text-muted">24 January, 2023</div>
-            </div>
-            <p class="text-muted mb-3">
-                Bên shop cho mình hỏi chút, hiện tại thì sản phẩm này của mình bị rớt 1 con vít vặn ở sau, cho mình hỏi đây là loại ốc vít nào để mình có thể mua và bổ sung
-            </p>
-            <div class="d-flex gap-2 mb-3">
-
-            </div>
-
-            <!-- Reply Section -->
-            <!-- Reply Section -->
-            <div class="bg-white p-3  rounded-4 border shadow-sm">
-                <div class="d-flex justify-content-between mb-2">
-                    <div class="d-flex gap-2 align-items-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Admin" class="rounded-circle" width="30" height="30">
-                        <div class="fw-medium text-danger">Quản trị viên</div><div class="px-2 py-1 bg-danger text-white rounded-3 fs-7 fw-bold"> (QTV)</div>
-                    </div>
-                    <div class="small text-muted">25 January, 2023</div>
-                </div>
-                <p class="mb-0 text-muted">
-                    Swoo xin chào Anh Văn,
-                    Dạ trường hợp này mình tham khảo hệ thống cửa hàng Điện Thoại Vui là Hệ thống cửa hàng sửa chữa – một thành viên của CellphoneS ạ: https://dienthoaivui.com.vn/ - Hoặc mình có thể nhấn vào đường link https://oa.zalo.me/1789543726746345449 để phía Điện thoại Vui hỗ trợ mình ạ
-                    Thông tin đến anh.
-                </p>
-            </div>
-        </div>
-
-
-        <div class="bg-light p-4 rounded-3 shadow mb-2">
-            <div class="d-flex justify-content-between mb-3">
-                <div class="d-flex gap-3">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/user.png" alt="User" class="rounded-circle" width="40" height="40">
-                    <div>
-                        <div class="fw-medium">Huy</div>
-
-                    </div>
-                </div>
-                <div class="small text-muted">24 January, 2023</div>
-            </div>
-            <p class="text-muted mb-3">
-                Cho mình hỏi máy này nếu là thành viên s-student và trừ hết quà thì giá còn bao nhiêu ạ, chi phí nâng cấp RAM SSD lên tối đa hết bao nhiêu ạ
-            </p>
-
-
-            <!-- Reply Section -->
-            <!-- Reply Section -->
-            <div class="bg-white p-3 rounded-4 border shadow-sm">
-                <div class="d-flex justify-content-between mb-2">
-                    <div class="d-flex gap-2 align-items-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Admin" class="rounded-circle" width="30" height="30">
-                        <div class="fw-medium text-danger">Quản trị viên</div><div class="px-2 py-1 bg-danger text-white rounded-3 fs-7 fw-bold"> (QTV)</div>
-                    </div>
-                    <div class="small text-muted">25 January, 2023</div>
-                </div>
-                <p class="mb-0 text-muted">
-                    Swoo xin chào anh Huy,
-                    LAPTOP ACER ASPIRE 7 A715-76G-5806 I5-12450H/16GB/512GB PCIE/15.6 FHD 144HZ/VGA 4GB RTX3050/WIN11/ĐEN giá thời điểm hiện tại là 18.990.000đ (miền Nam) ạ,
-                    Nhận thêm 1 trong các khuyến mãi sau:
-                    Tặng phiếu mua hàng 700.000
-                    Tặng đồng hồ thông minh Black Shark GT3 trị giá 990,000 (hết quà hoàn tiền 700,000)
-                    Dạ S-student Giảm 3% tối đa 400K + Tặng quà balo CpS trị giá 600K ạ,
-                    Dạ tuỳ sản phẩm SSD mình mua thay thế ạ, sản phẩm 512 GB SSD NVMe PCIe (Có thể tháo ra, lắp thanh khác tối đa 1 TB) ạ,
-                    Không biết mình ở quận nào em kiểm tra cửa hàng để tiện lên đơn giữ hàng + giá trong 24h qua SDT giúp mình ạ.
-                    Mong sớm nhận được phản hồi từ mình ạ.
-            </div>
-
-        </div>
-
-        <!-- View More Button -->
-        <div class="text-center mt-4">
-            <button class="btn btn-outline-success">View More</button>
-        </div>
-    </div>
+    <!-- Câu hỏi & trả lời sẽ hiển thị ở đây -->
+    <div id="qaContainer"></div>
 </div>
+
+
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDOmM_iFG3hOUoZ7D053NpXzJc7bYQ9Jho",
+        authDomain: "swootechsmart.firebaseapp.com",
+        databaseURL: "https://swootechsmart-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "swootechsmart",
+        storageBucket: "swootechsmart.appspot.com",
+        messagingSenderId: "243392421629",
+        appId: "1:243392421629:web:1238116e5f3ecf87e22894"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const replyListeners = {};
+
+    window.addEventListener('DOMContentLoaded', loadAllQuestionsRealtime);
+
+    function loadAllQuestionsRealtime() {
+        const container = document.getElementById("qaContainer");
+        container.innerHTML = '';
+
+        db.ref('qa').orderByChild('timestamp').on('child_added', snapshot => {
+            const data = snapshot.val();
+            if (!document.getElementById(`qa-${data.timestamp}`)) {
+                renderQA(data);
+            }
+        });
+
+        db.ref('qa').on('child_removed', snapshot => {
+            const data = snapshot.val();
+            const element = document.getElementById(`qa-${data.timestamp}`);
+            if (element) element.remove();
+        });
+
+        db.ref('qa').on('child_changed', snapshot => {
+            const data = snapshot.val();
+            const existing = document.getElementById(`qa-${data.timestamp}`);
+            if (existing) existing.remove();
+            renderQA(data);
+        });
+    }
+
+    function renderQA(data) {
+        const container = document.getElementById("qaContainer");
+
+        const html = `
+       <div class="bg-white rounded shadow p-4 mb-4">
+          <!-- User Info + Timestamp -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center gap-3">
+              <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg"
+                   alt="User" class="rounded-circle" width="50" height="50">
+              <div>
+                <div class="fw-semibold">${data.askedBy}
+                   <span class="badge bg-success">Member</span>
+             </div>
+              </div>
+            </div>
+            <div class="text-muted small">
+              ${isNaN(new Date(Number(data.timestamp)).getTime()) ? "Không xác định" : new Date(Number(data.timestamp)).toLocaleDateString()}
+            </div>
+          </div>
+
+          <!-- Question -->
+          <p class="text-muted fs-5 mb-3">${data.question}</p>
+
+          <!-- Replies will be inserted here -->
+          <div id="replies-${data.timestamp}" class="mt-3 ps-4 border-start"></div>
+
+          <!-- Reply Input -->
+          <div class="d-flex align-items-center gap-2 mt-3 ps-4">
+            <input type="text" class="form-control" placeholder="Phản hồi..." id="replyInput-${data.timestamp}">
+            <button class="btn btn-success d-flex align-items-center" onclick="sendReply('${data.timestamp}')">
+              <i class="fas fa-paper-plane me-1"></i> Gửi
+            </button>
+          </div>
+        </div>
+        `;
+
+        container.innerHTML = html + container.innerHTML;
+
+        listenToReplies(data.timestamp);
+    }
+
+    function listenToReplies(questionId) {
+        const repliesRef = db.ref(`qa/${questionId}/replies`);
+        const repliesContainer = document.getElementById(`replies-${questionId}`);
+
+        if (repliesContainer) {
+            repliesContainer.innerHTML = '';
+        }
+
+        if (replyListeners[questionId]) {
+            repliesRef.off('child_added', replyListeners[questionId]);
+        }
+
+        const callback = snapshot => {
+            const reply = snapshot.val();
+            let html = '';
+
+            if (reply.repliedBy === 'admin') {
+                // ✅ Giao diện admin
+                html = `
+            <div class="ms-5 mt-3 bg-white p-3 rounded-4 border shadow-sm">
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex gap-2 align-items-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png" alt="Admin" class="rounded-circle" width="40" height="40">
+                        <div class="fw-medium text-danger">Quản trị viên</div>
+                        <div class="px-2 py-1 bg-danger text-white rounded-3 fs-7 fw-bold">QTV</div>
+                    </div>
+                    <div class="small text-muted">${reply.timestamp ? new Date(reply.timestamp).toLocaleDateString() : ''}</div>
+                </div>
+                <p class="mb-0 text-muted">${reply.message}</p>
+            </div>`;
+            } else {
+                // ✅ Giao diện user thường
+                html = `
+            <div class="ms-5 mt-2 p-2 bg-white border-start border-3 border-secondary rounded-2">
+                <div class="d-flex justify-content-between mb-2">
+                    <div class="d-flex gap-2 align-items-center">
+                        <img src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" alt="Admin" class="rounded-circle" width="50" height="50">
+                        <div class="fw-medium ">${reply.repliedBy}</div>
+                        <div class="px-2 py-1 bg-success text-white rounded-3 fs-7 fw-bold">Member</div>
+                    </div>
+                    <div class="small text-muted">${reply.timestamp ? new Date(reply.timestamp).toLocaleDateString() : ''}</div>
+                </div>
+                <p class="mb-0 text-muted">${reply.message}</p>
+            </div>`;
+            }
+
+            repliesContainer.insertAdjacentHTML('beforeend', html);
+            repliesContainer.scrollTop = repliesContainer.scrollHeight; // Auto scroll xuống cuối
+        };
+
+        replyListeners[questionId] = callback;
+        repliesRef.on('child_added', callback);
+    }
+
+
+    function sendQuestion() {
+        const questionInput = document.getElementById('question');
+        const question = questionInput.value.trim();
+        const sessionId = Date.now().toString();
+
+        if (!question) return Swal.fire("Lỗi", "Vui lòng nhập câu hỏi.", "warning");
+
+        if (!userid) {
+            return Swal.fire({
+                title: 'Bạn cần đăng nhập',
+                text: 'Vui lòng đăng nhập để gửi câu hỏi.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Đăng nhập',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/InnerPage/Login'; // 👉 Thay đường dẫn đăng nhập nếu cần
+                }
+            });
+        }
+
+        const questionData = {
+            question: question,
+            askedBy: hoten,
+            timestamp: sessionId,
+            answer: "",
+            answeredBy: ""
+        };
+
+        db.ref('qa/' + sessionId).set(questionData);
+        questionInput.value = "";
+    }
+    function sendReply(timestamp) {
+        const input = document.getElementById(`replyInput-${timestamp}`);
+        const message = input.value.trim();
+        if (!message) return;
+
+        if (!userid) {
+            return Swal.fire({
+                title: 'Bạn cần đăng nhập',
+                text: 'Vui lòng đăng nhập để phản hồi.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Đăng nhập',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/InnerPage/Login'; // 👉 Đường dẫn đến trang đăng nhập
+                }
+            });
+        }
+
+        const replyId = Date.now().toString();
+
+        let repliedBy = "Người dùng";
+        if (typeof userid !== 'undefined' && hoten) {
+            if (hoten.toLowerCase() === 'admin') {
+                repliedBy = "Quản trị viên";
+            } else {
+                repliedBy = hoten;
+            }
+        }
+
+        db.ref(`qa/${timestamp}/replies/${replyId}`).set({
+            message: message,
+            repliedBy: repliedBy,
+            userId: typeof userId !== 'undefined' ? userId : null,
+            timestamp: Date.now()
+        });
+
+        input.value = "";
+    }
+
+</script>
+
 @Html.Action("RecentlyViewedPartial", "Product")
 
 <style>

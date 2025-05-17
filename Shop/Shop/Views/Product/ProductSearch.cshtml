@@ -25,9 +25,9 @@
         </ol>
     </nav>
 </div>
-<div class="container mb-3 p-0">
+<div class="container mb-3 p-0 bg-white p-4">
     <div class="py-2 rounded-3  my-2">
-        <h6>Sắp xếp theo:</h6>
+        <h5 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">Sắp xếp theo:</h5>
         <div class="d-flex  align-items-center ">
             <div>
                 <button class="btn btn-outline-secondary me-2 sort-btn active" id="sort-related">
@@ -43,14 +43,17 @@
             </div>
         </div>
     </div>
-    <h6 class="text-center mb-3">Tìm thấy @Model.Count sản phẩm cho từ khoá '@ViewBag.Keyword'</h6>
+    <h5 class="text-center mb-3">
+        Tìm thấy @Model.Count sản phẩm cho từ khoá '@ViewBag.Keyword'
+    </h5>
+    <div style="height: 2px; background-color: #ccc; width: 100%; margin-bottom: 1rem;"></div>
+
     <style>
         .card-hover:hover {
             box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
             transform: translateY(-2px);
             transition: all 0.3s ease;
         }
-
     </style>
     <div class="row g-3">
         <!-- Bên trái: Danh sách sản phẩm chiếm 70% -->
