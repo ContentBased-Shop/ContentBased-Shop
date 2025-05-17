@@ -415,6 +415,7 @@
     <Content Include="Views\Product\ProductManHinh.cshtml" />
     <Content Include="Views\InnerPage\Blog.cshtml" />
     <Content Include="Views\AdminQuestion\Index.cshtml" />
+    <Content Include="Views\Shared\_ThongBaoPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

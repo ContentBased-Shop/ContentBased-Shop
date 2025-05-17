@@ -882,7 +882,7 @@
                     {
                     <div class="swiper-slide">
                         <!-- Card sản phẩm BEST SELLER -->
-                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe})" class="text-decoration-none text-dark">
                             <div class="product-card position-relative my-3">
                                 <span class="discount-badge position-absolute top-0 end-0">
                                     @((int)(100 - (product.GiaKhuyenMai / product.GiaBan * 100)))% OFF
@@ -1158,7 +1158,7 @@
                                     }
 
                                     <div class="stock-status">
-                                        <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                        <a href="" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
                                             @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
                                             {
                                                 <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
@@ -1170,7 +1170,6 @@
                                             <span>Yêu thích</span>
                                         </a>
                                     </div>
-
                                 </div>
                             </div>
                         </a>

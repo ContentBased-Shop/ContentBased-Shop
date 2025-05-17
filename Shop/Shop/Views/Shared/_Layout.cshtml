@@ -143,7 +143,7 @@
                         }
                     </style>
                     <!-- User actions -->
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-4 p-0 position-relative">
                         <div class="d-flex justify-content-center justify-content-md-end align-items-center gap-3">
                             <!-- User account -->
                             <div class="d-flex align-items-center">
@@ -155,8 +155,8 @@
                                             <img class="rounded-circle" src="https://png.pngtree.com/png-vector/20191027/ourmid/pngtree-user-icon-isolated-on-abstract-background-png-image_1875037.jpg" width="40" height="40">
                                         </a>
                                     </div>
-                                    <div class="ms-2 d-none d-md-block">
-                                        <a href="/User/" class="text-dark text-decoration-none">
+                                    <div class="ms-2 d-none d-md-block ">
+                                        <a href="/User/" class="text-dark text-decoration-none ">
                                             <p class="fs-7 text-gray-custom mb-0">XIN CHÀO KHÁCH HÀNG !</p>
                                             <p class="fs-7 fw-medium mb-0"
                                                data-bs-toggle="tooltip"
@@ -195,29 +195,53 @@
 
                             </div>
 
-                            <!-- Wishlist -->
-                            <div>
-                                <a href="/Product/ProductWishList" class="text-dark" data-bs-toggle="tooltip" title="Danh sách yêu thích">
-                                    <div class="icon-circle bg-light-custom avatar-link">
-                                        <i class="fas fa-heart"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <style>
-                            </style>
-                            <!-- Cart -->
-                            <div class="d-flex align-items-center position-relative">
-                                <a href="/InnerPage/PreCart" class="text-dark" data-bs-toggle="tooltip" title="Giỏ Hàng">
-                                    <div class="icon-circle bg-light-custom avatar-link">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </div>
-                                </a>
-                                <div class="ms-2 d-none d-md-block">
-                                    <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
-                                    <p class="fs-7 fw-bold mb-0">$1,689.00</p>
+                            @* Kiểm tra đăng nhập *@
+                            @if (Session["UserId"] != null)
+                            {
+                                <!-- Wishlist -->
+                                <div class="position-relative">
+                                    <a href="/Product/ProductWishList" class="text-dark" data-bs-toggle="tooltip" title="Danh sách yêu thích">
+                                        <div class="icon-circle bg-light-custom avatar-link">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                    </a>
                                 </div>
-                                <span class="cart-badge bg-green-custom text-white">5</span>
-                            </div>
+
+                                <div id="notificationBell" style="cursor: pointer; display: inline-block;">
+                                    <div class="icon-circle bg-light-custom avatar-link">
+                                        <i class="fa-solid fa-bell text-dark fs-5"></i>
+                                    </div>
+                                    <span class="cart-badge bg-green-custom text-white">3</span>
+
+                                    <!-- Notification Dropdown -->
+                                    <div id="notificationMenu"
+                                         class="shadow bg-white p-3 rounded position-absolute start-0"
+                                         style="top: 120%; width: 400px; display: none; z-index: 999;">
+                                        <!-- Nội dung sẽ được load ở đây -->
+                                    </div>
+                                </div>
+
+
+
+
+
+
+                                <!-- Cart -->
+                                <div class="d-flex align-items-center position-relative">
+                                    <a href="/InnerPage/PreCart" class="text-dark" data-bs-toggle="tooltip" title="Giỏ Hàng">
+                                        <div class="icon-circle bg-light-custom avatar-link">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                    </a>
+                                    <div class="ms-2 d-none d-md-block">
+                                        <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
+                                        <p class="fs-7 fw-bold mb-0">$1,689.00</p>
+                                    </div>
+                                    <span class="cart-badge bg-green-custom text-white">5</span>
+                                </div>
+                            }
+
+
                         </div>
                     </div>
                 </div>
@@ -535,6 +559,38 @@
         // Ngăn mất focus khi click trong kết quả
         $('#search-results').on('click', function (e) {
             e.stopPropagation();
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const bell = document.getElementById("notificationBell");
+        const menu = document.getElementById("notificationMenu");
+
+        // Toggle khi click chuông
+        bell.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn lan ra ngoài
+
+            if (menu.style.display === "block") {
+                menu.style.display = "none";
+            } else {
+                fetch('/InnerPage/LoadThongBao')
+                    .then(res => res.text())
+                    .then(html => {
+                        menu.innerHTML = html;
+                        menu.style.display = "block";
+                    });
+            }
+        });
+
+        // Ngăn đóng khi click trong menu
+        menu.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+
+        // Click ngoài thì đóng menu
+        document.addEventListener("click", function () {
+            menu.style.display = "none";
         });
     });
 </script>

@@ -74,29 +74,33 @@
     <div class="wishlist-banner rounded-4">
         <div class="bg-sale"></div>
         <div class="content">
-            <p class="mb-1 fw-semibold">
-                KHUYẾN MẠI CÓ GIỚI HẠN
-            </p>
+            <p class="mb-1 fw-semibold">KHUYẾN MẠI CÓ GIỚI HẠN</p>
             <h2 class="h4 fw-bold mb-2">Khuyến mại mùa hè: Giảm giá tới 50% cho các mặt hàng mong muốn!</h2>
-            <p class="mb-3">Thêm sản phẩm yêu thích của bạn vào giỏ hàng ngay bây giờ và được giảm thêm 10% với mã <strong class="bg-white text-dark px-2 py-1 rounded">SUMMER10</strong></p>
-            <div class="d-flex justify-content-center gap-3 mb-3">
+            <p class="mb-3">
+                Thêm sản phẩm yêu thích của bạn vào giỏ hàng ngay bây giờ và được giảm thêm 10% với mã
+                <strong class="bg-white text-dark px-2 py-1 rounded">SUMMER10</strong>
+            </p>
+
+            <!-- Countdown -->
+            <div class="d-flex justify-content-center gap-3 mb-3" id="countdown">
                 <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
-                    <div class="h4 mb-0">2</div>
+                    <div class="h4 mb-0" id="days">0</div>
                     <small>Days</small>
                 </div>
                 <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
-                    <div class="h4 mb-0">18</div>
+                    <div class="h4 mb-0" id="hours">0</div>
                     <small>Hours</small>
                 </div>
                 <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
-                    <div class="h4 mb-0">45</div>
+                    <div class="h4 mb-0" id="minutes">0</div>
                     <small>Minutes</small>
                 </div>
                 <div class="bg-white bg-opacity-25 rounded px-3 py-2 text-center">
-                    <div class="h4 mb-0">30</div>
+                    <div class="h4 mb-0" id="seconds">0</div>
                     <small>Seconds</small>
                 </div>
             </div>
+
             <a href="#" class="btn btn-light text-danger fw-bold">Shop Now</a>
         </div>
     </div>
@@ -112,19 +116,21 @@
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 bg-white p-3 rounded shadow-sm">
         <div class="d-flex align-items-center gap-2">
             <i class="bi bi-heart-fill text-danger"></i>
-            <span class="fw-medium">6 items</span>
+            <span class="fw-medium">@Model.Count() items</span>
+
         </div>
 
         <div class="d-flex flex-wrap gap-3">
             <div class="d-flex flex-wrap gap-2">
                 <button class="btn btn-success btn-sm"><i class="bi bi-cart-plus"></i> Chuyển tất cả vào giỏ hàng</button>
             </div>
-            <select class="form-select form-select-sm" style="width: 180px;">
-                <option selected>Sort by</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Highest Rated</option>
+            <select id="sortDropdown" class="form-select form-select-sm" style="width: 180px;">
+                <option value="">Sort by</option>
+                <option value="priceAsc">Price: Low to High</option>
+                <option value="priceDesc">Price: High to Low</option>
+                <option value="ratingDesc">Highest Rated</option>
             </select>
+
         </div>
     </div>
 
@@ -134,35 +140,68 @@
         <div class="swiper-wrapper">
             @foreach (var product in Model)
             {
-                <div class="swiper-slide">
-                    <div class="col-md-4 col-lg-2 col-xl">
-                        <div class="product-card">
-                            <div class="product-image-container">
+                <div class="swiper-slide"
+                     data-price="@product.GiaKhuyenMai"
+                     data-rating="@product.DanhGiaTrungBinh">
 
-                                <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                    <div class="col-md-4 col-lg-2 col-xl">
+                        <a href="@Url.Action("AddRecentProduct", "Product" , new { maHangHoa=product.MaHangHoa, maBienThe=product.MaBienThe })" class="text-decoration-none text-dark">
+                            <div class="product-card">
+                                <div class="product-image-container">
+
+                                    <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
+                                </div>
+                                <h5 class="product-name">@product.TenHangHoa</h5>
+                                <p class="product-description">@product.MoTa</p>
+                                <div class="star-rating">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= @product.DanhGiaTrungBinh)
+                                        {
+                                            <i class="bi bi-star-fill"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                        }
+                                    }
+                                    <span class="rating-count">@product.SoLuongDanhGia Ratings</span>
+                                </div>
+
+                                <div class="price-container">
+                                    <span class="current-price">@product.GiaKhuyenMai.ToString("N0") ₫</span>
+                                    <span class="original-price text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</span>
+
+                                    @{
+                                        var goc = product.GiaBan;
+                                        var km = product.GiaKhuyenMai;
+                                        var discount = (goc > 0 && km > 0) ? 100 - (km * 100 / goc) : 0;
+                                    }
+                                </div>
+                                @if (discount > 0)
+                                {
+                                    <span class="discount text-danger">@discount.ToString("0")% OFF</span>
+                                }
+
+                                <div class="free-shipping">FREE SHIPPING</div>
+                                <div class="d-flex justify-content-between">
+                                    @if (product.SoLuongTonKho > 0)
+                                    {
+                                        <div class="stock-status">
+                                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                            <span>Còn hàng</span>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="stock-status text-danger">
+                                            <i class="bi bi-x-circle-fill"></i>&nbsp;
+                                            <span>Hết hàng</span>
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                            <div class="review-count">(152)</div>
-                            <h5 class="product-name">@product.TenHangHoa</h5>
-                            <p class="product-description">@product.MoTa</p>
-                            <div class="star-rating">
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star-fill"></i>
-                                <i class="bi bi-star" style="opacity: 0.3;"></i>
-                                <span class="rating-count">43 Ratings</span>
-                            </div>
-                            <div class="price-container">
-                                <span class="current-price">$39.49</span>
-                                <span class="original-price">$78.66</span>
-                                <span class="discount">50% OFF</span>
-                            </div>
-                            <div class="free-shipping">FREE SHIPPING</div>
-                            <div class="stock-status">
-                                <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                <span>In stock</span>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             }
@@ -460,19 +499,21 @@
 
 </script>
 <script>
-    // Set thời gian đích đến
+    // Thời gian kết thúc countdown
     const countdownDate = new Date("2025-05-30T00:00:00").getTime();
 
-    const daysEl = document.querySelectorAll('.text-center')[0].querySelector('.h4');
-    const hoursEl = document.querySelectorAll('.text-center')[1].querySelector('.h4');
-    const minutesEl = document.querySelectorAll('.text-center')[2].querySelector('.h4');
-    const secondsEl = document.querySelectorAll('.text-center')[3].querySelector('.h4');
+    // Gắn các phần tử
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
 
-    const countdown = setInterval(function () {
+    // Cập nhật mỗi giây
+    const countdown = setInterval(() => {
         const now = new Date().getTime();
         const distance = countdownDate - now;
 
-        if (distance < 0) {
+        if (distance <= 0) {
             clearInterval(countdown);
             daysEl.textContent = "0";
             hoursEl.textContent = "0";
@@ -491,4 +532,34 @@
         minutesEl.textContent = minutes;
         secondsEl.textContent = seconds;
     }, 1000);
+</script>
+
+<script>
+    document.getElementById("sortDropdown").addEventListener("change", function () {
+        const sortOrder = this.value;
+        const wrapper = document.querySelector(".swiper-wrapper");
+        const slides = Array.from(wrapper.querySelectorAll(".swiper-slide"));
+
+        slides.sort((a, b) => {
+            const priceA = parseFloat(a.dataset.price);
+            const priceB = parseFloat(b.dataset.price);
+            const ratingA = parseFloat(a.dataset.rating);
+            const ratingB = parseFloat(b.dataset.rating);
+
+            switch (sortOrder) {
+                case "priceAsc":
+                    return priceA - priceB;
+                case "priceDesc":
+                    return priceB - priceA;
+                case "ratingDesc":
+                    return ratingB - ratingA;
+                default:
+                    return 0;
+            }
+        });
+
+        // Xóa và thêm lại theo thứ tự mới
+        wrapper.innerHTML = "";
+        slides.forEach(slide => wrapper.appendChild(slide));
+    });
 </script>

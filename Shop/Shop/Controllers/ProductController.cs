@@ -613,7 +613,7 @@ namespace Shop.Controllers
                                    HinhAnh = g.Key.HinhAnh,
                                    MoTa = g.Key.MoTa,
                                    NgayTao = g.Key.NgayTao ?? DateTime.Now,
-
+                                   MaBienThe = g.Select(x => x.bienThe.MaBienThe).FirstOrDefault(),
                                    GiaBan = g.Where(x => x.bienThe != null)
                                              .Select(x => x.bienThe.GiaBan)
                                              .FirstOrDefault() ?? 0,

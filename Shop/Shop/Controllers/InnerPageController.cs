@@ -229,6 +229,14 @@ namespace Shop.Controllers
 
 
         #endregion
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return RedirectToAction("Login", "InnerPage");
+        }
+
+
 
         public ActionResult ForgotPassword()
         {
@@ -267,6 +275,24 @@ namespace Shop.Controllers
         public ActionResult Blog()
         {
             return View();
+        }
+
+        public ActionResult LoadThongBao()
+        {
+            var maKhachHang = Session["UserID"] as string;
+
+            if (string.IsNullOrEmpty(maKhachHang))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized); // hoặc return PartialView với thông báo trống
+            }
+            var thongBaos = data.ThongBaos
+                 .Where(tb => tb.MaKhachHang == maKhachHang)
+                 .OrderByDescending(tb => tb.NgayGui)
+                 .Take(10)
+                 .ToList(); // Không dùng .Select()
+
+
+            return PartialView("_ThongBaoPartial", thongBaos);
         }
     }
 }

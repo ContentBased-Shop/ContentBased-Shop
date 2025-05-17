@@ -1,0 +1,78 @@
+﻿@model List<Shop.Models.ThongBao>
+
+<h4 class="mb-3">Thông báo</h4>
+
+<!-- Tabs -->
+<ul class="nav nav-tabs mb-3" id="notificationTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="all-tab" data-bs-toggle="tab" data-bs-target="#allTab" type="button" role="tab">
+            Tất cả
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="unread-tab" data-bs-toggle="tab" data-bs-target="#unreadTab" type="button" role="tab">
+            Chưa đọc
+        </button>
+    </li>
+</ul>
+
+<!-- Tab content -->
+<div class="tab-content" id="notificationTabContent">
+    <!-- Tab Tất cả -->
+    <div class="tab-pane fade show active" id="allTab" role="tabpanel" aria-labelledby="all-tab">
+        @foreach (var tb in Model)
+        {
+            var isUnread = tb.DaDoc == false;
+            var className = isUnread ? "bg-primary bg-opacity-10" : "";
+
+            <div class="notification-item d-flex align-items-start mb-3 p-2 rounded @className">
+                @if (isUnread)
+                {
+                    <div class="me-2 mt-1">
+                        <span style="width: 10px; height: 10px;" class="d-inline-block bg-primary rounded-circle"></span>
+                    </div>
+                }
+                <div>
+                    <p class="mb-1">
+                        <strong>@tb.TieuDe</strong> @tb.NoiDung
+                    </p>
+                    <small class="text-muted">@GetThoiGian(tb.NgayGui ?? DateTime.Now)</small>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Tab Chưa đọc -->
+    <div class="tab-pane fade" id="unreadTab" role="tabpanel" aria-labelledby="unread-tab">
+        @foreach (var tb in Model.Where(x => x.DaDoc == false))
+        {
+            <div class="notification-item d-flex align-items-start mb-3 p-2 rounded bg-primary bg-opacity-10">
+                <div class="me-2 mt-1">
+                    <span style="width: 10px; height: 10px;" class="d-inline-block bg-primary rounded-circle"></span>
+                </div>
+                <div>
+                    <p class="mb-1">
+                        <strong>@tb.TieuDe</strong> @tb.NoiDung
+                    </p>
+                    <small class="text-muted">@GetThoiGian(tb.NgayGui ?? DateTime.Now)</small>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<hr />
+<div class="text-center">
+    <a href="#" class="text-primary text-decoration-none">Xem tất cả</a>
+</div>
+
+@functions {
+    string GetThoiGian(DateTime ngay)
+    {
+        var span = DateTime.Now - ngay;
+        if (span.TotalMinutes < 1) return "Vừa xong";
+        if (span.TotalMinutes < 60) return string.Format("{0} phút trước", (int)span.TotalMinutes);
+        if (span.TotalHours < 24) return string.Format("{0} giờ trước", (int)span.TotalHours);
+        return ngay.ToString("dd/MM/yyyy HH:mm");
+    }
+}
