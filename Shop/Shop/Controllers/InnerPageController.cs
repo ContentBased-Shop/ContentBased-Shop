@@ -1273,6 +1273,7 @@ namespace Shop.Controllers
         public string phuongThucThanhToan { get; set; }
         public string ghiChu { get; set; }
         public string maVoucherCode { get; set; }  // Thêm trường mã voucher
+        public double tongTien { get; set; }  // Thêm trường tổng tiền
     }
     
     // Model cho sản phẩm trong đơn hàng
