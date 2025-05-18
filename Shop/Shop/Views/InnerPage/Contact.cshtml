@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" href="~/assets/CSS/InnerPage/Checkout.css"/>
+<link rel="stylesheet" href="~/assets/CSS/InnerPage/Checkout.css" />
 <div class="container py-4 px-4 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
@@ -20,7 +20,9 @@
         <!-- Form Column -->
         <div class="col-lg-7">
             <p class="text-secondary mb-4">Liên hệ với chúng tôi để được giải đáp mọi thắc mắc và ý kiến ​​của bạn</p>
-            <form onsubmit="handleFormSubmit(event)">
+
+
+            <form onsubmit="handleFormSubmit (event)">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label for="firstName" class="form-label form-label-required">Họ </label>
@@ -38,22 +40,10 @@
                         <label for="phone" class="form-label">Số điện thoại <span class="text-muted small">(Tùy chọn)</span></label>
                         <input type="tel" class="form-control custom-input" id="phone" />
                     </div>
-                    <div class="col-12">
-                        <label for="country" class="form-label form-label-required">Quốc gia </label>
-                        <select class="form-select custom-input" id="country" required>
-                            <option selected>United States (US)</option>
-                            <option>United Kingdom (UK)</option>
-                            <option>Canada</option>
-                            <option>Australia</option>
-                            <option>Germany</option>
-                            <option>France</option>
-                            <option>Japan</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
+
                     <div class="col-12">
                         <label for="subject" class="form-label">
-                            Chủ đề 
+                            Chủ đề
                             <span class="text-muted small">(Tùy chọn)</span>
                         </label>
                         <input type="text" class="form-control custom-input" id="subject" />
@@ -75,6 +65,8 @@
                     </div>
                 </div>
             </form>
+
+
         </div>
 
         <!-- Contact Info Column -->
@@ -114,3 +106,64 @@
         allowfullscreen=""
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Khởi tạo EmailJS
+    (function () {
+        emailjs.init("sRplCQHngZk95Ix-g"); // 
+    })();
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const subject = document.getElementById("subject").value;
+        const message = document.getElementById("message").value;
+        const newsletter = document.getElementById("newsletter").checked ? "Có" : "Không";
+        const time = new Date().toLocaleString();
+
+        const templateParams = {
+            name: `${firstName} ${lastName}`,
+            email,
+            phone,
+            subject,
+            message,
+            newsletter,
+            time,
+        };
+        // ⏳ Hiển thị hộp thoại loading
+        Swal.fire({
+            title: 'Đang gửi...',
+            text: 'Vui lòng chờ trong giây lát',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+        emailjs.send("service_misk1ha", "template_kw1qgb1", templateParams)
+            .then(function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Đã gửi thành công!',
+                    text: 'Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất.',
+                });
+            }, function (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gửi thất bại',
+                    text: 'Đã xảy ra lỗi. Vui lòng thử lại sau.',
+                });
+                console.log(error);
+            });
+
+    }
+</script>
