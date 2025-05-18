@@ -36,7 +36,7 @@
             {
                 <div class="alert alert-success">@TempData["Success"]</div>
             }
-            <form method="post" action="/InnerPage/Register">
+            <form id="registerForm" method="post" action="/InnerPage/Register">
                 <!-- Nhóm đầu tiên -->
                 <div id="step1">
                     <div class="mb-3">
@@ -77,7 +77,7 @@
                                class="form-control"
                                id="email"
                                placeholder="example@gmail.com"
-                               required 
+                               required
                                oninput="validateEmail()" />
                         <div id="email-feedback" class="invalid-feedback"></div>
                     </div>
@@ -315,8 +315,8 @@
         }
     }
 
-    document.querySelector('form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Ngăn form submit thực sự để xử lý spinner (bạn có thể bỏ dòng này nếu không dùng Ajax)
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Ngăn form submit thực sự
 
         const btn = document.getElementById('registerBtn');
         const spinner = document.getElementById('registerSpinner');
@@ -325,16 +325,14 @@
         spinner.classList.remove('d-none');
         btn.setAttribute('disabled', 'true');
 
-        // Giả lập thời gian xử lý (quay spinner trong 1 giây)
+        // Giả lập thời gian xử lý
         setTimeout(function () {
-            // Ẩn spinner và enable lại nút sau 1 giây
             spinner.classList.add('d-none');
             btn.removeAttribute('disabled');
-
-            // Sau khi xử lý xong, submit form
-            e.target.submit();
-        }, 1000); // 1000ms = 1s
+            e.target.submit(); // Gửi lại form
+        }, 2000); // 2 giây
     });
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -475,12 +473,12 @@ $('#phonenumber').on('blur', function () {
             if (timeLeft <= 0) {
                 clearInterval(countdownInterval); // Dừng đếm ngược
                 sendOtpBtn.disabled = false; // Kích hoạt lại nút
-                sendOtpBtn.innerText = 'Gửi OTP'; // Khôi phục lại tên nút  
+                sendOtpBtn.innerText = 'Gửi OTP'; // Khôi phục lại tên nút
                 document.getElementById('otpStatus').style.display = 'none';
             }
         }, 1000); // Cập nhật mỗi giây (1000 ms)
     }
-    
+
 
     function verifyOtp() {
         var otpInput = document.getElementById('OtpInput').value.trim();
@@ -512,6 +510,46 @@ $('#phonenumber').on('blur', function () {
             sendOtpBtn.disabled = true;
         }
     }
-
-    
 </script>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Khởi tạo EmailJS
+    (function () {
+        emailjs.init("sRplCQHngZk95Ix-g"); // 
+    })();
+    document.addEventListener("DOMContentLoaded", function () {
+        const shouldShowSuccess = '@(TempData["ShowRegisterSuccess"] ?? "False")' === 'True';
+        const userEmail = '@TempData["SendWelcomeEmail"]';
+        const userName = '@TempData["UserName"]';
+        console.log(shouldShowSuccess)
+        console.log(userEmail)
+        console.log(userName)
+        if (shouldShowSuccess && userEmail) {
+            // Gửi email chào mừng
+            emailjs.send("service_misk1ha", "template_c3ehtst", {
+                user_email: userEmail,
+                user_name: userName,
+                message: "Chào mừng bạn đã đăng ký thành công tại Swoo Shop!"
+            }).then(function () {
+                console.log("✅ Đã gửi email chào mừng!");
+            }, function (error) {
+                console.error("❌ Lỗi khi gửi email:", error);
+            });
+
+            // Hiện Swal và chuyển trang sau khi OK
+            Swal.fire({
+                title: 'Đăng ký thành công!',
+                text: 'Chào mừng bạn đến với Swoo Shop.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then(() => {
+                window.location.href = '/Home/Index'; // Đổi đúng route đăng nhập của bạn
+            });
+        }
+    });
+</script>
+

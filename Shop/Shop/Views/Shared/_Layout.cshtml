@@ -211,7 +211,10 @@
                                     <div class="icon-circle bg-light-custom avatar-link">
                                         <i class="fa-solid fa-bell text-dark fs-5"></i>
                                     </div>
-                                    <span class="cart-badge bg-green-custom text-white">3</span>
+
+
+                                    <span id="notificationCount" class="cart-badge bg-green-custom text-white">0</span>
+
 
                                     <!-- Notification Dropdown -->
                                     <div id="notificationMenu"
@@ -593,5 +596,16 @@
             menu.style.display = "none";
         });
     });
+
 </script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/InnerPage/GetSoLuongThongBao') // đổi đường dẫn đúng Controller/Action
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('notificationCount').textContent = data;
+            })
+            .catch(error => console.error('Lỗi lấy số thông báo:', error));
+    });
+</script>

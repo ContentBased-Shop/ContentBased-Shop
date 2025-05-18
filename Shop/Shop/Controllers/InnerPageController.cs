@@ -130,10 +130,7 @@ namespace Shop.Controllers
                 TempData["Error"] = "Tên Email đã được sử dụng.";
                 return RedirectToAction("Register");
             }
-           
-
-               
-            
+          
             // Mã hóa mật khẩu (ví dụ dùng AES hoặc Hash)
             string key = "mysecretkey"; // nên lưu ở cấu hình
             string encryptedPassword = SecurityHelper.EncryptPassword(password, key);
@@ -170,7 +167,15 @@ namespace Shop.Controllers
             Session["AccountName"] = newUser.TenDangNhap;
             Session["Password"] = newUser.MatKhauHash;
             // Chuyển hướng đến trang Dashboard
-            return RedirectToAction("Index", "Home");
+
+
+            TempData["ShowRegisterSuccess"] = true;
+            TempData["SendWelcomeEmail"] = email;
+            TempData["UserName"] = newUser.HoTen;
+            return RedirectToAction("Register"); // Quay lại Register để hiện Swal + gửi email
+
+
+
         }
         [HttpGet]
         public ActionResult SendOtp(string email)
@@ -294,5 +299,17 @@ namespace Shop.Controllers
 
             return PartialView("_ThongBaoPartial", thongBaos);
         }
+        public JsonResult GetSoLuongThongBao()
+        {
+            string maKhachHang = Session["UserID"]?.ToString(); // hoặc HttpContext.User.Identity.Name nếu dùng Identity
+            if (string.IsNullOrEmpty(maKhachHang))
+                return Json(0, JsonRequestBehavior.AllowGet);
+
+          
+            int count = data.ThongBaos.Count(tb => tb.MaKhachHang == maKhachHang && tb.DaDoc == false);
+
+            return Json(count, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
