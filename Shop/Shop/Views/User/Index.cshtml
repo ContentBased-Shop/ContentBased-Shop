@@ -809,6 +809,19 @@
 </script>
 
 <script>
+    // Thêm hàm helper để chuyển đổi trạng thái và màu sắc
+    function getTrangThaiDonHang(trangThai) {
+        const trangThaiMap = {
+            'ChoXacNhan': { text: 'Chờ Xác Nhận', color: '#ffc107' }, // Màu vàng
+            'DangXuLy': { text: 'Đang Xử Lý', color: '#0dcaf0' }, // Màu xanh dương
+            'DangGiao': { text: 'Đang Giao', color: '#0d6efd' }, // Màu xanh đậm
+            'HoanThanh': { text: 'Hoàn Thành', color: '#198754' }, // Màu xanh lá
+            'DaHuy': { text: 'Đã Hủy', color: '#dc3545' }, // Màu đỏ
+            'ChoThanhToan': { text: 'Chờ Thanh Toán', color: '#fd7e14' } // Màu cam
+        };
+        return trangThaiMap[trangThai] || { text: trangThai, color: '#6c757d' };
+    }
+
     // Thêm đoạn JavaScript để load và hiển thị đơn hàng
     function loadDonHang() {
         $.ajax({
@@ -820,10 +833,11 @@
                     orderList.empty();
 
                     response.data.forEach(donHang => {
+                        const trangThai = getTrangThaiDonHang(donHang.TrangThaiDonHang);
                         let orderHtml = `
                             <div class="item-order mb-4 px-3 rounded-4 py-2">
                                 <div class="text-end pb-2">
-                                    <span class="lbl-shipped fw-medium">${donHang.TrangThaiDonHang}</span>
+                                    <span class="lbl-shipped fw-medium" style="color: ${trangThai.color}">${trangThai.text}</span>
                                 </div>`;
 
                         // Hiển thị chi tiết sản phẩm
