@@ -702,6 +702,9 @@ namespace Shop.Controllers
                 // Lưu thay đổi vào CSDL
                 data.SubmitChanges();
                 
+                // Sau khi tạo đơn hàng thành công và trước khi return
+                SendOrderConfirmationEmail(donHang.MaDonHang);
+                
                 return Json(new { 
                     success = true, 
                     message = "Đặt hàng thành công", 
@@ -1227,6 +1230,133 @@ namespace Shop.Controllers
             
             // Lưu thay đổi
             data.SubmitChanges();
+        }
+        #endregion
+
+        #region Email
+        private readonly string _emailAddress = "managertask34@gmail.com";
+        private readonly string _emailPassword = "veaq dwhq oico jlzc";
+        private readonly string _emailDisplayName = "PrimeTech Admin";
+
+        private void SendOrderConfirmationEmail(string maDonHang)
+        {
+            try
+            {
+                // Lấy thông tin đơn hàng
+                var donHang = data.DonHangs.FirstOrDefault(dh => dh.MaDonHang == maDonHang);
+                if (donHang == null) return;
+
+                // Lấy thông tin khách hàng
+                var khachHang = data.KhachHangs.FirstOrDefault(kh => kh.MaKhachHang == donHang.MaKhachHang);
+                if (khachHang == null) return;
+
+                // Lấy chi tiết đơn hàng
+                var chiTietDonHang = data.ChiTietDonHangs
+                    .Where(ct => ct.MaDonHang == maDonHang)
+                    .ToList();
+
+                // Tạo bảng sản phẩm
+                var productTable = new StringBuilder();
+                productTable.AppendLine("<table style='width:100%; border-collapse: collapse;'>");
+                productTable.AppendLine("<tr style='background-color: #f8f9fa;'>");
+                productTable.AppendLine("<th style='padding: 10px; border: 1px solid #dee2e6;'>Sản phẩm</th>");
+                productTable.AppendLine("<th style='padding: 10px; border: 1px solid #dee2e6;'>Số lượng</th>");
+                productTable.AppendLine("<th style='padding: 10px; border: 1px solid #dee2e6;'>Đơn giá</th>");
+                productTable.AppendLine("<th style='padding: 10px; border: 1px solid #dee2e6;'>Thành tiền</th>");
+                productTable.AppendLine("</tr>");
+
+                foreach (var item in chiTietDonHang)
+                {
+                    var bienThe = data.BienTheHangHoas.FirstOrDefault(bt => bt.MaBienThe == item.MaBienThe);
+                    var hangHoa = bienThe != null ? data.HangHoas.FirstOrDefault(hh => hh.MaHangHoa == bienThe.MaHangHoa) : null;
+                    var tenSanPham = hangHoa?.TenHangHoa ?? "Sản phẩm";
+                    var thanhTien = item.SoLuong * item.DonGia;
+
+                    productTable.AppendLine("<tr>");
+                    productTable.AppendLine($"<td style='padding: 10px; border: 1px solid #dee2e6;'>{tenSanPham}</td>");
+                    productTable.AppendLine($"<td style='padding: 10px; border: 1px solid #dee2e6; text-align: center;'>{item.SoLuong}</td>");
+                    productTable.AppendLine($"<td style='padding: 10px; border: 1px solid #dee2e6; text-align: right;'>{item.DonGia:N0} ₫</td>");
+                    productTable.AppendLine($"<td style='padding: 10px; border: 1px solid #dee2e6; text-align: right;'>{thanhTien:N0} ₫</td>");
+                    productTable.AppendLine("</tr>");
+                }
+
+                productTable.AppendLine("</table>");
+
+                // Tính toán tổng tiền và thuế
+                var tongTienHang = chiTietDonHang.Sum(ct => ct.SoLuong * ct.DonGia);
+                var thue = (decimal)tongTienHang * 0.08m;
+                var tongThanhToan = (decimal)tongTienHang + thue;
+
+                // Tạo nội dung email
+                var fromAddress = new MailAddress(_emailAddress, _emailDisplayName);
+                var toAddress = new MailAddress(khachHang.Email, khachHang.HoTen);
+                const string subject = "Xác nhận đơn hàng thành công - PrimeTech";
+
+                string body = string.Format(@"
+                    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                        <h2 style='color: #28a745;'>Xác nhận đơn hàng thành công</h2>
+                        <p>Xin chào {0},</p>
+                        <p>Cảm ơn bạn đã đặt hàng tại PrimeTech. Dưới đây là thông tin chi tiết đơn hàng của bạn:</p>
+                        
+                        <div style='margin: 20px 0;'>
+                            <p><strong>Mã đơn hàng:</strong> {1}</p>
+                            <p><strong>Ngày đặt hàng:</strong> {2}</p>
+                            <p><strong>Phương thức thanh toán:</strong> {3}</p>
+                        </div>
+
+                        <h3 style='color: #333;'>Chi tiết đơn hàng:</h3>
+                        {4}
+
+                        <div style='margin: 20px 0; text-align: right;'>
+                            <p><strong>Tổng tiền hàng:</strong> {5:N0} ₫</p>
+                            <p><strong>Thuế (8%):</strong> {6:N0} ₫</p>
+                            <p style='font-size: 18px; color: #28a745;'><strong>Tổng thanh toán:</strong> {7:N0} ₫</p>
+                        </div>
+
+                        <p>Chúng tôi sẽ xử lý đơn hàng của bạn trong thời gian sớm nhất.</p>
+                        <p>Nếu bạn có bất kỳ thắc mắc nào, vui lòng liên hệ với chúng tôi qua email hoặc số điện thoại hỗ trợ.</p>
+                        
+                        <div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6;'>
+                            <p style='color: #666;'>Trân trọng,<br>PrimeTech Team</p>
+                        </div>
+                    </div>",
+                    khachHang.HoTen,
+                    donHang.MaDonHang,
+                    donHang.NgayTao.Value.ToString("dd/MM/yyyy HH:mm"),
+                    donHang.TrangThaiThanhToan == "DaThanhToan" ? "Đã thanh toán" : "Thanh toán khi nhận hàng",
+                    productTable,
+                    tongTienHang,
+                    thue,
+                    tongThanhToan
+                );
+
+                // Cấu hình SMTP
+                var smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, _emailPassword)
+                };
+
+                // Tạo và gửi email
+                using (var message = new MailMessage(fromAddress, toAddress)
+                {
+                    Subject = subject,
+                    Body = body,
+                    IsBodyHtml = true
+                })
+                {
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi gửi email
+                System.Diagnostics.Debug.WriteLine($"Lỗi gửi email xác nhận đơn hàng: {ex.Message}");
+            }
         }
         #endregion
     }
