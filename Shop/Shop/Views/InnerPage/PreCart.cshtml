@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "PreCart";
+    ViewBag.Title = "Giỏ hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -38,13 +38,26 @@
             color: #1aba1a;
         }
 
+    .remove-product {
+        cursor: pointer;
+        color: #dc3545;
+    }
+
+    .product-image {
+        max-width: 100px;
+        max-height: 100px;
+        object-fit: contain;
+    }
+
+    .empty-cart {
+        min-height: 200px;
+    }
 </style>
 
 <div class="container py-4 px-4 bg-white my-3 rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
-            <li class="breadcrumb-item"><a href="/pages">Pages</a></li>
             <li class="breadcrumb-item active text-secondary" aria-current="page">Giỏ Hàng</li>
         </ol>
     </nav>
@@ -53,132 +66,13 @@
     <div class="row g-4">
         <!-- Shopping Cart -->
         <div class="col-lg-8">
-            <!-- Product Card -->
-            <div class="card border-0 mb-4 position-relative">
-                <div class="row g-0 p-3 align-items-center">
-                    <div class="col-md-3 text-center ">
-                        <span class="badge bg-success-custom position-absolute top-0 start-0 m-2">SAVE<br>$199</span>
-                        <img src="~/assets/Image/Product/iphone.png" alt="Product" class="img-fluid">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <small class="text-muted">(152 lượt xem)</small>
-                                <h5 class="mb-1">SROK Smart Phone 128GB, Oled Retina</h5>
-                                <div>
-                                    <span class="old-price me-2">$778.00</span>
-                                    <span class="fw-bold text-danger">$579.00</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex gap-2">
-                                    <div class="rounded-circle bg-secondary-subtle p-2"></div>
-                                    <div class="rounded-circle bg-warning-subtle p-2"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center mt-3">
-                            <div class="input-group" style="width: 120px;">
-                                <button class="btn btn-outline-secondary btn-minus" type="button">-</button>
-                                <input type="text" class="form-control text-center quantity-input" value="1" readonly data-id="1" data-price="579">
-                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <small class="text-success-custom d-block">Miễn Phí Ship</small>
-                            <div class="d-flex align-items-center text-muted small">
-                                <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
-                                Còn Hàng
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Product Card -->
-            <div class="card border-0 mb-4 position-relative">
-                <div class="row g-0 p-3 align-items-center">
-                    <div class="col-md-3 text-center ">
-                        <span class="badge bg-success-custom position-absolute top-0 start-0 m-2">SAVE<br>$199</span>
-                        <img src="~/assets/Image/Product/iphone.png" alt="Product" class="img-fluid">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <small class="text-muted">(152 lượt xem)</small>
-                                <h5 class="mb-1">SROK Smart Phone 128GB, Oled Retina</h5>
-                                <div>
-                                    <span class="old-price me-2">$778.00</span>
-                                    <span class="fw-bold text-danger">$579.00</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex gap-2">
-                                    <div class="rounded-circle bg-secondary-subtle p-2"></div>
-                                    <div class="rounded-circle bg-warning-subtle p-2"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center mt-3">
-                            <div class="input-group" style="width: 120px;">
-                                <button class="btn btn-outline-secondary btn-minus" type="button">-</button>
-                                <input type="text" class="form-control text-center quantity-input" value="1" readonly data-id="1" data-price="579">
-                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <small class="text-success-custom d-block">Miễn Phí Ship</small>
-                            <div class="d-flex align-items-center text-muted small">
-                                <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
-                                Còn Hàng
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card border-0 mb-4 position-relative">
-                <div class="row g-0 p-3 align-items-center">
-                    <div class="col-md-3 text-center ">
-                        <span class="badge bg-success-custom position-absolute top-0 start-0 m-2">SAVE<br>$199</span>
-                        <img src="~/assets/Image/Product/iphone.png" alt="Product" class="img-fluid">
-                    </div>
-                    <div class="col-md-9">
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <small class="text-muted">(152 lượt xem)</small>
-                                <h5 class="mb-1">SROK Smart Phone 128GB, Oled Retina</h5>
-                                <div>
-                                    <span class="old-price me-2">$778.00</span>
-                                    <span class="fw-bold text-danger">$579.00</span>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="d-flex gap-2">
-                                    <div class="rounded-circle bg-secondary-subtle p-2"></div>
-                                    <div class="rounded-circle bg-warning-subtle p-2"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="d-flex align-items-center mt-3">
-                            <div class="input-group" style="width: 120px;">
-                                <button class="btn btn-outline-secondary btn-minus" type="button">-</button>
-                                <input type="text" class="form-control text-center quantity-input" value="1" readonly data-id="1" data-price="579">
-                                <button class="btn btn-outline-secondary btn-plus" type="button">+</button>
-                            </div>
-                        </div>
-
-                        <div class="mt-3">
-                            <small class="text-success-custom d-block">Miễn Phí Ship</small>
-                            <div class="d-flex align-items-center text-muted small">
-                                <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
-                                Còn Hàng
-                            </div>
-                        </div>
-                    </div>
+            <div id="cartItemsContainer">
+                <!-- Cart items will be loaded here -->
+                <div class="text-center py-5 empty-cart d-none" id="emptyCartMessage">
+                    <img src="~/assets/Image/empty-cart.png" alt="Giỏ hàng trống" style="max-width: 150px;" class="mb-3">
+                    <h4>Giỏ hàng của bạn đang trống</h4>
+                    <p class="text-muted">Hãy thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm</p>
+                    <a href="/" class="btn btn-success-custom mt-3">Tiếp tục mua sắm</a>
                 </div>
             </div>
         </div>
@@ -190,38 +84,39 @@
                     <h4 class="mb-4">Thông tin đơn hàng</h4>
 
                     <div class="mb-3">
-                        <label for="voucher" class="form-label">Voucher Code</label>
+                        <label for="voucher" class="form-label">Nhập mã giảm giá</label>
                         <div class="input-group">
                             <input type="text" id="voucher" class="form-control" placeholder="Nhập voucher code">
-                            <button class="btn btn-outline-secondary" type="button">Áp dụng</button>
+                            <button class="btn btn-outline-secondary" type="button" id="btnApplyVoucher">Áp dụng</button>
                         </div>
+                        <div id="voucherMessage" class="small mt-2 d-none"></div>
                     </div>
 
-                    <li class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Chi phí vận chuyển:</span>
-                        <span>$600.00</span>
-                    </li>
-                    <li class="d-flex justify-content-between border-bottom pb-2 mb-2">
-                        <span class="text-muted">Thuế:</span>
-                        <span>$137.00</span>
-                    </li>
                     <ul class="list-unstyled mb-4">
                         <li class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Tổng sản phẩm:</span>
-                            <span id="subtotal">$0.00</span>
+                            <span id="subtotal">0 ₫</span>
                         </li>
-                        <!-- giữ nguyên shipping, tax -->
+                        <li class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Thuế:</span>
+                            <span id="tax">0 ₫</span>
+                        </li>
+                        <li class="d-flex justify-content-between mb-2 text-success d-none" id="discountRow">
+                            <span>Giảm giá:</span>
+                            <span id="discount">0 ₫</span>
+                        </li>
+                        <li class="d-flex justify-content-between border-bottom pb-2 mb-2"></li>
                         <li class="d-flex justify-content-between fw-bold fs-5">
                             <span>Tổng đơn hàng:</span>
-                            <span id="total">$0.00</span>
+                            <span id="total">0 ₫</span>
                         </li>
                     </ul>
 
-                    <button class="btn btn-success-custom w-100 py-3 fw-medium">THANH TOÁN</button>
+                    <a href="@Url.Action("Checkout", "InnerPage")" class="btn btn-success-custom w-100 py-3 fw-medium" id="btnCheckout">THANH TOÁN</a>
                 </div>
             </div>
-            </div>
         </div>
+    </div>
 </div>
 
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
@@ -230,45 +125,474 @@
     </symbol>
 </svg>
 
+<!-- Template for cart item -->
+<template id="cartItemTemplate">
+    <div class="card border-0 mb-4 position-relative cart-item">
+        <div class="row g-0 p-3 align-items-center">
+            <div class="col-md-1 text-center">
+                <div class="form-check">
+                    <input class="form-check-input item-checkbox" type="checkbox" checked>
+                </div>
+            </div>
+            <div class="col-md-2 text-center">
+                <img src="" alt="Sản phẩm" class="img-fluid product-image">
+            </div>
+            <div class="col-md-9">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="mb-1 product-name"></h5>
+                        <div>
+                            <span class="old-price me-2"></span>
+                            <span class="fw-bold text-danger product-price"></span>
+                        </div>
+                        <div class="small text-muted product-variant"></div>
+                    </div>
+                    <div>
+                        <i class="fa fa-trash remove-product" title="Xóa sản phẩm"></i>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mt-3">
+                    <div class="input-group" style="width: 150px;">
+                        <button class="btn btn-outline-secondary btn-decrease" type="button">-</button>
+                        <input type="number" class="form-control text-center product-quantity" value="1" min="1">
+                        <button class="btn btn-outline-secondary btn-increase" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <small class="text-success-custom d-block">Miễn Phí Ship</small>
+                    <div class="d-flex align-items-center text-muted small product-stock">
+                        <svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>
+                        Còn Hàng
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-  const quantityInputs = document.querySelectorAll(".quantity-input");
-  function updateTotal() {
-      let subtotal = 0;
-      quantityInputs.forEach((input) => {
-        const quantity = parseInt(input.value);
-        const price = parseFloat(input.dataset.price);
-        subtotal += quantity * price;
-      });
+    document.addEventListener("DOMContentLoaded", function () {
+        const isLoggedIn = @(Session["UserID"] != null ? "true" : "false");
+        const cartItemsContainer = document.getElementById("cartItemsContainer");
+        const emptyCartMessage = document.getElementById("emptyCartMessage");
+        const cartItemTemplate = document.getElementById("cartItemTemplate");
+        const checkoutBtn = document.getElementById("btnCheckout");
+        
+        // Phần mới thêm cho voucher
+        const btnApplyVoucher = document.getElementById("btnApplyVoucher");
+        const voucherInput = document.getElementById("voucher");
+        const voucherMessage = document.getElementById("voucherMessage");
+        const discountRow = document.getElementById("discountRow");
+        const discountAmount = document.getElementById("discount");
+        
+        let cart = [];
+        let shippingFee = 30000; // Phí vận chuyển mặc định
+        let taxRate = 0.08; // Thuế 8%
+        let appliedVoucher = null; // Thông tin voucher đã áp dụng
 
-        document.getElementById("subtotal").textContent = `$${subtotal.toFixed(2)}`;
-        const shipping = 600.0;
-        const tax = 137.0;
-        const total = subtotal + shipping + tax;
-        document.getElementById("total").textContent = `$${total.toFixed(2)}`;
-    }
+        // Định dạng tiền tệ VND
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
 
-    document.querySelectorAll(".btn-minus").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const input = btn.closest(".input-group").querySelector(".quantity-input");
-                let value = parseInt(input.value);
-                if (value > 1) {
-                    input.value = value - 1;
-                    updateTotal();
+        // Lấy giỏ hàng từ sessionStorage
+        function getCartFromSessionStorage() {
+            return JSON.parse(sessionStorage.getItem('cart')) || [];
+        }
+
+        // Lưu giỏ hàng vào sessionStorage
+        function saveCartToSessionStorage(cart) {
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            // Kích hoạt sự kiện để thông báo cho các trang khác về thay đổi giỏ hàng
+            window.dispatchEvent(new Event('cartUpdated'));
+        }
+
+        // Tải giỏ hàng từ server (nếu đã đăng nhập)
+        function loadCartFromServer() {
+            fetch('/InnerPage/GetCartItems')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        cart = data.cartItems;
+                        renderCart();
+                    } else {
+                        console.error("Lỗi tải giỏ hàng:", data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error("Lỗi kết nối:", error);
+                });
+        }
+
+        // Cập nhật giỏ hàng lên server
+        function updateCartOnServer(cartItem, action, quantity) {
+            const data = {
+                maBienThe: cartItem.maBienThe,
+                soLuong: quantity,
+                action: action // 'add', 'update', 'remove'
+            };
+
+            fetch('/InnerPage/UpdateCartItem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (!result.success) {
+                    console.error("Lỗi cập nhật giỏ hàng:", result.message);
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi kết nối:", error);
+            });
+        }
+
+        // Cập nhật số lượng sản phẩm
+        function updateQuantity(index, newQuantity) {
+            if (newQuantity < 1) newQuantity = 1;
+            if (newQuantity > cart[index].soLuongTonKho) {
+                newQuantity = cart[index].soLuongTonKho;
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Thông báo',
+                    text: `Số lượng tối đa có thể mua là ${cart[index].soLuongTonKho}`,
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }
+
+            cart[index].soLuong = newQuantity;
+            
+            if (isLoggedIn) {
+                updateCartOnServer(cart[index], 'update', newQuantity);
+            } else {
+                saveCartToSessionStorage(cart);
+            }
+            
+            renderCart();
+        }
+
+        // Xóa sản phẩm khỏi giỏ hàng
+        function removeItem(index) {
+            Swal.fire({
+                title: 'Xác nhận xóa?',
+                text: "Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Xóa',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const removedItem = cart[index];
+                    cart.splice(index, 1);
+                    
+                    if (isLoggedIn) {
+                        updateCartOnServer(removedItem, 'remove', 0);
+                    } else {
+                        saveCartToSessionStorage(cart);
+                    }
+                    
+                    renderCart();
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Đã xóa!',
+                        text: 'Sản phẩm đã được xóa khỏi giỏ hàng.',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 }
             });
-    });
+        }
 
-    document.querySelectorAll(".btn-plus").forEach((btn) => {
-            btn.addEventListener("click", function () {
-                const input = btn.closest(".input-group").querySelector(".quantity-input");
-                input.value = parseInt(input.value) + 1;
-                updateTotal();
+        // Tính tổng tiền cho các sản phẩm đã chọn
+        function calculateTotal() {
+            const selectedItems = cart.filter((item, index) => {
+                const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
+                return checkbox && checkbox.checked;
             });
+
+            const subtotal = selectedItems.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
+            const tax = subtotal * taxRate;
+            const subtotalWithTax = subtotal + tax;
+            
+            // Tính giảm giá từ voucher nếu có
+            let discount = 0;
+            if (appliedVoucher) {
+                if (appliedVoucher.loaiGiamGia === 'TienMat') {
+                    // Giảm tiền mặt: giảm trực tiếp
+                    discount = appliedVoucher.giaTriGiamGia;
+                } else if (appliedVoucher.loaiGiamGia === 'PhanTram') {
+                    // Giảm phần trăm: áp dụng sau khi đã tính thuế
+                    discount = subtotalWithTax * (appliedVoucher.giaTriGiamGia / 100);
+                }
+                
+                // Đảm bảo số tiền giảm không vượt quá tổng tiền
+                if (discount > subtotalWithTax) {
+                    discount = subtotalWithTax;
+                }
+                
+                // Hiển thị dòng giảm giá
+                discountRow.classList.remove('d-none');
+                discountAmount.textContent = formatCurrency(discount);
+            } else {
+                discountRow.classList.add('d-none');
+            }
+            
+            // Tổng tiền sau khi thêm thuế và trừ giảm giá
+            const total = subtotalWithTax - discount;
+
+            document.getElementById("subtotal").textContent = formatCurrency(subtotal);
+            document.getElementById("tax").textContent = formatCurrency(tax);
+            document.getElementById("total").textContent = formatCurrency(total);
+
+            // Lưu các sản phẩm đã chọn vào sessionStorage để sử dụng trong trang thanh toán
+            sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+            
+            // Lưu thông tin voucher vào sessionStorage nếu có
+            if (appliedVoucher) {
+                sessionStorage.setItem('appliedVoucher', JSON.stringify(appliedVoucher));
+            } else {
+                sessionStorage.removeItem('appliedVoucher');
+            }
+
+            // Vô hiệu hóa nút thanh toán nếu không có sản phẩm nào được chọn
+            checkoutBtn.classList.toggle("disabled", selectedItems.length === 0);
+        }
+
+        // Hiển thị giỏ hàng
+        function renderCart() {
+            // Xóa nội dung cũ
+            cartItemsContainer.innerHTML = '';
+            
+            // Kiểm tra giỏ hàng trống
+            if (cart.length === 0) {
+                emptyCartMessage.classList.remove('d-none');
+            } else {
+                emptyCartMessage.classList.add('d-none');
+                
+                // Thêm từng sản phẩm vào giỏ hàng
+                cart.forEach((item, index) => {
+                    const cartItemNode = document.importNode(cartItemTemplate.content, true);
+                    
+                    // Thiết lập thông tin sản phẩm
+                    cartItemNode.querySelector('.product-image').src = `/assets/Image/Product/${item.hinhAnh}`;
+                    cartItemNode.querySelector('.product-name').textContent = item.tenHangHoa;
+                    cartItemNode.querySelector('.old-price').textContent = formatCurrency(item.giaBan);
+                    cartItemNode.querySelector('.product-price').textContent = formatCurrency(item.giaKhuyenMai);
+                    cartItemNode.querySelector('.product-variant').textContent = `${item.mauSac || ''} ${item.dungLuong || ''}`.trim();
+                    
+                    const quantityInput = cartItemNode.querySelector('.product-quantity');
+                    quantityInput.value = item.soLuong;
+                    quantityInput.max = item.soLuongTonKho;
+                    
+                    // Thiết lập trạng thái tồn kho và xử lý sản phẩm hết hàng
+                    const stockElement = cartItemNode.querySelector('.product-stock');
+                    const checkbox = cartItemNode.querySelector('.item-checkbox');
+                    const quantityControls = cartItemNode.querySelector('.input-group');
+                    
+                    if (item.soLuongTonKho > 0) {
+                        stockElement.innerHTML = '<svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>Còn Hàng';
+                        stockElement.classList.remove('text-danger');
+                        checkbox.disabled = false;
+                        quantityControls.classList.remove('opacity-50');
+                    } else {
+                        stockElement.innerHTML = '<svg class="me-1 text-danger" width="16" height="16" fill="currentColor"><use href="#x" /></svg>Hết Hàng';
+                        stockElement.classList.add('text-danger');
+                        checkbox.checked = false;
+                        checkbox.disabled = true;
+                        quantityControls.classList.add('opacity-50');
+                        
+                        // Thêm cảnh báo cho sản phẩm hết hàng
+                        const warningDiv = document.createElement('div');
+                        warningDiv.className = 'alert alert-warning mt-2 mb-0';
+                        warningDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Sản phẩm này hiện đã hết hàng và không thể thanh toán';
+                        cartItemNode.querySelector('.col-md-9').appendChild(warningDiv);
+                    }
+                    
+                    // Thiết lập data-index cho các nút
+                    const cartItem = cartItemNode.querySelector('.cart-item');
+                    cartItem.dataset.index = index;
+                    
+                    // Thiết lập sự kiện giảm số lượng
+                    cartItemNode.querySelector('.btn-decrease').addEventListener('click', function() {
+                        if (item.soLuongTonKho > 0) {
+                            updateQuantity(index, item.soLuong - 1);
+                        }
+                    });
+                    
+                    // Thiết lập sự kiện tăng số lượng
+                    cartItemNode.querySelector('.btn-increase').addEventListener('click', function() {
+                        if (item.soLuongTonKho > 0) {
+                            updateQuantity(index, item.soLuong + 1);
+                        }
+                    });
+                    
+                    // Thiết lập sự kiện nhập số lượng trực tiếp
+                    cartItemNode.querySelector('.product-quantity').addEventListener('change', function(e) {
+                        if (item.soLuongTonKho > 0) {
+                            const newQuantity = parseInt(e.target.value) || 1;
+                            updateQuantity(index, newQuantity);
+                        }
+                    });
+                    
+                    // Thiết lập sự kiện xóa sản phẩm
+                    cartItemNode.querySelector('.remove-product').addEventListener('click', function() {
+                        removeItem(index);
+                    });
+
+                    // Thiết lập sự kiện khi checkbox thay đổi
+                    cartItemNode.querySelector('.item-checkbox').addEventListener('change', function() {
+                        calculateTotal();
+                    });
+                    
+                    cartItemsContainer.appendChild(cartItemNode);
+                });
+            }
+            
+            // Kiểm tra xem có voucher đã áp dụng trước đó không
+            let savedVoucher = JSON.parse(sessionStorage.getItem('appliedVoucher'));
+            if (savedVoucher) {
+                appliedVoucher = savedVoucher;
+                showVoucherMessage('Đã áp dụng mã giảm giá: ' + savedVoucher.tenVoucher, 'success');
+            }
+            
+            // Cập nhật tổng tiền
+            calculateTotal();
+        }
+        
+        // Xử lý áp dụng voucher
+        btnApplyVoucher.addEventListener('click', function() {
+            const voucherCode = voucherInput.value.trim();
+            
+            if (!voucherCode) {
+                showVoucherMessage('Vui lòng nhập mã giảm giá', 'warning');
+                return;
+            }
+            
+            // Kiểm tra có sản phẩm được chọn không
+            const selectedItems = cart.filter((item, index) => {
+                const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
+                return checkbox && checkbox.checked;
+            });
+            
+            if (selectedItems.length === 0) {
+                showVoucherMessage('Vui lòng chọn ít nhất một sản phẩm để áp dụng mã giảm giá', 'warning');
+                return;
+            }
+            
+            // Tính tổng tiền hàng
+            const subtotal = selectedItems.reduce((sum, item) => sum + (item.giaKhuyenMai * item.soLuong), 0);
+            
+            // Gọi API kiểm tra voucher
+            fetch('/InnerPage/CheckVoucher', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    maVoucherCode: voucherCode,
+                    tongTien: parseFloat(subtotal.toFixed(2))
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Lưu thông tin voucher
+                    appliedVoucher = result.voucher;
+                    
+                    // Hiển thị thông báo thành công
+                    showVoucherMessage('Áp dụng mã giảm giá thành công!', 'success');
+                    
+                    // Cập nhật tổng tiền
+                    calculateTotal();
+                    
+                    // Xóa trống ô nhập
+                    voucherInput.value = '';
+                } else {
+                    // Hiển thị thông báo lỗi
+                    showVoucherMessage(result.message, 'danger');
+                    appliedVoucher = null;
+                    calculateTotal();
+                }
+            })
+            .catch(error => {
+                showVoucherMessage('Có lỗi xảy ra khi kiểm tra mã giảm giá', 'danger');
+                console.error('Lỗi:', error);
+            });
+        });
+        
+        // Hiển thị thông báo voucher
+        function showVoucherMessage(message, type) {
+            voucherMessage.textContent = message;
+            voucherMessage.className = `small mt-2 text-${type}`;
+            voucherMessage.classList.remove('d-none');
+            
+            // Tự động ẩn sau 5 giây nếu là thông báo thành công
+            if (type === 'success') {
+                setTimeout(() => {
+                    voucherMessage.classList.add('d-none');
+                }, 5000);
+            }
+        }
+
+        // Xử lý nút thanh toán
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function(e) {
+                if (checkoutBtn.classList.contains('disabled')) {
+                    e.preventDefault();
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Thông báo',
+                        text: 'Vui lòng chọn ít nhất một sản phẩm để thanh toán',
+                        confirmButtonColor: '#1aba1a'
+                    });
+                    return;
+                }
+                
+                e.preventDefault();
+
+                // Lấy danh sách sản phẩm đã chọn
+                const selectedItems = cart.filter((item, index) => {
+                    const checkbox = document.querySelector(`.cart-item[data-index="${index}"] .item-checkbox`);
+                    return checkbox && checkbox.checked;
+                });
+                
+                // Lưu thông tin voucher nếu có vào sessionStorage
+                if (appliedVoucher) {
+                    sessionStorage.setItem('appliedVoucher', JSON.stringify(appliedVoucher));
+                } else {
+                    sessionStorage.removeItem('appliedVoucher');
+                }
+
+                // Lưu sản phẩm đã chọn vào sessionStorage để sử dụng trong trang thanh toán
+                sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+
+                // Chuyển đến trang thanh toán
+                window.location.href = '@Url.Action("Checkout", "InnerPage")';
+            });
+        }
+
+        // Khởi tạo trang
+        function initPage() {
+            if (isLoggedIn) {
+                // Nếu đã đăng nhập, lấy giỏ hàng từ server
+                loadCartFromServer();
+            } else {
+                // Nếu chưa đăng nhập, lấy giỏ hàng từ sessionStorage
+                cart = getCartFromSessionStorage();
+                renderCart();
+            }
+        }
+
+        initPage();
     });
-
-        updateTotal(); // Initial calculation
-  });
-
 </script>

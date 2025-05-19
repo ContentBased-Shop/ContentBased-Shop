@@ -36,7 +36,8 @@
             {
                 <div class="alert alert-success">@TempData["Success"]</div>
             }
-            <form method="post" action="/InnerPage/Register">
+            <form id="registerForm" action="/InnerPage/Register" method="post" class="needs-validation" novalidate>
+                <input type="hidden" name="tempCart" id="tempCart" />
                 <!-- Nhóm đầu tiên -->
                 <div id="step1">
                     <div class="mb-3">
@@ -514,4 +515,24 @@ $('#phonenumber').on('blur', function () {
     }
 
     
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const registerForm = document.getElementById('registerForm');
+        const tempCartInput = document.getElementById('tempCart');
+        
+        // Thêm cart vào form khi submit
+        registerForm.addEventListener('submit', function(e) {
+            // Lấy giỏ hàng từ sessionStorage
+            const cart = sessionStorage.getItem('cart');
+            
+            if (cart && cart !== '[]') {
+                // Thêm vào input hidden
+                tempCartInput.value = cart;
+                // Xóa giỏ hàng khỏi sessionStorage sau khi đã lấy
+                sessionStorage.removeItem('cart');
+            }
+        });
+    });
 </script>

@@ -1,4 +1,4 @@
-﻿﻿@{
+﻿@{
     ViewBag.Title = "SWOO TECH MART";
 }
 ﻿@model List<Shop.Models.HangHoaViewModel>
@@ -115,6 +115,42 @@
     </div>
 
 
+
+    <!-- Product Carousel using Swiper -->
+    <div style="background-color:white; margin-top:16px" class="p-3 rounded-4">
+        <!-- Navigation Tabs -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <ul class="nav nav-tabs" id="product-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-category="best-seller" href="#">BEST SELLER</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-category="new-in" href="#">NEW IN</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-category="popular" href="#">POPULAR</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-category="recommend" href="#">RECOMMEND</a>
+                </li>
+            </ul>
+            <a href="#" class="text-decoration-none" style="color: #666666;">View All</a>
+        </div>
+
+        <!-- Swiper -->
+        <div class="swiper productSwiper">
+            <div class="swiper-wrapper" id="product-swiper-wrapper">
+                <!-- Nội dung BEST SELLER sẽ load ở JS -->
+            </div>
+
+            <!-- Navigation -->
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+
+    </div>
 
 
 
@@ -364,39 +400,6 @@
             <h6 class="d-block d-lg-inline-flex align-items-center fw-400 fsz-18 lh-5"> <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/star.png" alt="" class="icon-30 me-2"> Thành viên được  MIỄN PHÍ VẬN CHUYỂN không yêu cầu giá trị đơn hàng tối thiểu!. Áp dụng điều kiện <a href="#" class="fsz-14 text-decoration-underline ms-2 text-white"> Dùng thử miễn phí 30 ngày!" </a> </h6>
         </div>
     </section>
-
-    <!-- Product Carousel using Swiper -->
-    <div style="background-color:white" class="p-3 rounded-4">
-        <!-- Navigation Tabs -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <ul class="nav nav-tabs" id="product-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-category="best-seller" href="#">BEST SELLER</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="new-in" href="#">NEW IN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="popular" href="#">POPULAR</a>
-                </li>
-            </ul>
-            <a href="#" class="text-decoration-none" style="color: #666666;">View All</a>
-        </div>
-
-        <!-- Swiper -->
-        <div class="swiper productSwiper">
-            <div class="swiper-wrapper" id="product-swiper-wrapper">
-                <!-- Nội dung BEST SELLER sẽ load ở JS -->
-            </div>
-
-            <!-- Navigation -->
-            <!-- Navigation buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-
-        </div>
-
-    </div>
 
     <!-- Danh sách sản phẩm ẩn để JS lấy nội dung -->
     <div id="product-best-seller" class="d-none">
@@ -661,7 +664,6 @@
             color: red;
             text-shadow: 0 0 8px #ff6b6b, 0 0 12px #ff3d3d;
         }
-
     </style>
 
 
@@ -1617,3 +1619,153 @@
         });
     });
 </script>
+
+    <div id="product-recommend" class="d-none">
+        <!-- Sản phẩm gợi ý sẽ được load động bằng JavaScript -->
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const swiperWrapper = document.getElementById('product-swiper-wrapper');
+            const productTabs = document.getElementById('product-tabs');
+            let productSwiper = null;
+
+            function initSwiper() {
+                // Khởi tạo Swiper mới
+                productSwiper = new Swiper(".productSwiper", {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                    loop: false,
+                    speed: 1000,
+                    autoplay: {
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    },
+                    breakpoints: {
+                        576: { slidesPerView: 2 },
+                        768: { slidesPerView: 3 },
+                        992: { slidesPerView: 4 },
+                        1200: { slidesPerView: 5 }
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev"
+                    }
+                });
+            }
+
+            function loadProductCategory(category) {
+                if (category === 'recommend') {
+                    // Lấy mã khách hàng từ session
+                    const maKhachHang = '@Session["UserID"]';
+                    
+                    if (!maKhachHang) {
+                        // Hiển thị thông báo khi chưa đăng nhập
+                        swiperWrapper.innerHTML = `
+                            <div class="text-center p-4">
+                                <i class="fas fa-user-lock fa-3x mb-3 text-muted"></i>
+                                <h4 class="mb-3">Bạn cần đăng nhập để sử dụng chức năng này</h4>
+                                <a href="/Account/Login" class="btn btn-primary">Đăng nhập ngay</a>
+                            </div>
+                        `;
+                        setTimeout(initSwiper, 100);
+                        return;
+                    }
+
+                    // Hiển thị loading
+                    swiperWrapper.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+                    setTimeout(initSwiper, 100);
+
+                    // Gọi API lấy sản phẩm gợi ý
+                    $.ajax({
+                        url: '/Home/GetRecommendedProducts',
+                        type: 'GET',
+                        data: { maKhachHang: maKhachHang },
+                        success: function(res) {
+                            if (res.success && res.data.length > 0) {
+                                let html = '';
+                                res.data.forEach(product => {
+                                    const discount = product.GiaBan > 0 ? Math.round((1 - product.GiaKhuyenMai / product.GiaBan) * 100) : 0;
+                                    html += `
+                                        <div class="swiper-slide">
+                                            <a href="/Product/AddRecentProduct?maHangHoa=${product.MaHangHoa}&maBienThe=${product.MaBienThe}" class="text-decoration-none text-dark">
+                                                <div class="product-card">
+                                                    <div class="product-image-container">
+                                                        <img src="/assets/Image/Product/${product.HinhAnh}" alt="${product.TenHangHoa}" width="194" height="200">
+                                                    </div>
+                                                    <div class="review-count">(${product.SoLuongTonKho})</div>
+                                                    <h5 class="product-name">${product.TenHangHoa}</h5>
+                                                    <p class="product-description">${product.MoTa}</p>
+                                                    <div class="price-container">
+                                                        <span class="current-price">${product.GiaKhuyenMai.toLocaleString()} ₫</span>
+                                                        <span class="original-price text-muted text-decoration-line-through">${product.GiaBan.toLocaleString()} ₫</span>
+                                                    </div>
+                                                    ${discount > 0 ? `<span class="discount text-danger">${discount}% OFF</span>` : ''}
+                                                    <div class="free-shipping">FREE SHIPPING</div>
+                                                    <div class="recommendation-score">
+                                                        <i class="fas fa-star text-warning"></i>
+                                                        <span>Điểm gợi ý: ${product.DiemDuDoan}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="stock-status">
+                                                            <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                            <span>Còn hàng</span>
+                                                        </div>
+                                                        <div class="stock-status">
+                                                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="${product.MaHangHoa}">
+                                                                <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                                                <span>Yêu thích</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    `;
+                                });
+                                swiperWrapper.innerHTML = html;
+                                setTimeout(initSwiper, 100);
+                            } else {
+                                swiperWrapper.innerHTML = '<div class="text-center p-4">Chưa có sản phẩm gợi ý cho bạn</div>';
+                                setTimeout(initSwiper, 100);
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            swiperWrapper.innerHTML = '<div class="text-center p-4">Có lỗi xảy ra khi tải sản phẩm gợi ý</div>';
+                            setTimeout(initSwiper, 100);
+                        }
+                    });
+                } else {
+                    const content = document.getElementById(`product-${category}`).innerHTML;
+                    swiperWrapper.innerHTML = content;
+                    setTimeout(initSwiper, 100);
+                }
+            }
+
+            // Load mặc định danh mục đầu tiên
+            loadProductCategory("best-seller");
+
+            // Bắt sự kiện khi click tab
+            $('#product-tabs .nav-link').on('click', function(e) {
+                e.preventDefault();
+                $('#product-tabs .nav-link').removeClass('active');
+                $(this).addClass('active');
+                const category = $(this).data('category');
+                loadProductCategory(category);
+            });
+        });
+    </script>
+
+    <style>
+        .recommendation-score {
+            background-color: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .recommendation-score i {
+            margin-right: 5px;
+        }
+    </style>

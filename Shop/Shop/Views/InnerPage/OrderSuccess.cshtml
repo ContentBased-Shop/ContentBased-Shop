@@ -1,0 +1,267 @@
+﻿@{
+    ViewBag.Title = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var donHang = ViewBag.DonHang;
+    var thanhToan = ViewBag.ThanhToan;
+    var giaoHang = ViewBag.GiaoHang;
+    var diaChi = ViewBag.DiaChi;
+    var chiTietDonHang = ViewBag.ChiTietDonHang;
+    var voucher = ViewBag.Voucher;
+}
+
+<div class="container py-5 bg-white rounded-3 my-4">
+    <div class="text-center mb-5">
+        <i class="fas fa-check-circle text-success display-1 mb-4"></i>
+        <h1 class="fw-bold text-success">Đặt hàng thành công!</h1>
+        <p class="lead">Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi</p>
+        <div class="bg-light p-3 rounded d-inline-block mt-3">
+            <p class="mb-0">Mã đơn hàng của bạn: <strong>@donHang.MaDonHang</strong></p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h4 class="card-title border-bottom pb-3">Thông tin đơn hàng</h4>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h5 class="text-muted fs-6">Thông tin thanh toán</h5>
+                            <p class="mb-1">
+                                <strong>Phương thức thanh toán:</strong>
+                                @{
+                                    string phuongThuc = "";
+                                    if (thanhToan.PhuongThucThanhToan == "TheTinDung")
+                                    {
+                                        phuongThuc = "Thẻ tín dụng/Thẻ ghi nợ";
+                                    }
+                                    else if (thanhToan.PhuongThucThanhToan == "COD")
+                                    {
+                                        phuongThuc = "Thanh toán khi nhận hàng";
+                                    }
+                                    else if (thanhToan.PhuongThucThanhToan == "ChuyenKhoan")
+                                    {
+                                        phuongThuc = "Chuyển khoản ngân hàng";
+                                    }
+                                    else
+                                    {
+                                        phuongThuc = thanhToan.PhuongThucThanhToan;
+                                    }
+                                }
+                                @phuongThuc
+                            </p>
+
+                            <p class="mb-1"><strong>Tổng tiền:</strong> @String.Format("{0:N0} ₫", donHang.TongTien)</p>
+                            <p class="mb-1">
+                                <strong>Trạng thái thanh toán:</strong>
+                                @{
+                                    string trangThaiThanhToan = "";
+                                    string badgeThanhToan = "";
+
+                                    if (donHang.TrangThaiThanhToan == "ChoThanhToan")
+                                    {
+                                        trangThaiThanhToan = "Chờ thanh toán";
+                                        badgeThanhToan = "bg-warning";
+                                    }
+                                    else if (donHang.TrangThaiThanhToan == "DaThanhToan")
+                                    {
+                                        trangThaiThanhToan = "Đã thanh toán";
+                                        badgeThanhToan = "bg-success";
+                                    }
+                                    else if (donHang.TrangThaiThanhToan == "DaHuy")
+                                    {
+                                        trangThaiThanhToan = "Đã hủy";
+                                        badgeThanhToan = "bg-danger";
+                                    }
+                                    else
+                                    {
+                                        trangThaiThanhToan = donHang.TrangThaiThanhToan;
+                                        badgeThanhToan = "bg-secondary";
+                                    }
+                                }
+                                <span class="badge @badgeThanhToan">@trangThaiThanhToan</span>
+                            </p>
+
+                            @if (voucher != null)
+                            {
+                                <div class="mt-3 pt-2 border-top">
+                                    <h6 class="text-success">Voucher đã áp dụng</h6>
+                                    <p class="mb-1"><strong>Mã voucher:</strong> @voucher.MaVoucherCode</p>
+                                    <p class="mb-1"><strong>Tên voucher:</strong> @voucher.TenVoucher</p>
+                                    @if (voucher.LoaiGiamGia == "TienMat")
+                                    {
+                                        <p class="mb-1"><strong>Giảm giá:</strong> @String.Format("{0:N0} ₫", voucher.GiaTriGiamGia)</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="mb-1"><strong>Giảm giá:</strong> @voucher.GiaTriGiamGia%</p>
+                                    }
+                                    <p class="mb-1 text-success"><strong>Tiết kiệm:</strong> @String.Format("{0:N0} ₫", voucher.SoTienGiam)</p>
+                                </div>
+                            }
+
+                        </div>
+                        <div class="col-md-6">
+                            <h5 class="text-muted fs-6">Thông tin giao hàng</h5>
+                            @if (diaChi != null)
+                            {
+                                <p class="mb-1"><strong>Người nhận:</strong> @diaChi.TenNguoiNhan</p>
+                                <p class="mb-1"><strong>Số điện thoại:</strong> @diaChi.SoDienThoai</p>
+                                <p class="mb-1"><strong>Địa chỉ:</strong> @diaChi.DiaChiDayDu</p>
+                            }
+                            <p class="mb-1">
+                                <strong>Trạng thái đơn hàng:</strong>
+                                @{
+                                    string trangThaiDonHang = "";
+                                    string badgeDonHang = "";
+
+                                    if (donHang.TrangThaiDonHang == "DangXuLy")
+                                    {
+                                        trangThaiDonHang = "Đang xử lý";
+                                        badgeDonHang = "bg-info";
+                                    }
+                                    else if (donHang.TrangThaiDonHang == "DangGiao")
+                                    {
+                                        trangThaiDonHang = "Đang giao";
+                                        badgeDonHang = "bg-primary";
+                                    }
+                                    else if (donHang.TrangThaiDonHang == "HoanThanh")
+                                    {
+                                        trangThaiDonHang = "Hoàn thành";
+                                        badgeDonHang = "bg-success";
+                                    }
+                                    else if (donHang.TrangThaiDonHang == "DaHuy")
+                                    {
+                                        trangThaiDonHang = "Đã hủy";
+                                        badgeDonHang = "bg-danger";
+                                    }
+                                    else
+                                    {
+                                        trangThaiDonHang = donHang.TrangThaiDonHang;
+                                        badgeDonHang = "bg-secondary";
+                                    }
+                                }
+                                <span class="badge @badgeDonHang">@trangThaiDonHang</span>
+                            </p>
+
+                            @if (giaoHang.MaVanDon != null)
+                            {
+                                <p class="mb-1"><strong>Mã vận đơn:</strong> @giaoHang.MaVanDon</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Đơn hàng của bạn đang được xử lý. Chúng tôi sẽ liên hệ với bạn sớm nhất có thể.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chi tiết đơn hàng -->
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+                    <h4 class="card-title border-bottom pb-3">Chi tiết sản phẩm</h4>
+
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th class="text-center">Đơn giá</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-end">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (chiTietDonHang != null)
+                                {
+                                    foreach (var item in chiTietDonHang)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0">@item.TenSanPham</h6>
+                                                        <small class="text-muted">
+                                                            @if (!string.IsNullOrEmpty(item.MauSac))
+                                                            {<span>Màu: @item.MauSac</span>}
+                                                            @if (!string.IsNullOrEmpty(item.DungLuong))
+                                                            {<span>Dung lượng: @item.DungLuong</span>}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">@String.Format("{0:N0} ₫", item.DonGia)</td>
+                                            <td class="text-center">@item.SoLuong</td>
+                                            <td class="text-end">@String.Format("{0:N0} ₫", item.DonGia * item.SoLuong)</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot class="fw-bold">
+                                <tr>
+                                    <td colspan="3" class="text-end">Tổng tiền hàng:</td>
+                                    <td class="text-end">
+                                        @{
+                                            decimal tongTienHang = 0;
+                                            foreach (var item in chiTietDonHang)
+                                            {
+                                                tongTienHang += item.DonGia * item.SoLuong;
+                                            }
+                                        }
+                                        @String.Format("{0:N0} ₫", tongTienHang)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" class="text-end">Thuế (8%):</td>
+                                    <td class="text-end">
+                                        @{
+                                            decimal thue = tongTienHang * 0.08m;
+                                        }
+                                        @String.Format("{0:N0} ₫", thue)
+                                    </td>
+                                </tr>
+                                @if (voucher != null)
+                                {
+                                    <tr class="text-success">
+                                        <td colspan="3" class="text-end">Giảm giá:</td>
+                                        <td class="text-end">
+                                            @{
+                                                decimal giamGia = (tongTienHang + thue) - (decimal)donHang.TongTien;
+                                            }
+                                            - @String.Format("{0:N0} ₫", giamGia)
+                                        </td>
+                                    </tr>
+                                }
+                                <tr>
+                                    <td colspan="3" class="text-end">Tổng thanh toán:</td>
+                                    <td class="text-end">@String.Format("{0:N0} ₫", donHang.TongTien)</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="/" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-home me-2"></i>Quay về trang chủ
+                </a>
+                <a href="@Url.Action("PreCart", "InnerPage")" class="btn btn-success">
+                    <i class="fas fa-shopping-cart me-2"></i>Tiếp tục mua sắm
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Xóa các sản phẩm đã thanh toán khỏi sessionStorage
+        sessionStorage.removeItem('selectedItems');
+        sessionStorage.removeItem('appliedVoucher');
+    });
+</script> 
