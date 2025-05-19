@@ -185,21 +185,36 @@
                     </h2>
                 </div>
                 <div class="d-flex align-items-center text-success mb-3">
-                    <div class="btn-success rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="20" height="20">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <span>Còn hàng</span>
+                    @if (Model.SelectedBienThe.SoLuongTonKho > 0)
+                    {
+                        <div class="btn-success rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <span>Còn hàng</span>
+                    }
+                    else
+                    {
+                        <div class="btn-danger rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <span class="text-danger">Hết hàng</span>
+                    }
                 </div>
 
                 <div class="d-flex gap-3 mb-3 align-items-center justify-content-sm-between bg-white">
-                    <button class="btn btn-outline-secondary" id="btn-decrease"><i class="bi bi-dash"></i></button>
+                    <button class="btn btn-outline-secondary" id="btn-decrease" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")><i class="bi bi-dash"></i></button>
                     <span class="fs-5" id="quantity">1</span>
-                    <button class="btn btn-outline-secondary" id="btn-increase"><i class="bi bi-plus"></i></button>
+                    <button class="btn btn-outline-secondary" id="btn-increase" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")><i class="bi bi-plus"></i></button>
                 </div>
 
-                <button class="btn btn-success w-100 mb-2 py-3" id="btnAddToCart"> <i class="bi bi-cart-plus me-2"></i> <!-- Biểu tượng giỏ hàng -->Thêm vào giỏ hàng</button>
+                <button class="btn btn-success w-100 mb-2 py-3" id="btnAddToCart" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")> 
+                    <i class="bi bi-cart-plus me-2"></i>
+                    @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "Hết hàng" : "Thêm vào giỏ hàng")
+                </button>
                 <button class="btn btn-warning w-100 mb-3 py-3">
                     Thanh toán với <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/paypal.png" alt="PayPal" height="20" />
                 </button>

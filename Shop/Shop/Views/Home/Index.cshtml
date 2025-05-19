@@ -1,4 +1,4 @@
-﻿﻿@{
+﻿@{
     ViewBag.Title = "SWOO TECH MART";
 }
 ﻿@model List<Shop.Models.HangHoaViewModel>
@@ -115,6 +115,42 @@
     </div>
 
 
+
+    <!-- Product Carousel using Swiper -->
+    <div style="background-color:white; margin-top:16px" class="p-3 rounded-4">
+        <!-- Navigation Tabs -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <ul class="nav nav-tabs" id="product-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-category="best-seller" href="#">BEST SELLER</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-category="new-in" href="#">NEW IN</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-category="popular" href="#">POPULAR</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-category="recommend" href="#">RECOMMEND</a>
+                </li>
+            </ul>
+            <a href="#" class="text-decoration-none" style="color: #666666;">View All</a>
+        </div>
+
+        <!-- Swiper -->
+        <div class="swiper productSwiper">
+            <div class="swiper-wrapper" id="product-swiper-wrapper">
+                <!-- Nội dung BEST SELLER sẽ load ở JS -->
+            </div>
+
+            <!-- Navigation -->
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+
+    </div>
 
 
 
@@ -364,42 +400,6 @@
             <h6 class="d-block d-lg-inline-flex align-items-center fw-400 fsz-18 lh-5"> <img src="https://ui-themez.smartinnovates.net/items/swoo_html/home_tech/assets/img/star.png" alt="" class="icon-30 me-2"> Thành viên được  MIỄN PHÍ VẬN CHUYỂN không yêu cầu giá trị đơn hàng tối thiểu!. Áp dụng điều kiện <a href="#" class="fsz-14 text-decoration-underline ms-2 text-white"> Dùng thử miễn phí 30 ngày!" </a> </h6>
         </div>
     </section>
-
-    <!-- Product Carousel using Swiper -->
-    <div style="background-color:white" class="p-3 rounded-4">
-        <!-- Navigation Tabs -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <ul class="nav nav-tabs" id="product-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" data-category="best-seller" href="#">BEST SELLER</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="new-in" href="#">NEW IN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="popular" href="#">POPULAR</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-category="recommend" href="#">RECOMMEND</a>
-                </li>
-            </ul>
-            <a href="#" class="text-decoration-none" style="color: #666666;">View All</a>
-        </div>
-
-        <!-- Swiper -->
-        <div class="swiper productSwiper">
-            <div class="swiper-wrapper" id="product-swiper-wrapper">
-                <!-- Nội dung BEST SELLER sẽ load ở JS -->
-            </div>
-
-            <!-- Navigation -->
-            <!-- Navigation buttons -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-
-        </div>
-
-    </div>
 
     <!-- Danh sách sản phẩm ẩn để JS lấy nội dung -->
     <div id="product-best-seller" class="d-none">
@@ -664,7 +664,6 @@
             color: red;
             text-shadow: 0 0 8px #ff6b6b, 0 0 12px #ff3d3d;
         }
-
     </style>
 
 

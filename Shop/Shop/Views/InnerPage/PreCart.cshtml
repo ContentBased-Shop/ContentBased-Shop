@@ -394,13 +394,28 @@
                     quantityInput.value = item.soLuong;
                     quantityInput.max = item.soLuongTonKho;
                     
-                    // Thiết lập trạng thái tồn kho
+                    // Thiết lập trạng thái tồn kho và xử lý sản phẩm hết hàng
                     const stockElement = cartItemNode.querySelector('.product-stock');
+                    const checkbox = cartItemNode.querySelector('.item-checkbox');
+                    const quantityControls = cartItemNode.querySelector('.input-group');
+                    
                     if (item.soLuongTonKho > 0) {
                         stockElement.innerHTML = '<svg class="me-1 text-success-custom" width="16" height="16" fill="currentColor"><use href="#check" /></svg>Còn Hàng';
+                        stockElement.classList.remove('text-danger');
+                        checkbox.disabled = false;
+                        quantityControls.classList.remove('opacity-50');
                     } else {
                         stockElement.innerHTML = '<svg class="me-1 text-danger" width="16" height="16" fill="currentColor"><use href="#x" /></svg>Hết Hàng';
                         stockElement.classList.add('text-danger');
+                        checkbox.checked = false;
+                        checkbox.disabled = true;
+                        quantityControls.classList.add('opacity-50');
+                        
+                        // Thêm cảnh báo cho sản phẩm hết hàng
+                        const warningDiv = document.createElement('div');
+                        warningDiv.className = 'alert alert-warning mt-2 mb-0';
+                        warningDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Sản phẩm này hiện đã hết hàng và không thể thanh toán';
+                        cartItemNode.querySelector('.col-md-9').appendChild(warningDiv);
                     }
                     
                     // Thiết lập data-index cho các nút
@@ -409,18 +424,24 @@
                     
                     // Thiết lập sự kiện giảm số lượng
                     cartItemNode.querySelector('.btn-decrease').addEventListener('click', function() {
-                        updateQuantity(index, item.soLuong - 1);
+                        if (item.soLuongTonKho > 0) {
+                            updateQuantity(index, item.soLuong - 1);
+                        }
                     });
                     
                     // Thiết lập sự kiện tăng số lượng
                     cartItemNode.querySelector('.btn-increase').addEventListener('click', function() {
-                        updateQuantity(index, item.soLuong + 1);
+                        if (item.soLuongTonKho > 0) {
+                            updateQuantity(index, item.soLuong + 1);
+                        }
                     });
                     
                     // Thiết lập sự kiện nhập số lượng trực tiếp
                     cartItemNode.querySelector('.product-quantity').addEventListener('change', function(e) {
-                        const newQuantity = parseInt(e.target.value) || 1;
-                        updateQuantity(index, newQuantity);
+                        if (item.soLuongTonKho > 0) {
+                            const newQuantity = parseInt(e.target.value) || 1;
+                            updateQuantity(index, newQuantity);
+                        }
                     });
                     
                     // Thiết lập sự kiện xóa sản phẩm
