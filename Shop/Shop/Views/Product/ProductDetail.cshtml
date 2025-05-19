@@ -250,55 +250,6 @@
     </div>
 </div>
 
-<div class="container p-3 bg-white my-3 rounded-3">
-    <div class="row g-3">
-        <!-- Left Column -->
-        <div class="col-lg-9">
-            <!-- Bundle Section -->
-            <div class="rounded p-4">
-                <h2 class="mb-4 fw-bold text-dark">Sản phẩm tương tự</h2>
-                
-                <div class="row">
-                    @foreach (var relatedProduct in Model.RelatedProducts.Take(3))
-                    {
-                        var bienThe = Model.ListBienTheTatCaHangHoa.FirstOrDefault(bt => bt.MaHangHoa == relatedProduct.MaHangHoa);
-                        if (bienThe != null)
-                        {
-                            <div class="col-md-4 mb-3">
-                                <a href="@Url.Content("~/Product/ProductDetail/" + bienThe.MaHangHoa + "?mabienthe=" + bienThe.MaBienThe)" class="text-decoration-none text-dark">
-                                    <div class="card h-100">
-                                        <img src="~/assets/Image/Product/@relatedProduct.HinhAnh" class="card-img-top p-3" alt="@relatedProduct.TenHangHoa">
-                                        <div class="card-body">
-                                            <h5 class="card-title">@relatedProduct.TenHangHoa</h5>
-                                            <p class="card-text text-danger fw-bold">@(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</p>
-                                            <p class="card-text text-muted"><s>@(((double)bienThe.GiaBan).ToString("N0")) ₫</s></p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-        </div>
-        <!-- Right Column -->
-        <div class="col-lg-3 ">
-            <div class="bg-dark-custom text-white rounded overflow-hidden mb-5 position-relative">
-                @*<div class="sale-badge">50% OFF</div>*@
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/ban1.png" class="w-100" alt="Sale image" />
-                @*<div class="p-3">
-                        <h5 class="fw-bold">SALE</h5>
-                        <p class="text-light-custom small">Limited time offers on gaming accessories</p>
-                    </div>*@
-            </div>
-
-            <div class="bg-white border rounded overflow-hidden">
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/ban1.png" class="w-100" alt="Featured electronics" />
-            </div>
-        </div>
-    </div>
-</div>
-
 
 <div class="container p-3 bg-white rounded-3">
     <!-- Tabs Section -->

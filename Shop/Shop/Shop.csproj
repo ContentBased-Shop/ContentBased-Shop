@@ -374,6 +374,7 @@
       <LastGenOutput>DBSHOP.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="assets\Data\chatbot.json" />
     <None Include="Models\DBSHOP.dbml.layout">
       <DependentUpon>DBSHOP.dbml</DependentUpon>
     </None>
