@@ -845,6 +845,9 @@
                                                 ${ct.LoaiBoNho ? ` - Ổ cứng: ${ct.LoaiBoNho}` : ''}
                                                 x ${ct.SoLuong}
                                             </p>
+                                            <div class="rating mt-1" data-mabienthe="${ct.MaBienThe}">
+                                                <!-- Đánh giá sẽ được load động ở đây -->
+                                            </div>
                                         </div>
                                     </div>
                                     <span class="fw-medium">${ct.DonGia.toLocaleString('vi-VN')}đ</span>
@@ -881,9 +884,10 @@
                                 </button>`;
                         }
                         
+                        // Chỉ hiển thị nút đánh giá nếu đơn hàng hoàn thành và chưa đánh giá hết
                         if (donHang.TrangThaiDonHang === "HoanThanh") {
                             orderHtml += `
-                                <button class="btn btn-success" onclick="danhGiaDonHang('${donHang.MaDonHang}')">
+                                <button class="btn btn-success" onclick="danhGiaDonHang('${donHang.MaDonHang}')" id="btn-danhgia-${donHang.MaDonHang}">
                                     Đánh giá
                                 </button>`;
                         }
@@ -891,6 +895,11 @@
                         orderHtml += `</div></div>`;
                         
                         orderList.append(orderHtml);
+
+                        // Load đánh giá cho từng sản phẩm
+                        donHang.ChiTietDonHangs.forEach(ct => {
+                            loadDanhGia(ct.MaBienThe, donHang.MaDonHang);
+                        });
                     });
                 }
             },
@@ -900,233 +909,41 @@
         });
     }
 
-    function huyDonHang(maDonHang) {
-        Swal.fire({
-            title: 'Xác nhận hủy đơn hàng',
-            text: 'Bạn có chắc chắn muốn hủy đơn hàng này?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#1aba1a',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Xác nhận',
-            cancelButtonText: 'Hủy'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: '/User/HuyDonHang',
-                    type: 'POST',
-                    data: { maDonHang: maDonHang },
-                    success: function(response) {
-                        if (response.success) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Thành công',
-                                text: 'Đơn hàng đã được hủy thành công',
-                                timer: 1500,
-                                showConfirmButton: false
-                            }).then(() => {
-                                loadDonHang(); // Tải lại danh sách đơn hàng
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Lỗi',
-                                text: response.message,
-                                confirmButtonColor: '#1aba1a'
-                            });
-                        }
-                    },
-                    error: function() {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Lỗi',
-                            text: 'Có lỗi xảy ra khi kết nối đến server',
-                            confirmButtonColor: '#1aba1a'
-                        });
-                    }
-                });
-            }
-        });
-    }
-
-    function danhGiaDonHang(maDonHang) {
-        // Lấy thông tin sản phẩm từ đơn hàng
+    // Hàm mới để load đánh giá cho từng sản phẩm
+    function loadDanhGia(maBienThe, maDonHang) {
         $.ajax({
-            url: '/User/GetDonHang',
+            url: '/DanhGia/KiemTraDanhGia',
             type: 'GET',
+            data: { maBienThe: maBienThe },
             success: function(response) {
                 if (response.success) {
-                    const donHang = response.data.find(dh => dh.MaDonHang === maDonHang);
-                    if (donHang) {
-                        // Hàm đánh giá sản phẩm
-                        function danhGiaSanPham(index) {
-                            if (index >= donHang.ChiTietDonHangs.length) {
-                                // Đã đánh giá hết sản phẩm
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Hoàn thành',
-                                    text: 'Cảm ơn bạn đã đánh giá tất cả sản phẩm!',
-                                    confirmButtonColor: '#1aba1a'
-                                });
-                                return;
-                            }
-
-                            const ct = donHang.ChiTietDonHangs[index];
+                    const ratingDiv = document.querySelector(`.rating[data-mabienthe="${maBienThe}"]`);
+                    if (ratingDiv) {
+                        if (response.daDanhGia) {
+                            // Hiển thị đánh giá đã có
+                            ratingDiv.innerHTML = `
+                                <div class="d-flex align-items-center">
+                                    <div class="me-2">
+                                        ${Array(5).fill().map((_, i) => `
+                                            <i class="fa-${i < response.soSao ? 'solid' : 'regular'} fa-star text-warning" 
+                                               style="color: #ffc107 !important;"></i>
+                                        `).join('')}
+                                    </div>
+                                    <small class="text-muted">${response.binhLuan || ''}</small>
+                                </div>`;
                             
-                            // Kiểm tra xem sản phẩm đã được đánh giá chưa
-                            $.ajax({
-                                url: '/DanhGia/KiemTraDanhGia',
-                                type: 'GET',
-                                data: { maBienThe: ct.MaBienThe },
-                                success: function(response) {
-                                    if (response.success) {
-                                        if (response.daDanhGia) {
-                                            // Nếu đã đánh giá, hiển thị thông tin đánh giá
-                                            Swal.fire({
-                                                title: 'Đánh giá sản phẩm',
-                                                html: `
-                                                    <div class="text-center mb-3">
-                                                        <h5>${ct.TenHangHoa}</h5>
-                                                        <div class="rating mb-3">
-                                                            ${Array(5).fill().map((_, i) => `
-                                                                <i class="fa-${i < response.soSao ? 'solid' : 'regular'} fa-star text-warning" 
-                                                                   style="color: #ffc107 !important;"></i>
-                                                            `).join('')}
-                                                        </div>
-                                                        <p class="text-muted">${response.binhLuan || 'Không có bình luận'}</p>
-                                                        <p class="text-muted small">Đã đánh giá vào: ${new Date(response.ngayTao).toLocaleDateString('vi-VN')}</p>
-                                                    </div>
-                                                `,
-                                                confirmButtonText: 'Tiếp tục',
-                                                confirmButtonColor: '#1aba1a',
-                                                showCancelButton: false
-                                            }).then(() => {
-                                                // Chuyển sang sản phẩm tiếp theo
-                                                danhGiaSanPham(index + 1);
-                                            });
-                                        } else {
-                                            // Nếu chưa đánh giá, hiển thị form đánh giá
-                                            Swal.fire({
-                                                title: 'Đánh giá sản phẩm',
-                                                html: `
-                                                    <div class="text-center mb-3">
-                                                        <h5>${ct.TenHangHoa}</h5>
-                                                        <div class="rating mb-3">
-                                                            <i class="fa-regular fa-star" data-rating="1" style="color: #ffc107 !important;"></i>
-                                                            <i class="fa-regular fa-star" data-rating="2" style="color: #ffc107 !important;"></i>
-                                                            <i class="fa-regular fa-star" data-rating="3" style="color: #ffc107 !important;"></i>
-                                                            <i class="fa-regular fa-star" data-rating="4" style="color: #ffc107 !important;"></i>
-                                                            <i class="fa-regular fa-star" data-rating="5" style="color: #ffc107 !important;"></i>
-                                                        </div>
-                                                        <textarea id="binhLuan" class="form-control" rows="3" placeholder="Nhập bình luận của bạn..."></textarea>
-                                                    </div>
-                                                `,
-                                                showCancelButton: true,
-                                                confirmButtonText: 'Gửi đánh giá',
-                                                cancelButtonText: 'Hủy',
-                                                confirmButtonColor: '#1aba1a',
-                                                cancelButtonColor: '#d33',
-                                                preConfirm: () => {
-                                                    const activeStars = document.querySelectorAll('.rating .fa-star.active');
-                                                    const soSao = activeStars.length;
-                                                    if (soSao === 0) {
-                                                        Swal.showValidationMessage('Vui lòng chọn số sao đánh giá');
-                                                        return false;
-                                                    }
-                                                    const binhLuan = document.getElementById('binhLuan').value;
-                                                    return { soSao, binhLuan };
-                                                }
-
-                                            }).then((result) => {
-                                                if (result.isConfirmed) {
-                                                    // Gửi đánh giá lên server
-                                                    $.ajax({
-                                                        url: '/DanhGia/LuuDanhGia',
-                                                        type: 'POST',
-                                                        data: {
-                                                            maDonHang: maDonHang,
-                                                            maBienThe: ct.MaBienThe,
-                                                            soSao: result.value.soSao,
-                                                            binhLuan: result.value.binhLuan
-                                                        },
-                                                        success: function(response) {
-                                                            if (response.success) {
-                                                                // Đánh giá sản phẩm tiếp theo
-                                                                danhGiaSanPham(index + 1);
-                                                            } else {
-                                                                Swal.fire({
-                                                                    icon: 'error',
-                                                                    title: 'Lỗi',
-                                                                    text: response.message,
-                                                                    confirmButtonColor: '#1aba1a'
-                                                                });
-                                                            }
-                                                        },
-                                                        error: function() {
-                                                            Swal.fire({
-                                                                icon: 'error',
-                                                                title: 'Lỗi',
-                                                                text: 'Có lỗi xảy ra khi kết nối đến server',
-                                                                confirmButtonColor: '#1aba1a'
-                                                            });
-                                                        }
-                                                    });
-                                                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                                    // Người dùng hủy đánh giá
-                                                    Swal.fire({
-                                                        title: 'Xác nhận',
-                                                        text: 'Bạn có chắc chắn muốn hủy đánh giá?',
-                                                        icon: 'warning',
-                                                        showCancelButton: true,
-                                                        confirmButtonText: 'Có',
-                                                        cancelButtonText: 'Không',
-                                                        confirmButtonColor: '#1aba1a',
-                                                        cancelButtonColor: '#d33'
-                                                    }).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            // Đánh giá sản phẩm tiếp theo
-                                                            danhGiaSanPham(index + 1);
-                                                        }
-                                                    });
-                                                }
-                                            });
-
-                                            // Xử lý sự kiện click vào sao
-                                            setTimeout(() => {
-                                                const stars = document.querySelectorAll('.rating .fa-star');
-                                                stars.forEach(star => {
-                                                    star.addEventListener('click', function() {
-                                                        const rating = this.getAttribute('data-rating');
-                                                        stars.forEach(s => {
-                                                            if (s.getAttribute('data-rating') <= rating) {
-                                                                s.classList.remove('fa-regular');
-                                                                s.classList.add('fa-solid', 'active');
-                                                            } else {
-                                                                s.classList.remove('fa-solid', 'active');
-                                                                s.classList.add('fa-regular');
-                                                            }
-                                                        });
-                                                    });
-                                                });
-                                            }, 100);
-                                        }
-                                    }
-                                }
-                            });
+                            // Ẩn nút đánh giá nếu tất cả sản phẩm đã được đánh giá
+                            const btnDanhGia = document.getElementById(`btn-danhgia-${maDonHang}`);
+                            if (btnDanhGia) {
+                                btnDanhGia.style.display = 'none';
+                            }
+                        } else {
+                            // Hiển thị thông báo chưa đánh giá
+                            ratingDiv.innerHTML = `
+                                <small class="text-muted">Chưa đánh giá</small>`;
                         }
-
-                        // Bắt đầu đánh giá sản phẩm đầu tiên
-                        danhGiaSanPham(0);
                     }
                 }
-            },
-            error: function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Có lỗi xảy ra khi tải thông tin đơn hàng',
-                    confirmButtonColor: '#1aba1a'
-                });
             }
         });
     }
