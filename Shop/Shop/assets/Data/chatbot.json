@@ -1,0 +1,105 @@
+{
+  "greetings": [
+    "xin chào", "hello", "hi", "chào", "hey", "yo", "hola", "bonjour",
+    "chào bạn", "chào shop", "chào swoo", "chào admin"
+  ],
+  "responses": [
+    {
+      "keywords": [
+        "bảo hành", "bao hanh", "đổi trả", "doi tra", "bảo hành sản phẩm",
+        "warranty", "return", "exchange"
+      ],
+      "reply": "🛡️ Chính sách bảo hành của SWOO:\n- Bảo hành chính hãng từ 12-24 tháng\n- Hỗ trợ đổi trả trong 30 ngày\n- Bảo hành 1 đổi 1 trong 7 ngày đầu",
+      "links": [
+        {
+          "text": "Xem chi tiết chính sách bảo hành",
+          "url": "/InnerPage/Warranty"
+        }
+      ],
+      "quick_replies": ["Đổi trả sản phẩm", "Thời gian bảo hành", "Điều kiện bảo hành"]
+    },
+    {
+      "keywords": [
+        "giỏ hàng", "gio hang", "cart", "shopping cart", "giỏ mua hàng",
+        "gio mua hang", "đơn hàng", "don hang"
+      ],
+      "reply": "🛒 Bạn muốn xem giỏ hàng của mình?",
+      "links": [
+        {
+          "text": "Đến giỏ hàng",
+          "url": "/InnerPage/PreCart"
+        }
+      ],
+      "quick_replies": ["Xem giỏ hàng", "Thanh toán", "Cập nhật giỏ hàng"]
+    },
+    {
+      "keywords": [
+        "mua hàng", "mua hang", "hướng dẫn mua hàng", "huong dan mua hang",
+        "cách mua hàng", "cach mua hang", "order", "purchase"
+      ],
+      "reply": "📝 Hướng dẫn mua hàng tại SWOO:\n1. Đăng nhập/Đăng ký tài khoản\n2. Chọn sản phẩm yêu thích\n3. Thêm vào giỏ hàng\n4. Thanh toán và chọn phương thức vận chuyển\n5. Xác nhận đơn hàng",
+      "links": [
+        {
+          "text": "Đăng ký tài khoản",
+          "url": "/InnerPage/Register"
+        },
+        {
+          "text": "Đăng nhập",
+          "url": "/InnerPage/Login"
+        }
+      ],
+      "quick_replies": ["Đăng ký", "Đăng nhập", "Phương thức thanh toán"]
+    },
+    {
+      "keywords": [
+        "tìm kiếm", "tim kiem", "search", "tìm sản phẩm", "tim san pham",
+        "sản phẩm", "san pham", "product"
+      ],
+      "reply": "🔍 Bạn có thể tìm kiếm sản phẩm bằng cách:\n1. Sử dụng thanh tìm kiếm ở đầu trang\n2. Chọn danh mục sản phẩm từ menu\n3. Xem các sản phẩm khuyến nghị",
+      "links": [
+        {
+          "text": "Xem danh mục sản phẩm",
+          "url": "/Product/ProductCategory"
+        },
+        {
+          "text": "Sản phẩm khuyến nghị",
+          "url": "/Product/RecommendedProducts"
+        }
+      ],
+      "quick_replies": ["Danh mục sản phẩm", "Sản phẩm mới", "Sản phẩm hot"]
+    },
+    {
+      "keywords": [
+        "liên hệ", "lien he", "contact", "hỗ trợ", "ho tro", "support",
+        "giúp đỡ", "giup do", "help"
+      ],
+      "reply": "📞 Bạn có thể liên hệ với SWOO qua các kênh sau:\n- Hotline: (025) 3886 25 16\n- Email: huit@edu.com.vn\n- Địa chỉ: 140 Lê Trọng Tấn, Tân Phú, TP.HCM",
+      "links": [
+        {
+          "text": "Gửi tin nhắn hỗ trợ",
+          "url": "/InnerPage/Contact"
+        }
+      ],
+      "quick_replies": ["Gửi tin nhắn", "Gọi điện thoại", "Email hỗ trợ"]
+    },
+    {
+      "keywords": [
+        "khuyến mãi", "khuyen mai", "promotion", "giảm giá", "giam gia",
+        "sale", "discount", "voucher", "mã giảm giá", "ma giam gia"
+      ],
+      "reply": "🎁 Các chương trình khuyến mãi đang diễn ra:\n- Giảm giá lên đến 50%\n- Freeship cho đơn hàng từ 500k\n- Tặng quà khi mua hàng\n- Mã giảm giá cho khách hàng mới",
+      "links": [
+        {
+          "text": "Xem khuyến mãi",
+          "url": "/InnerPage/Promotion"
+        },
+        {
+          "text": "Đăng ký nhận Voucher",
+          "url": "/InnerPage/Register"
+        }
+      ],
+      "quick_replies": ["Khuyến mãi hot", "Đăng ký nhận Voucher", "Mã giảm giá"]
+    }
+  ],
+  "fallback": "😥 Xin lỗi, tôi chưa hiểu yêu cầu của bạn. Bạn có thể thử lại với các từ khóa sau:\n- Bảo hành\n- Giỏ hàng\n- Mua hàng\n- Tìm kiếm\n- Liên hệ\n- Khuyến mãi\n\nHoặc liên hệ hotline (025) 3886 25 16 để được hỗ trợ trực tiếp."
+} 

@@ -185,21 +185,36 @@
                     </h2>
                 </div>
                 <div class="d-flex align-items-center text-success mb-3">
-                    <div class="btn-success rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="20" height="20">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                    </div>
-                    <span>Còn hàng</span>
+                    @if (Model.SelectedBienThe.SoLuongTonKho > 0)
+                    {
+                        <div class="btn-success rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <span>Còn hàng</span>
+                    }
+                    else
+                    {
+                        <div class="btn-danger rounded-circle me-2 d-flex align-content-center" style="width: 20px; height: 20px;">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" width="20" height="20">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </div>
+                        <span class="text-danger">Hết hàng</span>
+                    }
                 </div>
 
                 <div class="d-flex gap-3 mb-3 align-items-center justify-content-sm-between bg-white">
-                    <button class="btn btn-outline-secondary" id="btn-decrease"><i class="bi bi-dash"></i></button>
+                    <button class="btn btn-outline-secondary" id="btn-decrease" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")><i class="bi bi-dash"></i></button>
                     <span class="fs-5" id="quantity">1</span>
-                    <button class="btn btn-outline-secondary" id="btn-increase"><i class="bi bi-plus"></i></button>
+                    <button class="btn btn-outline-secondary" id="btn-increase" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")><i class="bi bi-plus"></i></button>
                 </div>
 
-                <button class="btn btn-success w-100 mb-2 py-3"> <i class="bi bi-cart-plus me-2"></i> <!-- Biểu tượng giỏ hàng -->Thêm vào giỏ hàng</button>
+                <button class="btn btn-success w-100 mb-2 py-3" id="btnAddToCart" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")> 
+                    <i class="bi bi-cart-plus me-2"></i>
+                    @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "Hết hàng" : "Thêm vào giỏ hàng")
+                </button>
                 <button class="btn btn-warning w-100 mb-3 py-3">
                     Thanh toán với <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/paypal.png" alt="PayPal" height="20" />
                 </button>
@@ -247,120 +262,6 @@
             <p class="color-000 mt-15"> <i class="fa-solid fa-truck-fast"></i> <span class="color-666"> Giao hàng từ </span> <strong> Hồ Chí Minh</strong> </p>
         </div>
 
-    </div>
-</div>
-
-<div class="container p-3 bg-white my-3 rounded-3">
-    <div class="row g-3">
-        <!-- Left Column -->
-        <div class="col-lg-9">
-            <!-- Bundle Section -->
-            <div class="rounded p-4">
-                <h2 class="mb-4 fw-bold text-dark">Khuyến mãi tặng Kèm dành riêng</h2>
-
-
-                @{
-                    var maHangHoa = Model.SelectedBienThe.MaHangHoa; // Mã sản phẩm chính
-                    var khuyenMaiTangKemList = Model.ListKhuyenMais
-                        .Where(km => km.MaHangHoaTangKem == maHangHoa)
-                        .ToList();
-                }
-                @if (khuyenMaiTangKemList.Any())
-                {
-                    <div class="d-flex align-items-center justify-content-around flex-wrap gap-3 mb-4">
-                        <!-- Product 1 -->
-                        <a href="@Url.Content("~/Product/ProductDetail/" + Model.SelectedBienThe.MaHangHoa + "?mabienthe=" + Model.SelectedBienThe.MaBienThe)" class="text-decoration-none text-dark">
-                            <div class="text-center me-3">
-                                <img src="@Url.Content("~/assets/Image/Product/" + Model.SelectedBienThe.UrlAnh.FirstOrDefault())"
-                                     class="img-fluid mb-2" width="190" height="200" />
-
-                                <p class="mt-2 mb-0 small">@Model.Product.TenHangHoa</p>
-
-                                <!-- Thêm giá tiền từ biến thể -->
-                                <p class="text-danger">@(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫</p>
-                            </div>
-                        </a>
-                        <div>
-                            <span class="plus fw-bolder fs-3">
-                                <i class="fal fa-plus"></i>
-                            </span>
-                        </div>
-                        @foreach (var km in khuyenMaiTangKemList)
-                        {
-                            var quatang = Model.RelatedProducts.FirstOrDefault(p => p.MaHangHoa == km.MaHangHoaTangKem);
-                            if (quatang != null)
-                            {
-                                // Tìm biến thể của sản phẩm quà tặng (nếu có)
-                                var bienThe = Model.ListBienTheTatCaHangHoa.FirstOrDefault(bt => bt.MaHangHoa == quatang.MaHangHoa);
-                                <a href="@Url.Content("~/Product/ProductDetail/" + bienThe.MaHangHoa + "?mabienthe=" + bienThe.MaBienThe)" class="text-decoration-none text-dark">
-                                    <div class="gift-item text-center me-3">
-                                        <img src="~/assets/Image/Product/@quatang.HinhAnh"
-                                             alt="@quatang.TenHangHoa"
-                                             class="img-fluid"
-                                             width="190" height="200" />
-                                        <p class="mt-2 mb-0 small">@quatang.TenHangHoa</p>
-                                        <!-- Thêm giá tiền từ biến thể -->
-                                        <p class="text-danger">@(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</p>
-                                        <span c lass="badge bg-success">Số Lượng tặng: @km.SoLuongTang</span>
-                                        <br />
-                                        <!-- Hiển thị ngày kết thúc với định dạng mong muốn -->
-                                        @if (km.NgayKetThuc != null)
-                                        {
-                                            <span class="text-muted">
-                                                Hạn chót: @km.NgayKetThuc.Value.ToString("dd/MM/yyyy")
-                                            </span>
-                                        }
-                                    </div>
-                                </a>
-                            }
-                        }
-
-                        <!-- Price + Buttons -->
-                        <div>
-                            <div class="mb-2 ">
-                                <div class="small text-muted h2">Tổng tiền:</div>
-                                <div class="h4 fw-bold">@(((double)Model.SelectedBienThe.GiaKhuyenMai).ToString("N0")) ₫</div>
-                            </div>
-                            <div class="d-flex gap-2 mb-3">
-                                <button class="btn btn-success text-white w-100 py-2">
-                                    <i class="bi bi-cart-plus me-2"></i> <!-- Biểu tượng giỏ hàng -->
-                                    Thêm giỏ hàng ngay bây giờ
-                                </button>
-                            </div>
-
-
-                        </div>
-                    </div>
-
-                    <div class="gift-policy border rounded p-3 bg-light">
-                        <div class="mt-3">
-                            <h6 class="text-danger">Lưu ý:</h6>
-                            <ul class="list-unstyled">
-                                <li><i class="bi bi-exclamation-circle-fill text-warning"></i> Quà tặng không được quy đổi thành tiền mặt.</li>
-                                <li><i class="bi bi-exclamation-circle-fill text-warning"></i> Quà tặng không áp dụng chính sách đổi trả.</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                }
-
-            </div>
-        </div>
-        <!-- Right Column -->
-        <div class="col-lg-3 ">
-            <div class="bg-dark-custom text-white rounded overflow-hidden mb-5 position-relative">
-                @*<div class="sale-badge">50% OFF</div>*@
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/ban1.png" class="w-100" alt="Sale image" />
-                @*<div class="p-3">
-                        <h5 class="fw-bold">SALE</h5>
-                        <p class="text-light-custom small">Limited time offers on gaming accessories</p>
-                    </div>*@
-            </div>
-
-            <div class="bg-white border rounded overflow-hidden">
-                <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/ban1.png" class="w-100" alt="Featured electronics" />
-            </div>
-        </div>
     </div>
 </div>
 
@@ -1052,4 +953,192 @@
             });
         }
     }
+</script>
+
+<!-- Thêm script xử lý giỏ hàng sessionStorage -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lấy thông tin sản phẩm hiện tại
+        const currentProduct = {
+            maHangHoa: '@Model.SelectedBienThe.MaHangHoa',
+            maBienThe: '@Model.SelectedBienThe.MaBienThe',
+            tenHangHoa: '@Model.Product.TenHangHoa',
+            mauSac: '@Model.SelectedBienThe.MauSac',
+            dungLuong: '@Model.SelectedBienThe.DungLuong',
+            hinhAnh: '@(Model.SelectedBienThe.UrlAnh.FirstOrDefault())',
+            giaBan: @Model.SelectedBienThe.GiaBan,
+            giaKhuyenMai: @Model.SelectedBienThe.GiaKhuyenMai,
+            soLuongTonKho: @Model.SelectedBienThe.SoLuongTonKho
+        };
+
+        // Kiểm tra người dùng đã đăng nhập chưa
+        const isLoggedIn = @(Session["UserID"] != null ? "true" : "false");
+
+        // Khởi tạo giỏ hàng từ sessionStorage nếu chưa có
+        function initCart() {
+            if (!sessionStorage.getItem('cart')) {
+                sessionStorage.setItem('cart', JSON.stringify([]));
+            }
+            updateCartCount();
+        }
+
+        // Cập nhật số lượng hiển thị trên biểu tượng giỏ hàng
+        function updateCartCount() {
+            const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            const totalItems = cart.length;
+            
+            // Cập nhật số lượng ở biểu tượng giỏ hàng nếu có
+            const cartCountElement = document.querySelector('.cart-count');
+            if (cartCountElement) {
+                cartCountElement.textContent = totalItems;
+                cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+            
+            // Kích hoạt sự kiện để thông báo cho các trang khác về thay đổi giỏ hàng
+            window.dispatchEvent(new Event('cartUpdated'));
+        }
+
+        // Thêm sản phẩm vào giỏ hàng server (khi đã đăng nhập)
+        function addToCartServer(product, quantity) {
+            // Tạo dữ liệu gửi lên server
+            const data = {
+                maBienThe: product.maBienThe,
+                soLuong: quantity,
+                action: 'add'
+            };
+
+            // Gửi yêu cầu thêm sản phẩm lên server
+            fetch('/InnerPage/UpdateCartItem', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    // Hiện thông báo thành công
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công!',
+                        text: 'Đã thêm sản phẩm vào giỏ hàng',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                    
+                    // Cập nhật hiển thị số lượng giỏ hàng
+                    updateCartCountFromServer();
+                } else {
+                    // Hiện thông báo lỗi
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi!',
+                        text: result.message || 'Không thể thêm sản phẩm vào giỏ hàng',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Lỗi khi thêm vào giỏ hàng:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi!',
+                    text: 'Đã xảy ra lỗi khi thêm sản phẩm vào giỏ hàng',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        }
+
+        // Cập nhật số lượng giỏ hàng từ server
+        function updateCartCountFromServer() {
+            fetch('/InnerPage/GetCartItems')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const totalItems = data.cartItems.length;
+                        const cartCountElement = document.querySelector('.cart-count');
+                        if (cartCountElement) {
+                            cartCountElement.textContent = totalItems;
+                            cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
+                        }
+                    }
+                })
+                .catch(error => console.error('Lỗi khi lấy giỏ hàng:', error));
+        }
+
+        // Thêm sản phẩm vào giỏ hàng sessionStorage (khi chưa đăng nhập)
+        function addToCartSession(product, quantity) {
+            let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+            
+            // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
+            const existingItemIndex = cart.findIndex(item => item.maBienThe === product.maBienThe);
+            
+            if (existingItemIndex !== -1) {
+                // Nếu đã có, tăng số lượng
+                cart[existingItemIndex].soLuong += quantity;
+            } else {
+                // Nếu chưa có, thêm mới vào giỏ hàng
+                cart.push({
+                    maHangHoa: product.maHangHoa,
+                    maBienThe: product.maBienThe, 
+                    tenHangHoa: product.tenHangHoa,
+                    mauSac: product.mauSac,
+                    dungLuong: product.dungLuong,
+                    hinhAnh: product.hinhAnh,
+                    giaBan: product.giaBan,
+                    giaKhuyenMai: product.giaKhuyenMai,
+                    soLuong: quantity,
+                    soLuongTonKho: product.soLuongTonKho
+                });
+            }
+            
+            // Lưu giỏ hàng vào sessionStorage
+            sessionStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Cập nhật số lượng trên UI
+            updateCartCount();
+            
+            // Thông báo thành công
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công!',
+                text: 'Đã thêm sản phẩm vào giỏ hàng',
+                timer: 1500,
+                showConfirmButton: false
+            });
+        }
+
+        // Thêm sản phẩm vào giỏ hàng - hàm chung
+        function addToCart(product, quantity) {
+            if (isLoggedIn) {
+                // Nếu đã đăng nhập, thêm vào giỏ hàng server
+                addToCartServer(product, quantity);
+            } else {
+                // Nếu chưa đăng nhập, thêm vào giỏ hàng session
+                addToCartSession(product, quantity);
+            }
+        }
+
+        // Khởi tạo giỏ hàng nếu chưa đăng nhập
+        if (!isLoggedIn) {
+            initCart();
+        }
+
+        // Xử lý sự kiện click nút "Thêm vào giỏ hàng"
+        document.getElementById('btnAddToCart').addEventListener('click', function() {
+            const quantity = parseInt(document.getElementById('quantity').textContent || 1);
+            addToCart(currentProduct, quantity);
+        });
+
+        // Xử lý sự kiện click nút "Thêm giỏ hàng ngay bây giờ" (nếu có)
+        const btnAddBundleToCart = document.getElementById('btnAddBundleToCart');
+        if (btnAddBundleToCart) {
+            btnAddBundleToCart.addEventListener('click', function() {
+                addToCart(currentProduct, 1);
+            });
+        }
+    });
 </script>
