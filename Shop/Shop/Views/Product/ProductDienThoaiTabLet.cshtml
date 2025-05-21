@@ -384,18 +384,40 @@
     <!-- Product Carousel -->
     <div style="background-color:white" id="productCarousel" class="carousel slide position-relative px-3 rounded-3">
         <!-- Navigation Tabs -->
-
         @{
+            // Tính lại danh sách đánh giá trung bình cho mỗi hàng hóa
+            var danhGiaTrungBinhDict = Model.ListDanhGia
+                .GroupBy(dg => dg.MaHangHoa)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Average(dg => dg.SoSao)
+                );
+
+            // Gán lại giá trị DanhGiaTrungBinh cho mỗi hàng hóa
+            foreach (var hh in Model.HangHoas)
+            {
+                if (danhGiaTrungBinhDict.ContainsKey(hh.MaHangHoa))
+                {
+                    hh.DanhGiaTrungBinh = danhGiaTrungBinhDict[hh.MaHangHoa];
+                }
+                else
+                {
+                    hh.DanhGiaTrungBinh = 0; // Không có đánh giá
+                }
+            }
+
+            // Lấy top 10 sản phẩm theo điểm đánh giá trung bình
             var products = (from hh in Model.HangHoas
                             join bt in Model.BienTheHangHoas on hh.MaHangHoa equals bt.MaHangHoa
                             orderby hh.DanhGiaTrungBinh descending
                             select new { HangHoa = hh, BienThe = bt })
-                .Take(10) // Lấy tối đa 10 sản phẩm
+                .Take(10)
                 .ToList();
+        
 
 
-            int itemsPerSlide = 5; // Mỗi slide hiển thị 5 sản phẩm
-            int totalSlides = (int)Math.Ceiling((double)products.Count / itemsPerSlide);
+        int itemsPerSlide = 5; // Mỗi slide hiển thị 5 sản phẩm
+        int totalSlides = (int)Math.Ceiling((double)products.Count / itemsPerSlide);
         }
         <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -427,20 +449,21 @@
                                             bool half = rating - full >= 0.5;
                                             int empty = 5 - full - (half ? 1 : 0);
                                         }
-                                        <div class="text-center d-flex justify-content-center gap-1">
-                                            @for (int s = 0; s < full; s++)
-                                            {
-                                                <i class="bi bi-star-fill text-warning"></i>
-                                            }
-                                            @if (half)
-                                            {
-                                                <i class="bi bi-star-half text-warning"></i>
-                                            }
-                                            @for (int s = 0; s < empty; s++)
-                                            {
-                                                <i class="bi bi-star text-warning"></i>
-                                            }
-                                        </div>
+                                    <div class="text-center d-flex justify-content-center gap-1">
+                                        @for (int s = 0; s < full; s++)
+                                        {
+                                            <i class="bi bi-star-fill text-warning"></i>
+                                        }
+                                        @if (half)
+                                        {
+                                            <i class="bi bi-star-half text-warning"></i>
+                                        }
+                                        @for (int s = 0; s < empty; s++)
+                                        {
+                                            <i class="bi bi-star text-warning"></i>
+                                        }
+                                      
+                                    </div>
 
 
                                         <div class="price-container">

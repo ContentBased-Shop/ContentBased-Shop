@@ -67,7 +67,10 @@ namespace Shop.Controllers
                                        SoLuongTonKho = g.Where(x => x.bienThe != null)
                                                      .Select(x => x.bienThe.SoLuongTonKho)
                                                      .FirstOrDefault() ?? 0,
-                                       SoLuongDanhGia = g.Count(x => x.danhGia != null),
+                                       SoLuongDanhGia = g.Where(x => x.danhGia != null)
+                                                      .Select(x => x.danhGia.MaDanhGia)
+                                                      .Distinct()
+                                                      .Count(),
                                        DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
                                                    ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
                                                    : 0
@@ -264,8 +267,11 @@ namespace Shop.Controllers
 
             var thuongHieus = data.ThuongHieus
                 .ToList();
+            var ListDanhGia = data.DanhGias
+                .ToList();
             var productCategory = new ProductCategory
             {
+                ListDanhGia = ListDanhGia,
                 ListHangHoaGoc = ListHangHoaGoc,
                 ListBienTheGoc = ListBienTheGoc,
                 BienTheHangHoas = selectedBienThes,

@@ -156,11 +156,6 @@
     </Compile>
     <Compile Include="Models\BienTheHangHoaViewModel.cs" />
     <Compile Include="Models\DanhGiaView.cs" />
-    <Compile Include="Models\DBSHOP.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DBSHOP.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Models\DonHangViewModel.cs" />
     <Compile Include="Models\HangHoaViewModel.cs" />
     <Compile Include="Models\ProductCategory.cs" />
@@ -371,15 +366,7 @@
       <LastGenOutput>SHOP.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Models\DBSHOP.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>DBSHOP.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="assets\Data\chatbot.json" />
-    <None Include="Models\DBSHOP.dbml.layout">
-      <DependentUpon>DBSHOP.dbml</DependentUpon>
-    </None>
     <None Include="Models\SHOP.dbml.layout">
       <DependentUpon>SHOP.dbml</DependentUpon>
     </None>

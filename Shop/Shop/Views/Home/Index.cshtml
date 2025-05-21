@@ -2,6 +2,7 @@
     ViewBag.Title = "SWOO TECH MART";
 }
 ﻿@model List<Shop.Models.HangHoaViewModel>
+
 @{
     var sanPhamTonNhieuNhat = Model
         .OrderByDescending(h => h.SoLuongTonKho)

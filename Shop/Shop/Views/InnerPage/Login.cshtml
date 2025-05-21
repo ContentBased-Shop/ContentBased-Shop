@@ -58,7 +58,7 @@
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Mật khẩu</label>
-                    <div class="input-group">
+                    <div class="input-group password-wrapper">
                         <input type="password"
                                name="password"
                                class="form-control"
@@ -78,11 +78,11 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="remember">
-                        <label class="form-check-label text-muted" for="remember">
+                        <label class="form-check-label text-muted bg-s" for="remember">
                             Ghi nhớ đăng nhập
                         </label>
                     </div>
-                    <a href="@Url.Action("ForgotPassword", "InnerPage")" class="text-decoration-none text-primary">Quên mật khẩu?</a>
+                    <a href="@Url.Action("ForgotPassword", "InnerPage")" class="text-decoration-none text-muted">Quên mật khẩu?</a>
                 </div>
 
                 <button id="loginBtn" class="btn btn-success-custom w-100 mb-3" type="submit">

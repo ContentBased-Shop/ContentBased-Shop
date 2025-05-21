@@ -9,7 +9,7 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=ACERNITRO5;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
+        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
                 "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
         // GET: /Home/
         #region TRANG-CHU
@@ -74,7 +74,10 @@ namespace Shop.Controllers
                                    SoLuongTonKho = g.Where(x => x.bienThe != null)
                                                  .Select(x => x.bienThe.SoLuongTonKho)
                                                  .FirstOrDefault() ?? 0,
-                                   SoLuongDanhGia = g.Count(x => x.danhGia != null),
+                                   SoLuongDanhGia = g.Where(x => x.danhGia != null)
+                                              .Select(x => x.danhGia.MaDanhGia)
+                                              .Distinct()
+                                              .Count(),
                                    DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
                                                ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
                                                : 0
