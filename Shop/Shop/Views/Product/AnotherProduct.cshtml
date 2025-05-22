@@ -430,71 +430,73 @@
                             @foreach (var item in slideProducts)
                             {
                                 <div class="col-custom-5 ">
+                                    <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = item.BienThe.MaHangHoa, maBienThe = item.BienThe.MaBienThe })" class="text-decoration-none text-dark">
 
-                                    <div class="product-card position-relative">
-                                        <span class="discount-badge position-absolute top-0 end-0">
-                                            @((int)(100 - (item.BienThe.GiaKhuyenMai / item.BienThe.GiaBan * 100)))% OFF
-                                        </span>
-                                        <div class="product-image-container">
-                                            <img src="~/assets/Image/Product/@item.BienThe.UrlAnh.FirstOrDefault()" alt="Product" width="100%" height="100%">
-                                        </div>
-                                        <h6 class="text-center">@item.HangHoa.TenHangHoa @item.BienThe.MauSac (@item.BienThe.DungLuong)</h6>
-                                        <p class="text-center">@item.HangHoa.MoTa</p>
+                                        <div class="product-card position-relative">
+                                            <span class="discount-badge position-absolute top-0 end-0">
+                                                @((int)(100 - (item.BienThe.GiaKhuyenMai / item.BienThe.GiaBan * 100)))% OFF
+                                            </span>
+                                            <div class="product-image-container">
+                                                <img src="~/assets/Image/Product/@item.BienThe.UrlAnh.FirstOrDefault()" alt="Product" width="100%" height="100%">
+                                            </div>
+                                            <h6 class="text-center">@item.HangHoa.TenHangHoa @item.BienThe.MauSac (@item.BienThe.DungLuong)</h6>
+                                            <p class="text-center">@item.HangHoa.MoTa</p>
 
-                                        @{
-                                            double rating = item.HangHoa.DanhGiaTrungBinh ?? 0;
-                                            int full = (int)Math.Floor(rating);
-                                            bool half = rating - full >= 0.5;
-                                            int empty = 5 - full - (half ? 1 : 0);
-                                        }
-                                        <div class="text-center d-flex justify-content-center gap-1">
-                                            @for (int s = 0; s < full; s++)
-                                            {
-                                                <i class="bi bi-star-fill text-warning"></i>
+                                            @{
+                                                double rating = item.HangHoa.DanhGiaTrungBinh ?? 0;
+                                                int full = (int)Math.Floor(rating);
+                                                bool half = rating - full >= 0.5;
+                                                int empty = 5 - full - (half ? 1 : 0);
                                             }
-                                            @if (half)
-                                            {
-                                                <i class="bi bi-star-half text-warning"></i>
-                                            }
-                                            @for (int s = 0; s < empty; s++)
-                                            {
-                                                <i class="bi bi-star text-warning"></i>
-                                            }
-                                        </div>
-
-
-                                        <div class="price-container">
-                                            <span class="current-price">@item.BienThe.GiaKhuyenMai.ToString("N0")</span>
-                                            <span class="original-price">@item.BienThe.GiaBan.ToString("N0")</span>
-                                        </div>
-                                        <div class="free-shipping text-center">FREE SHIPPING</div>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="stock-status">
-                                                @if (item.BienThe.SoLuongTonKho > 0)
+                                            <div class="text-center d-flex justify-content-center gap-1">
+                                                @for (int s = 0; s < full; s++)
                                                 {
-                                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                                    <span>In stock</span>
-
+                                                    <i class="bi bi-star-fill text-warning"></i>
                                                 }
-                                                else
+                                                @if (half)
                                                 {
-                                                    <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
-                                                    <span>&nbsp;Out stock</span>
+                                                    <i class="bi bi-star-half text-warning"></i>
+                                                }
+                                                @for (int s = 0; s < empty; s++)
+                                                {
+                                                    <i class="bi bi-star text-warning"></i>
                                                 }
                                             </div>
-                                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@item.HangHoa.MaHangHoa">
-                                                @if (ViewBag.DanhSachYeuThich.Contains(item.HangHoa.MaHangHoa))
-                                                {
-                                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
-                                                }
-                                                else
-                                                {
-                                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
-                                                }
-                                                <span>Yêu thích</span>
-                                            </a>
+
+
+                                            <div class="price-container">
+                                                <span class="current-price">@item.BienThe.GiaKhuyenMai.ToString("N0")</span>
+                                                <span class="original-price">@item.BienThe.GiaBan.ToString("N0")</span>
+                                            </div>
+                                            <div class="free-shipping text-center">FREE SHIPPING</div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="stock-status">
+                                                    @if (item.BienThe.SoLuongTonKho > 0)
+                                                    {
+                                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                        <span>In stock</span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
+                                                        <span>&nbsp;Out stock</span>
+                                                    }
+                                                </div>
+                                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@item.HangHoa.MaHangHoa">
+                                                    @if (ViewBag.DanhSachYeuThich.Contains(item.HangHoa.MaHangHoa))
+                                                    {
+                                                        <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                                    }
+                                                    <span>Yêu thích</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
+                                        </a>
                                 </div>
                             }
                         </div>
@@ -792,83 +794,84 @@
                                      data-price="@bienThe.GiaKhuyenMai.ToString(" N0") đ"
                                      data-original-price="@bienThe.GiaBan.ToString(" N0") đ"
                                      data-bonho="@bienThe.LoaiBoNho">
+                                    <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = hangHoa.MaHangHoa, maBienThe = bienThe.MaBienThe })" class="text-decoration-none text-dark">
 
-                                    <div class="product-card position-relative">
-                                        <span class="discount-badge position-absolute top-0 end-0">
-                                            @((int)(100 - (bienThe.GiaKhuyenMai / bienThe.GiaBan * 100)))% OFF
-                                        </span>
-                                        <div class="product-image-container">
-                                            <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
-                                        </div>
-
-                                        <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong) </h6>
-                                        <p class="product-description  text-center">@hangHoa.MoTa</p>
-                                        @{
-                                            double rating = hangHoa.DanhGiaTrungBinh ?? 0;
-                                            int fullStars = (int)Math.Floor(rating);
-                                            bool hasHalfStar = rating - fullStars >= 0.5;
-                                            int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
-                                        }
-
-                                        <div class="star-rating text-center">
-                                            @for (int i = 0; i < fullStars; i++)
-                                            {
-                                                <i class="bi bi-star-fill "></i>
-                                            }
-
-                                            @if (hasHalfStar)
-                                            {
-                                                <i class="bi bi-star-half "></i>
-                                            }
-
-                                            @for (int i = 0; i < emptyStars; i++)
-                                            {
-                                                <i class="bi bi-star "></i>
-                                            }
-
-                                        </div>
-
-                                        <div class="price-container">
-
-                                            <div class="d-flex">
-                                                <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0") đ</span>
-                                                <span class="original-price text-muted text-decoration-line-through ms-2">
-                                                    @bienThe.GiaBan.ToString("N0") đ
-                                                </span>
+                                        <div class="product-card position-relative">
+                                            <span class="discount-badge position-absolute top-0 end-0">
+                                                @((int)(100 - (bienThe.GiaKhuyenMai / bienThe.GiaBan * 100)))% OFF
+                                            </span>
+                                            <div class="product-image-container">
+                                                <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
                                             </div>
 
-                                        </div>
+                                            <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong) </h6>
+                                            <p class="product-description  text-center">@hangHoa.MoTa</p>
+                                            @{
+                                                double rating = hangHoa.DanhGiaTrungBinh ?? 0;
+                                                int fullStars = (int)Math.Floor(rating);
+                                                bool hasHalfStar = rating - fullStars >= 0.5;
+                                                int emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+                                            }
 
-
-                                        <div class="free-shipping text-center">FREE SHIPPING</div>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="stock-status">
-                                                @if (bienThe.SoLuongTonKho > 0)
+                                            <div class="star-rating text-center">
+                                                @for (int i = 0; i < fullStars; i++)
                                                 {
-                                                    <i class="bi bi-check-circle-fill in-stock-icon"></i>
-                                                    <span>In stock</span>
+                                                    <i class="bi bi-star-fill "></i>
+                                                }
 
-                                                }
-                                                else
+                                                @if (hasHalfStar)
                                                 {
-                                                    <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
-                                                    <span>&nbsp;Out stock</span>
+                                                    <i class="bi bi-star-half "></i>
                                                 }
+
+                                                @for (int i = 0; i < emptyStars; i++)
+                                                {
+                                                    <i class="bi bi-star "></i>
+                                                }
+
                                             </div>
-                                            <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
-                                                @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
-                                                {
-                                                    <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
-                                                }
-                                                else
-                                                {
-                                                    <i class="far fa-heart heart-icon" data-filled="false"></i>
-                                                }
-                                                <span>Yêu thích</span>
-                                            </a>
-                                        </div>
 
-                                    </div>
+                                            <div class="price-container">
+
+                                                <div class="d-flex">
+                                                    <span class="current-price">@bienThe.GiaKhuyenMai.ToString("N0") đ</span>
+                                                    <span class="original-price text-muted text-decoration-line-through ms-2">
+                                                        @bienThe.GiaBan.ToString("N0") đ
+                                                    </span>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="free-shipping text-center">FREE SHIPPING</div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="stock-status">
+                                                    @if (bienThe.SoLuongTonKho > 0)
+                                                    {
+                                                        <i class="bi bi-check-circle-fill in-stock-icon"></i>
+                                                        <span>In stock</span>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="bi bi-x-circle-fill out-of-stock-icon text-danger"></i>
+                                                        <span>&nbsp;Out stock</span>
+                                                    }
+                                                </div>
+                                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@hangHoa.MaHangHoa">
+                                                    @if (ViewBag.DanhSachYeuThich.Contains(hangHoa.MaHangHoa))
+                                                    {
+                                                        <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="far fa-heart heart-icon" data-filled="false"></i>
+                                                    }
+                                                    <span>Yêu thích</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        </a>
                                 </div>
                             }
 

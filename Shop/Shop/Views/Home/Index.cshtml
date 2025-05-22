@@ -30,10 +30,10 @@
                             switch (dm.MaDanhMuc)
                             {
                                 case "DM001":
-                                case "DM003":
+                                case "DM002":
                                     hrefValue = Url.Action("ProductDienThoaiTabLet", "Product", new { maDm = dm.MaDanhMuc });
                                     break;
-                                case "DM002":
+                                case "DM003":
                                     hrefValue = Url.Action("ProductLaptopPC", "Product", new { maDm = dm.MaDanhMuc });
                                     break;
                                 case "DM005":
@@ -1711,12 +1711,13 @@
                     if (!maKhachHang) {
                         // Hiển thị thông báo khi chưa đăng nhập
                         swiperWrapper.innerHTML = `
-                            <div class="text-center p-4">
+                            <div class="text-center p-4 w-100">
                                 <i class="fas fa-user-lock fa-3x mb-3 text-muted"></i>
                                 <h4 class="mb-3">Bạn cần đăng nhập để sử dụng chức năng này</h4>
-                                <a href="/Account/Login" class="btn btn-primary">Đăng nhập ngay</a>
+                                <a href="/Account/Login" class="btn btn-success">Đăng nhập ngay</a>
                             </div>
                         `;
+
                         setTimeout(initSwiper, 100);
                         return;
                     }

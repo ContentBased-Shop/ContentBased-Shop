@@ -330,8 +330,11 @@ namespace Shop.Controllers
 
             var thuongHieus = data.ThuongHieus
                 .ToList();
+            var ListDanhGia = data.DanhGias
+               .ToList();
             var productCategory = new ProductCategory
             {
+                ListDanhGia = ListDanhGia,
                 ListHangHoaGoc = ListHangHoaGoc,
                 ListBienTheGoc = ListBienTheGoc,
                 BienTheHangHoas = selectedBienThes,
@@ -389,8 +392,11 @@ namespace Shop.Controllers
 
             var thuongHieus = data.ThuongHieus
                 .ToList();
+            var ListDanhGia = data.DanhGias
+              .ToList();
             var productCategory = new ProductCategory
             {
+                ListDanhGia = ListDanhGia,
                 ListHangHoaGoc = ListHangHoaGoc,
                 ListBienTheGoc = ListBienTheGoc,
                 BienTheHangHoas = selectedBienThes,
@@ -447,8 +453,11 @@ namespace Shop.Controllers
 
             var thuongHieus = data.ThuongHieus
                 .ToList();
+            var ListDanhGia = data.DanhGias
+              .ToList();
             var productCategory = new ProductCategory
             {
+                ListDanhGia = ListDanhGia,
                 ListHangHoaGoc = ListHangHoaGoc,
                 ListBienTheGoc = ListBienTheGoc,
                 BienTheHangHoas = selectedBienThes,
@@ -505,8 +514,11 @@ namespace Shop.Controllers
 
             var thuongHieus = data.ThuongHieus
                 .ToList();
+            var ListDanhGia = data.DanhGias
+              .ToList();
             var productCategory = new ProductCategory
             {
+                ListDanhGia = ListDanhGia,
                 ListHangHoaGoc = ListHangHoaGoc,
                 ListBienTheGoc = ListBienTheGoc,
                 BienTheHangHoas = selectedBienThes,
@@ -567,8 +579,11 @@ namespace Shop.Controllers
 
             var thuongHieus = data.ThuongHieus
                 .ToList();
+            var ListDanhGia = data.DanhGias
+             .ToList();
             var productCategory = new ProductCategory
             {
+                ListDanhGia = ListDanhGia,
                 ListHangHoaGoc = ListHangHoaGoc,
                 ListBienTheGoc = ListBienTheGoc,
                 BienTheHangHoas = selectedBienThes,
