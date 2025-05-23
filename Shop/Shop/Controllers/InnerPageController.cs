@@ -52,6 +52,26 @@ namespace Shop.Controllers
                     string decryptedPassword = SecurityHelper.DecryptPassword(user.MatKhauHash, "mysecretkey");
                     if (decryptedPassword == password)
                     {
+                        // Kiểm tra xem có phải mật khẩu tạm không
+                        if (user.ExpiryTime.HasValue && user.ExpiryTime.Value > DateTime.Now)
+                        {
+                            // Lưu thông tin người dùng vào Session
+                            Session["UserID"] = user.MaKhachHang;
+                            Session["UserName"] = user.HoTen;
+                            Session["AccountName"] = user.TenDangNhap;
+                            Session["Password"] = user.MatKhauHash;
+                            Session["RequirePasswordChange"] = true;
+                            
+                            // Merge giỏ hàng tạm từ sessionStorage (nếu có)
+                            if (!string.IsNullOrEmpty(tempCart))
+                            {
+                                MergeCart(user.MaKhachHang, tempCart);
+                            }
+                            
+                            // Chuyển hướng đến trang đổi mật khẩu
+                            return RedirectToAction("ChangePassword", "InnerPage");
+                        }
+                        
                         // Lưu thông tin người dùng vào Session
                         Session["UserID"] = user.MaKhachHang;
                         Session["UserName"] = user.HoTen;
@@ -98,7 +118,7 @@ namespace Shop.Controllers
                             return Redirect(returnUrl);
                         }
                         
-                        // Chuyển hướng đến trang Dashboard
+                        // Chuyển hướng đến trang Home
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -989,6 +1009,197 @@ namespace Shop.Controllers
         }
 
 
+        #endregion
+
+        #region Forgot Password
+        [HttpPost]
+        public ActionResult ForgotPassword(string email, string username)
+        {
+            try
+            {
+                // Kiểm tra email và username có tồn tại không
+                var user = data.KhachHangs.FirstOrDefault(kh => 
+                    kh.Email == email && kh.TenDangNhap == username);
+
+                if (user == null)
+                {
+                    return Json(new { success = false, message = "Email hoặc tên đăng nhập không chính xác." });
+                }
+
+                // Tạo mật khẩu tạm 12 ký tự
+                string tempPassword = GenerateTempPassword(12);
+                
+                // Mã hóa mật khẩu tạm
+                string encryptedTempPassword = SecurityHelper.EncryptPassword(tempPassword, "mysecretkey");
+
+                // Cập nhật mật khẩu và thời gian hết hạn
+                user.MatKhauHash = encryptedTempPassword;
+                user.ExpiryTime = DateTime.Now.AddMinutes(10);
+                data.SubmitChanges();
+
+                // Gửi email chứa mật khẩu tạm
+                SendTempPasswordEmail(user.Email, user.HoTen, tempPassword);
+
+                return Json(new { success = true, message = "Mật khẩu tạm đã được gửi đến email của bạn." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+
+        private string GenerateTempPassword(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private void SendTempPasswordEmail(string toEmail, string toName, string tempPassword)
+        {
+            var fromAddress = new MailAddress("managertask34@gmail.com", "SWOO Admin");
+            var toAddress = new MailAddress(toEmail, toName);
+            const string subject = "Mật khẩu tạm - SWOO";
+
+            string body = string.Format(@"
+                <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
+                    <h2 style='color: #28a745;'>Mật khẩu tạm của bạn</h2>
+                    <p>Xin chào {0},</p>
+                    <p>Bạn đã yêu cầu đặt lại mật khẩu. Dưới đây là mật khẩu tạm của bạn:</p>
+                    
+                    <div style='margin: 20px 0; padding: 15px; background-color: #f8f9fa; border-radius: 5px;'>
+                        <p style='font-size: 18px; font-weight: bold; text-align: center;'>{1}</p>
+                    </div>
+
+                    <p><strong>Lưu ý quan trọng:</strong></p>
+                    <ul>
+                        <li>Mật khẩu này sẽ hết hạn sau 10 phút</li>
+                        <li>Khi đăng nhập với mật khẩu tạm, bạn sẽ được yêu cầu đổi sang mật khẩu mới</li>
+                        <li>Vui lòng không chia sẻ mật khẩu này với bất kỳ ai</li>
+                    </ul>
+
+                    <div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6;'>
+                        <p style='color: #666;'>Trân trọng,<br>SWOO Team</p>
+                    </div>
+                </div>",
+                toName,
+                tempPassword
+            );
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(fromAddress.Address, "veaq dwhq oico jlzc")
+            };
+
+            using (var message = new MailMessage(fromAddress, toAddress)
+            {
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = true
+            })
+            {
+                smtp.Send(message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            // Kiểm tra xem người dùng đã đăng nhập chưa
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login", "InnerPage");
+            }
+
+            // Kiểm tra xem có phải đang sử dụng mật khẩu tạm không
+            string maKhachHang = Session["UserID"].ToString();
+            var user = data.KhachHangs.FirstOrDefault(kh => kh.MaKhachHang == maKhachHang);
+
+            if (user == null)
+            {
+                return RedirectToAction("Login", "InnerPage");
+            }
+
+            // Nếu không phải mật khẩu tạm và không có yêu cầu đổi mật khẩu
+            if (!user.ExpiryTime.HasValue && Session["RequirePasswordChange"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string currentPassword, string newPassword)
+        {
+            if (Session["UserID"] == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." });
+            }
+
+            string maKhachHang = Session["UserID"].ToString();
+            var user = data.KhachHangs.FirstOrDefault(kh => kh.MaKhachHang == maKhachHang);
+
+            if (user == null)
+            {
+                return Json(new { success = false, message = "Không tìm thấy thông tin người dùng." });
+            }
+
+            try
+            {
+                // Kiểm tra mật khẩu hiện tại
+                string decryptedCurrentPassword = SecurityHelper.DecryptPassword(user.MatKhauHash, "mysecretkey");
+                
+                if (decryptedCurrentPassword != currentPassword)
+                {
+                    return Json(new { success = false, message = "Mật khẩu hiện tại không chính xác." });
+                }
+
+                // Kiểm tra mật khẩu mới có đủ mạnh không
+                if (!IsStrongPassword(newPassword))
+                {
+                    return Json(new { success = false, message = "Mật khẩu mới phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt." });
+                }
+
+                // Mã hóa và cập nhật mật khẩu mới
+                string encryptedNewPassword = SecurityHelper.EncryptPassword(newPassword, "mysecretkey");
+                user.MatKhauHash = encryptedNewPassword;
+                user.ExpiryTime = null; // Xóa thời gian hết hạn
+                data.SubmitChanges();
+
+                return Json(new { success = true, message = "Đổi mật khẩu thành công." });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message });
+            }
+        }
+
+        private bool IsStrongPassword(string password)
+        {
+            // Kiểm tra độ dài tối thiểu
+            if (password.Length < 8) return false;
+
+            // Kiểm tra có chữ hoa
+            if (!password.Any(char.IsUpper)) return false;
+
+            // Kiểm tra có chữ thường
+            if (!password.Any(char.IsLower)) return false;
+
+            // Kiểm tra có số
+            if (!password.Any(char.IsDigit)) return false;
+
+            // Kiểm tra có ký tự đặc biệt
+            if (!password.Any(c => !char.IsLetterOrDigit(c))) return false;
+
+            return true;
+        }
         #endregion
 
         public ActionResult ForgotPassword()
