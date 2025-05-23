@@ -468,7 +468,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        </a>
+                                    </a>
                                 </div>
                             }
                         </div>
@@ -541,7 +541,7 @@
                                 // Đếm tổng số biến thể thuộc các hàng hóa này
                                 var soBienThe = Model.BienTheHangHoas.Count(bt => maHangHoas.Contains(bt.MaHangHoa));
 
-                                <div class="form-check small my-2">
+                                <div class="form-check small my-2 brand-item" data-name="@thuonghieu.TenThuongHieu.ToLower()">
                                     <input class="form-check-input brand-checkbox" type="checkbox" id="brand_@thuonghieu.MaThuongHieu" value="@thuonghieu.MaThuongHieu">
                                     <label class="form-check-label d-flex w-100" for="brand_@thuonghieu.MaThuongHieu">
                                         <img width="70px" height="20px" src="~/assets/Image/Logo/LogoBrand/@thuonghieu.Logo" alt="@thuonghieu.TenThuongHieu" />
@@ -549,6 +549,7 @@
                                         <span class="text-muted">(@soBienThe)</span>
                                     </label>
                                 </div>
+
                             }
                         </div>
                     </div>
@@ -869,7 +870,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        </a>
+                                    </a>
                                 </div>
                             }
 
@@ -1365,65 +1366,77 @@
 </script>
 
 <script>
-    const filterSelectors = [
-        '.brand-checkbox',
-        '.rating-checkbox',
-        '.ram-checkbox',
-        '.memory-checkbox',
-        '.monitor-checkbox',
-        '.bonho-checkbox'
-    ];
-
-    filterSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(cb => {
-            cb.addEventListener('change', filterProducts);
-        });
-    });
+    let currentFilteredIndex = 0;
+    const batchSize = 8;
 
     function filterProducts() {
         const getSelectedValues = (selector) => {
             return Array.from(document.querySelectorAll(selector + ':checked')).map(cb => cb.value);
         };
-        const selectedBoNho = getSelectedValues('.bonho-checkbox');
+
         const selectedBrands = getSelectedValues('.brand-checkbox');
         const selectedRatings = getSelectedValues('.rating-checkbox').map(Number);
         const selectedRAMs = getSelectedValues('.ram-checkbox');
         const selectedMemory = getSelectedValues('.memory-checkbox');
         const selectedMonitors = getSelectedValues('.monitor-checkbox');
 
+        const filteredProducts = [];
+
         document.querySelectorAll('.product-item').forEach(product => {
+            product.classList.remove('d-none'); // gỡ ẩn để lọc đúng
+            product.style.display = 'none';     // ẩn tạm thời
+
             const brand = product.dataset.thuongHieu;
             const rating = parseInt(product.dataset.rating);
             const ram = product.dataset.ram;
             const memory = product.dataset.memory;
             const monitor = product.dataset.monitor;
-            const bonho = product.dataset.bonho;
 
             const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(brand);
             const ratingMatch = selectedRatings.length === 0 || selectedRatings.includes(rating);
             const ramMatch = selectedRAMs.length === 0 || selectedRAMs.includes(ram);
             const memoryMatch = selectedMemory.length === 0 || selectedMemory.includes(memory);
             const monitorMatch = selectedMonitors.length === 0 || selectedMonitors.includes(monitor);
-            const bonhoMatch = selectedBoNho.length === 0 || selectedBoNho.includes(bonho);
 
-            const show = brandMatch && ratingMatch && ramMatch && memoryMatch && monitorMatch && bonhoMatch;
-
-            product.style.display = show ? 'block' : 'none';
+            const match = brandMatch && ratingMatch && ramMatch && memoryMatch && monitorMatch;
+            if (match) {
+                filteredProducts.push(product);
+            }
         });
+
+        // Hiển thị lô đầu tiên
+        currentFilteredIndex = 0;
+        filteredProducts.forEach((product, i) => {
+            if (i < batchSize) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (filteredProducts.length > batchSize) {
+            loadMoreBtn.style.display = 'inline-block';
+            loadMoreBtn.textContent = `Xem thêm ${filteredProducts.length - batchSize} sản phẩm còn lại`;
+
+            // Gán sự kiện load thêm
+            loadMoreBtn.onclick = () => {
+                const nextBatch = filteredProducts.slice(currentFilteredIndex + batchSize, currentFilteredIndex + 2 * batchSize);
+                nextBatch.forEach(p => p.style.display = 'block');
+                currentFilteredIndex += batchSize;
+
+                const remaining = filteredProducts.length - (currentFilteredIndex + batchSize);
+                if (remaining <= 0) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.textContent = `Xem thêm ${remaining} sản phẩm còn lại`;
+                }
+            };
+        } else {
+            loadMoreBtn.style.display = 'none';
+        }
     }
 
-    document.getElementById("resetFilters").addEventListener("click", function () {
-        // Bỏ chọn tất cả các checkbox
-        document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
-
-        // Hiển thị lại tất cả sản phẩm
-        document.querySelectorAll('.product-item').forEach(product => {
-            product.style.display = 'block';
-        });
-        document.getElementById("priceMinInput").value = "0";
-        document.getElementById("priceMaxInput").value = "100000000";
-
-    });
 
 </script>
 <script>
@@ -1439,6 +1452,9 @@
                 item.style.display = "none";
             }
         });
+
+        // Ẩn nút load thêm sau khi lọc theo giá
+        document.getElementById("loadMoreBtn").style.display = "none";
     });
 </script>
 <script>
@@ -1549,4 +1565,18 @@
 
         btn.textContent = isHidden ? 'Thu gọn' : 'Xem tất cả';
     }
+</script>
+<script>
+    document.querySelector('#brand-content .search-box input').addEventListener('input', function () {
+        const keyword = this.value.toLowerCase().trim();
+
+        document.querySelectorAll('.brand-item').forEach(item => {
+            const brandName = item.dataset.name;
+            if (brandName.includes(keyword)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
 </script>
