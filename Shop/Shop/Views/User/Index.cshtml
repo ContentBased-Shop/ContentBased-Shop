@@ -859,7 +859,7 @@
                                                 ${ct.LoaiBoNho ? ` - Ổ cứng: ${ct.LoaiBoNho}` : ''}
                                                 x ${ct.SoLuong}
                                             </p>
-                                            <div class="rating mt-1" data-mabienthe="${ct.MaBienThe}">
+                                            <div class="rating mt-1" data-mabienthe="${ct.MaBienThe}" data-madonhang="${donHang.MaDonHang}">
                                                 <!-- Đánh giá sẽ được load động ở đây -->
                                             </div>
                                         </div>
@@ -928,10 +928,13 @@
         $.ajax({
             url: '/DanhGia/KiemTraDanhGia',
             type: 'GET',
-            data: { maBienThe: maBienThe },
+            data: { 
+                maBienThe: maBienThe,
+                maDonHang: maDonHang 
+            },
             success: function(response) {
                 if (response.success) {
-                    const ratingDiv = document.querySelector(`.rating[data-mabienthe="${maBienThe}"]`);
+                    const ratingDiv = document.querySelector(`.rating[data-mabienthe="${maBienThe}"][data-madonhang="${maDonHang}"]`);
                     if (ratingDiv) {
                         if (response.daDanhGia) {
                             // Hiển thị đánh giá đã có
@@ -1011,5 +1014,129 @@
     $('.nav-link[data-target="my-order"]').click(function() {
         loadDonHang();
     });
+</script>
+
+<script>
+    // Hàm hiển thị modal đánh giá
+    function danhGiaDonHang(maDonHang) {
+        // Lấy danh sách sản phẩm chưa đánh giá trong đơn hàng
+        $.ajax({
+            url: '/DanhGia/GetSanPhamChuaDanhGia',
+            type: 'GET',
+            data: { maDonHang: maDonHang },
+            success: function(response) {
+                if (response.success) {
+                    if (response.data.length === 0) {
+                        Swal.fire({
+                            title: 'Thông báo',
+                            text: 'Bạn đã đánh giá tất cả sản phẩm trong đơn hàng này!',
+                            icon: 'info',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.reload();
+                        });
+                    } else {
+                        let selectedRating = 0; // Biến lưu số sao đã chọn
+
+                        // Hiển thị modal đánh giá
+                        Swal.fire({
+                            title: 'Đánh giá sản phẩm',
+                            html: `
+                                <div class="text-start">
+                                    <div class="mb-3">
+                                        <label class="form-label">Sản phẩm: ${response.data[0].tenHangHoa}</label>
+                                        <div class="rating-stars mb-2">
+                                            ${Array(5).fill().map((_, i) => `
+                                                <i class="fa-regular fa-star text-warning" 
+                                                   style="cursor: pointer; font-size: 24px;"
+                                                   data-rating="${i + 1}"></i>
+                                            `).join('')}
+                                        </div>
+                                        <textarea class="form-control" id="binhLuan" 
+                                                  placeholder="Nhập bình luận của bạn (không bắt buộc)"></textarea>
+                                    </div>
+                                </div>
+                            `,
+                            showCancelButton: true,
+                            confirmButtonText: 'Gửi đánh giá',
+                            cancelButtonText: 'Để sau',
+                            didOpen: () => {
+                                // Xử lý sự kiện click vào sao
+                                const stars = document.querySelectorAll('.rating-stars i');
+                                stars.forEach(star => {
+                                    star.addEventListener('click', function() {
+                                        selectedRating = parseInt(this.getAttribute('data-rating'));
+                                        stars.forEach(s => {
+                                            const sRating = parseInt(s.getAttribute('data-rating'));
+                                            if (sRating <= selectedRating) {
+                                                s.classList.remove('fa-regular');
+                                                s.classList.add('fa-solid');
+                                            } else {
+                                                s.classList.remove('fa-solid');
+                                                s.classList.add('fa-regular');
+                                            }
+                                        });
+                                    });
+                                });
+                            },
+                            preConfirm: () => {
+                                if (selectedRating === 0) {
+                                    Swal.showValidationMessage('Vui lòng chọn số sao đánh giá');
+                                    return false;
+                                }
+                                return {
+                                    rating: selectedRating,
+                                    binhLuan: document.getElementById('binhLuan').value
+                                };
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Gửi đánh giá
+                                $.ajax({
+                                    url: '/DanhGia/LuuDanhGia',
+                                    type: 'POST',
+                                    data: {
+                                        maDonHang: maDonHang,
+                                        maBienThe: response.data[0].maBienThe,
+                                        soSao: result.value.rating,
+                                        binhLuan: result.value.binhLuan
+                                    },
+                                    success: function(response) {
+                                        if (response.success) {
+                                            Swal.fire('Thành công!', response.message, 'success').then(() => {
+                                                // Sau khi đánh giá thành công, tiếp tục với sản phẩm tiếp theo
+                                                danhGiaDonHang(maDonHang);
+                                            });
+                                        } else {
+                                            Swal.fire('Lỗi!', response.message, 'error');
+                                        }
+                                    }
+                                });
+                            } else if (result.isDenied) {
+                                // Bỏ qua sản phẩm này và chuyển sang sản phẩm tiếp theo
+                                // Xóa sản phẩm hiện tại khỏi danh sách
+                                response.data.shift();
+                                // Nếu còn sản phẩm, tiếp tục đánh giá
+                                if (response.data.length > 0) {
+                                    danhGiaDonHang(maDonHang);
+                                } else {
+                                    Swal.fire({
+                                        title: 'Thông báo',
+                                        text: 'Bạn đã đánh giá tất cả sản phẩm trong đơn hàng này!',
+                                        icon: 'info',
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    }).then(() => {
+                                        location.reload();
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
 </script>
 
