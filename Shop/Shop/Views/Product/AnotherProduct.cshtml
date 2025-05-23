@@ -439,7 +439,7 @@
                                             <div class="product-image-container">
                                                 <img src="~/assets/Image/Product/@item.BienThe.UrlAnh.FirstOrDefault()" alt="Product" width="100%" height="100%">
                                             </div>
-                                            <h6 class="text-center">@item.HangHoa.TenHangHoa @item.BienThe.MauSac (@item.BienThe.DungLuong)</h6>
+                                            <h6 class="text-center">@item.HangHoa.TenHangHoa @item.BienThe.MauSac </h6>
                                             <p class="text-center">@item.HangHoa.MoTa</p>
 
                                             @{
@@ -805,7 +805,7 @@
                                                 <img src="~/assets/Image/Product/@bienThe.UrlAnh.FirstOrDefault()" alt="Headphones" width="100%" height="100%">
                                             </div>
 
-                                            <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac (@bienThe.DungLuong) </h6>
+                                            <h6 class="product-name text-center">@hangHoa.TenHangHoa @bienThe.MauSac  </h6>
                                             <p class="product-description  text-center">@hangHoa.MoTa</p>
                                             @{
                                                 double rating = hangHoa.DanhGiaTrungBinh ?? 0;
@@ -1199,27 +1199,7 @@
         icon.classList.toggle('fa-chevron-down');
     }
 
-    function toggleMemoryFilter() {
-        const content = document.getElementById('memory-content');
-        const icon = document.getElementById('memory-icon');
-        content.classList.toggle('collapsed');
-        icon.classList.toggle('fa-chevron-up');
-        icon.classList.toggle('fa-chevron-down');
-    }
-    function toggleRamFilter() {
-        const content = document.getElementById('ram-content');
-        const icon = document.getElementById('ram-icon');
-        content.classList.toggle('collapsed');
-        icon.classList.toggle('fa-chevron-up');
-        icon.classList.toggle('fa-chevron-down');
-    }
-    function toggleMonitorFilter() {
-        const content = document.getElementById('monitor-content');
-        const icon = document.getElementById('monitor-icon');
-        content.classList.toggle('collapsed');
-        icon.classList.toggle('fa-chevron-up');
-        icon.classList.toggle('fa-chevron-down');
-    }
+
     function toggleBonhoFilter() {
         const content = document.getElementById('bonho-content');
         const icon = document.getElementById('bonho-icon');
@@ -1366,6 +1346,19 @@
 </script>
 
 <script>
+    const filterSelectors = [
+        '.brand-checkbox',
+        '.rating-checkbox',
+        '.ram-checkbox',
+        '.memory-checkbox',
+        '.monitor-checkbox'
+    ];
+
+    filterSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(cb => {
+            cb.addEventListener('change', filterProducts);
+        });
+    });
     let currentFilteredIndex = 0;
     const batchSize = 8;
 

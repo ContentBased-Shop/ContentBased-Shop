@@ -233,7 +233,8 @@
     <Content Include="assets\Image\Logo\LogoBrand\bose_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\canon_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\corsair_logo.jpg" />
-    <Content Include="assets\Image\Logo\LogoBrand\dareu.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\dareu_logo.jpg" />
+    <Content Include="assets\Image\Logo\LogoBrand\Dell_Logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\energizer_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\flydigi_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\fujifilm_logo.jpg" />

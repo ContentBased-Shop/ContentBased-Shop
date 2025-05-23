@@ -1366,6 +1366,19 @@
 </script>
 
 <script>
+    const filterSelectors = [
+        '.brand-checkbox',
+        '.rating-checkbox',
+        '.ram-checkbox',
+        '.memory-checkbox',
+        '.monitor-checkbox'
+    ];
+
+    filterSelectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(cb => {
+            cb.addEventListener('change', filterProducts);
+        });
+    });
     let currentFilteredIndex = 0;
     const batchSize = 8;
 
