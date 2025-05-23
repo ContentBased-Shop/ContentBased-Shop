@@ -30,10 +30,11 @@ namespace Shop.Controllers
 
                 string maHangHoa = bienThe.MaHangHoa;
 
-                // Kiểm tra xem khách hàng đã đánh giá sản phẩm này chưa
+                // Kiểm tra xem khách hàng đã đánh giá sản phẩm này trong đơn hàng này chưa
                 var danhGiaCu = data.DanhGias.FirstOrDefault(dg => 
                     dg.MaKhachHang == maKhachHang && 
-                    dg.MaHangHoa == maHangHoa);
+                    dg.MaHangHoa == maHangHoa &&
+                    dg.MaDonHang == maDonHang);
 
                 if (danhGiaCu != null)
                 {
@@ -48,6 +49,7 @@ namespace Shop.Controllers
                     {
                         MaKhachHang = maKhachHang,
                         MaHangHoa = maHangHoa,
+                        MaDonHang = maDonHang,
                         SoSao = soSao,
                         BinhLuan = binhLuan,
                         NgayTao = DateTime.Now
@@ -98,7 +100,7 @@ namespace Shop.Controllers
         }
 
         [HttpGet]
-        public JsonResult KiemTraDanhGia(string maBienThe)
+        public JsonResult KiemTraDanhGia(string maBienThe, string maDonHang)
         {
             if (Session["UserID"] == null)
                 return Json(new { success = false, message = "Vui lòng đăng nhập" }, JsonRequestBehavior.AllowGet);
@@ -114,10 +116,11 @@ namespace Shop.Controllers
 
                 string maHangHoa = bienThe.MaHangHoa;
 
-                // Kiểm tra đánh giá trước đó
+                // Kiểm tra đánh giá trước đó cho đơn hàng cụ thể
                 var danhGia = data.DanhGias.FirstOrDefault(dg => 
                     dg.MaKhachHang == maKhachHang && 
-                    dg.MaHangHoa == maHangHoa);
+                    dg.MaHangHoa == maHangHoa &&
+                    dg.MaDonHang == maDonHang);
 
                 if (danhGia != null)
                 {
@@ -133,6 +136,52 @@ namespace Shop.Controllers
                 return Json(new { 
                     success = true, 
                     daDanhGia = false 
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Có lỗi xảy ra: " + ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetSanPhamChuaDanhGia(string maDonHang)
+        {
+            if (Session["UserID"] == null)
+                return Json(new { success = false, message = "Vui lòng đăng nhập" }, JsonRequestBehavior.AllowGet);
+
+            try
+            {
+                string maKhachHang = Session["UserID"].ToString();
+
+                // Lấy danh sách sản phẩm trong đơn hàng
+                var chiTietDonHang = data.ChiTietDonHangs
+                    .Where(ct => ct.MaDonHang == maDonHang)
+                    .Select(ct => new {
+                        maBienThe = ct.MaBienThe,
+                        tenHangHoa = ct.BienTheHangHoa.HangHoa.TenHangHoa,
+                        maHangHoa = ct.BienTheHangHoa.MaHangHoa
+                    })
+                    .ToList();
+
+                // Lấy danh sách sản phẩm đã đánh giá
+                var daDanhGia = data.DanhGias
+                    .Where(dg => dg.MaDonHang == maDonHang)
+                    .Select(dg => dg.MaHangHoa)
+                    .ToList();
+
+                // Lọc ra các sản phẩm chưa đánh giá
+                var chuaDanhGia = chiTietDonHang
+                    .Where(ct => !daDanhGia.Contains(ct.maHangHoa))
+                    .Select(ct => new {
+                        maBienThe = ct.maBienThe,
+                        tenHangHoa = ct.tenHangHoa
+                    })
+                    .ToList();
+
+                return Json(new { 
+                    success = true, 
+                    data = chuaDanhGia 
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
