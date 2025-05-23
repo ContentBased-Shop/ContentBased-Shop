@@ -524,9 +524,11 @@ namespace Shop.Controllers
                     string code;
                     do
                     {
-                        int number = rand.Next(0, 100000); // 0 -> 99999
-                        code = "DH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: DH2305250001
-                    } while (data.DonHangs.Any(hd => hd.MaDonHang == code));
+                        // Thêm timestamp để đảm bảo tính duy nhất
+                        string timestamp = DateTime.Now.ToString("yyMMddHHmmss");
+                        int number = rand.Next(0, 1000); // Giảm phạm vi random xuống 3 chữ số
+                        code = "DH" + timestamp + number.ToString("D3"); // Ví dụ: DH230525123456001
+                    } while (data.DonHangs.Any(dh => dh.MaDonHang == code));
                     return code;
                 }
                 
@@ -537,8 +539,10 @@ namespace Shop.Controllers
                     string code;
                     do
                     {
-                        int number = rand.Next(0, 100000); // 0 -> 99999
-                        code = "TT" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: TT2305250001
+                        // Thêm timestamp để đảm bảo tính duy nhất
+                        string timestamp = DateTime.Now.ToString("yyMMddHHmmss");
+                        int number = rand.Next(0, 1000); // Giảm phạm vi random xuống 3 chữ số
+                        code = "TT" + timestamp + number.ToString("D3"); // Ví dụ: TT230525123456001
                     } while (data.ThanhToans.Any(tt => tt.MaThanhToan == code));
                     return code;
                 }
@@ -550,8 +554,10 @@ namespace Shop.Controllers
                     string code;
                     do
                     {
-                        int number = rand.Next(0, 100000); // 0 -> 99999
-                        code = "GH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5"); // Ví dụ: GH2305250001
+                        // Thêm timestamp để đảm bảo tính duy nhất
+                        string timestamp = DateTime.Now.ToString("yyMMddHHmmss");
+                        int number = rand.Next(0, 1000); // Giảm phạm vi random xuống 3 chữ số
+                        code = "GH" + timestamp + number.ToString("D3"); // Ví dụ: GH230525123456001
                     } while (data.GiaoHangs.Any(gh => gh.MaGiaoHang == code));
                     return code;
                 }
