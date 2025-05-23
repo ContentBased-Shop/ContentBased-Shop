@@ -195,18 +195,18 @@
 
                             </div>
 
+
+                            <!-- Wishlist -->
+                            <div class="position-relative">
+                                <a href="/Product/ProductWishList" class="text-dark" data-bs-toggle="tooltip" title="Danh sách yêu thích">
+                                    <div class="icon-circle bg-light-custom avatar-link">
+                                        <i class="fas fa-heart"></i>
+                                    </div>
+                                </a>
+                            </div>
                             @* Kiểm tra đăng nhập *@
                             @if (Session["UserId"] != null)
                             {
-                                <!-- Wishlist -->
-                                <div class="position-relative">
-                                    <a href="/Product/ProductWishList" class="text-dark" data-bs-toggle="tooltip" title="Danh sách yêu thích">
-                                        <div class="icon-circle bg-light-custom avatar-link">
-                                            <i class="fas fa-heart"></i>
-                                        </div>
-                                    </a>
-                                </div>
-
                                 <div id="notificationBell" style="cursor: pointer; display: inline-block;">
                                     <div class="icon-circle bg-light-custom avatar-link">
                                         <i class="fa-solid fa-bell text-dark fs-5"></i>
@@ -223,14 +223,14 @@
                                         <!-- Nội dung sẽ được load ở đây -->
                                     </div>
                                 </div>
+                            }
 
 
 
 
 
-
-                                <!-- Cart -->
-                               <div class="d-flex align-items-center position-relative">
+                            <!-- Cart -->
+                            <div class="d-flex align-items-center position-relative">
                                 <a href="/InnerPage/PreCart" class="text-dark" data-bs-toggle="tooltip" title="Giỏ Hàng">
                                     <div class="icon-circle bg-light-custom avatar-link">
                                         <i class="fas fa-shopping-cart"></i>
@@ -241,13 +241,13 @@
                                     <p class="fs-7 text-gray-custom mb-0">GIỎ HÀNG</p>
                                 </div>
                             </div>
-                            }
 
 
-                        
-                          
-                          
-                           
+
+
+
+
+
                         </div>
                     </div>
                 </div>

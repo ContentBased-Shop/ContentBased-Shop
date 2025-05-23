@@ -413,7 +413,9 @@
 
                         </div>
 
-                        <button class="btn btn-success w-100 py-3 fw-bold fs-5">Thêm Giỏ Hàng</button>
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = sanPhamTonNhieuNhat.MaHangHoa, maBienThe = sanPhamTonNhieuNhat.MaBienThe })" class="text-decoration-none text-dark">
+                            <button class="btn btn-success w-100 py-3 fw-bold fs-5">Thêm Giỏ Hàng</button>
+                            </a>
                     </div>
                 </div>
             </div>

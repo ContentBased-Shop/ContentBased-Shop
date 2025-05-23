@@ -48,9 +48,6 @@ namespace Shop.Models
     partial void InsertContentBasedFiltering(ContentBasedFiltering instance);
     partial void UpdateContentBasedFiltering(ContentBasedFiltering instance);
     partial void DeleteContentBasedFiltering(ContentBasedFiltering instance);
-    partial void InsertDanhGia(DanhGia instance);
-    partial void UpdateDanhGia(DanhGia instance);
-    partial void DeleteDanhGia(DanhGia instance);
     partial void InsertDanhMuc(DanhMuc instance);
     partial void UpdateDanhMuc(DanhMuc instance);
     partial void DeleteDanhMuc(DanhMuc instance);
@@ -111,6 +108,9 @@ namespace Shop.Models
     partial void InsertKhachHang(KhachHang instance);
     partial void UpdateKhachHang(KhachHang instance);
     partial void DeleteKhachHang(KhachHang instance);
+    partial void InsertDanhGia(DanhGia instance);
+    partial void UpdateDanhGia(DanhGia instance);
+    partial void DeleteDanhGia(DanhGia instance);
     #endregion
 		
 		public SHOPDataContext(string connection) : 
@@ -182,14 +182,6 @@ namespace Shop.Models
 			get
 			{
 				return this.GetTable<ContentBasedFiltering>();
-			}
-		}
-		
-		public System.Data.Linq.Table<DanhGia> DanhGias
-		{
-			get
-			{
-				return this.GetTable<DanhGia>();
 			}
 		}
 		
@@ -350,6 +342,14 @@ namespace Shop.Models
 			get
 			{
 				return this.GetTable<KhachHang>();
+			}
+		}
+		
+		public System.Data.Linq.Table<DanhGia> DanhGias
+		{
+			get
+			{
+				return this.GetTable<DanhGia>();
 			}
 		}
 	}
@@ -1937,270 +1937,6 @@ namespace Shop.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DanhGia")]
-	public partial class DanhGia : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _MaDanhGia;
-		
-		private string _MaKhachHang;
-		
-		private string _MaHangHoa;
-		
-		private System.Nullable<int> _SoSao;
-		
-		private string _BinhLuan;
-		
-		private System.Nullable<System.DateTime> _NgayTao;
-		
-		private EntityRef<HangHoa> _HangHoa;
-		
-		private EntityRef<KhachHang> _KhachHang;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnMaDanhGiaChanging(int value);
-    partial void OnMaDanhGiaChanged();
-    partial void OnMaKhachHangChanging(string value);
-    partial void OnMaKhachHangChanged();
-    partial void OnMaHangHoaChanging(string value);
-    partial void OnMaHangHoaChanged();
-    partial void OnSoSaoChanging(System.Nullable<int> value);
-    partial void OnSoSaoChanged();
-    partial void OnBinhLuanChanging(string value);
-    partial void OnBinhLuanChanged();
-    partial void OnNgayTaoChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgayTaoChanged();
-    #endregion
-		
-		public DanhGia()
-		{
-			this._HangHoa = default(EntityRef<HangHoa>);
-			this._KhachHang = default(EntityRef<KhachHang>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDanhGia", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int MaDanhGia
-		{
-			get
-			{
-				return this._MaDanhGia;
-			}
-			set
-			{
-				if ((this._MaDanhGia != value))
-				{
-					this.OnMaDanhGiaChanging(value);
-					this.SendPropertyChanging();
-					this._MaDanhGia = value;
-					this.SendPropertyChanged("MaDanhGia");
-					this.OnMaDanhGiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaKhachHang", DbType="NVarChar(50)")]
-		public string MaKhachHang
-		{
-			get
-			{
-				return this._MaKhachHang;
-			}
-			set
-			{
-				if ((this._MaKhachHang != value))
-				{
-					if (this._KhachHang.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMaKhachHangChanging(value);
-					this.SendPropertyChanging();
-					this._MaKhachHang = value;
-					this.SendPropertyChanged("MaKhachHang");
-					this.OnMaKhachHangChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHangHoa", DbType="NVarChar(50)")]
-		public string MaHangHoa
-		{
-			get
-			{
-				return this._MaHangHoa;
-			}
-			set
-			{
-				if ((this._MaHangHoa != value))
-				{
-					if (this._HangHoa.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMaHangHoaChanging(value);
-					this.SendPropertyChanging();
-					this._MaHangHoa = value;
-					this.SendPropertyChanged("MaHangHoa");
-					this.OnMaHangHoaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoSao", DbType="Int")]
-		public System.Nullable<int> SoSao
-		{
-			get
-			{
-				return this._SoSao;
-			}
-			set
-			{
-				if ((this._SoSao != value))
-				{
-					this.OnSoSaoChanging(value);
-					this.SendPropertyChanging();
-					this._SoSao = value;
-					this.SendPropertyChanged("SoSao");
-					this.OnSoSaoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinhLuan", DbType="NVarChar(MAX)")]
-		public string BinhLuan
-		{
-			get
-			{
-				return this._BinhLuan;
-			}
-			set
-			{
-				if ((this._BinhLuan != value))
-				{
-					this.OnBinhLuanChanging(value);
-					this.SendPropertyChanging();
-					this._BinhLuan = value;
-					this.SendPropertyChanged("BinhLuan");
-					this.OnBinhLuanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayTao", DbType="DateTime")]
-		public System.Nullable<System.DateTime> NgayTao
-		{
-			get
-			{
-				return this._NgayTao;
-			}
-			set
-			{
-				if ((this._NgayTao != value))
-				{
-					this.OnNgayTaoChanging(value);
-					this.SendPropertyChanging();
-					this._NgayTao = value;
-					this.SendPropertyChanged("NgayTao");
-					this.OnNgayTaoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HangHoa_DanhGia", Storage="_HangHoa", ThisKey="MaHangHoa", OtherKey="MaHangHoa", IsForeignKey=true, DeleteRule="CASCADE")]
-		public HangHoa HangHoa
-		{
-			get
-			{
-				return this._HangHoa.Entity;
-			}
-			set
-			{
-				HangHoa previousValue = this._HangHoa.Entity;
-				if (((previousValue != value) 
-							|| (this._HangHoa.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._HangHoa.Entity = null;
-						previousValue.DanhGias.Remove(this);
-					}
-					this._HangHoa.Entity = value;
-					if ((value != null))
-					{
-						value.DanhGias.Add(this);
-						this._MaHangHoa = value.MaHangHoa;
-					}
-					else
-					{
-						this._MaHangHoa = default(string);
-					}
-					this.SendPropertyChanged("HangHoa");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia", Storage="_KhachHang", ThisKey="MaKhachHang", OtherKey="MaKhachHang", IsForeignKey=true, DeleteRule="CASCADE")]
-		public KhachHang KhachHang
-		{
-			get
-			{
-				return this._KhachHang.Entity;
-			}
-			set
-			{
-				KhachHang previousValue = this._KhachHang.Entity;
-				if (((previousValue != value) 
-							|| (this._KhachHang.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._KhachHang.Entity = null;
-						previousValue.DanhGias.Remove(this);
-					}
-					this._KhachHang.Entity = value;
-					if ((value != null))
-					{
-						value.DanhGias.Add(this);
-						this._MaKhachHang = value.MaKhachHang;
-					}
-					else
-					{
-						this._MaKhachHang = default(string);
-					}
-					this.SendPropertyChanged("KhachHang");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DanhMuc")]
 	public partial class DanhMuc : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -2592,6 +2328,8 @@ namespace Shop.Models
 		
 		private EntitySet<ThanhToan> _ThanhToans;
 		
+		private EntitySet<DanhGia> _DanhGias;
+		
 		private EntityRef<Voucher> _Voucher;
 		
 		private EntityRef<KhachHang> _KhachHang;
@@ -2621,6 +2359,7 @@ namespace Shop.Models
 			this._ChiTietDonHangs = new EntitySet<ChiTietDonHang>(new Action<ChiTietDonHang>(this.attach_ChiTietDonHangs), new Action<ChiTietDonHang>(this.detach_ChiTietDonHangs));
 			this._GiaoHangs = new EntitySet<GiaoHang>(new Action<GiaoHang>(this.attach_GiaoHangs), new Action<GiaoHang>(this.detach_GiaoHangs));
 			this._ThanhToans = new EntitySet<ThanhToan>(new Action<ThanhToan>(this.attach_ThanhToans), new Action<ThanhToan>(this.detach_ThanhToans));
+			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._Voucher = default(EntityRef<Voucher>);
 			this._KhachHang = default(EntityRef<KhachHang>);
 			OnCreated();
@@ -2813,6 +2552,19 @@ namespace Shop.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonHang_DanhGia", Storage="_DanhGias", ThisKey="MaDonHang", OtherKey="MaDonHang")]
+		public EntitySet<DanhGia> DanhGias
+		{
+			get
+			{
+				return this._DanhGias;
+			}
+			set
+			{
+				this._DanhGias.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Voucher_DonHang", Storage="_Voucher", ThisKey="MaVoucher", OtherKey="MaVoucher", IsForeignKey=true)]
 		public Voucher Voucher
 		{
@@ -2932,6 +2684,18 @@ namespace Shop.Models
 		}
 		
 		private void detach_ThanhToans(ThanhToan entity)
+		{
+			this.SendPropertyChanging();
+			entity.DonHang = null;
+		}
+		
+		private void attach_DanhGias(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.DonHang = this;
+		}
+		
+		private void detach_DanhGias(DanhGia entity)
 		{
 			this.SendPropertyChanging();
 			entity.DonHang = null;
@@ -3151,8 +2915,6 @@ namespace Shop.Models
 		
 		private EntitySet<ContentBasedFiltering> _ContentBasedFilterings1;
 		
-		private EntitySet<DanhGia> _DanhGias;
-		
 		private EntitySet<HinhAnhHangHoa> _HinhAnhHangHoas;
 		
 		private EntitySet<KhuyenMaiTangKem> _KhuyenMaiTangKems;
@@ -3162,6 +2924,8 @@ namespace Shop.Models
 		private EntitySet<YeuThich> _YeuThiches;
 		
 		private EntitySet<MoTaChiTietHangHoa> _MoTaChiTietHangHoas;
+		
+		private EntitySet<DanhGia> _DanhGias;
 		
 		private EntityRef<DanhMuc> _DanhMuc;
 		
@@ -3199,12 +2963,12 @@ namespace Shop.Models
 			this._CollaborativeFilterings = new EntitySet<CollaborativeFiltering>(new Action<CollaborativeFiltering>(this.attach_CollaborativeFilterings), new Action<CollaborativeFiltering>(this.detach_CollaborativeFilterings));
 			this._ContentBasedFilterings = new EntitySet<ContentBasedFiltering>(new Action<ContentBasedFiltering>(this.attach_ContentBasedFilterings), new Action<ContentBasedFiltering>(this.detach_ContentBasedFilterings));
 			this._ContentBasedFilterings1 = new EntitySet<ContentBasedFiltering>(new Action<ContentBasedFiltering>(this.attach_ContentBasedFilterings1), new Action<ContentBasedFiltering>(this.detach_ContentBasedFilterings1));
-			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._HinhAnhHangHoas = new EntitySet<HinhAnhHangHoa>(new Action<HinhAnhHangHoa>(this.attach_HinhAnhHangHoas), new Action<HinhAnhHangHoa>(this.detach_HinhAnhHangHoas));
 			this._KhuyenMaiTangKems = new EntitySet<KhuyenMaiTangKem>(new Action<KhuyenMaiTangKem>(this.attach_KhuyenMaiTangKems), new Action<KhuyenMaiTangKem>(this.detach_KhuyenMaiTangKems));
 			this._LichSuXems = new EntitySet<LichSuXem>(new Action<LichSuXem>(this.attach_LichSuXems), new Action<LichSuXem>(this.detach_LichSuXems));
 			this._YeuThiches = new EntitySet<YeuThich>(new Action<YeuThich>(this.attach_YeuThiches), new Action<YeuThich>(this.detach_YeuThiches));
 			this._MoTaChiTietHangHoas = new EntitySet<MoTaChiTietHangHoa>(new Action<MoTaChiTietHangHoa>(this.attach_MoTaChiTietHangHoas), new Action<MoTaChiTietHangHoa>(this.detach_MoTaChiTietHangHoas));
+			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._DanhMuc = default(EntityRef<DanhMuc>);
 			this._ThuongHieu = default(EntityRef<ThuongHieu>);
 			OnCreated();
@@ -3470,19 +3234,6 @@ namespace Shop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HangHoa_DanhGia", Storage="_DanhGias", ThisKey="MaHangHoa", OtherKey="MaHangHoa")]
-		public EntitySet<DanhGia> DanhGias
-		{
-			get
-			{
-				return this._DanhGias;
-			}
-			set
-			{
-				this._DanhGias.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HangHoa_HinhAnhHangHoa", Storage="_HinhAnhHangHoas", ThisKey="MaHangHoa", OtherKey="MaHangHoa")]
 		public EntitySet<HinhAnhHangHoa> HinhAnhHangHoas
 		{
@@ -3545,6 +3296,19 @@ namespace Shop.Models
 			set
 			{
 				this._MoTaChiTietHangHoas.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HangHoa_DanhGia", Storage="_DanhGias", ThisKey="MaHangHoa", OtherKey="MaHangHoa")]
+		public EntitySet<DanhGia> DanhGias
+		{
+			get
+			{
+				return this._DanhGias;
+			}
+			set
+			{
+				this._DanhGias.Assign(value);
 			}
 		}
 		
@@ -3684,18 +3448,6 @@ namespace Shop.Models
 			entity.HangHoa1 = null;
 		}
 		
-		private void attach_DanhGias(DanhGia entity)
-		{
-			this.SendPropertyChanging();
-			entity.HangHoa = this;
-		}
-		
-		private void detach_DanhGias(DanhGia entity)
-		{
-			this.SendPropertyChanging();
-			entity.HangHoa = null;
-		}
-		
 		private void attach_HinhAnhHangHoas(HinhAnhHangHoa entity)
 		{
 			this.SendPropertyChanging();
@@ -3751,6 +3503,18 @@ namespace Shop.Models
 		}
 		
 		private void detach_MoTaChiTietHangHoas(MoTaChiTietHangHoa entity)
+		{
+			this.SendPropertyChanging();
+			entity.HangHoa = null;
+		}
+		
+		private void attach_DanhGias(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.HangHoa = this;
+		}
+		
+		private void detach_DanhGias(DanhGia entity)
 		{
 			this.SendPropertyChanging();
 			entity.HangHoa = null;
@@ -7299,8 +7063,6 @@ namespace Shop.Models
 		
 		private EntitySet<CollaborativeFiltering> _CollaborativeFilterings;
 		
-		private EntitySet<DanhGia> _DanhGias;
-		
 		private EntitySet<DiaChiKhachHang> _DiaChiKhachHangs;
 		
 		private EntitySet<DonHang> _DonHangs;
@@ -7314,6 +7076,8 @@ namespace Shop.Models
 		private EntitySet<YeuThich> _YeuThiches;
 		
 		private EntitySet<PhanPhoiVoucher> _PhanPhoiVouchers;
+		
+		private EntitySet<DanhGia> _DanhGias;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -7342,7 +7106,6 @@ namespace Shop.Models
 		public KhachHang()
 		{
 			this._CollaborativeFilterings = new EntitySet<CollaborativeFiltering>(new Action<CollaborativeFiltering>(this.attach_CollaborativeFilterings), new Action<CollaborativeFiltering>(this.detach_CollaborativeFilterings));
-			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			this._DiaChiKhachHangs = new EntitySet<DiaChiKhachHang>(new Action<DiaChiKhachHang>(this.attach_DiaChiKhachHangs), new Action<DiaChiKhachHang>(this.detach_DiaChiKhachHangs));
 			this._DonHangs = new EntitySet<DonHang>(new Action<DonHang>(this.attach_DonHangs), new Action<DonHang>(this.detach_DonHangs));
 			this._GioHangs = new EntitySet<GioHang>(new Action<GioHang>(this.attach_GioHangs), new Action<GioHang>(this.detach_GioHangs));
@@ -7350,6 +7113,7 @@ namespace Shop.Models
 			this._ThongBaos = new EntitySet<ThongBao>(new Action<ThongBao>(this.attach_ThongBaos), new Action<ThongBao>(this.detach_ThongBaos));
 			this._YeuThiches = new EntitySet<YeuThich>(new Action<YeuThich>(this.attach_YeuThiches), new Action<YeuThich>(this.detach_YeuThiches));
 			this._PhanPhoiVouchers = new EntitySet<PhanPhoiVoucher>(new Action<PhanPhoiVoucher>(this.attach_PhanPhoiVouchers), new Action<PhanPhoiVoucher>(this.detach_PhanPhoiVouchers));
+			this._DanhGias = new EntitySet<DanhGia>(new Action<DanhGia>(this.attach_DanhGias), new Action<DanhGia>(this.detach_DanhGias));
 			OnCreated();
 		}
 		
@@ -7546,19 +7310,6 @@ namespace Shop.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia", Storage="_DanhGias", ThisKey="MaKhachHang", OtherKey="MaKhachHang")]
-		public EntitySet<DanhGia> DanhGias
-		{
-			get
-			{
-				return this._DanhGias;
-			}
-			set
-			{
-				this._DanhGias.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DiaChiKhachHang", Storage="_DiaChiKhachHangs", ThisKey="MaKhachHang", OtherKey="MaKhachHang")]
 		public EntitySet<DiaChiKhachHang> DiaChiKhachHangs
 		{
@@ -7650,6 +7401,19 @@ namespace Shop.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia", Storage="_DanhGias", ThisKey="MaKhachHang", OtherKey="MaKhachHang")]
+		public EntitySet<DanhGia> DanhGias
+		{
+			get
+			{
+				return this._DanhGias;
+			}
+			set
+			{
+				this._DanhGias.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -7677,18 +7441,6 @@ namespace Shop.Models
 		}
 		
 		private void detach_CollaborativeFilterings(CollaborativeFiltering entity)
-		{
-			this.SendPropertyChanging();
-			entity.KhachHang = null;
-		}
-		
-		private void attach_DanhGias(DanhGia entity)
-		{
-			this.SendPropertyChanging();
-			entity.KhachHang = this;
-		}
-		
-		private void detach_DanhGias(DanhGia entity)
 		{
 			this.SendPropertyChanging();
 			entity.KhachHang = null;
@@ -7776,6 +7528,347 @@ namespace Shop.Models
 		{
 			this.SendPropertyChanging();
 			entity.KhachHang = null;
+		}
+		
+		private void attach_DanhGias(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachHang = this;
+		}
+		
+		private void detach_DanhGias(DanhGia entity)
+		{
+			this.SendPropertyChanging();
+			entity.KhachHang = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.DanhGia")]
+	public partial class DanhGia : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _MaDanhGia;
+		
+		private string _MaKhachHang;
+		
+		private string _MaHangHoa;
+		
+		private string _MaDonHang;
+		
+		private System.Nullable<int> _SoSao;
+		
+		private string _BinhLuan;
+		
+		private System.Nullable<System.DateTime> _NgayTao;
+		
+		private EntityRef<DonHang> _DonHang;
+		
+		private EntityRef<HangHoa> _HangHoa;
+		
+		private EntityRef<KhachHang> _KhachHang;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnMaDanhGiaChanging(int value);
+    partial void OnMaDanhGiaChanged();
+    partial void OnMaKhachHangChanging(string value);
+    partial void OnMaKhachHangChanged();
+    partial void OnMaHangHoaChanging(string value);
+    partial void OnMaHangHoaChanged();
+    partial void OnMaDonHangChanging(string value);
+    partial void OnMaDonHangChanged();
+    partial void OnSoSaoChanging(System.Nullable<int> value);
+    partial void OnSoSaoChanged();
+    partial void OnBinhLuanChanging(string value);
+    partial void OnBinhLuanChanged();
+    partial void OnNgayTaoChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgayTaoChanged();
+    #endregion
+		
+		public DanhGia()
+		{
+			this._DonHang = default(EntityRef<DonHang>);
+			this._HangHoa = default(EntityRef<HangHoa>);
+			this._KhachHang = default(EntityRef<KhachHang>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDanhGia", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int MaDanhGia
+		{
+			get
+			{
+				return this._MaDanhGia;
+			}
+			set
+			{
+				if ((this._MaDanhGia != value))
+				{
+					this.OnMaDanhGiaChanging(value);
+					this.SendPropertyChanging();
+					this._MaDanhGia = value;
+					this.SendPropertyChanged("MaDanhGia");
+					this.OnMaDanhGiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaKhachHang", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string MaKhachHang
+		{
+			get
+			{
+				return this._MaKhachHang;
+			}
+			set
+			{
+				if ((this._MaKhachHang != value))
+				{
+					if (this._KhachHang.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaKhachHangChanging(value);
+					this.SendPropertyChanging();
+					this._MaKhachHang = value;
+					this.SendPropertyChanged("MaKhachHang");
+					this.OnMaKhachHangChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaHangHoa", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string MaHangHoa
+		{
+			get
+			{
+				return this._MaHangHoa;
+			}
+			set
+			{
+				if ((this._MaHangHoa != value))
+				{
+					if (this._HangHoa.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaHangHoaChanging(value);
+					this.SendPropertyChanging();
+					this._MaHangHoa = value;
+					this.SendPropertyChanged("MaHangHoa");
+					this.OnMaHangHoaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaDonHang", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string MaDonHang
+		{
+			get
+			{
+				return this._MaDonHang;
+			}
+			set
+			{
+				if ((this._MaDonHang != value))
+				{
+					if (this._DonHang.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMaDonHangChanging(value);
+					this.SendPropertyChanging();
+					this._MaDonHang = value;
+					this.SendPropertyChanged("MaDonHang");
+					this.OnMaDonHangChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoSao", DbType="Int")]
+		public System.Nullable<int> SoSao
+		{
+			get
+			{
+				return this._SoSao;
+			}
+			set
+			{
+				if ((this._SoSao != value))
+				{
+					this.OnSoSaoChanging(value);
+					this.SendPropertyChanging();
+					this._SoSao = value;
+					this.SendPropertyChanged("SoSao");
+					this.OnSoSaoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BinhLuan", DbType="NVarChar(MAX)")]
+		public string BinhLuan
+		{
+			get
+			{
+				return this._BinhLuan;
+			}
+			set
+			{
+				if ((this._BinhLuan != value))
+				{
+					this.OnBinhLuanChanging(value);
+					this.SendPropertyChanging();
+					this._BinhLuan = value;
+					this.SendPropertyChanged("BinhLuan");
+					this.OnBinhLuanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NgayTao", DbType="DateTime")]
+		public System.Nullable<System.DateTime> NgayTao
+		{
+			get
+			{
+				return this._NgayTao;
+			}
+			set
+			{
+				if ((this._NgayTao != value))
+				{
+					this.OnNgayTaoChanging(value);
+					this.SendPropertyChanging();
+					this._NgayTao = value;
+					this.SendPropertyChanged("NgayTao");
+					this.OnNgayTaoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DonHang_DanhGia", Storage="_DonHang", ThisKey="MaDonHang", OtherKey="MaDonHang", IsForeignKey=true)]
+		public DonHang DonHang
+		{
+			get
+			{
+				return this._DonHang.Entity;
+			}
+			set
+			{
+				DonHang previousValue = this._DonHang.Entity;
+				if (((previousValue != value) 
+							|| (this._DonHang.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DonHang.Entity = null;
+						previousValue.DanhGias.Remove(this);
+					}
+					this._DonHang.Entity = value;
+					if ((value != null))
+					{
+						value.DanhGias.Add(this);
+						this._MaDonHang = value.MaDonHang;
+					}
+					else
+					{
+						this._MaDonHang = default(string);
+					}
+					this.SendPropertyChanged("DonHang");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="HangHoa_DanhGia", Storage="_HangHoa", ThisKey="MaHangHoa", OtherKey="MaHangHoa", IsForeignKey=true)]
+		public HangHoa HangHoa
+		{
+			get
+			{
+				return this._HangHoa.Entity;
+			}
+			set
+			{
+				HangHoa previousValue = this._HangHoa.Entity;
+				if (((previousValue != value) 
+							|| (this._HangHoa.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._HangHoa.Entity = null;
+						previousValue.DanhGias.Remove(this);
+					}
+					this._HangHoa.Entity = value;
+					if ((value != null))
+					{
+						value.DanhGias.Add(this);
+						this._MaHangHoa = value.MaHangHoa;
+					}
+					else
+					{
+						this._MaHangHoa = default(string);
+					}
+					this.SendPropertyChanged("HangHoa");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="KhachHang_DanhGia", Storage="_KhachHang", ThisKey="MaKhachHang", OtherKey="MaKhachHang", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public KhachHang KhachHang
+		{
+			get
+			{
+				return this._KhachHang.Entity;
+			}
+			set
+			{
+				KhachHang previousValue = this._KhachHang.Entity;
+				if (((previousValue != value) 
+							|| (this._KhachHang.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._KhachHang.Entity = null;
+						previousValue.DanhGias.Remove(this);
+					}
+					this._KhachHang.Entity = value;
+					if ((value != null))
+					{
+						value.DanhGias.Add(this);
+						this._MaKhachHang = value.MaKhachHang;
+					}
+					else
+					{
+						this._MaKhachHang = default(string);
+					}
+					this.SendPropertyChanged("KhachHang");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

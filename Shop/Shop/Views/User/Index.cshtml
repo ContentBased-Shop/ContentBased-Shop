@@ -835,7 +835,7 @@
                     response.data.forEach(donHang => {
                         const trangThai = getTrangThaiDonHang(donHang.TrangThaiDonHang);
                         let orderHtml = `
-                            <div class="item-order mb-4 px-3 rounded-4 py-2">
+                            <div class="item-order mb-4 px-3 rounded-4 py-2 border">
                                 <div class="text-end pb-2">
                                     <span class="lbl-shipped fw-medium" style="color: ${trangThai.color}">${trangThai.text}</span>
                                 </div>`;
@@ -843,10 +843,10 @@
                         // Hiển thị chi tiết sản phẩm
                         donHang.ChiTietDonHangs.forEach(ct => {
                             orderHtml += `
-                                <div class="d-flex justify-content-between align-items-start pb-2">
+                                <div class="d-flex justify-content-between align-items-start pb-2 gap-4">
                                     <div class="d-flex gap-3">
                                         <div class="border rounded overflow-hidden" style="width:64px; height:64px;">
-                                            <img src="${ct.HinhAnh}" alt="${ct.TenHangHoa}" class="img-fluid h-100 w-100 object-fit-cover">
+                                            <img src="/assets/Image/Product/${ct.HinhAnh}" alt="${ct.TenHangHoa}" class="img-fluid h-100 w-100 object-fit-cover">
                                         </div>
                                         <div>
                                             <h5 class="fw-medium mb-1">${ct.TenHangHoa}</h5>

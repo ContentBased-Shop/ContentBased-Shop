@@ -176,6 +176,7 @@
     <Content Include="assets\CSS\Product\Product_categories.css" />
     <Content Include="assets\CSS\Product\Product_Detail.css" />
     <Content Include="assets\CSS\User\User.css" />
+    <Content Include="assets\Image\empty-cart.png" />
     <Content Include="assets\Image\Header\Banner\banner_1.png" />
     <Content Include="assets\Image\Header\Banner\banner_2.png" />
     <Content Include="assets\Image\Header\Banner\Banner_3.png" />
