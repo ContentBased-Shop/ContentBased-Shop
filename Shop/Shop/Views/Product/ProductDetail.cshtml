@@ -337,18 +337,19 @@
             </style>
             <!-- Tab 2: So sánh -->
             <div class="tab-pane fade" id="comparison">
-                <div class="container py-2">
+                <div class="container py-2 border p-4 rounded-4 ">
                     <!-- Tabs -->
                     <ul class="nav nav-tabs mb-4" id="productTabs" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview" type="button">Tổng quan</button>
                         </li>
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#features" type="button">Tính năng</button>
+                            <button id="specTabBtn" class="nav-link disabled" data-bs-toggle="tab" data-bs-target="#specifications" type="button" disabled>
+                                Thông số kỹ thuật
+                            </button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#specifications" type="button">Thông số kỹ thuật</button>
-                        </li>
+
                     </ul>
 
                     <div class="tab-content" id="productTabsContent">
@@ -356,140 +357,235 @@
                         <div class="tab-pane fade show active" id="overview">
                             <div class="row g-4">
                                 <!-- Product 1 -->
+
                                 <div class="col-md-6">
                                     <div class="card h-100">
                                         <div class="position-relative">
-                                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">Giảm 20%</span>
-                                            <button class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle">
-                                                <i class="bi bi-heart"></i>
-                                            </button>
-                                            <img src="/placeholder.svg?height=300&width=300" class="card-img-top p-4" alt="Product Image" />
+                                            @if (Model.SelectedBienThe.GiaKhuyenMai < Model.SelectedBienThe.GiaBan)
+                                            {
+                                                var discount = (int)Math.Round(100 - (Model.SelectedBienThe.GiaKhuyenMai * 100.0 / Model.SelectedBienThe.GiaBan));
+                                                <span class="badge bg-danger position-absolute top-0 start-0 m-2">Giảm @discount%</span>
+                                            }
+                                            <div class="stock-status position-absolute top-0 end-0 m-2 rounded-circle">
+                                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite fs-6" data-mahanghoa="@Model.SelectedBienThe.MaHangHoa">
+                                                    @if (ViewBag.DanhSachYeuThich.Contains(Model.SelectedBienThe.MaHangHoa))
+                                                    {
+                                                        <i class="fas fa-heart heart-icon glowing-heart fa-lg me-1" data-filled="true"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="far fa-heart heart-icon fa-lg me-1" data-filled="false"></i>
+                                                    }
+
+                                                </a>
+
+                                            </div>
+
+                                            <div class="w-100">
+                                                <center><img style="width:300px; height:300px; " src="~/assets/Image/Product/@Model.SelectedBienThe.UrlAnh.FirstOrDefault()" class="card-img-top p-4" alt="@Model.Product.TenHangHoa" /></center>
+                                            </div>
                                         </div>
                                         <div class="card-body">
-                                            <h5 class="card-title">Premium Wireless Headphones</h5>
+                                            <h5 class="card-title">@Model.Product.TenHangHoa</h5>
                                             <div class="mb-2">
-                                                <span class="star-filled">&#9733;&#9733;&#9733;&#9733;&#189;</span>
-                                                <span class="text-muted">(4.5)</span>
-                                            </div>
-                                            <p class="card-text text-muted">
-                                                Experience premium sound quality with our wireless headphones featuring advanced noise cancellation and long-lasting battery life.
-                                            </p>
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <span class="fw-bold fs-4">$299.99</span>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-outline-secondary btn-sm">So sánh</button>
-                                                    <button class="btn btn-primary btn-sm">
-                                                        <i class="bi bi-cart"></i> Thêm vào giỏ
-                                                    </button>
+                                                <div class="star-rating">
+                                                    @for (int i = 1; i <= 5; i++)
+                                                    {
+                                                        if (i <= Model.Product.DanhGiaTrungBinh)
+                                                        {
+                                                            <i class="bi bi-star-fill"></i>
+                                                        }
+                                                        else
+                                                        {
+                                                            <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                                        }
+                                                    }
+                                                    <span class="rating-count">@Model.Product.SoLuongDanhGia Đánh Giá</span>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <small class="text-muted fw-semibold">Màu sắc:</small>
-                                                <span class="badge rounded-pill border">Black</span>
-                                                <span class="badge rounded-pill border">Silver</span>
-                                                <span class="badge rounded-pill border">Blue</span>
+                                            <p class="card-text text-muted">
+                                                @Model.Product.MoTa
+                                                @Html.Raw(Model.Product.MoTaDai)
+                                            </p>
+
+                                            <div class="justify-content-between align-items-center mb-3">
+                                                @if (Model.SelectedBienThe.GiaKhuyenMai < Model.SelectedBienThe.GiaBan)
+                                                {
+                                                    <span class="fw-bold fs-4 text-danger"> @Model.SelectedBienThe.GiaKhuyenMai.ToString("N0") đ</span>
+                                                    <span class="text-muted text-decoration-line-through">@Model.SelectedBienThe.GiaBan.ToString("N0") đ</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="fw-bold fs-4">@Model.SelectedBienThe.GiaBan.ToString("N0") đ</span>
+                                                }
+
                                             </div>
+                                            @*<div>
+                                                <small class="text-muted fw-semibold">Màu sắc:</small>
+                                                @foreach (var mau in product.DanhSachMauSac) // Giả sử bạn có list màu trong sản phẩm
+                                                {
+                                                    <span class="badge rounded-pill border">@mau</span>
+                                                }
+                                            </div>*@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Product 2 -->
-                                <div class="col-md-6">
-                                    <div class="card h-100">
-                                        <div class="position-relative">
-                                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">Giảm 10%</span>
-                                            <button class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle">
-                                                <i class="bi bi-heart"></i>
-                                            </button>
-                                            <img src="/placeholder.svg?height=300&width=300" class="card-img-top p-4" alt="Product Image" />
-                                        </div>
-                                        <div class="card-body">
-                                            <h5 class="card-title">Standard Wireless Headphones</h5>
-                                            <div class="mb-2">
-                                                <span class="star-filled">&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                                                <span class="text-muted">(4.0)</span>
-                                            </div>
-                                            <p class="card-text text-muted">
-                                                Enjoy clear sound and comfortable fit with our standard wireless headphones, perfect for everyday use at an affordable price.
-                                            </p>
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <span class="fw-bold fs-4">$149.99</span>
-                                                <div class="btn-group">
-                                                    <button class="btn btn-outline-secondary btn-sm">So sánh</button>
-                                                    <button class="btn btn-primary btn-sm">
-                                                        <i class="bi bi-cart"></i> Thêm vào giỏ
+                                <div id="selectedProductContainerSummary" class="col-md-6" style="display: none;">
+                                    @foreach (var product in Model.RelatedProducts)
+                                    {
+                                        var bienThe = product.BienThes.FirstOrDefault(bt => bt.MaHangHoa == product.MaHangHoa);
+                                        if (bienThe == null) { continue; };
+
+                                        string id = "selected_" + product.MaHangHoa + "_" + bienThe.MaBienThe;
+                                        <div class="selected-product" id="@id" style="display: none;">
+                                            <div class="card h-100">
+                                                <div class="position-relative">
+                                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2">
+                                                        @{
+                                                            var giaKM = bienThe.GiaKhuyenMai ?? 0;
+                                                            var giaGoc = bienThe.GiaBan ?? 1; // tránh chia cho 0
+                                                            var phanTramGiam = Math.Round((1 - giaKM / giaGoc) * 100);
+                                                        }
+                                                        <span class="badge bg-danger">Giảm @phanTramGiam%</span>
+
+
+                                                    </span>
+                                                    <button class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle">
+                                                        <i class="bi bi-heart"></i>
                                                     </button>
+                                                    <center><img style="width: 300px; height: 300px; " src="/assets/Image/Product/@product.HinhAnh" class="card-img-top p-4" alt="@product.TenHangHoa" /></center>
+                                                </div>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">@product.TenHangHoa</h5>
+                                                    <div class="star-rating">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            if (i <= product.DanhGiaTrungBinh)
+                                                            {
+                                                                <i class="bi bi-star-fill"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="bi bi-star" style="opacity: 0.3;"></i>
+                                                            }
+                                                        }
+                                                        <span class="rating-count">@product.SoLuongDanhGia Đánh Giá</span>
+                                                    </div>
+                                                    <p class="card-text text-muted">@product.MoTa</p>
+                                                    @Html.Raw(product.MoTaDai)
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <span class="fw-bold fs-4 text-danger">@(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
+                                                        <span class="text-muted text-decoration-line-through ms-2">@(((double)bienThe.GiaBan).ToString("N0")) ₫</span>
+                                                    </div>
+
                                                 </div>
                                             </div>
-                                            <div>
-                                                <small class="text-muted fw-semibold">Màu sắc:</small>
-                                                <span class="badge rounded-pill border">Black</span>
-                                                <span class="badge rounded-pill border">White</span>
-                                            </div>
                                         </div>
+                                    }
+                                </div>
+
+                                <div id="search" class="col-md-6">
+                                    <!-- Ô tìm kiếm -->
+                                    <div class="mb-3">
+                                        <input type="text" class="form-control" id="searchInput" placeholder="Tìm sản phẩm liên quan..." onkeyup="filterProducts()" />
+                                    </div>
+
+
+                                    <!-- Danh sách sản phẩm -->
+                                    <div id="relatedProductList" style="display: none; max-height: 400px; overflow-y: auto;">
+                                        @foreach (var product in Model.RelatedProducts)
+                                        {
+                                            var bienThe = product.BienThes.FirstOrDefault(bt => bt.MaHangHoa == product.MaHangHoa);
+
+                                            <div class="related-product" onclick="selectProduct('@product.MaHangHoa', '@bienThe.MaBienThe')">
+                                                <div class="card ">
+                                                    <div class="d-flex">
+                                                        <img style="width:100px; height:100px" src="~/assets/Image/Product/@product.HinhAnh" class="card-img-top" alt="@product.TenHangHoa" />
+                                                        <div class="card-body">
+                                                            <h6 class="card-title">@product.TenHangHoa</h6>
+
+                                                            <span class="fw-bold fs-6 text-danger"> @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
+                                                            <span class="text-muted text-decoration-line-through">@(((double)bienThe.GiaBan).ToString("N0")) ₫</span>
+                                                            <p class="card-text">@product.MoTa</p>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div id="noResults" class="text-muted text-center p-2" style="display: block;">
+                                        Không tìm thấy sản phẩm phù hợp.
                                     </div>
                                 </div>
+
+                                <!-- Script lọc sản phẩm -->
+                                <script>
+                                    function filterProducts() {
+                                        const input = document.getElementById("searchInput");
+                                        const filter = input.value.toLowerCase().trim();
+                                        const list = document.getElementById("relatedProductList");
+                                        const products = list.querySelectorAll(".related-product");
+                                        const noResults = document.getElementById("noResults");
+
+                                        let matchCount = 0;
+
+                                        // Nếu ô tìm kiếm trống
+                                        if (filter === "") {
+                                            products.forEach(p => p.style.display = "none");
+                                            list.style.display = "block";  // vẫn cần hiển thị danh sách để hiện thông báo
+                                            noResults.style.display = "block";
+                                            return;
+                                        }
+
+                                        // Nếu có nội dung
+                                        list.style.display = "block";
+
+                                        products.forEach(function (product) {
+                                            const title = product.querySelector(".card-title").textContent.toLowerCase();
+                                            const isMatch = title.includes(filter);
+                                            product.style.display = isMatch ? "" : "none";
+                                            if (isMatch) matchCount++;
+                                        });
+
+                                        // Hiện hoặc ẩn thông báo "không có kết quả"
+                                        noResults.style.display = matchCount === 0 ? "block" : "none";
+                                    }
+                                  
+                                    function selectProduct(maHangHoa, maBienThe) {
+                                        document.getElementById("search").style.display = "none";
+
+                                        // Hiện container
+                                        document.getElementById("selectedProductContainerSummary").style.display = "block";
+                                        document.getElementById("selectedProductContainerDetail").style.display = "block";
+
+                                        // Ẩn hết
+                                        document.querySelectorAll(".selected-product-summary").forEach(p => p.style.display = "none");
+                                        document.querySelectorAll(".selected-product-detail").forEach(p => p.style.display = "none");
+
+                                        const selectedId = `selected_${maHangHoa}_${maBienThe}`;
+                                        const selected = document.getElementById(selectedId);
+                                        if (selected) selected.style.display = "block";
+
+                                        const summaryId = "selected_summary_" + maHangHoa + "_" + maBienThe;
+                                        const summary = document.getElementById(summaryId);
+                                        if (summary) summary.style.display = "block";
+                                        document.getElementById("specTabBtn").classList.remove("disabled");
+                                        document.getElementById("specTabBtn").removeAttribute("disabled");
+
+                                    }
+
+
+                          
+
+                                </script>
+
                             </div>
                         </div>
 
-                        <!-- Features Tab -->
-                        <div class="tab-pane fade" id="features">
-                            <div class="card">
-                                <div class="card-body">
-                                    <table class="table table-bordered align-middle text-center">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-start">Tính năng</th>
-                                                <th>Premium Wireless Headphones</th>
-                                                <th>Standard Wireless Headphones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-start">Noise Cancellation</td>
-                                                <td>&#10003;</td>
-                                                <td>&#10007;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Battery Life</td>
-                                                <td>30 hours</td>
-                                                <td>20 hours</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Water Resistant</td>
-                                                <td>&#10003;</td>
-                                                <td>&#10007;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Bluetooth Version</td>
-                                                <td>5.2</td>
-                                                <td>5.0</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Built-in Microphone</td>
-                                                <td>&#10003;</td>
-                                                <td>&#10003;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Foldable Design</td>
-                                                <td>&#10003;</td>
-                                                <td>&#10007;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Touch Controls</td>
-                                                <td>&#10003;</td>
-                                                <td>&#10007;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-start">Voice Assistant</td>
-                                                <td>&#10003;</td>
-                                                <td>&#10007;</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                   
 
                         <!-- Specifications Tab -->
                         <div class="tab-pane fade" id="specifications">
@@ -498,48 +594,64 @@
                                 <div class="col-md-6">
                                     <div class="card h-100">
                                         <div class="card-body">
-                                            <h5 class="card-title">Premium Wireless Headphones</h5>
+
+                                            <h5 class="card-title">@Model.Product.TenHangHoa</h5>
                                             <ul class="list-group list-group-flush mb-3">
                                                 <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Bluetooth</span><span>5.2</span>
+                                                    <span>Màu sắc</span><span>@Model.SelectedBienThe.MauSac</span>
                                                 </li>
                                                 <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Thời lượng pin</span><span>30 hours</span>
+                                                    <span>CPU</span><span>@Model.SelectedBienThe.CPU</span>
                                                 </li>
                                                 <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Chống nước</span><span>Có</span>
+                                                    <span>RAM</span><span>@Model.SelectedBienThe.RAM</span>
                                                 </li>
                                                 <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Micro tích hợp</span><span>Có</span>
+                                                    <span>Dung lượng</span><span>@Model.SelectedBienThe.DungLuong</span>
+                                                </li>
+                                                <li class="list-group-item d-flex justify-content-between">
+                                                    <span>Kích thước màn hình</span><span>@Model.SelectedBienThe.KichThuocManHinh</span>
                                                 </li>
                                             </ul>
-                                            <p><strong>Màu sắc:</strong> Black, Silver, Blue</p>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Product 2 specs -->
-                                <div class="col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Standard Wireless Headphones</h5>
-                                            <ul class="list-group list-group-flush mb-3">
-                                                <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Bluetooth</span><span>5.0</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Thời lượng pin</span><span>20 hours</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Chống nước</span><span>Không</span>
-                                                </li>
-                                                <li class="list-group-item d-flex justify-content-between">
-                                                    <span>Micro tích hợp</span><span>Có</span>
-                                                </li>
-                                            </ul>
-                                            <p><strong>Màu sắc:</strong> Black, White</p>
-                                        </div>
-                                    </div>
+                                <div id="selectedProductContainerDetail" class="col-md-6" style="display: none;">
+                                    @foreach (var product in Model.RelatedProducts)
+                                    {
+                                        foreach (var bienThe in product.BienThes)
+                                        {
+                                            var summaryId = "selected_summary_" + product.MaHangHoa + "_" + bienThe.MaBienThe;
+                                            <div id="@summaryId" class="selected-product" style="display: none;">
+                                                <div class="card h-100">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">@product.TenHangHoa</h5>
+                                                        <ul class="list-group list-group-flush mb-3">
+                                                            <li class="list-group-item d-flex justify-content-between">
+                                                                <span>Màu sắc</span><span>@bienThe.MauSac</span>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between">
+                                                                <span>CPU</span><span>@bienThe.CPU</span>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between">
+                                                                <span>RAM</span><span>@bienThe.RAM</span>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between">
+                                                                <span>Dung lượng</span><span>@bienThe.DungLuong</span>
+                                                            </li>
+                                                            <li class="list-group-item d-flex justify-content-between">
+                                                                <span>Kích thước màn hình</span><span>@bienThe.KichThuocManHinh</span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
                                 </div>
+
+
                             </div>
                         </div>
                     </div>

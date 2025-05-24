@@ -931,38 +931,49 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         updateCartCount();
-        
+
         // Cập nhật số lượng hiển thị trên icon giỏ hàng
-        function updateCartCount() {
-            const cartCountElement = document.querySelector('.cart-count');
-            if (!cartCountElement) return;
-            
-            // Kiểm tra người dùng đã đăng nhập chưa
-            const isLoggedIn = @(Session["UserID"] != null ? "true" : "false");
-            
-            if (isLoggedIn) {
-                // Nếu đã đăng nhập, lấy số lượng từ server
-                fetch('/InnerPage/GetCartItems')
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Hiển thị số lượng loại sản phẩm trong giỏ hàng
-                            const totalItems = data.cartItems.length;
-                            cartCountElement.textContent = totalItems;
-                            cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
-                        }
-                    })
-                    .catch(error => console.error('Lỗi khi lấy giỏ hàng:', error));
-            } else {
-                // Nếu chưa đăng nhập, lấy số lượng từ sessionStorage
-                const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-                // Hiển thị số lượng loại sản phẩm trong giỏ hàng
-                const totalItems = cart.length;
-                cartCountElement.textContent = totalItems;
-                cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
-            }
-        }
-        
+       function updateCartCount() {
+    const cartCountElement = document.querySelector('.cart-count');
+    if (!cartCountElement) {
+        console.log('Không tìm thấy phần tử .cart-count');
+        return;
+    }
+
+    // Kiểm tra người dùng đã đăng nhập chưa
+    const isLoggedIn = @(Session["UserID"] != null ? "true" : "false");
+    console.log('Người dùng đã đăng nhập:', isLoggedIn);
+
+    if (isLoggedIn) {
+        // Nếu đã đăng nhập, lấy số lượng từ server
+        console.log('Đang gọi API để lấy giỏ hàng từ server...');
+        fetch('/InnerPage/GetCartItems')
+            .then(response => {
+                console.log('Phản hồi nhận được từ server:', response);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dữ liệu giỏ hàng:', data);
+                if (data.success) {
+                    const totalItems = data.cartItems.length;
+                    console.log('Tổng số loại sản phẩm:', totalItems);
+                    cartCountElement.textContent = totalItems;
+                    cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
+                } else {
+                    console.warn('Lấy giỏ hàng không thành công:', data.message || data);
+                }
+            })
+            .catch(error => console.error('Lỗi khi lấy giỏ hàng:', error));
+    } else {
+        // Nếu chưa đăng nhập, lấy số lượng từ sessionStorage
+        const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+        console.log('Dữ liệu giỏ hàng từ sessionStorage:', cart);
+        const totalItems = cart.length;
+        console.log('Tổng số loại sản phẩm (guest):', totalItems);
+        cartCountElement.textContent = totalItems;
+        cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
+    }
+}
         // Lắng nghe sự kiện cập nhật giỏ hàng
         window.addEventListener('cartUpdated', updateCartCount);
     });
