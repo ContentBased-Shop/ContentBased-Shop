@@ -11,32 +11,34 @@
             @foreach (var product in Model)
             {
                 <div class="col-md-6 col-lg-3">
-                    <div class="d-flex gap-3 align-items-start bg-white rounded-3 p-2 position-relative shadow-sm h-100">
-                        <!-- Hình ảnh -->
-                        <div class="position-relative" style="min-width: 80px;">
-                            <img src="@Url.Content("~/assets/Image/Product/" + product.HinhAnh)" alt="@product.TenHangHoa"
-                                 width="80" height="80"
-                                 class="img-fluid object-fit-contain rounded ">
-                        </div>
+                    <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = product.MaHangHoa, maBienThe = product.MaBienThe })" class="text-decoration-none text-dark">
+                        <div class="d-flex gap-3 align-items-start bg-white rounded-3 p-2 position-relative shadow-sm h-100">
+                            <!-- Hình ảnh -->
+                            <div class="position-relative" style="min-width: 80px;">
+                                <img src="@Url.Content("~/assets/Image/Product/" + product.HinhAnh)" alt="@product.TenHangHoa"
+                                     width="80" height="80"
+                                     class="img-fluid object-fit-contain rounded ">
+                            </div>
 
-                        <!-- Thông tin sản phẩm -->
-                        <div class="flex-grow-1">
-                            <h6 class="mb-1 text-truncate" style="max-width: 150px;">@product.TenHangHoa</h6>
+                            <!-- Thông tin sản phẩm -->
+                            <div class="flex-grow-1">
+                                <h6 class="mb-1 text-truncate" style="max-width: 150px;">@product.TenHangHoa</h6>
 
-                            <p class="mb-1 text-muted small">
-                                <strong>@product.MoTa</strong>
-                            </p>
+                                <p class="mb-1 text-muted small">
+                                    <strong>@product.MoTa</strong>
+                                </p>
 
-                            <!-- Giá -->
-                            <div class="mb-1">
-                                <span class="fw-bold text-danger">@product.GiaKhuyenMai.ToString("N0") ₫</span><br />
-                                @if (product.GiaBan > product.GiaKhuyenMai)
-                                {
-                                    <small class="text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</small>
-                                }
+                                <!-- Giá -->
+                                <div class="mb-1">
+                                    <span class="fw-bold text-danger">@product.GiaKhuyenMai.ToString("N0") ₫</span><br />
+                                    @if (product.GiaBan > product.GiaKhuyenMai)
+                                    {
+                                        <small class="text-muted text-decoration-line-through">@product.GiaBan.ToString("N0") ₫</small>
+                                    }
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
             }

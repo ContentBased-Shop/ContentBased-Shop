@@ -150,7 +150,7 @@
 
 
     <!-- Product Carousel using Swiper -->
-    <div style="background-color:white; margin-top:16px" class="p-3 rounded-4">
+    <div style="background-color:white; margin-top:16px" class="px-3 pt-3 rounded-4">
         <!-- Navigation Tabs -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <ul class="nav nav-tabs" id="product-tabs">
@@ -528,7 +528,7 @@
                             }
 
                             <div class="stock-status">
-                                <a href="#" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
+                                <a href="" class="text-decoration-none text-dark hover-shake add-to-favorite" data-mahanghoa="@product.MaHangHoa">
                                     @if (ViewBag.DanhSachYeuThich.Contains(product.MaHangHoa))
                                     {
                                         <i class="fas fa-heart heart-icon glowing-heart" data-filled="true"></i>
@@ -1633,7 +1633,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        $('.add-to-favorite').on('click', function (e) {
+        $(document).on('click', '.add-to-favorite', function (e) {
             e.preventDefault();
             const $icon = $(this).find('.heart-icon');
             const maHangHoa = $(this).data('mahanghoa');
@@ -1708,14 +1708,14 @@
                 if (category === 'recommend') {
                     // Lấy mã khách hàng từ session
                     const maKhachHang = '@Session["UserID"]';
-                    
+
                     if (!maKhachHang) {
                         // Hiển thị thông báo khi chưa đăng nhập
                         swiperWrapper.innerHTML = `
                             <div class="text-center p-4 w-100">
                                 <i class="fas fa-user-lock fa-3x mb-3 text-muted"></i>
                                 <h4 class="mb-3">Bạn cần đăng nhập để sử dụng chức năng này</h4>
-                                <a href="/Account/Login" class="btn btn-success">Đăng nhập ngay</a>
+                                <a href="/InnerPage/Login" class="btn btn-success">Đăng nhập ngay</a>
                             </div>
                         `;
 
@@ -1738,9 +1738,12 @@
                                 res.data.forEach(product => {
                                     const discount = product.GiaBan > 0 ? Math.round((1 - product.GiaKhuyenMai / product.GiaBan) * 100) : 0;
                                     html += `
-                                        <div class="swiper-slide">
+                                        <div class="swiper-slide py-3">
                                             <a href="/Product/AddRecentProduct?maHangHoa=${product.MaHangHoa}&maBienThe=${product.MaBienThe}" class="text-decoration-none text-dark">
-                                                <div class="product-card">
+                                                <div class="product-card position-relative">
+                                                  <span class="discount-badge position-absolute top-0 end-0">
+                                                    ${Math.floor(100 - (product.GiaKhuyenMai / product.GiaBan * 100))}% OFF
+                                                  </span>
                                                     <div class="product-image-container">
                                                         <img src="/assets/Image/Product/${product.HinhAnh}" alt="${product.TenHangHoa}" width="194" height="200">
                                                     </div>
@@ -1751,7 +1754,6 @@
                                                         <span class="current-price">${product.GiaKhuyenMai.toLocaleString()} ₫</span>
                                                         <span class="original-price text-muted text-decoration-line-through">${product.GiaBan.toLocaleString()} ₫</span>
                                                     </div>
-                                                    ${discount > 0 ? `<span class="discount text-danger">${discount}% OFF</span>` : ''}
                                                     <div class="free-shipping">FREE SHIPPING</div>
                                                     <div class="recommendation-score">
                                                         <i class="fas fa-star text-warning"></i>
