@@ -114,3 +114,4 @@ C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.cs
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.csproj.Up2Date
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.pdb
+C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\QRCoder.dll

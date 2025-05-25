@@ -6,7 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml.Linq;
 using Shop.Models;
-
+using QRCoder;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 namespace Shop.Controllers
 {
     public class ProductController : Controller
@@ -778,10 +781,19 @@ namespace Shop.Controllers
             return PartialView("_RecentlyViewedPartial", ordered);   // model = List<ProductRecentViewModel>
         }
 
+        public ActionResult QR(string maHangHoa, string maBienThe)
+        {
+            string url = Url.Action("ProductDetail", "Product", new { id = maHangHoa, mabienthe = maBienThe }, protocol: Request.Url.Scheme);
 
-
-
-
-
+            using (var qrGenerator = new QRCodeGenerator())
+            using (var qrData = qrGenerator.CreateQrCode(url, QRCodeGenerator.ECCLevel.Q))
+            using (var qrCode = new QRCode(qrData))
+            using (var bitmap = qrCode.GetGraphic(20))
+            using (var stream = new MemoryStream())
+            {
+                bitmap.Save(stream, ImageFormat.Png);
+                return File(stream.ToArray(), "image/png");
+            }
+        }
     }
 }

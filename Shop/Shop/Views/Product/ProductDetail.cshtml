@@ -167,9 +167,22 @@
 
 
             <div class="mt-4 small text-muted">
-                <div><strong>Mã Hàng Hóa:</strong> <span class="text-dark"> @Model.Product.MaHangHoa</span></div>
-                <div><strong>Tên DM:</strong> <span class="text-dark"> @Html.Raw(Model.Product.TenDanhMuc)</span></div>
-                <div><strong>Thương Hiệu:</strong> <span class="text-colormain">@Model.Product.TenThuongHieu</span></div>
+                <div class="d-flex gap-4">
+                    <div class="py-2">
+                        <div><strong>Mã Hàng Hóa:</strong> <span class="text-dark"> @Model.Product.MaHangHoa</span></div>
+                        <div><strong>Tên DM:</strong> <span class="text-dark"> @Html.Raw(Model.Product.TenDanhMuc)</span></div>
+                        <div><strong>Thương Hiệu:</strong> <span class="text-colormain">@Model.Product.TenThuongHieu</span></div>
+                    </div>
+                    <img src="@Url.Action("QR", "Product", new { maHangHoa = "HH001", maBienThe = "BT001" })"
+                         alt="QR sản phẩm"
+                         width="80"
+                         height="80" />
+                </div>
+              
+                  
+
+
+               
             </div>
         </div>
 
