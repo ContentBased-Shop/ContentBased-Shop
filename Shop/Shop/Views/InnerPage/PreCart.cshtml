@@ -286,7 +286,7 @@
             } else {
                 saveCartToSessionStorage(cart);
             }
-
+            cartItemsContainer.innerHTML = '';
             renderCart();
         }
 
@@ -311,7 +311,7 @@
                     } else {
                         saveCartToSessionStorage(cart);
                     }
-
+                    cartItemsContainer.innerHTML = '';
                     renderCart();
 
                     Swal.fire({
@@ -320,8 +320,7 @@
                         text: 'Sản phẩm đã được xóa khỏi giỏ hàng.',
                         timer: 1500,
                         showConfirmButton: false
-                    }).then(() => {
-                        location.reload(); // Reload trang sau khi thông báo hoàn tất
+                   
                     });
                 }
             });
