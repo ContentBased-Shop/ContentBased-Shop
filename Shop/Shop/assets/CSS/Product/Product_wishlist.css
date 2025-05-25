@@ -1,0 +1,222 @@
+﻿
+.breadcrumb-item a {
+    color: #6c757d;
+    text-decoration: none;
+}
+
+    .breadcrumb-item a:hover {
+        color: #1aba1a;
+    }
+
+.wishlist-banner {
+    background: linear-gradient(to right, #f43f5e, #a855f7);
+    color: white;
+    position: relative;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+    .wishlist-banner .bg-sale {
+        font-size: 8rem;
+        font-weight: 900;
+        position: absolute;
+        inset: 0;
+        opacity: 0.1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 0;
+    }
+
+    .wishlist-banner .content {
+        position: relative;
+        z-index: 1;
+    }
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.floating-banner {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.discount-badge {
+    background-color: #dc3545; /* đỏ rực */
+    color: white;
+    font-weight: bold;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-bottom-left-radius: 8px;
+    z-index: 10;
+}
+
+
+.swiper-button-next, .swiper-button-prev {
+    color: #999; /* Màu sắc xám nhạt cho các nút */
+    font-size: 18px; /* Giảm kích thước font của nút */
+    width: 30px; /* Điều chỉnh chiều rộng của nút */
+    height: 30px; /* Điều chỉnh chiều cao của nút */
+}
+
+    .swiper-button-next::after, .swiper-button-prev::after {
+        font-size: 18px; /* Kích thước của mũi tên */
+    }
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+    .nav-tabs .nav-link {
+        border: none;
+        color: #666666;
+        font-size: 1.1rem;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+        .nav-tabs .nav-link.active {
+            color: #000;
+            font-weight: bold;
+            border-bottom: 2px solid #000;
+            background-color: transparent;
+        }
+
+.product-card {
+    text-align: center;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.7s ease;
+    cursor: pointer;
+    transform: scale(1); /* mặc định không zoom */
+}
+
+    .product-card:hover {
+        border-color: #1ABA1A;
+        transform: scale(1.05); /* phóng to nhẹ khi hover */
+    }
+
+.product-image-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+
+
+.save-amount {
+    background-color: #1aba1a;
+    color: white;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-end-end-radius: 5px;
+}
+
+.review-count {
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.product-description {
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.star-rating {
+    color: #ff8c4b;
+    margin-bottom: 0.5rem;
+}
+
+.rating-count {
+    font-size: 0.9rem;
+    margin-left: 5px;
+}
+
+.price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.25rem;
+}
+
+.current-price {
+    font-weight: bold;
+}
+
+.original-price {
+    color: #666666;
+    text-decoration: line-through;
+    font-size: 0.9rem;
+}
+
+.discount {
+    color: #e21d1d;
+    font-weight: bold;
+}
+
+.free-shipping {
+    color: #1aba1a;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.stock-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.in-stock-icon {
+    color: #1aba1a;
+    margin-right: 5px;
+}
+
+.heart-icon {
+    color: red;
+    margin-right: 2px;
+}
+
+.empty-heart {
+    display: inline;
+}
+
+.filled-heart {
+    display: none;
+}
+
+.hover-shake:hover .empty-heart {
+    display: none;
+}
+
+.hover-shake:hover .filled-heart {
+    display: inline;
+}
