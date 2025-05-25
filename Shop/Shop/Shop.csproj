@@ -253,6 +253,9 @@
     <Content Include="assets\Image\Logo\LogoBrand\sony_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\tplink_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\xbox_logo.jpg" />
+    <Content Include="assets\Image\MyTeam\CongTien.png" />
+    <Content Include="assets\Image\MyTeam\NguyenVu.png" />
+    <Content Include="assets\Image\MyTeam\NhatQuan.png" />
     <Content Include="assets\Image\News\so-sanh-apple-m3-ultra-va-apple-m4-max-thumb.jpg" />
     <Content Include="assets\Image\News\tecno-spark-30c-co-may-mau-th.jpg" />
     <Content Include="assets\Image\News\tinh-nang-xiaomi-15s-pro.jpg" />
