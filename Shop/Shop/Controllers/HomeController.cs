@@ -29,52 +29,30 @@ namespace Shop.Controllers
 
             ViewBag.DanhSachYeuThich = dsYeuThich;
 
+            // Tách thành các truy vấn nhỏ hơn
+            var hangHoaList = data.HangHoas.ToList();
+            var bienTheList = data.BienTheHangHoas.ToList();
+            var danhGiaList = data.DanhGias.ToList();
 
-            var hangHoaFull = (from hh in data.HangHoas
-                                   // Gộp với tất cả biến thể theo MaHangHoa
-                               join bt in data.BienTheHangHoas
-                               on hh.MaHangHoa equals bt.MaHangHoa into btGroup
-                               from bienThe in btGroup.DefaultIfEmpty()
+            var hangHoaFull = (from hh in hangHoaList
+                              let bienThe = bienTheList.FirstOrDefault(bt => bt.MaHangHoa == hh.MaHangHoa)
+                              let danhGias = danhGiaList.Where(dg => dg.MaHangHoa == hh.MaHangHoa).ToList()
+                              select new HangHoaViewModel
+                              {
+                                  MaHangHoa = hh.MaHangHoa,
+                                  MoTaDai = hh.MoTaDai,
+                                  TenHangHoa = hh.TenHangHoa,
+                                  HinhAnh = hh.HinhAnh,
+                                  MoTa = hh.MoTa,
+                                  NgayTao = hh.NgayTao.Value,
+                                  MaBienThe = bienThe?.MaBienThe,
+                                  GiaBan = bienThe?.GiaBan ?? 0,
+                                  GiaKhuyenMai = bienThe?.GiaKhuyenMai ?? 0,
+                                  SoLuongTonKho = bienThe?.SoLuongTonKho ?? 0,
+                                  SoLuongDanhGia = danhGias.Count,
+                                  DanhGiaTrungBinh = danhGias.Any() ? (float)danhGias.Average(d => d.SoSao) : 0f
+                              }).ToList();
 
-                                   // Gộp với đánh giá
-                               join dg in data.DanhGias
-                               on hh.MaHangHoa equals dg.MaHangHoa into dgGroup
-                               from danhGia in dgGroup.DefaultIfEmpty()
-                               group new { bienThe, danhGia } by new
-                               {             
-                                   hh.MaHangHoa,
-                                   hh.MoTaDai,
-                                   hh.TenHangHoa,
-                                   hh.HinhAnh,
-                                   hh.MoTa,
-                                   hh.NgayTao
-                               } into g
-
-                               select new HangHoaViewModel
-                               {
-                                   MaHangHoa = g.Key.MaHangHoa,
-                                   MoTaDai = g.Key.MoTaDai,
-                                   TenHangHoa = g.Key.TenHangHoa,
-                                   HinhAnh = g.Key.HinhAnh,
-                                   MoTa = g.Key.MoTa,
-                                   NgayTao = g.Key.NgayTao.Value,
-                                   MaBienThe = g.Where(x => x.bienThe != null)
-                                             .Select(x => x.bienThe.MaBienThe)
-                                             .FirstOrDefault(),
-                                   GiaBan = g.Where(x => x.bienThe != null)
-                                              .Select(x => x.bienThe.GiaBan)
-                                              .FirstOrDefault() ?? 0,
-                                   GiaKhuyenMai = g.Where(x => x.bienThe != null)
-                                                .Select(x => x.bienThe.GiaKhuyenMai)
-                                                .FirstOrDefault() ?? 0,
-                                   SoLuongTonKho = g.Where(x => x.bienThe != null)
-                                                 .Select(x => x.bienThe.SoLuongTonKho)
-                                                 .FirstOrDefault() ?? 0,
-                                   SoLuongDanhGia = g.Count(x => x.danhGia != null),
-                                   DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
-                                               ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
-                                               : 0
-                               }).ToList();
             return View(hangHoaFull);
         }
         #endregion

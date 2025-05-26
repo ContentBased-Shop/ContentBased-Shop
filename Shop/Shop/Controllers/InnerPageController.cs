@@ -62,10 +62,21 @@ namespace Shop.Controllers
                             Session["Password"] = user.MatKhauHash;
                             Session["RequirePasswordChange"] = true;
                             
-                            // Merge giỏ hàng tạm từ sessionStorage (nếu có)
-                            if (!string.IsNullOrEmpty(tempCart))
+                            try
                             {
-                                MergeCart(user.MaKhachHang, tempCart);
+                                // Kiểm tra và tạo giỏ hàng nếu chưa có
+                                GetOrCreateCart(user.MaKhachHang);
+                                
+                                // Merge giỏ hàng tạm từ sessionStorage (nếu có)
+                                if (!string.IsNullOrEmpty(tempCart))
+                                {
+                                    MergeCart(user.MaKhachHang, tempCart);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                // Log lỗi nhưng vẫn cho phép đăng nhập
+                                System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
                             }
                             
                             // Chuyển hướng đến trang đổi mật khẩu
@@ -78,22 +89,41 @@ namespace Shop.Controllers
                         Session["AccountName"] = user.TenDangNhap;
                         Session["Password"] = user.MatKhauHash;
                         
-                        // Merge giỏ hàng tạm từ sessionStorage (nếu có)
-                        if (!string.IsNullOrEmpty(tempCart))
+                        try
                         {
-                            MergeCart(user.MaKhachHang, tempCart);
+                            // Kiểm tra và tạo giỏ hàng nếu chưa có
+                            GetOrCreateCart(user.MaKhachHang);
+                            
+                            // Merge giỏ hàng tạm từ sessionStorage (nếu có)
+                            if (!string.IsNullOrEmpty(tempCart))
+                            {
+                                MergeCart(user.MaKhachHang, tempCart);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log lỗi nhưng vẫn cho phép đăng nhập
+                            System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
                         }
                         
                         // Nếu có returnUrl thì chuyển hướng đến đó
-                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        if (!string.IsNullOrEmpty(returnUrl))
                         {
-                            return Redirect(returnUrl);
+                            // Kiểm tra xem returnUrl có phải là URL nội bộ không
+                            if (Url.IsLocalUrl(returnUrl))
+                            {
+                                return Redirect(returnUrl);
+                            }
+                            else
+                            {
+                                // Nếu không phải URL nội bộ, chuyển hướng đến trang chủ
+                                return RedirectToAction("Index", "Home");
+                            }
                         }
                         
                         // Chuyển hướng đến trang Home
                         return RedirectToAction("Index", "Home");
                     }
-                   
                 }
                 catch (Exception)
                 {
@@ -106,16 +136,36 @@ namespace Shop.Controllers
                         Session["AccountName"] = user.TenDangNhap;
                         Session["Password"] = user.MatKhauHash;
                         
-                        // Merge giỏ hàng tạm từ sessionStorage (nếu có)
-                        if (!string.IsNullOrEmpty(tempCart))
+                        try
                         {
-                            MergeCart(user.MaKhachHang, tempCart);
+                            // Kiểm tra và tạo giỏ hàng nếu chưa có
+                            GetOrCreateCart(user.MaKhachHang);
+                            
+                            // Merge giỏ hàng tạm từ sessionStorage (nếu có)
+                            if (!string.IsNullOrEmpty(tempCart))
+                            {
+                                MergeCart(user.MaKhachHang, tempCart);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // Log lỗi nhưng vẫn cho phép đăng nhập
+                            System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
                         }
                         
                         // Nếu có returnUrl thì chuyển hướng đến đó
-                        if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        if (!string.IsNullOrEmpty(returnUrl))
                         {
-                            return Redirect(returnUrl);
+                            // Kiểm tra xem returnUrl có phải là URL nội bộ không
+                            if (Url.IsLocalUrl(returnUrl))
+                            {
+                                return Redirect(returnUrl);
+                            }
+                            else
+                            {
+                                // Nếu không phải URL nội bộ, chuyển hướng đến trang chủ
+                                return RedirectToAction("Index", "Home");
+                            }
                         }
                         
                         // Chuyển hướng đến trang Home
@@ -134,21 +184,29 @@ namespace Shop.Controllers
         // Tạo giỏ hàng mới nếu khách hàng chưa có
         private GioHang GetOrCreateCart(string maKhachHang)
         {
-            var gioHang = data.GioHangs.FirstOrDefault(g => g.MaKhachHang == maKhachHang);
-            
-            if (gioHang == null)
+            try
             {
-                gioHang = new GioHang
-                {
-                    MaKhachHang = maKhachHang,
-                    NgayCapNhat = DateTime.Now
-                };
+                var gioHang = data.GioHangs.FirstOrDefault(g => g.MaKhachHang == maKhachHang);
                 
-                data.GioHangs.InsertOnSubmit(gioHang);
-                data.SubmitChanges();
+                if (gioHang == null)
+                {
+                    gioHang = new GioHang
+                    {
+                        MaKhachHang = maKhachHang,
+                        NgayCapNhat = DateTime.Now
+                    };
+                    
+                    data.GioHangs.InsertOnSubmit(gioHang);
+                    data.SubmitChanges();
+                }
+                
+                return gioHang;
             }
-            
-            return gioHang;
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error in GetOrCreateCart: {ex.Message}");
+                throw;
+            }
         }
         
         // Merge giỏ hàng từ localStorage vào giỏ hàng trong CSDL
@@ -156,12 +214,32 @@ namespace Shop.Controllers
         {
             try
             {
+                if (string.IsNullOrEmpty(tempCartJson))
+                {
+                    System.Diagnostics.Debug.WriteLine("tempCartJson is null or empty");
+                    return;
+                }
+
                 // Chuyển đổi chuỗi JSON thành danh sách đối tượng giỏ hàng
                 var serializer = new JavaScriptSerializer();
-                var tempCartItems = serializer.Deserialize<List<CartItemModel>>(tempCartJson);
+                List<CartItemModel> tempCartItems;
+                
+                try 
+                {
+                    tempCartItems = serializer.Deserialize<List<CartItemModel>>(tempCartJson);
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Error deserializing cart JSON: {ex.Message}");
+                    System.Diagnostics.Debug.WriteLine($"Invalid JSON: {tempCartJson}");
+                    return;
+                }
                 
                 if (tempCartItems == null || tempCartItems.Count == 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("No items in temp cart");
                     return;
+                }
                 
                 // Lấy hoặc tạo giỏ hàng cho khách hàng
                 var gioHang = GetOrCreateCart(maKhachHang);
@@ -171,26 +249,34 @@ namespace Shop.Controllers
                 
                 foreach (var item in tempCartItems)
                 {
-                    // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
-                    var existingItem = existingItems.FirstOrDefault(e => e.MaBienThe == item.maBienThe);
-                    
-                    if (existingItem != null)
+                    try
                     {
-                        // Cộng dồn số lượng
-                        existingItem.SoLuong += item.soLuong;
-                    }
-                    else
-                    {
-                        // Thêm mới vào giỏ hàng
-                        var newItem = new ChiTietGioHang
-                        {
-                            MaGioHang = gioHang.MaGioHang,
-                            MaBienThe = item.maBienThe,
-                            SoLuong = item.soLuong,
-                            NgayThem = DateTime.Now
-                        };
+                        // Kiểm tra sản phẩm đã tồn tại trong giỏ hàng chưa
+                        var existingItem = existingItems.FirstOrDefault(e => e.MaBienThe == item.maBienThe);
                         
-                        data.ChiTietGioHangs.InsertOnSubmit(newItem);
+                        if (existingItem != null)
+                        {
+                            // Cộng dồn số lượng
+                            existingItem.SoLuong += item.soLuong;
+                        }
+                        else
+                        {
+                            // Thêm mới vào giỏ hàng
+                            var newItem = new ChiTietGioHang
+                            {
+                                MaGioHang = gioHang.MaGioHang,
+                                MaBienThe = item.maBienThe,
+                                SoLuong = item.soLuong,
+                                NgayThem = DateTime.Now
+                            };
+                            
+                            data.ChiTietGioHangs.InsertOnSubmit(newItem);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Error processing cart item {item.maBienThe}: {ex.Message}");
+                        continue; // Tiếp tục với item tiếp theo nếu có lỗi
                     }
                 }
                 
@@ -202,8 +288,9 @@ namespace Shop.Controllers
             }
             catch (Exception ex)
             {
-                // Log exception
                 System.Diagnostics.Debug.WriteLine($"Error merging cart: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+                throw; // Ném lại exception để controller có thể xử lý
             }
         }
         
@@ -219,11 +306,24 @@ namespace Shop.Controllers
             // Nếu người dùng đã đăng nhập, cho phép xem giỏ hàng
             if (IsLoggedIn())
             {
-                return View();
+                string maKhachHang = Session["UserID"].ToString();
+                try
+                {
+                    // Kiểm tra và tạo giỏ hàng nếu chưa có
+                    GetOrCreateCart(maKhachHang);
+                    return View();
+                }
+                catch (Exception ex)
+                {
+                    // Log lỗi
+                    System.Diagnostics.Debug.WriteLine($"Error in PreCart: {ex.Message}");
+                    // Chuyển hướng đến trang lỗi
+                    return RedirectToAction("Error", "Home");
+                }
             }
             
             // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập với returnUrl là PreCart
-            return RedirectToAction("Login", new { returnUrl = Url.Action("PreCart", "InnerPage") });
+            return RedirectToAction("Login", "InnerPage", new { returnUrl = Url.Action("PreCart", "InnerPage") });
         }
         
         // Lấy giỏ hàng từ CSDL
@@ -949,6 +1049,9 @@ namespace Shop.Controllers
             Session["UserName"] = newUser.HoTen;
             Session["AccountName"] = newUser.TenDangNhap;
             Session["Password"] = newUser.MatKhauHash;
+            
+            // Kiểm tra và tạo giỏ hàng nếu chưa có
+            GetOrCreateCart(newUser.MaKhachHang);
             
             // Merge giỏ hàng tạm từ sessionStorage (nếu có)
             if (!string.IsNullOrEmpty(tempCart))
