@@ -589,7 +589,6 @@
     <Content Include="Views\InnerPage\PreCart.cshtml" />
     <Content Include="Views\InnerPage\Contact.cshtml" />
     <Content Include="Views\InnerPage\Checkout.cshtml" />
-    <Content Include="Views\InnerPage\Checkout_ShoppingCart.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\InnerPage\Index.cshtml" />
     <Content Include="Views\InnerPage\About.cshtml" />
@@ -615,6 +614,7 @@
     <Content Include="Views\InnerPage\OrderSuccess.cshtml" />
     <Content Include="Views\Payment\PaymentFailed.cshtml" />
     <Content Include="Views\InnerPage\ChangePassword.cshtml" />
+    <Content Include="Views\InnerPage\Faq.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

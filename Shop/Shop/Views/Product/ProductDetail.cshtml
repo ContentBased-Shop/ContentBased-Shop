@@ -178,11 +178,11 @@
                          width="80"
                          height="80" />
                 </div>
-              
-                  
 
 
-               
+
+
+
             </div>
         </div>
 
@@ -225,12 +225,13 @@
                     <button class="btn btn-outline-secondary" id="btn-increase" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")><i class="bi bi-plus"></i></button>
                 </div>
 
-                <button class="btn btn-success w-100 mb-2 py-3" id="btnAddToCart" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")> 
+                <button class="btn btn-success w-100 mb-2 py-3" id="btnAddToCart" @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "disabled" : "")>
                     <i class="bi bi-cart-plus me-2"></i>
                     @(Model.SelectedBienThe.SoLuongTonKho == 0 ? "Hết hàng" : "Thêm vào giỏ hàng")
                 </button>
-                <button class="btn btn-warning w-100 mb-3 py-3">
-                    Thanh toán với <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/paypal.png" alt="PayPal" height="20" />
+
+                <button class="btn btn-warning w-100 mb-3 py-3" id="btnAddToCart_2" >
+                    <strong>Mua ngay </strong>Giao hàng tận nơi 
                 </button>
 
                 <div class="d-flex justify-content-between small mb-2 border-bottom pb-3">
@@ -247,7 +248,10 @@
                             <span>Yêu thích</span>
                         </a>
                     </div>
-                    <button class="btn  text-muted p-0"><i class="fa-solid fa-code-compare"></i> So sánh</button>
+                    <a href="#comparison" class="btn text-muted p-0" id="go-to-compare">
+                        <i class="fa-solid fa-code-compare"></i> So sánh
+                    </a>
+
                 </div>
 
                 <div class="text-center fw-medium small">Đảm bảo thanh toán an toàn</div>
@@ -303,7 +307,7 @@
                         <div class="content-wrapper" id="contentWrapper">
                             @Html.Raw(Model.Product.MoTaChiTiet)
                         </div>
-                     
+
                     </div>
 
                     <div class="col-lg-4 ">
@@ -340,7 +344,7 @@
                         </div>
                     </div>
                 </div>
-               
+
             </div>
             <style>
                 .content-wrapper {
@@ -434,12 +438,12 @@
 
                                             </div>
                                             @*<div>
-                                                <small class="text-muted fw-semibold">Màu sắc:</small>
-                                                @foreach (var mau in product.DanhSachMauSac) // Giả sử bạn có list màu trong sản phẩm
-                                                {
-                                                    <span class="badge rounded-pill border">@mau</span>
-                                                }
-                                            </div>*@
+                                                    <small class="text-muted fw-semibold">Màu sắc:</small>
+                                                    @foreach (var mau in product.DanhSachMauSac) // Giả sử bạn có list màu trong sản phẩm
+                                                    {
+                                                        <span class="badge rounded-pill border">@mau</span>
+                                                    }
+                                                </div>*@
                                         </div>
                                     </div>
                                 </div>
@@ -566,7 +570,7 @@
                                         // Hiện hoặc ẩn thông báo "không có kết quả"
                                         noResults.style.display = matchCount === 0 ? "block" : "none";
                                     }
-                                  
+
                                     function selectProduct(maHangHoa, maBienThe) {
                                         document.getElementById("search").style.display = "none";
 
@@ -591,14 +595,14 @@
                                     }
 
 
-                          
+
 
                                 </script>
 
                             </div>
                         </div>
 
-                   
+
 
                         <!-- Specifications Tab -->
                         <div class="tab-pane fade" id="specifications">
@@ -1111,14 +1115,14 @@
         function updateCartCount() {
             const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
             const totalItems = cart.length;
-            
+
             // Cập nhật số lượng ở biểu tượng giỏ hàng nếu có
             const cartCountElement = document.querySelector('.cart-count');
             if (cartCountElement) {
                 cartCountElement.textContent = totalItems;
                 cartCountElement.style.display = totalItems > 0 ? 'inline-block' : 'none';
             }
-            
+
             // Kích hoạt sự kiện để thông báo cho các trang khác về thay đổi giỏ hàng
             window.dispatchEvent(new Event('cartUpdated'));
         }
@@ -1151,7 +1155,7 @@
                         timer: 1500,
                         showConfirmButton: false
                     });
-                    
+
                     // Cập nhật hiển thị số lượng giỏ hàng
                     updateCartCountFromServer();
                 } else {
@@ -1197,10 +1201,10 @@
         // Thêm sản phẩm vào giỏ hàng sessionStorage (khi chưa đăng nhập)
         function addToCartSession(product, quantity) {
             let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-            
+
             // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
             const existingItemIndex = cart.findIndex(item => item.maBienThe === product.maBienThe);
-            
+
             if (existingItemIndex !== -1) {
                 // Nếu đã có, tăng số lượng
                 cart[existingItemIndex].soLuong += quantity;
@@ -1208,7 +1212,7 @@
                 // Nếu chưa có, thêm mới vào giỏ hàng
                 cart.push({
                     maHangHoa: product.maHangHoa,
-                    maBienThe: product.maBienThe, 
+                    maBienThe: product.maBienThe,
                     tenHangHoa: product.tenHangHoa,
                     mauSac: product.mauSac,
                     dungLuong: product.dungLuong,
@@ -1219,13 +1223,13 @@
                     soLuongTonKho: product.soLuongTonKho
                 });
             }
-            
+
             // Lưu giỏ hàng vào sessionStorage
             sessionStorage.setItem('cart', JSON.stringify(cart));
-            
+
             // Cập nhật số lượng trên UI
             updateCartCount();
-            
+
             // Thông báo thành công
             Swal.fire({
                 icon: 'success',
@@ -1257,6 +1261,16 @@
             const quantity = parseInt(document.getElementById('quantity').textContent || 1);
             addToCart(currentProduct, quantity);
         });
+        document.getElementById('btnAddToCart_2').addEventListener('click', function () {
+            const quantity = parseInt(document.getElementById('quantity').textContent || 1);
+            addToCart(currentProduct, quantity);
+
+            // Đợi 1 giây rồi chuyển hướng
+            setTimeout(function () {
+                window.location.href = '/InnerPage/PreCart';
+            }, 1000);
+        });
+
 
         // Xử lý sự kiện click nút "Thêm giỏ hàng ngay bây giờ" (nếu có)
         const btnAddBundleToCart = document.getElementById('btnAddBundleToCart');
@@ -1265,5 +1279,23 @@
                 addToCart(currentProduct, 1);
             });
         }
+    });
+
+</script>
+<script>
+    document.getElementById("go-to-compare").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        // Kích hoạt tab "SO SÁNH" bằng Bootstrap API
+        const tabTrigger = new bootstrap.Tab(document.getElementById("compare-tab"));
+        tabTrigger.show();
+
+        // Chờ tab hiển thị xong rồi mới scroll (vì tab chưa active thì phần tử target chưa hiện ra)
+        setTimeout(() => {
+            const target = document.getElementById("comparison");
+            if (target) {
+                target.scrollIntoView({ behavior: "smooth" });
+            }
+        }, 200); // delay đủ để tab chuyển (tuỳ bạn chỉnh thêm nếu cần)
     });
 </script>

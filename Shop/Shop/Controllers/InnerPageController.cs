@@ -1225,6 +1225,7 @@ namespace Shop.Controllers
         {
             return View();
         }
+     
 
         public ActionResult Contact()
         {
@@ -1623,8 +1624,117 @@ namespace Shop.Controllers
             }
         }
         #endregion
+        private static readonly List<FAQItem> faqData = new List<FAQItem>
+{
+    new FAQItem
+    {
+        Id = "1",
+        Category = "order",
+        Question = "Làm thế nào để đặt hàng trên website?",
+        Answer = "Để đặt hàng, bạn chỉ cần: 1) Chọn sản phẩm và thêm vào giỏ hàng, 2) Điền thông tin giao hàng, 3) Chọn phương thức thanh toán, 4) Xác nhận đơn hàng. Chúng tôi sẽ gửi email xác nhận ngay sau khi đặt hàng thành công."
+    },
+    new FAQItem
+    {
+        Id = "2",
+        Category = "order",
+        Question = "Tôi có thể hủy hoặc thay đổi đơn hàng không?",
+        Answer = "Bạn có thể hủy hoặc thay đổi đơn hàng trong vòng 30 phút sau khi đặt hàng. Sau thời gian này, đơn hàng sẽ được chuyển vào quy trình xử lý và không thể thay đổi."
+    },
+    new FAQItem
+    {
+        Id = "3",
+        Category = "payment",
+        Question = "Các phương thức thanh toán nào được hỗ trợ?",
+        Answer = "Chúng tôi hỗ trợ thanh toán qua: Thẻ tín dụng/ghi nợ (Visa, Mastercard), Ví điện tử (MoMo, ZaloPay, VNPay), Chuyển khoản ngân hàng, và Thanh toán khi nhận hàng (COD)."
+    },
+    new FAQItem
+    {
+        Id = "4",
+        Category = "payment",
+        Question = "Thông tin thanh toán của tôi có an toàn không?",
+        Answer = "Tuyệt đối an toàn! Chúng tôi sử dụng mã hóa SSL 256-bit và tuân thủ tiêu chuẩn bảo mật PCI DSS. Thông tin thẻ của bạn không được lưu trữ trên hệ thống của chúng tôi."
+    },
+    new FAQItem
+    {
+        Id = "5",
+        Category = "shipping",
+        Question = "Thời gian giao hàng là bao lâu?",
+        Answer = "Thời gian giao hàng phụ thuộc vào địa điểm: Nội thành Hà Nội/TP.HCM: 1-2 ngày, Các tỉnh thành khác: 2-5 ngày, Vùng sâu vùng xa: 5-7 ngày. Đơn hàng đặt trước 14h sẽ được xử lý trong ngày."
+    },
+    new FAQItem
+    {
+        Id = "6",
+        Category = "shipping",
+        Question = "Phí vận chuyển được tính như thế nào?",
+        Answer = "Phí vận chuyển được tính theo khu vực và trọng lượng đơn hàng. Miễn phí vận chuyển cho đơn hàng từ 500.000đ trở lên trong nội thành và từ 1.000.000đ cho các tỉnh khác."
+    },
+    new FAQItem
+    {
+        Id = "7",
+        Category = "return",
+        Question = "Chính sách đổi trả như thế nào?",
+        Answer = "Bạn có thể đổi trả sản phẩm trong vòng 30 ngày kể từ ngày nhận hàng. Sản phẩm phải còn nguyên vẹn, chưa sử dụng và có đầy đủ bao bì, phụ kiện đi kèm."
+    },
+    new FAQItem
+    {
+        Id = "8",
+        Category = "return",
+        Question = "Ai chịu phí vận chuyển khi đổi trả?",
+        Answer = "Nếu lỗi từ phía shop (sản phẩm lỗi, giao sai hàng), chúng tôi sẽ chịu phí vận chuyển. Nếu khách hàng đổi ý, khách hàng sẽ chịu phí vận chuyển đổi trả."
+    },
+    new FAQItem
+    {
+        Id = "9",
+        Category = "account",
+        Question = "Làm thế nào để tạo tài khoản?",
+        Answer = "Bạn có thể tạo tài khoản bằng cách click vào 'Đăng ký' ở góc trên cùng, điền thông tin cá nhân và xác thực email. Hoặc đăng ký nhanh qua Facebook/Google."
+    },
+    new FAQItem
+    {
+        Id = "10",
+        Category = "account",
+        Question = "Tôi quên mật khẩu, phải làm sao?",
+        Answer = "Click vào 'Quên mật khẩu' ở trang đăng nhập, nhập email đã đăng ký. Chúng tôi sẽ gửi link đặt lại mật khẩu đến email của bạn trong vòng 5 phút."
+    },
+    new FAQItem
+    {
+        Id = "11",
+        Category = "product",
+        Question = "Làm sao để kiểm tra tình trạng kho hàng?",
+        Answer = "Tình trạng kho hàng được hiển thị ngay trên trang sản phẩm. Nếu sản phẩm hết hàng, bạn có thể đăng ký nhận thông báo khi hàng về."
+    },
+    new FAQItem
+    {
+        Id = "12",
+        Category = "product",
+        Question = "Sản phẩm có được bảo hành không?",
+        Answer = "Tất cả sản phẩm đều có chế độ bảo hành theo quy định của nhà sản xuất. Thời gian bảo hành từ 6 tháng đến 2 năm tùy loại sản phẩm, được ghi rõ trong mô tả sản phẩm."
     }
-    
+};
+
+        public ActionResult Faq(string search = "", string category = "all")
+        {
+            var filtered = faqData.Where(f =>
+                (category == "all" || f.Category == category) &&
+                (string.IsNullOrEmpty(search) || f.Question.ToLower().Contains(search.ToLower()) || f.Answer.ToLower().Contains(search.ToLower()))
+            ).ToList();
+
+            ViewBag.SearchTerm = search;
+            ViewBag.SelectedCategory = category;
+            ViewBag.AllCategories = new List<string> { "all", "order", "payment", "shipping", "return", "account", "product" };
+
+            return View(filtered);
+        }
+    }
+   
+    public class FAQItem
+    {
+        public string Id { get; set; }
+        public string Category { get; set; }
+        public string Question { get; set; }
+        public string Answer { get; set; }
+    }
+
     // Models for cart items
     public class CartItemModel
     {

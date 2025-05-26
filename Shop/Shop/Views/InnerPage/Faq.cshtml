@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Faq";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Shop.Controllers.FAQItem>
+@{
+    ViewBag.Title = "Câu hỏi thường gặp";
+    var categories = new Dictionary<string, string> {
+        { "all", "Tất cả" }, { "order", "Đặt hàng" }, { "payment", "Thanh toán" },
+        { "shipping", "Vận chuyển" }, { "return", "Đổi trả" },
+        { "account", "Tài khoản" }, { "product", "Sản phẩm" }
+    };
+    var selected = ViewBag.SelectedCategory as string ?? "all";
+    var searchTerm = ViewBag.SearchTerm as string;
+}
+
+<style>
+    .breadcrumb-item a {
+        color: #6c757d;
+        text-decoration: none;
+    }
+
+        .breadcrumb-item a:hover {
+            color: #1aba1a;
+        }
+    .backgoundgreen {
+        background-color: #1aba1a;
+    }
+</style>
+
+<div class="container p-3 bg-white my-2 rounded-3">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb small text-muted m-0">
+            <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
+            <li class="breadcrumb-item">Pages</li>
+            <li class="breadcrumb-item active text-secondary" aria-current="page">FAQ (Câu hỏi thường gặp)</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="container py-5 bg-white rounded-3">
+    <h1 class="mb-4 text-center">Câu hỏi thường gặp</h1>
+    <p class="text-center mb-4 text-muted">Tìm câu trả lời cho các thắc mắc phổ biến. Nếu không thấy, hãy liên hệ với chúng tôi.</p>
+
+    <!-- Categories -->
+    <div class="mb-4 d-flex flex-wrap gap-2">
+        @foreach (var cat in categories)
+        {
+            <a href="@Url.Action("Faq", "InnerPage", new { category = cat.Key })"
+               class="btn @(selected == cat.Key ? "btn-info" : "btn-outline-secondary") btn-sm">
+                @cat.Value 
+            </a>
+        }
+    </div>
+
+    <!-- Accordion FAQ -->
+    @if (Model.Count > 0)
+    {
+        <div class="accordion" id="faqAccordion">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var faq = Model[i];
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading@i">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapse@i" aria-expanded="false" aria-controls="collapse@i">
+                            @faq.Question
+                        </button>
+                    </h2>
+                    <div id="collapse@i" class="accordion-collapse collapse" aria-labelledby="heading@i"
+                         data-bs-parent="#faqAccordion">
+                        <div class="accordion-body text-muted">
+                            @Html.Raw(faq.Answer)
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-4">Không tìm thấy câu hỏi nào phù hợp.</div>
+    }
+
+    <!-- Contact Box -->
+    <div class="card mt-5 text-white bg-gradient bg-primary">
+        <div class="card-body text-center backgoundgreen">
+            <h5 class="card-title">Không tìm thấy câu trả lời?</h5>
+            <p class="card-text">Đội ngũ hỗ trợ của chúng tôi sẵn sàng hỗ trợ bạn 24/7.</p>
+            <p>📞 Hotline: 1900-1234 | Email: phamnguyenvu287@gmail.com</p>
+        </div>
+    </div>
+</div>

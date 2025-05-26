@@ -77,22 +77,32 @@
             <div class="swiper mySwiper rounded-4 mb-4">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <img src="~/assets/Image/Header/Banner/Banner_iphone-16-pro-max.jpg" class="w-100 product-image" />
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH001", maBienThe = "BT001" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_iphone-16-pro-max.jpg" class="w-100 product-image" />
+                        </a>
                     </div>
                     <div class="swiper-slide">
-                        <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-s25-ultra.jpg" class="w-100 product-image" />
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH003", maBienThe = "BT005" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-s25-ultra.jpg" class="w-100 product-image" />
+                        </a>
                     </div>
                     <div class="swiper-slide">
-                        <img src="~/assets/Image/Header/Banner/ezgif.com-webp-to-jpg-converter.jpg" class="w-100 product-image" />
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH030", maBienThe = "BT036" })">
+                            <img src="~/assets/Image/Header/Banner/ezgif.com-webp-to-jpg-converter.jpg" class="w-100 product-image" />
+                        </a>
                     </div>
                     <div class="swiper-slide">
-                        <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-m55.jpg" class="w-100 product-image" />
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH017", maBienThe = "BT023" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-m55.jpg" class="w-100 product-image" />
+                        </a>
                     </div>
                     <div class="swiper-slide">
                         <img src="~/assets/Image/Header/Banner/Banner_apple-chinh-hang.jpg" class="w-100 product-image" />
                     </div>
                     <div class="swiper-slide">
-                        <img src="~/assets/Image/Header/Banner/Banner_Mac_Air.jpg" class="w-100 product-image" />
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH057", maBienThe = "BT063" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_Mac_Air.jpg" class="w-100 product-image" />
+                        </a>
                     </div>
                 </div>
 
@@ -104,16 +114,20 @@
             <div class="row g-4">
                 <div class="col-6">
                     <div class="product-banner">
-                        <img src="~/assets/Image/Header/Banner/Banner_SamSungTab.jpg"
-                             alt="Gaming Console"
-                             class=" rounded-4 w-100 product-image ">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH047", maBienThe = "BT053" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_SamSungTab.jpg"
+                                 alt="Banner_SamSungTab"
+                                 class=" rounded-4 w-100 product-image ">
+                        </a>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="product-banner">
-                        <img src="~/assets/Image/Header/Banner/Banner_Poco.jpg"
-                             alt="Keyboard"
-                             class=" rounded-4 w-100 product-image ">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH007", maBienThe = "BT012" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_Poco.jpg"
+                                 alt="Poco-X7"
+                                 class=" rounded-4 w-100 product-image ">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -131,16 +145,20 @@
                 </div>
                 <div class="col-12">
                     <div class="product-banner">
-                        <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-m55.jpg"
-                             alt="Action Camera"
-                             class="  rounded-4 w-100 product-image ">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH017", maBienThe = "BT023" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_dien-thoai-samsung-galaxy-m55.jpg"
+                                 alt="Action Camera"
+                                 class="  rounded-4 w-100 product-image ">
+                        </a>
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="product-banner">
-                        <img src="~/assets/Image/Header/Banner/Banner_mac.jpg"
-                             alt="Action Camera"
-                             class="  rounded-4 w-100 product-image ">
+                        <a href="@Url.Action("AddRecentProduct", "Product", new { maHangHoa = "HH057", maBienThe = "BT063" })">
+                            <img src="~/assets/Image/Header/Banner/Banner_mac.jpg"
+                                 alt="Action Camera"
+                                 class="  rounded-4 w-100 product-image ">
+                            </a>
                     </div>
                 </div>
             </div>
@@ -167,7 +185,6 @@
                     <a class="nav-link" data-category="recommend" href="#">RECOMMEND</a>
                 </li>
             </ul>
-            <a href="#" class="text-decoration-none" style="color: #666666;">View All</a>
         </div>
 
         <!-- Swiper -->
@@ -739,7 +756,7 @@
             <!-- Card -->
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_4.jpg" alt="Product"></a>
+                    <a href="javascript:void(0)"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_4.jpg" alt="Product"></a>
                     <div class="p-3">
                         <a href=""><h5 class="fw-bold text-black">Surface Laptop 5 13.5 inch</h5></a>
                         <p class="text-muted small">CPU là Intel Alder Lake thế hệ 12th, loại bỏ phiên bản AMD Ryzen.</p>
@@ -749,7 +766,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_3.jpg" alt="Product"></a>
+                    <a href="javascript:void(0)"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_3.jpg" alt="Product"></a>
                     <div class="p-3">
                         <a href=""><h5 class="fw-bold text-black">PC Gaming STAR Relaw </h5></a>
                         <p class="text-muted small">Intel I5 14400F, RTX 4060, B760M, RAM 16GB, SSD 500GB</p>
@@ -759,7 +776,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_2.jpg" alt="Product"></a>
+                    <a href="javascript:void(0)"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_2.jpg" alt="Product"></a>
                     <div class="p-3">
                         <a href=""><h5 class="fw-bold text-black">Màn hình Viewsonic VA2708-2K-MHD 27 inch</h5></a>
                         <p class="text-muted small">Độ phân giải 2K mang đến chất lượng hiển thị video và hình ảnh chân thực</p>
@@ -769,7 +786,7 @@
             </div>
             <div class="col-md-6 col-lg-3">
                 <div class="border rounded">
-                    <a href="#"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_1.jpg" alt="Product"></a>
+                    <a href="javascript:void(0)"> <img class="w-100" src="~/assets/Image/Header/Banner/brand_new_1.jpg" alt="Product"></a>
                     <div class="p-3">
                         <a href=""><h5 class="fw-bold text-black">Ghế Gaming fantasix Gundam Universe</h5></a>
                         <p class="text-muted small">Thiết kế nhỏ gọn, kiểu dáng mạnh mẽ và phù hợp với người dùng Việt Nam</p>
