@@ -116,43 +116,39 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('loginForm');
-        const btn = document.getElementById('loginBtn');
-        const spinner = document.getElementById('loginSpinner');
-
-        form.addEventListener('submit', function (e) {
-            e.preventDefault(); // Chặn submit ngay
-
-            // Hiện spinner và disable nút
-            spinner.classList.remove('d-none');
-            btn.setAttribute('disabled', 'true');
-
-            // Xử lý giả lập trong 3s
-            setTimeout(function () {
-                spinner.classList.add('d-none');
-                btn.removeAttribute('disabled');
-
-                // Submit form thật sau delay
-                form.submit();
-            }, 2000);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Thêm giỏ hàng từ sessionStorage vào form
         const loginForm = document.getElementById('loginForm');
         const tempCartInput = document.getElementById('tempCart');
         
+        // Lấy giỏ hàng từ sessionStorage
+        const cart = sessionStorage.getItem('cart');
+        
+        if (cart && cart !== '[]') {
+            // Thêm vào input hidden
+            tempCartInput.value = cart;
+        }
+        
         loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('loginBtn');
+            const spinner = document.getElementById('loginSpinner');
+            
+            // Hiện spinner và disable nút
+            spinner.classList.remove('d-none');
+            btn.setAttribute('disabled', 'true');
+            
             // Lấy giỏ hàng từ sessionStorage
             const cart = sessionStorage.getItem('cart');
             
             if (cart && cart !== '[]') {
                 // Thêm vào input hidden
                 tempCartInput.value = cart;
-                // Xóa giỏ hàng khỏi sessionStorage sau khi đã lấy
-                sessionStorage.removeItem('cart');
             }
+            
+            // Submit form sau 1 giây
+            setTimeout(function() {
+                loginForm.submit();
+            }, 1000);
         });
     });
 </script>
