@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Đăng xuất</title>
+    <script>
+        // Xóa sessionStorage
+        sessionStorage.removeItem("selectedItems"); // hoặc sessionStorage.clear();
+        sessionStorage.removeItem("cart"); // hoặc sessionStorage.clear();
+        // Chuyển hướng về trang chủ (hoặc trang login)
+        window.location.href = '@Url.Action("Index", "Home")';
+    </script>
+</head>
+<body>
+</body>
+</html>

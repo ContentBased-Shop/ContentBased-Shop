@@ -615,6 +615,7 @@
     <Content Include="Views\Payment\PaymentFailed.cshtml" />
     <Content Include="Views\InnerPage\ChangePassword.cshtml" />
     <Content Include="Views\InnerPage\Faq.cshtml" />
+    <Content Include="Views\InnerPage\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

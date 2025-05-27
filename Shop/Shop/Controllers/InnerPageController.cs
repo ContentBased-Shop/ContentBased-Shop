@@ -1074,14 +1074,14 @@ namespace Shop.Controllers
         #endregion
         public ActionResult Logout()
         {
-            // Xóa FormsAuthentication cookie
-            FormsAuthentication.SignOut();
-
-            // Xóa toàn bộ session
+            // Xóa Session
             Session.Clear();
             Session.Abandon();
 
-            // Xóa cookie .ASPXAUTH nếu tồn tại (phòng trường hợp trình duyệt lưu nhớ lâu)
+            // Xóa FormsAuthentication Cookie
+            FormsAuthentication.SignOut();
+
+            // Xóa ASPXAUTH cookie nếu còn
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
@@ -1092,9 +1092,10 @@ namespace Shop.Controllers
                 Response.Cookies.Add(cookie);
             }
 
-            // Chuyển hướng về trang chủ (hoặc trang đăng nhập)
-            return RedirectToAction("Index", "Home");
+            // Gọi view Logout sẽ thực hiện xóa sessionStorage bên client
+            return View("Logout");
         }
+
 
 
 
