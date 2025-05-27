@@ -11,6 +11,7 @@ using System.Web.Providers.Entities;
 using System.Net.Mail;
 using System.Net;
 using System.Web.Script.Serialization;
+using System.Web.Security;
 
 namespace Shop.Controllers
 {
@@ -32,154 +33,101 @@ namespace Shop.Controllers
         }
         //[POST]: Login
         [HttpPost]
-        public ActionResult Login(string username, string password, string returnUrl, string tempCart = null)
+        public ActionResult Login(string username, string password, string returnUrl, bool rememberMe = false, string tempCart = null)
         {
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.TempCart = tempCart;
+
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 ViewBag.Error = "Vui lòng nhập đầy đủ thông tin";
                 return View();
             }
 
-            // Tìm người dùng với tên đăng nhập
-            var user = data.KhachHangs.FirstOrDefault(u =>
-                u.TenDangNhap == username );
+            var user = data.KhachHangs.FirstOrDefault(u => u.TenDangNhap == username);
 
-            if (user != null)
+            if (user == null)
             {
-                try
+                TempData["Error"] = "Tên đăng nhập hoặc mật khẩu không đúng";
+                return View();
+            }
+
+            bool isPasswordValid = false;
+
+            try
+            {
+                string decryptedPassword = SecurityHelper.DecryptPassword(user.MatKhauHash, "mysecretkey");
+                isPasswordValid = decryptedPassword == password;
+            }
+            catch
+            {
+                // Trường hợp password cũ không mã hoá
+                isPasswordValid = user.MatKhauHash == password;
+            }
+
+            if (!isPasswordValid)
+            {
+                TempData["Error"] = "Tên đăng nhập hoặc mật khẩu không đúng";
+                return View();
+            }
+
+            // Lưu session cơ bản
+            Session["UserID"] = user.MaKhachHang;
+            Session["UserName"] = user.HoTen;
+            Session["AccountName"] = user.TenDangNhap;
+            Session["Password"] = user.MatKhauHash;
+
+            // Nếu là mật khẩu tạm thời, chuyển đến trang đổi mật khẩu
+            if (user.ExpiryTime.HasValue && user.ExpiryTime.Value > DateTime.Now)
+            {
+                Session["RequirePasswordChange"] = true;
+                return RedirectToAction("ChangePassword", "InnerPage");
+            }
+
+            // Tạo cookie xác thực nếu đăng nhập thành công
+            var ticket = new FormsAuthenticationTicket(
+                1,
+                username,
+                DateTime.Now,
+                DateTime.Now.AddMinutes(60),
+                rememberMe,
+                username,
+                FormsAuthentication.FormsCookiePath
+            );
+
+            string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+            if (rememberMe)
+            {
+                authCookie.Expires = ticket.Expiration;
+            }
+                Response.Cookies.Add(authCookie);
+
+            try
+            {
+                GetOrCreateCart(user.MaKhachHang);
+
+                if (!string.IsNullOrEmpty(tempCart))
                 {
-                    // Giải mã mật khẩu và so sánh
-                    string decryptedPassword = SecurityHelper.DecryptPassword(user.MatKhauHash, "mysecretkey");
-                    if (decryptedPassword == password)
-                    {
-                        // Kiểm tra xem có phải mật khẩu tạm không
-                        if (user.ExpiryTime.HasValue && user.ExpiryTime.Value > DateTime.Now)
-                        {
-                            // Lưu thông tin người dùng vào Session
-                            Session["UserID"] = user.MaKhachHang;
-                            Session["UserName"] = user.HoTen;
-                            Session["AccountName"] = user.TenDangNhap;
-                            Session["Password"] = user.MatKhauHash;
-                            Session["RequirePasswordChange"] = true;
-                            
-                            try
-                            {
-                                // Kiểm tra và tạo giỏ hàng nếu chưa có
-                                GetOrCreateCart(user.MaKhachHang);
-                                
-                                // Merge giỏ hàng tạm từ sessionStorage (nếu có)
-                                if (!string.IsNullOrEmpty(tempCart))
-                                {
-                                    MergeCart(user.MaKhachHang, tempCart);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                // Log lỗi nhưng vẫn cho phép đăng nhập
-                                System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
-                            }
-                            
-                            // Chuyển hướng đến trang đổi mật khẩu
-                            return RedirectToAction("ChangePassword", "InnerPage");
-                        }
-                        
-                        // Lưu thông tin người dùng vào Session
-                        Session["UserID"] = user.MaKhachHang;
-                        Session["UserName"] = user.HoTen;
-                        Session["AccountName"] = user.TenDangNhap;
-                        Session["Password"] = user.MatKhauHash;
-                        
-                        try
-                        {
-                            // Kiểm tra và tạo giỏ hàng nếu chưa có
-                            GetOrCreateCart(user.MaKhachHang);
-                            
-                            // Merge giỏ hàng tạm từ sessionStorage (nếu có)
-                            if (!string.IsNullOrEmpty(tempCart))
-                            {
-                                MergeCart(user.MaKhachHang, tempCart);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Log lỗi nhưng vẫn cho phép đăng nhập
-                            System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
-                        }
-                        
-                        // Nếu có returnUrl thì chuyển hướng đến đó
-                        if (!string.IsNullOrEmpty(returnUrl))
-                        {
-                            // Kiểm tra xem returnUrl có phải là URL nội bộ không
-                            if (Url.IsLocalUrl(returnUrl))
-                            {
-                                return Redirect(returnUrl);
-                            }
-                            else
-                            {
-                                // Nếu không phải URL nội bộ, chuyển hướng đến trang chủ
-                                return RedirectToAction("Index", "Home");
-                            }
-                        }
-                        
-                        // Chuyển hướng đến trang Home
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                catch (Exception)
-                {
-                    // Xử lý lỗi giải mã (có thể là mật khẩu đã được lưu dạng text trước đó)
-                    if (user.MatKhauHash == password)
-                    {
-                        // Lưu thông tin người dùng vào Session
-                        Session["UserID"] = user.MaKhachHang;
-                        Session["UserName"] = user.HoTen;
-                        Session["AccountName"] = user.TenDangNhap;
-                        Session["Password"] = user.MatKhauHash;
-                        
-                        try
-                        {
-                            // Kiểm tra và tạo giỏ hàng nếu chưa có
-                            GetOrCreateCart(user.MaKhachHang);
-                            
-                            // Merge giỏ hàng tạm từ sessionStorage (nếu có)
-                            if (!string.IsNullOrEmpty(tempCart))
-                            {
-                                MergeCart(user.MaKhachHang, tempCart);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            // Log lỗi nhưng vẫn cho phép đăng nhập
-                            System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
-                        }
-                        
-                        // Nếu có returnUrl thì chuyển hướng đến đó
-                        if (!string.IsNullOrEmpty(returnUrl))
-                        {
-                            // Kiểm tra xem returnUrl có phải là URL nội bộ không
-                            if (Url.IsLocalUrl(returnUrl))
-                            {
-                                return Redirect(returnUrl);
-                            }
-                            else
-                            {
-                                // Nếu không phải URL nội bộ, chuyển hướng đến trang chủ
-                                return RedirectToAction("Index", "Home");
-                            }
-                        }
-                        
-                        // Chuyển hướng đến trang Home
-                        return RedirectToAction("Index", "Home");
-                    }
+                    MergeCart(user.MaKhachHang, tempCart);
                 }
             }
-            TempData["Error"] = "Tên đăng nhập hoặc mật khẩu không đúng";
-            ViewBag.ReturnUrl = returnUrl; // Lưu lại returnUrl để nếu đăng nhập không thành công
-            ViewBag.TempCart = tempCart; // Lưu lại giỏ hàng tạm
-            return View();
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error handling cart during login: {ex.Message}");
+            }
+
+            // Chuyển hướng đến returnUrl nếu có
+            if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
+
         #endregion
-        
+
         #region Cart
         // Tạo giỏ hàng mới nếu khách hàng chưa có
         private GioHang GetOrCreateCart(string maKhachHang)
@@ -1126,10 +1074,28 @@ namespace Shop.Controllers
         #endregion
         public ActionResult Logout()
         {
+            // Xóa FormsAuthentication cookie
+            FormsAuthentication.SignOut();
+
+            // Xóa toàn bộ session
             Session.Clear();
             Session.Abandon();
-            return RedirectToAction("Login", "InnerPage");
+
+            // Xóa cookie .ASPXAUTH nếu tồn tại (phòng trường hợp trình duyệt lưu nhớ lâu)
+            if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+                {
+                    Expires = DateTime.Now.AddDays(-1),
+                    Value = ""
+                };
+                Response.Cookies.Add(cookie);
+            }
+
+            // Chuyển hướng về trang chủ (hoặc trang đăng nhập)
+            return RedirectToAction("Index", "Home");
         }
+
 
 
 
