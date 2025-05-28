@@ -534,7 +534,6 @@ $('#phonenumber').on('blur', function () {
             emailjs.send("service_misk1ha", "template_c3ehtst", {
                 user_email: userEmail,
                 user_name: userName,
-                message: "Chào mừng bạn đã đăng ký thành công tại Swoo Shop!"
             }).then(function () {
                 console.log("✅ Đã gửi email chào mừng!");
             }, function (error) {

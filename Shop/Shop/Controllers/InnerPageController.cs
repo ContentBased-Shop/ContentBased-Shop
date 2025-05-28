@@ -921,6 +921,19 @@ namespace Shop.Controllers
             bool exists = data.KhachHangs.Any(kh => kh.Email.ToLower() == email);
             return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult CapNhatDaDoc(string maThongBao)
+        {
+            // Lấy thông báo từ DB
+            var thongBao = data.ThongBaos.FirstOrDefault(tb => tb.MaThongBao == maThongBao);
+            if (thongBao != null)
+            {
+                thongBao.DaDoc = true;
+                data.SubmitChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
 
         [HttpGet]
         public JsonResult CheckUsername(string username)
@@ -987,6 +1000,29 @@ namespace Shop.Controllers
 
            data.KhachHangs.InsertOnSubmit(newUser);
            data.SubmitChanges();
+
+            string GenerateUniqueMaThongBaog()
+            {
+                Random rand = new Random();
+                string code;
+                do
+                {
+                    int number = rand.Next(0, 100000); // 0 -> 99999
+                    code = "KH" + number.ToString("D5"); // Ví dụ: KH04212
+                } while (data.KhachHangs.Any(kh => kh.MaKhachHang == code)); // Kiểm tra trùng
+                return code;
+            }
+            var thongBaoMoi = new ThongBao
+            {
+                MaThongBao = GenerateUniqueMaThongBaog(),
+                MaKhachHang = newUser.MaKhachHang,
+                TieuDe = "Chào mừng đến với SwooTechSmart!",
+                NoiDung = "Mã giảm giá đặc biệt dành riêng cho bạn: WELCOME10 (giảm 10% cho đơn hàng đầu tiên)",
+                DaDoc = false,
+                NgayGui = DateTime.Now
+            };
+            data.ThongBaos.InsertOnSubmit(thongBaoMoi); // LINQ thông qua DbSet
+            data.SubmitChanges(); // lưu vào DB
 
 
             // Lưu thông tin người dùng vào Session

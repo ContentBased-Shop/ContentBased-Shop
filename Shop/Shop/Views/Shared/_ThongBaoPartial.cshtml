@@ -1,6 +1,29 @@
 ﻿@model List<Shop.Models.ThongBao>
+<style>
+    .scrollable-tab {
+        max-height: 400px;
+        overflow-y: auto;
+        /* Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: #ccc transparent;
+    }
 
-<h4 class="mb-3">Thông báo</h4>
+        /* Chrome, Edge, Safari */
+        .scrollable-tab::-webkit-scrollbar {
+            width: 4px; /* 👈 Làm nhỏ chiều ngang của scrollbar */
+        }
+
+        .scrollable-tab::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .scrollable-tab::-webkit-scrollbar-thumb {
+            background-color: #aaa;
+            border-radius: 10px;
+        }
+
+</style>
+<h5 class="mb-1"><i class="fa-solid fa-bullhorn"></i> Thông báo</h5>
 
 <!-- Tabs -->
 <ul class="nav nav-tabs mb-3" id="notificationTabs" role="tablist">
@@ -19,52 +42,53 @@
 <!-- Tab content -->
 <div class="tab-content" id="notificationTabContent">
     <!-- Tab Tất cả -->
-    <div class="tab-pane fade show active" id="allTab" role="tabpanel" aria-labelledby="all-tab">
+    <div class="tab-pane fade show active scrollable-tab" id="allTab" role="tabpanel" aria-labelledby="all-tab">
+
         @foreach (var tb in Model)
-        {
+        {   
             var isUnread = tb.DaDoc == false;
             var className = isUnread ? "bg-primary bg-opacity-10" : "";
 
-            <div class="notification-item d-flex align-items-start mb-3 p-2 rounded @className">
+            <div class="notification-item d-flex align-items-center mb-3 p-2 rounded @className gap-3"
+                 onclick="danhDauDaDoc('@tb.MaThongBao', this)">
+                <img src="~/assets/Image/Logo/LogoTitle/logo_swoo_title.png" />
+                <div>
+                    <p class="mb-1">
+                        <strong>@tb.TieuDe</strong><br />@tb.NoiDung
+                    </p>
+                    <small class="text-muted">@GetThoiGian(tb.NgayGui ?? DateTime.Now)</small>
+                </div>
                 @if (isUnread)
                 {
                     <div class="me-2 mt-1">
                         <span style="width: 10px; height: 10px;" class="d-inline-block bg-primary rounded-circle"></span>
                     </div>
                 }
+            </div>
+        }
+    </div>
+
+
+    <!-- Tab Chưa đọc -->
+    <div class="tab-pane fade scrollable-tab" id="unreadTab" role="tabpanel" aria-labelledby="unread-tab">
+        @foreach (var tb in Model.Where(x => x.DaDoc == false))
+        {
+            <div class="notification-item d-flex align-items-center mb-3 p-2 rounded bg-primary bg-opacity-10  gap-3 " onclick="danhDauDaDoc('@tb.MaThongBao', this)">
+                <img src="~/assets/Image/Logo/LogoTitle/logo_swoo_title.png" />
                 <div>
                     <p class="mb-1">
                         <strong>@tb.TieuDe</strong> @tb.NoiDung
                     </p>
                     <small class="text-muted">@GetThoiGian(tb.NgayGui ?? DateTime.Now)</small>
                 </div>
-            </div>
-        }
-    </div>
-
-    <!-- Tab Chưa đọc -->
-    <div class="tab-pane fade" id="unreadTab" role="tabpanel" aria-labelledby="unread-tab">
-        @foreach (var tb in Model.Where(x => x.DaDoc == false))
-        {
-            <div class="notification-item d-flex align-items-start mb-3 p-2 rounded bg-primary bg-opacity-10">
                 <div class="me-2 mt-1">
                     <span style="width: 10px; height: 10px;" class="d-inline-block bg-primary rounded-circle"></span>
                 </div>
-                <div>
-                    <p class="mb-1">
-                        <strong>@tb.TieuDe</strong> @tb.NoiDung
-                    </p>
-                    <small class="text-muted">@GetThoiGian(tb.NgayGui ?? DateTime.Now)</small>
-                </div>
             </div>
         }
     </div>
 </div>
 
-<hr />
-<div class="text-center">
-    <a href="#" class="text-primary text-decoration-none">Xem tất cả</a>
-</div>
 
 @functions {
     string GetThoiGian(DateTime ngay)
@@ -76,3 +100,4 @@
         return ngay.ToString("dd/MM/yyyy HH:mm");
     }
 }
+

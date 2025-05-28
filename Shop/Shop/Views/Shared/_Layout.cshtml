@@ -212,11 +212,7 @@
                                     <div class="icon-circle bg-light-custom avatar-link">
                                         <i class="fa-solid fa-bell text-dark fs-5"></i>
                                     </div>
-
-
                                     <span id="notificationCount" class="cart-badge bg-green-custom text-white">0</span>
-
-
                                     <!-- Notification Dropdown -->
                                     <div id="notificationMenu"
                                          class="shadow bg-white p-3 rounded position-absolute start-0"
@@ -349,7 +345,7 @@
     @RenderSection("scripts", required: false)
 
     <button onclick="scrollToTop()" id="scrollTopBtn" title="Lên đầu trang">  <i class="fas fa-chevron-up"></i> <br /><span>Lên đầu</span></button>
-    
+
     <!-- Chatbot -->
     <div class="chatbot-container">
         <div class="chatbot-button" onclick="toggleChatbot()">
@@ -395,14 +391,14 @@
             transition: transform 0.3s ease;
         }
 
-        .chatbot-button:hover {
-            transform: scale(1.1);
-        }
+            .chatbot-button:hover {
+                transform: scale(1.1);
+            }
 
-        .chatbot-button i {
-            color: white;
-            font-size: 24px;
-        }
+            .chatbot-button i {
+                color: white;
+                font-size: 24px;
+            }
 
         .chatbot-box {
             position: fixed;
@@ -427,9 +423,9 @@
             align-items: center;
         }
 
-        .chatbot-header h5 {
-            margin: 0;
-        }
+            .chatbot-header h5 {
+                margin: 0;
+            }
 
         .close-btn {
             background: none;
@@ -473,26 +469,26 @@
             gap: 10px;
         }
 
-        .chatbot-input input {
-            flex-grow: 1;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            outline: none;
-        }
+            .chatbot-input input {
+                flex-grow: 1;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                outline: none;
+            }
 
-        .chatbot-input button {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+            .chatbot-input button {
+                background: #28a745;
+                color: white;
+                border: none;
+                padding: 8px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
 
-        .chatbot-input button:hover {
-            background: #218838;
-        }
+                .chatbot-input button:hover {
+                    background: #218838;
+                }
 
         .action-button {
             display: inline-block;
@@ -504,10 +500,10 @@
             margin-top: 10px;
         }
 
-        .action-button:hover {
-            background: #218838;
-            color: white;
-        }
+            .action-button:hover {
+                background: #218838;
+                color: white;
+            }
 
         .quick-replies {
             display: flex;
@@ -526,9 +522,9 @@
             transition: background-color 0.3s ease;
         }
 
-        .quick-reply-btn:hover {
-            background: #e0e0e0;
-        }
+            .quick-reply-btn:hover {
+                background: #e0e0e0;
+            }
 
         .action-button {
             display: inline-block;
@@ -541,10 +537,10 @@
             transition: background-color 0.3s ease;
         }
 
-        .action-button:hover {
-            background: #218838;
-            color: white;
-        }
+            .action-button:hover {
+                background: #218838;
+                color: white;
+            }
     </style>
 
     <script>
@@ -572,14 +568,14 @@
         function sendMessage() {
             const userInput = document.getElementById('userInput');
             const message = userInput.value.trim();
-            
+
             if (message) {
                 // Add user message
                 addMessage(message, 'user');
-                
+
                 // Process message
                 processMessage(message);
-                
+
                 // Clear input
                 userInput.value = '';
             }
@@ -604,7 +600,7 @@
 
         function processMessage(message) {
             const lowerMessage = message.toLowerCase();
-            
+
             // Check if it's a greeting
             if (chatbotData.greetings.includes(lowerMessage)) {
                 showWelcomeMessage();
@@ -980,3 +976,28 @@
     });
 </script>
 
+<script>
+    function danhDauDaDoc(maThongBao, element) {
+        fetch('/InnerPage/CapNhatDaDoc', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+            },
+            body: JSON.stringify({ maThongBao: maThongBao })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Cập nhật UI: xóa lớp bg-primary bg-opacity-10 và chấm tròn
+                    element.classList.remove("bg-primary", "bg-opacity-10");
+
+                    const dot = element.querySelector(".bg-primary.rounded-circle");
+                    if (dot) {
+                        dot.remove();
+                    }
+                }
+            })
+            .catch(error => console.error('Lỗi khi cập nhật:', error));
+    }
+</script>
