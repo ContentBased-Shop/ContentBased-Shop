@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "View1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Thanh toán VNPay";
+}
+
+<h2>Thanh toán VNPay</h2>
+
+<form action="/Payment/CreatePaymentUrl" method="post">
+    <div>
+        <label for="amount">Số tiền:</label>
+        <input type="number" id="amount" name="amount" value="100000" required /> VND
+    </div>
+
+    <div>
+        <label for="orderInfo">Thông tin đơn hàng:</label>
+        <input type="text" id="orderInfo" name="orderInfo" value="Thanh toan don hang #123" required />
+    </div>
+
+    <button type="submit">Thanh toán VNPay</button>
+</form>

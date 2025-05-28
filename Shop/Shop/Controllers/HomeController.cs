@@ -180,5 +180,11 @@ namespace Shop.Controllers
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public ActionResult View1()
+        {
+           
+            return View();
+        }
     }
 }

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "PaymentCallbackVnpay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Kết quả thanh toán VNPay";
+}
+
+<h2>Kết quả thanh toán VNPay</h2>
+
+<p>Mã giao dịch: @Request.QueryString["vnp_TxnRef"]</p>
+<p>Mã phản hồi: @Request.QueryString["vnp_ResponseCode"]</p>
+
+@if (Request.QueryString["vnp_ResponseCode"] == "00")
+{
+    <p style="color: green;">Thanh toán thành công!</p>
+}
+else
+{
+    <p style="color: red;">Thanh toán thất bại hoặc bị hủy.</p>
+}

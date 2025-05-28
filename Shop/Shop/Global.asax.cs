@@ -98,7 +98,7 @@ namespace Shop
                 }
             }
 
-            Server.ClearError();
+
             IController errorController = new Shop.Controllers.ErrorController();
             errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }

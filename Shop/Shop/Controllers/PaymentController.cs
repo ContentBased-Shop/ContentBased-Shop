@@ -134,6 +134,7 @@ namespace Shop.Controllers
         }
         #endregion
 
+        #region Paypal
         // Khởi tạo thanh toán PayPal
         [HttpPost]
         public ActionResult PayWithPaypal(OrderModel model)
@@ -649,9 +650,91 @@ namespace Shop.Controllers
             ViewBag.Error = "Thanh toán không thành công. Vui lòng thử lại sau.";
             return View();
         }
-    }
+        #endregion
 
-    // Lớp hỗ trợ để quản lý thông tin sản phẩm thanh toán
+        #region VNPay
+        public ActionResult CreatePaymentUrl()
+        {
+            string vnp_Returnurl = "http://localhost:65154/Payment/PaymentCallbackVnpay"; // callback URL
+            string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            string vnp_TmnCode = "UTUJQSUQ";
+            string vnp_HashSecret = "4EWP3FZDFGBMGMRH5W9LPWCCXO1YXX57";
+
+            VnPayLibrary vnpay = new VnPayLibrary();
+
+            vnpay.AddRequestData("vnp_Version", "2.1.0");
+            vnpay.AddRequestData("vnp_Command", "pay");
+            vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+            vnpay.AddRequestData("vnp_Amount", (100000 * 100).ToString()); // đơn vị là VND * 100
+            vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            vnpay.AddRequestData("vnp_CurrCode", "VND");
+            string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            if (string.IsNullOrEmpty(ipAddress))
+            {
+                ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+            }
+            vnpay.AddRequestData("vnp_IpAddr", ipAddress);
+            vnpay.AddRequestData("vnp_Locale", "vn");
+            vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang #123");
+            vnpay.AddRequestData("vnp_OrderType", "other");
+            vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
+            vnpay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString());
+
+            string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+
+            return Redirect(paymentUrl);
+        }
+        public ActionResult PaymentCallbackVnpay()
+        {
+            var vnpay = new VnPayLibrary();
+            var response = HttpContext.Request.QueryString;
+
+            foreach (string key in Request.QueryString.AllKeys)
+            {
+                if (!string.IsNullOrEmpty(key) && key.StartsWith("vnp_"))
+                {
+                    string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+
+                    if (string.IsNullOrEmpty(ipAddress))
+                    {
+                        ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+                    }
+
+                    vnpay.AddRequestData("vnp_IpAddr", ipAddress);
+
+                }
+            }
+
+            string vnp_HashSecret = "4EWP3FZDFGBMGMRH5W9LPWCCXO1YXX57";
+            bool checkSignature = vnpay.ValidateSignature(vnp_HashSecret);
+
+            if (checkSignature)
+            {
+                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+
+                if (vnp_ResponseCode == "00")
+                {
+                    ViewBag.Message = "Thanh toán thành công!";
+                }
+                else
+                {
+                    ViewBag.Message = $"Lỗi thanh toán: Mã {vnp_ResponseCode}";
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Sai chữ ký (có thể bị giả mạo dữ liệu)";
+            }
+
+            return View();
+        }
+
+        #endregion
+
+    }
+  
+
+    // Lớp hỗ trợ để quản lý thông tin sản phẩm thanh toán  
     public class OrderItem
     {
         public string Name { get; set; }
