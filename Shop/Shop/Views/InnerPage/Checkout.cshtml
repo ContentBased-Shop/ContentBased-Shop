@@ -14,7 +14,7 @@
 </div>
 
 <div class="container p-4 mb-3 rounded-3 bg-white">
-    <h3 class="mb-4 fw-bold">THANH TOÁN</h3>
+    <h3 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">THANH TOÁN</h3>
 
     <div class="row g-4">
         <!-- Left column -->
@@ -84,7 +84,7 @@
                 <h2 class="h5 fw-bold mb-3">Phương thức thanh toán</h2>
                 <div class="card border p-3">
                     <div class="form-check mb-3">
-                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="TheTinDung" checked>
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="TheTinDungPAYPAl" checked>
                         <label class="form-check-label" for="bankTransfer">
                             Thẻ tín dụng / Thẻ ghi nợ
                         </label>
@@ -95,18 +95,22 @@
                     </div>
 
                     <div class="form-check mb-3">
+                        <input class="form-check-input" type="radio" name="paymentMethod" id="bankTransfer" value="TheTinDungVNPAY" checked>
+                        <label class="form-check-label" for="bankTransfer">
+                            Thẻ tín dụng / Thẻ ghi nợ
+                        </label>
+                        <small class="d-block text-muted mt-1">
+                            Thanh toán qua cổng VNPAY (Hỗ trợ Thẻ Quốc Tế, Thẻ Nội Địa)
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSutP9weqAPNNrV0V616bloZn2fwAdAOHqnFQ&s" alt="PayPal" class="ms-2" height="20">
+                        </small>
+                    </div>
+
+                    <div class="form-check mb-3">
                         <input class="form-check-input" type="radio" name="paymentMethod" id="cod" value="COD" checked>
                         <label class="form-check-label" for="cod">Thanh toán khi nhận hàng</label>
                     </div>
 
-                    <div class="form-check d-flex justify-content-between align-items-center">
-                        <div>
-                            <input class="form-check-input" type="radio" name="paymentMethod" id="banking" value="ChuyenKhoan">
-                            <label class="form-check-label" for="banking">
-                                Chuyển khoản ngân hàng
-                            </label>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -120,7 +124,7 @@
         <!-- Right column - Order Summary -->
         <div class="col-lg-4">
             <div class="bg-light p-4 rounded">
-                <h2 class="h5 fw-bold mb-3">Đơn hàng của bạn</h2>
+                <h5 class=" text-uppercase border-start border-4 border-success ps-3 mb-4">Đơn hàng của bạn</h5>
 
                 <div class="d-flex justify-content-between text-muted small mb-2">
                     <span>SẢN PHẨM</span>
@@ -606,7 +610,7 @@
             };
             
             // Nếu phương thức thanh toán là TheTinDung (PayPal)
-            if (paymentMethod === 'TheTinDung') {
+            if (paymentMethod === 'TheTinDungPAYPAL') {
                 // Gọi API thanh toán PayPal
                 fetch('/Payment/PayWithPaypal', {
                     method: 'POST',
@@ -637,7 +641,43 @@
                         confirmButtonColor: '#1aba1a'
                     });
                 });
-            } else {
+            }
+            else if (paymentMethod === 'TheTinDungVNPAY') {
+                // Gọi API thanh toán PayPal
+                fetch('/Payment/CreatePaymentUrl', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderData)
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.success) {
+                            // Chuyển hướng đến trang thanh toán PayPal
+                            window.location.href = result.redirectUrl;
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lỗi',
+                                text: result.message || 'Có lỗi xảy ra khi thanh toán',
+                                confirmButtonColor: '#1aba1a'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: 'Có lỗi xảy ra khi kết nối đến server',
+                            confirmButtonColor: '#1aba1a'
+                        });
+                    });
+            }
+
+
+
+            else {
                 // Các phương thức thanh toán khác (không phải PayPal)
                 fetch('/InnerPage/CreateOrder', {
                     method: 'POST',

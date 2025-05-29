@@ -53,20 +53,21 @@
     .empty-cart {
         min-height: 200px;
     }
+
     .form-check-input {
         width: 1.5em;
         height: 1.5em;
         cursor: pointer;
     }
 
-    /* Thay màu nền khi checkbox được chọn */
-    .form-check-input:checked {
-        background-color: #1ABA1A;
-        border-color: #1ABA1A;
-    }
+        /* Thay màu nền khi checkbox được chọn */
+        .form-check-input:checked {
+            background-color: #1ABA1A;
+            border-color: #1ABA1A;
+        }
 </style>
 
-<div class="container py-4 px-4 bg-white my-3 rounded-3">
+<div class="container py-4 px-4 bg-white my-2 rounded-3">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb small text-muted m-0">
             <li class="breadcrumb-item"><a href="/">Trang Chủ</a></li>
@@ -74,7 +75,7 @@
         </ol>
     </nav>
 </div>
-<div class="container py-5 bg-white rounded-3 mb-3">
+<div class="container py-5 bg-white rounded-3 mb-2">
     <div class="row g-4">
         <!-- Shopping Cart -->
         <div class="col-lg-8">
@@ -93,7 +94,7 @@
         <div class="col-lg-4 mb-4">
             <div class="position-sticky top-0">
                 <div class="card p-4 border-1 border-success-subtle shadow-sm">
-                    <h4 class="mb-4">Thông tin đơn hàng</h4>
+                    <h4 class="text-uppercase border-start border-4 border-success ps-3 mb-4">Thông tin đơn hàng</h4>
 
                     <div class="mb-3">
                         <label for="voucher" class="form-label">Nhập mã giảm giá</label>
@@ -183,7 +184,7 @@
         </div>
     </div>
 </template>
-
+@Html.Action("RecentlyViewedPartial", "Product")
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -320,7 +321,7 @@
                         text: 'Sản phẩm đã được xóa khỏi giỏ hàng.',
                         timer: 1500,
                         showConfirmButton: false
-                   
+
                     });
                 }
             });

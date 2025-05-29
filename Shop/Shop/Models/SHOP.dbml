@@ -101,8 +101,8 @@
       <Column Name="NgayTao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Association Name="DonHang_ChiTietDonHang" Member="ChiTietDonHangs" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="ChiTietDonHang" />
       <Association Name="DonHang_GiaoHang" Member="GiaoHangs" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="GiaoHang" />
-      <Association Name="DonHang_ThanhToan" Member="ThanhToans" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="ThanhToan" />
       <Association Name="DonHang_DanhGia" Member="DanhGias" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DanhGia" />
+      <Association Name="DonHang_ThanhToan" Member="ThanhToans" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="ThanhToan" />
       <Association Name="Voucher_DonHang" Member="Voucher" ThisKey="MaVoucher" OtherKey="MaVoucher" Type="Voucher" IsForeignKey="true" />
       <Association Name="KhachHang_DonHang" Member="KhachHang" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="KhachHang" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
@@ -201,17 +201,6 @@
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="VaiTro" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="NhanVien_NhapHang" Member="NhapHangs" ThisKey="MaNhanVien" OtherKey="MaNhanVien" Type="NhapHang" />
-    </Type>
-  </Table>
-  <Table Name="dbo.ThanhToan" Member="ThanhToans">
-    <Type Name="ThanhToan">
-      <Column Name="MaThanhToan" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="MaDonHang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="PhuongThucThanhToan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="MaGiaoDich" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="DonHang_ThanhToan" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
   <Table Name="dbo.ThongBao" Member="ThongBaos">
@@ -344,6 +333,17 @@
       <Association Name="DonHang_DanhGia" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" />
       <Association Name="HangHoa_DanhGia" Member="HangHoa" ThisKey="MaHangHoa" OtherKey="MaHangHoa" Type="HangHoa" IsForeignKey="true" />
       <Association Name="KhachHang_DanhGia" Member="KhachHang" ThisKey="MaKhachHang" OtherKey="MaKhachHang" Type="KhachHang" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ThanhToan" Member="ThanhToans">
+    <Type Name="ThanhToan">
+      <Column Name="MaThanhToan" Type="System.String" DbType="NVarChar(50) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="MaDonHang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PhuongThucThanhToan" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MaGiaoDich" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="DonHang_ThanhToan" Member="DonHang" ThisKey="MaDonHang" OtherKey="MaDonHang" Type="DonHang" IsForeignKey="true" DeleteRule="CASCADE" />
     </Type>
   </Table>
 </Database>

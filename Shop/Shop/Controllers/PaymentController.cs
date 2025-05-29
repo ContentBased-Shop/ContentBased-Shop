@@ -133,6 +133,63 @@ namespace Shop.Controllers
             }
         }
         #endregion
+        // Hàm tạo mã đơn hàng, thanh toán, v.v.
+        string GenerateUniqueOrderId()
+        {
+            Random rand = new Random();
+            string code;
+            do
+            {
+                int number = rand.Next(0, 100000);
+                code = "DH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
+            } while (data.DonHangs.Any(hd => hd.MaDonHang == code));
+            return code;
+        }
+
+        string GenerateUniquePaymentId()
+        {
+            Random rand = new Random();
+            string code;
+            do
+            {
+                int number = rand.Next(0, 100000);
+                code = "TT" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
+            } while (data.ThanhToans.Any(tt => tt.MaThanhToan == code));
+            return code;
+        }
+
+        string GenerateUniqueShippingId()
+        {
+            Random rand = new Random();
+            string code;
+            do
+            {
+                int number = rand.Next(0, 100000);
+                code = "GH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
+            } while (data.GiaoHangs.Any(gh => gh.MaGiaoHang == code));
+            return code;
+        }
+
+        string GenerateUniqueTrackingId()
+        {
+            Random rand = new Random();
+            string code;
+            int number = rand.Next(100000000, 999999999);
+            code = "VD" + number.ToString();
+            return code;
+        }
+
+        string GenerateUniqueOrderDetailId()
+        {
+            Random rand = new Random();
+            string code;
+            do
+            {
+                int number = rand.Next(0, 100000);
+                code = "CTDH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
+            } while (data.ChiTietDonHangs.Any(ct => ct.MaChiTietDonHang == code));
+            return code;
+        }
 
         #region Paypal
         // Khởi tạo thanh toán PayPal
@@ -397,64 +454,7 @@ namespace Shop.Controllers
                     // Tạo đơn hàng
                     string maKhachHang = Session["UserID"].ToString();
 
-                    // Hàm tạo mã đơn hàng, thanh toán, v.v.
-                    string GenerateUniqueOrderId()
-                    {
-                        Random rand = new Random();
-                        string code;
-                        do
-                        {
-                            int number = rand.Next(0, 100000);
-                            code = "DH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
-                        } while (data.DonHangs.Any(hd => hd.MaDonHang == code));
-                        return code;
-                    }
-
-                    string GenerateUniquePaymentId()
-                    {
-                        Random rand = new Random();
-                        string code;
-                        do
-                        {
-                            int number = rand.Next(0, 100000);
-                            code = "TT" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
-                        } while (data.ThanhToans.Any(tt => tt.MaThanhToan == code));
-                        return code;
-                    }
-
-                    string GenerateUniqueShippingId()
-                    {
-                        Random rand = new Random();
-                        string code;
-                        do
-                        {
-                            int number = rand.Next(0, 100000);
-                            code = "GH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
-                        } while (data.GiaoHangs.Any(gh => gh.MaGiaoHang == code));
-                        return code;
-                    }
-
-                    string GenerateUniqueTrackingId()
-                    {
-                        Random rand = new Random();
-                        string code;
-                        int number = rand.Next(100000000, 999999999);
-                        code = "VD" + number.ToString();
-                        return code;
-                    }
-
-                    string GenerateUniqueOrderDetailId()
-                    {
-                        Random rand = new Random();
-                        string code;
-                        do
-                        {
-                            int number = rand.Next(0, 100000);
-                            code = "CTDH" + DateTime.Now.ToString("yyMMdd") + number.ToString("D5");
-                        } while (data.ChiTietDonHangs.Any(ct => ct.MaChiTietDonHang == code));
-                        return code;
-                    }
-
+                   
                     // Tạo đơn hàng mới
                     var donHang = new DonHang
                     {
@@ -581,7 +581,7 @@ namespace Shop.Controllers
                     {
                         MaThanhToan = GenerateUniquePaymentId(),
                         MaDonHang = donHang.MaDonHang,
-                        PhuongThucThanhToan = "TheTinDung", // PayPal được xem là thanh toán bằng thẻ tín dụng
+                        PhuongThucThanhToan = "TheTinDungVNPAY", // PayPal được xem là thanh toán bằng thẻ tín dụng
                         MaGiaoDich = paymentId, // Lưu ID giao dịch PayPal
                         TrangThai = "ThanhCong", // Đã thanh toán thành công
                         NgayThanhToan = DateTime.Now
@@ -653,80 +653,333 @@ namespace Shop.Controllers
         #endregion
 
         #region VNPay
-        public ActionResult CreatePaymentUrl()
+        public ActionResult CreatePaymentUrl(OrderModel model)
         {
-            string vnp_Returnurl = "http://localhost:65154/Payment/PaymentCallbackVnpay"; // callback URL
-            string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            string vnp_TmnCode = "UTUJQSUQ";
-            string vnp_HashSecret = "4EWP3FZDFGBMGMRH5W9LPWCCXO1YXX57";
+            if (Session["UserID"] == null)
+            {
+                return Json(new { success = false, message = "Bạn chưa đăng nhập." }, JsonRequestBehavior.AllowGet);
+            }
 
-            VnPayLibrary vnpay = new VnPayLibrary();
+            try
+            {
+                // Kiểm tra dữ liệu đầu vào
+                if (model == null || model.sanPham == null || !model.sanPham.Any())
+                {
+                    return Json(new { success = false, message = "Danh sách sản phẩm không hợp lệ." }, JsonRequestBehavior.AllowGet);
+                }
 
-            vnpay.AddRequestData("vnp_Version", "2.1.0");
-            vnpay.AddRequestData("vnp_Command", "pay");
-            vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
-            vnpay.AddRequestData("vnp_Amount", (100000 * 100).ToString()); // đơn vị là VND * 100
-            vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
-            vnpay.AddRequestData("vnp_CurrCode", "VND");
+                // Tính tổng tiền sản phẩm
+                double tongTien = 0;
+                foreach (var item in model.sanPham)
+                {
+                    var bienThe = data.BienTheHangHoas.FirstOrDefault(b => b.MaBienThe == item.maBienThe);
+                    if (bienThe == null)
+                    {
+                        return Json(new { success = false, message = $"Sản phẩm không tồn tại: {item.maBienThe}" }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    if (item.soLuong <= 0)
+                    {
+                        return Json(new { success = false, message = $"Số lượng không hợp lệ cho sản phẩm: {item.maBienThe}" }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    double donGia = bienThe.GiaKhuyenMai ?? bienThe.GiaBan ?? 0;
+                    tongTien += donGia * item.soLuong;
+                }
+
+                // Tính thuế và phí vận chuyển
+                double thue = tongTien * 0.08;
+                double phiVanChuyen = 0; // Có thể cấu hình động
+                double tongThanhToan = tongTien + thue + phiVanChuyen;
+
+                // Áp dụng voucher nếu có
+                if (!string.IsNullOrWhiteSpace(model.maVoucherCode))
+                {
+                    var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == model.maVoucherCode && v.SoLuongDaDung < v.SoLuong && v.NgayKetThuc >= DateTime.Now);
+                    if (voucher != null)
+                    {
+                        double soTienGiam = 0;
+                        if (voucher.LoaiGiamGia == "TienMat")
+                        {
+                            soTienGiam = (double)voucher.GiaTriGiamGia;
+                        }
+                        else if (voucher.LoaiGiamGia == "PhanTram")
+                        {
+                            soTienGiam = tongThanhToan * ((double)voucher.GiaTriGiamGia / 100);
+                        }
+
+                        if (soTienGiam > tongThanhToan)
+                        {
+                            soTienGiam = tongThanhToan;
+                        }
+
+                        tongThanhToan -= soTienGiam;
+                    }
+                    else
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Invalid or expired voucher: {model.maVoucherCode}");
+                    }
+                }
+
+                // Lưu đơn hàng vào Session
+                Session["VnPayOrderModel"] = model;
+
+                // Tạo URL thanh toán VNPAY
+                string vnp_Returnurl = Url.Action("PaymentCallbackVnpay", "Payment", null, Request.Url.Scheme);
+                string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+                string vnp_TmnCode = "UTUJQSUQ";
+                string vnp_HashSecret = "4EWP3FZDFGBMGMRH5W9LPWCCXO1YXX57"; // Lưu ý: Lưu trong cấu hình thực tế
+
+                VnPayLibrary vnpay = new VnPayLibrary();
+
+                // Thêm các tham số bắt buộc theo tài liệu VNPay 2.1.0
+                vnpay.AddRequestData("vnp_Version", "2.1.0");
+                vnpay.AddRequestData("vnp_Command", "pay");
+                vnpay.AddRequestData("vnp_TmnCode", vnp_TmnCode);
+                vnpay.AddRequestData("vnp_Amount", ((long)(tongThanhToan * 100)).ToString());
+                vnpay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
+                vnpay.AddRequestData("vnp_CurrCode", "VND");
+
+                // Lấy địa chỉ IP
+                string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = Request.ServerVariables["REMOTE_ADDR"];
+                }
+                if (string.IsNullOrEmpty(ipAddress))
+                {
+                    ipAddress = "127.0.0.1"; // Giá trị mặc định nếu không lấy được IP
+                }
+                vnpay.AddRequestData("vnp_IpAddr", ipAddress);
+
+                vnpay.AddRequestData("vnp_Locale", "vn");
+                vnpay.AddRequestData("vnp_OrderInfo", $"Thanh toan don hang #{DateTime.Now.Ticks}");
+                vnpay.AddRequestData("vnp_OrderType", "other");
+                vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
+                vnpay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString());
+
+                // Ghi log tham số để debug
+                var requestDataLog = string.Join("&", vnpay.GetRequestData().Select(kvp => $"{kvp.Key}={kvp.Value}"));
+                System.Diagnostics.Debug.WriteLine("VNPay Request Data: " + requestDataLog);
+
+                // Tạo URL thanh toán
+                string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+
+                return Json(new { success = true, redirectUrl = paymentUrl }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"VNPAY Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return Json(new { success = false, message = $"Lỗi tạo thanh toán VNPAY: {ex.Message}" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+    
+    public ActionResult PaymentCallbackVnpay()
+        {
+            var vnpay = new VnPayLibrary();
+
+            // Lấy tất cả tham số từ QueryString
+            foreach (string key in Request.QueryString.AllKeys)
+            {
+                if (!string.IsNullOrEmpty(key) && key.StartsWith("vnp_", StringComparison.OrdinalIgnoreCase))
+                {
+                    vnpay.AddResponseData(key, Request.QueryString[key]);
+                }
+            }
+
+            // Lấy địa chỉ IP
             string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
             if (string.IsNullOrEmpty(ipAddress))
             {
                 ipAddress = Request.ServerVariables["REMOTE_ADDR"];
             }
-            vnpay.AddRequestData("vnp_IpAddr", ipAddress);
-            vnpay.AddRequestData("vnp_Locale", "vn");
-            vnpay.AddRequestData("vnp_OrderInfo", "Thanh toan don hang #123");
-            vnpay.AddRequestData("vnp_OrderType", "other");
-            vnpay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl);
-            vnpay.AddRequestData("vnp_TxnRef", DateTime.Now.Ticks.ToString());
+            Console.WriteLine("IP Address: " + ipAddress); // Ghi log IP để debug
 
-            string paymentUrl = vnpay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
-
-            return Redirect(paymentUrl);
-        }
-        public ActionResult PaymentCallbackVnpay()
-        {
-            var vnpay = new VnPayLibrary();
-            var response = HttpContext.Request.QueryString;
-
-            foreach (string key in Request.QueryString.AllKeys)
-            {
-                if (!string.IsNullOrEmpty(key) && key.StartsWith("vnp_"))
-                {
-                    string ipAddress = Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
-
-                    if (string.IsNullOrEmpty(ipAddress))
-                    {
-                        ipAddress = Request.ServerVariables["REMOTE_ADDR"];
-                    }
-
-                    vnpay.AddRequestData("vnp_IpAddr", ipAddress);
-
-                }
-            }
-
-            string vnp_HashSecret = "4EWP3FZDFGBMGMRH5W9LPWCCXO1YXX57";
+            // Kiểm tra chữ ký
+            string vnp_HashSecret = "4EWP3FZDFGBMGMRH5W9LPWCCXO1YXX57"; // Thay bằng secret key từ VNPay
             bool checkSignature = vnpay.ValidateSignature(vnp_HashSecret);
 
-            if (checkSignature)
+            if (!checkSignature)
             {
-                string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
-
-                if (vnp_ResponseCode == "00")
-                {
-                    ViewBag.Message = "Thanh toán thành công!";
-                }
-                else
-                {
-                    ViewBag.Message = $"Lỗi thanh toán: Mã {vnp_ResponseCode}";
-                }
-            }
-            else
-            {
+                Console.WriteLine("Signature validation failed.");
                 ViewBag.Message = "Sai chữ ký (có thể bị giả mạo dữ liệu)";
+                return View("PaymentFailed");
             }
 
-            return View();
+            // Kiểm tra mã phản hồi
+            string vnp_ResponseCode = vnpay.GetResponseData("vnp_ResponseCode");
+            if (vnp_ResponseCode != "00")
+            {
+                Console.WriteLine($"Payment error: ResponseCode = {vnp_ResponseCode}");
+                ViewBag.Message = $"Lỗi thanh toán: Mã {vnp_ResponseCode}";
+                return View("PaymentFailed");
+            }
+
+            try
+            {
+                // Lấy thông tin đơn hàng từ Session
+                var orderModel = Session["VnPayOrderModel"] as OrderModel;
+                if (orderModel == null)
+                {
+                    Console.WriteLine("OrderModel not found in Session.");
+                    return RedirectToAction("Index", "Home");
+                }
+
+                string maKhachHang = Session["UserID"]?.ToString();
+                if (string.IsNullOrEmpty(maKhachHang))
+                {
+                    Console.WriteLine("UserID not found in Session.");
+                    return RedirectToAction("Index", "Home");
+                }
+
+                // Tạo mã duy nhất cho đơn hàng
+                string maDonHang = GenerateUniqueOrderId();
+                string maThanhToan = GenerateUniquePaymentId();
+                string maGiaoHang = GenerateUniqueShippingId();
+                string maVanDon = GenerateUniqueTrackingId();
+
+                // Tạo đối tượng đơn hàng
+                var donHang = new DonHang
+                {
+                    MaDonHang = maDonHang,
+                    MaKhachHang = maKhachHang,
+                    TongTien = 0,
+                    TrangThaiThanhToan = "DaThanhToan",
+                    TrangThaiDonHang = "DangXuLy",
+                    NgayTao = DateTime.Now
+                };
+
+                data.DonHangs.InsertOnSubmit(donHang);
+
+                decimal tongTien = 0;
+                var gioHang = data.GioHangs.FirstOrDefault(g => g.MaKhachHang == maKhachHang);
+
+                foreach (var item in orderModel.sanPham)
+                {
+                    var bienThe = data.BienTheHangHoas.FirstOrDefault(b => b.MaBienThe == item.maBienThe);
+                    if (bienThe == null)
+                    {
+                        Console.WriteLine($"Variant not found: MaBienThe = {item.maBienThe}");
+                        continue; // Bỏ qua nếu không tìm thấy biến thể
+                    }
+
+                    var chiTietDonHang = new ChiTietDonHang
+                    {
+                        MaChiTietDonHang = GenerateUniqueOrderDetailId(),
+                        MaDonHang = maDonHang,
+                        MaBienThe = item.maBienThe,
+                        SoLuong = item.soLuong,
+                        DonGia = (double)(bienThe.GiaKhuyenMai ?? bienThe.GiaBan ?? 0)
+                    };
+                    data.ChiTietDonHangs.InsertOnSubmit(chiTietDonHang);
+
+                    bienThe.SoLuongTonKho -= item.soLuong;
+                    decimal donGia = (decimal)(bienThe.GiaKhuyenMai ?? bienThe.GiaBan ?? 0);
+                    tongTien += donGia * item.soLuong;
+
+                    // Xóa khỏi giỏ hàng
+                    if (gioHang != null)
+                    {
+                        var ctgh = data.ChiTietGioHangs
+                            .FirstOrDefault(ct => ct.MaGioHang == gioHang.MaGioHang && ct.MaBienThe == item.maBienThe);
+                        if (ctgh != null)
+                        {
+                            data.ChiTietGioHangs.DeleteOnSubmit(ctgh);
+                        }
+                    }
+                }
+
+                // Tính thuế và tổng thanh toán
+                decimal thue = tongTien * 0.08m;
+                decimal tongThanhToan = tongTien + thue;
+
+                // Áp dụng voucher
+                if (!string.IsNullOrWhiteSpace(orderModel.maVoucherCode))
+                {
+                    var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == orderModel.maVoucherCode);
+                    if (voucher != null)
+                    {
+                        decimal soTienGiam = voucher.LoaiGiamGia == "TienMat"
+                            ? (decimal)voucher.GiaTriGiamGia
+                            : tongThanhToan * ((decimal)voucher.GiaTriGiamGia / 100);
+
+                        if (soTienGiam > tongThanhToan) soTienGiam = tongThanhToan;
+                        tongThanhToan -= soTienGiam;
+
+                        donHang.MaVoucher = voucher.MaVoucher;
+                        voucher.SoLuongDaDung += 1;
+
+                        var phanPhoi = data.PhanPhoiVouchers
+                            .FirstOrDefault(p => p.MaVoucher == voucher.MaVoucher && p.MaKhachHang == maKhachHang);
+
+                        if (phanPhoi != null)
+                        {
+                            phanPhoi.DaSuDung = true;
+                            phanPhoi.NgaySuDung = DateTime.Now;
+                        }
+                        else
+                        {
+                            var newPhanPhoi = new PhanPhoiVoucher
+                            {
+                                MaVoucher = voucher.MaVoucher,
+                                MaKhachHang = maKhachHang,
+                                DaSuDung = true,
+                                NgaySuDung = DateTime.Now
+                            };
+                            data.PhanPhoiVouchers.InsertOnSubmit(newPhanPhoi);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Voucher not found: MaVoucherCode = {orderModel.maVoucherCode}");
+                    }
+                }
+
+                donHang.TongTien = (double)tongThanhToan;
+
+                // Tạo thông tin thanh toán
+                var thanhToan = new ThanhToan
+                {
+                    MaThanhToan = maThanhToan,
+                    MaDonHang = maDonHang,
+                    PhuongThucThanhToan = "TheTinDungPayPal",
+                    MaGiaoDich = vnpay.GetResponseData("vnp_TransactionNo") ?? "N/A",
+                    TrangThai = "ThanhCong",
+                    NgayThanhToan = DateTime.Now
+                };
+
+                data.ThanhToans.InsertOnSubmit(thanhToan);
+
+                // Tạo thông tin giao hàng
+                var giaoHang = new GiaoHang
+                {
+                    MaGiaoHang = maGiaoHang,
+                    MaDonHang = maDonHang,
+                    MaDiaChi = orderModel.maDiaChi,
+                    MaVanDon = maVanDon,
+                    TrangThaiGiaoHang = "ChuanBiHang"
+                };
+
+                data.GiaoHangs.InsertOnSubmit(giaoHang);
+
+                // Lưu tất cả thay đổi vào database
+                data.SubmitChanges();
+
+                // Xóa Session và đặt flag xóa giỏ hàng
+                Session.Remove("VnPayOrderModel");
+                TempData["ClearCart"] = true;
+
+                // Gửi email xác nhận
+                SendOrderConfirmationEmail(maDonHang);
+
+                return RedirectToAction("OrderSuccess", "InnerPage", new { id = maDonHang });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error processing order: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                ViewBag.Error = $"Lỗi xử lý đơn hàng: {ex.Message}";
+                return View("PaymentFailed");
+            }
         }
 
         #endregion
