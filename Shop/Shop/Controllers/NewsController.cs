@@ -22,6 +22,7 @@ namespace Shop.Controllers
 
         // URL sử dụng endpoint everything, cho phép tìm kiếm theo từ khóa
         private readonly string _apiUrl = "https://newsapi.org/v2/everything?q={0}&language=vi&pageSize=4&apiKey={1}";
+        private readonly string _apiUrlFULL = "https://newsapi.org/v2/everything?q={0}&language=vi&pageSize=100&apiKey={1}";
 
 
         private async Task<List<NewsModel>> FetchNewsArticlesAsync(string keyword)
@@ -61,6 +62,43 @@ namespace Shop.Controllers
             return articles;
         }
 
+
+        private async Task<List<NewsModel>> FetchFULLNewsArticlesAsync(string keyword)
+        {
+            System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+
+            var articles = new List<NewsModel>();
+            string encodedKeyword = Uri.EscapeDataString(keyword);
+            string apiKey = ConfigurationManager.AppSettings["NewsApi_ApiKey"];
+
+            if (string.IsNullOrEmpty(apiKey))
+                return articles;
+
+            string apiUrl = string.Format(_apiUrlFULL, encodedKeyword, apiKey);
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("User-Agent", "MyNewsApp/1.0");
+
+                    var response = await client.GetAsync(apiUrl);
+                    response.EnsureSuccessStatusCode();
+
+                    string json = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<NewsApiResponse>(json);
+
+                    if (result?.Status == "ok")
+                        articles = result.Articles ?? new List<NewsModel>();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Lỗi khi gọi News API: " + ex.Message);
+            }
+
+            return articles;
+        }
         // Action trả về PartialView chứa danh sách bài viết
         public async Task<ActionResult> PartialNews()
         {
@@ -75,5 +113,22 @@ namespace Shop.Controllers
                 return PartialView("_NewsPartial", new List<NewsModel>());
             }
         }
+
+        public async Task<ActionResult> Blog()
+        {
+            try
+            {
+                var articles = await FetchFULLNewsArticlesAsync("công nghệ");
+                return View(articles);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Lỗi khi tải tin tức: " + ex.Message;
+                return View();
+
+            }
+           
+        }
+
     }
 }

@@ -1350,11 +1350,7 @@ namespace Shop.Controllers
             return View();
         }
 
-        public ActionResult Blog()
-        {
-            return View();
-        }
-
+      
         public ActionResult LoadThongBao()
         {
             var maKhachHang = Session["UserID"] as string;

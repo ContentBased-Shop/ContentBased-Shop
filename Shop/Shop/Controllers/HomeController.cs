@@ -181,10 +181,6 @@ namespace Shop.Controllers
             }
         }
 
-        public ActionResult View1()
-        {
-           
-            return View();
-        }
+       
     }
 }

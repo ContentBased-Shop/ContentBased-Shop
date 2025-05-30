@@ -180,9 +180,9 @@
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VnPayLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Views\Home\View1.cshtml" />
     <Content Include="Views\Payment\PaymentCallbackVnpay.cshtml" />
     <Content Include="Views\Shared\_NewsPartial.cshtml" />
+    <Content Include="Views\News\Blog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
@@ -615,7 +615,6 @@
     <Content Include="Views\Product\ProductSearch.cshtml" />
     <Content Include="Views\Shared\_RecentlyViewedPartial.cshtml" />
     <Content Include="Views\Product\ProductManHinh.cshtml" />
-    <Content Include="Views\InnerPage\Blog.cshtml" />
     <Content Include="Views\AdminQuestion\Index.cshtml" />
     <Content Include="Views\Shared\_ThongBaoPartial.cshtml" />
     <Content Include="Views\InnerPage\OrderSuccess.cshtml" />
