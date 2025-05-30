@@ -1,0 +1,25 @@
+﻿@model List<Shop.Models.NewsModel>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-2">
+    @foreach (var news in Model)
+    {
+        <div class="col">
+            <a href="@news.Url" class="text-decoration-none text-dark" target="_blank">
+                <div class="news-card">
+                    <div class="news-img-container">
+                        <img src="@news.UrlToImage" alt="@news.Title" class="img-fluid" style="max-height: 200px; object-fit: cover; width: 100%;">
+                    </div>
+                    <div class="p-3">
+                        <p class="news-title fw-bold">@news.Title</p>
+                        <p class="text-muted mb-1" style="font-size: 0.9rem">@news.PublishedAt.ToString("dd/MM/yyyy HH:mm")</p>
+                        <p class="paragraph">@news.Description</p>
+                        
+                        <span class="read-more d-inline-flex align-items-center fw-medium" style="color: rgba(0,0,0,0.6)">
+                            Đọc thêm <i class="fas fa-arrow-right ms-2"></i>
+                        </span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    }
+</div>

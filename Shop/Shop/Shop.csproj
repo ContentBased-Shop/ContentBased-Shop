@@ -154,6 +154,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InnerPageController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\SecurityHelper.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Models\DanhGiaView.cs" />
     <Compile Include="Models\DonHangViewModel.cs" />
     <Compile Include="Models\HangHoaViewModel.cs" />
+    <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Models\PaypalConfiguration.cs" />
     <Compile Include="Models\ProductDetailPageView.cs" />
@@ -180,6 +182,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="Views\Home\View1.cshtml" />
     <Content Include="Views\Payment\PaymentCallbackVnpay.cshtml" />
+    <Content Include="Views\Shared\_NewsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\CSS\Layout\header.css" />
