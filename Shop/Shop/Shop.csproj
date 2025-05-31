@@ -180,7 +180,6 @@
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\VnPayLibrary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Views\Payment\PaymentCallbackVnpay.cshtml" />
     <Content Include="Views\Shared\_NewsPartial.cshtml" />
     <Content Include="Views\News\Blog.cshtml" />
   </ItemGroup>
