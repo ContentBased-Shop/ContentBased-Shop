@@ -33,6 +33,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- SweetAlert2 CSS + JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 
 <body>
@@ -55,10 +58,71 @@
                         </span>
                     </div>
                 </div>
-                <div class="d-flex align-items-center">
-                    <div class="rounded-circle me-1" style="width: 20px; height: 20px; background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
-                    <span style="font-size: 14px;">VN</span>
+
+                <!-- Google Translate element (ẩn) -->
+                <div id="google_translate_element" style="display: none;"></div>
+
+                <!-- Dropdown ngôn ngữ -->
+                <!-- Button dropdown ngôn ngữ -->
+                <div class="dropdown">
+                    <button class="btn  dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="d-flex align-items-center">
+                            <div id="flag-icon" class="rounded-circle me-1"
+                                 style="width: 20px; height: 20px; background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg'); background-size: cover; background-position: center;">
+                            </div>
+                        </div>
+                        <span id="lang-code" style="font-size: 14px;">VN</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="changeLanguage('vi'); updateSelectedLanguageUI('vi')">
+                                🇻🇳 Tiếng Việt
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="changeLanguage('en'); updateSelectedLanguageUI('en')">
+                                🇺🇸 English
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="#" onclick="changeLanguage('ja'); updateSelectedLanguageUI('ja')">
+                                🇯🇵 日本語
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+
+
+                <!-- Script khởi tạo Translate -->
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({
+                            pageLanguage: 'vi',
+                            includedLanguages: 'vi,en,ja,zh'
+                        }, 'google_translate_element');
+                    }
+
+                    function changeLanguage(lang) {
+                        let attempts = 0;
+                        const maxAttempts = 20;
+                        const interval = setInterval(() => {
+                            const select = document.querySelector(".goog-te-combo");
+                            if (select) {
+                                select.value = lang;
+                                select.dispatchEvent(new Event("change"));
+                                clearInterval(interval);
+                            } else if (++attempts >= maxAttempts) {
+                                clearInterval(interval);
+                                console.error("Không tìm thấy Google Translate dropdown.");
+                            }
+                        }, 500);
+                    }
+                </script>
+
+                <!-- Gọi script Translate -->
+                <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
 
 
             </div>
@@ -1004,5 +1068,32 @@
                 }
             })
             .catch(error => console.error('Lỗi khi cập nhật:', error));
+    }
+</script>
+
+<script>
+    function updateSelectedLanguageUI(lang) {
+        const flag = document.getElementById("flag-icon");
+        const code = document.getElementById("lang-code");
+
+        const flagMap = {
+            vi: {
+                url: "https://upload.wikimedia.org/wikipedia/commons/2/21/Flag_of_Vietnam.svg",
+                code: "VN"
+            },
+            en: {
+                url: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg",
+                code: "EN"
+            },
+            ja: {
+                url: "https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg",
+                code: "JA"
+            }
+        };
+
+        if (flagMap[lang]) {
+            flag.style.backgroundImage = `url('${flagMap[lang].url}')`;
+            code.textContent = flagMap[lang].code;
+        }
     }
 </script>

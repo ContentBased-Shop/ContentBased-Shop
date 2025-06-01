@@ -594,7 +594,15 @@
                 });
                 return;
             }
-
+            Swal.fire({
+                title: 'Đang xử lý đơn hàng',
+                text: 'Quý khách vui lòng đợi xíu nhé....',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
             const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
             const orderNotes = document.getElementById('orderNotes').value.trim();
 
@@ -620,7 +628,8 @@
                     body: JSON.stringify(orderData)
                 })
                 .then(response => response.json())
-                .then(result => {
+                    .then(result => {
+                        Swal.close();
                     if (result.success) {
                         // Chuyển hướng đến trang thanh toán PayPal
                         window.location.href = result.redirectUrl;
@@ -633,7 +642,8 @@
                         });
                     }
                 })
-                .catch(error => {
+                    .catch(error => {
+                        Swal.close();
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi',
@@ -675,8 +685,6 @@
                     });
             }
 
-
-
             else {
                 // Các phương thức thanh toán khác (không phải PayPal)
                 fetch('/InnerPage/CreateOrder', {
@@ -687,7 +695,8 @@
                     body: JSON.stringify(orderData)
                 })
                 .then(response => response.json())
-                .then(result => {
+                    .then(result => {
+                        Swal.close();
                     if (result.success) {
                         // Xóa dữ liệu sản phẩm đã chọn
                         sessionStorage.removeItem('selectedItems');
@@ -701,6 +710,7 @@
                             window.location.href = result.redirectUrl || '/InnerPage/OrderSuccess/' + result.maDonHang;
                         });
                     } else {
+                        Swal.close();
                         Swal.fire({
                             icon: 'error',
                             title: 'Lỗi',
@@ -709,7 +719,8 @@
                         });
                     }
                 })
-                .catch(error => {
+                    .catch(error => {
+                        Swal.close();
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi',
