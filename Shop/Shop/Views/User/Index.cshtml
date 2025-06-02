@@ -106,7 +106,7 @@
     @using (Html.BeginForm("XacNhanDoiThongTin", "User", FormMethod.Post))
     {
         <div id="account-infor" class="flex-grow-1 p-4 tab-content">
-            <h2 class="mb-4 fw-bold">THÔNG TIN TÀI KHOẢN</h2>
+            <h2 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">THÔNG TIN TÀI KHOẢN</h2>
             <div class="container py-4" style="min-width: 720px;">
                 <div class="mb-3">
                     <label for="firstName" class="form-label fw-medium">Họ tên </label>
@@ -159,7 +159,7 @@
     <!-- Order items -->
     <div id="my-order" class="flex-grow-1 overflow-scroll-container tab-content d-none">
         <div class="flex-grow-1">
-            <h3 class="fw-bold mb-2">ĐƠN HÀNG CỦA TÔI</h3>
+            <h3 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">ĐƠN HÀNG CỦA TÔI</h3>
             <div id="order-list">
                 <!-- Danh sách đơn hàng sẽ được load động bằng JavaScript -->
             </div>
@@ -169,7 +169,7 @@
 
     <!-- My address -->
     <div id="my-address" class=" flex-grow-1 p-3 tab-content  d-none">
-        <h3 class="mb-2 fw-bold">ĐIA CHỈ VẬN CHUYỂN</h3>
+        <h3 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">ĐỊA CHỈ VẬN CHUYỂN</h3>
         @foreach (var product in Model.ListDiaChiKhachHangs)
         {
             <div class="p-3 mb-4 rounded-4 bg-light">
@@ -332,7 +332,7 @@
 
     <!-- Change password -->
     <div id="change-password" class="flex-grow-1 p-4 tab-content d-none">
-        <h3 class="mb-2 fw-bold">ĐỔI MẬT KHẨU</h3>
+        <h3 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">ĐỔI MẬT KHẨU</h3>
         <form style="max-width: 720px;" method="POST" action="/User/ChangePassword" onsubmit="return validateRecaptcha();">
             <div class="mb-3">
                 <label for="password" class="form-label">Mật khẩu <span class="text-danger">*</span></label>
@@ -405,7 +405,7 @@
 
     <!-- Change password -->
     <div id="Provide-feedback" class="flex-grow-1 p-4 tab-content d-none">
-        <h3 class="mb-2 fw-bold">GÓP Ý PHẢN HỒI</h3>
+        <h3 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">GÓP Ý PHẢN HỒI</h3>
         <div class="d-flex p-4">
             <img src="https://bvndtp.org.vn/wp-content/uploads/2021/10/cam-on-2.jpg" width="300" height="300">
             <div class="align-content-center">
@@ -827,7 +827,7 @@
         $.ajax({
             url: '/User/GetDonHang',
             type: 'GET',
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     const orderList = $('#order-list');
                     orderList.empty();
@@ -867,19 +867,123 @@
                                     <span class="fw-medium">${ct.DonGia.toLocaleString('vi-VN')}đ</span>
                                 </div>`;
                         });
-
                         // Thông tin giao hàng
-                        if (donHang.GiaoHang) {
+                        if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "DaGiao") {
+
                             orderHtml += `
-                                <div class="bg-warning bg-opacity-25 rounded p-2 my-2">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="icon-shipped fw-bold">
-                                            <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.TrangThaiGiaoHang}
+                               <div class="bg-success bg-opacity-25 border border-success rounded p-3 my-3">
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="text-success fw-bold">
+                                            <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
                                         </div>
-                                        <span>Đơn hàng đang vận chuyển</span>
+                                        <span class="fw-semibold text-success">
+                                            ${donHang.GiaoHang.TrangThaiGiaoHang} - Giao thành công tới người nhận
+                                        </span>
+                                        <button class="btn btn-sm btn-outline-success py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </button>
                                     </div>
+                                    <ul class="mb-0 ps-3 text-dark small d-none">
+                                        <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
+                                        <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
+                                        <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
+                                        <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                    </ul>
+                                </div>
+                                `;
+
+                        }
+                        else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "ChuanBiHang") {
+                            orderHtml += `
+                            <div class="bg-warning bg-opacity-25 border border-warning rounded p-3 my-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="text-warning fw-bold">
+                                            <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
+                                        </div>
+                                        <span class="fw-semibold text-warning">
+                                            ${donHang.GiaoHang.TrangThaiGiaoHang} - Đơn hàng đang chuẩn bị bởi người bán
+                                        </span>
+                                        <button class="btn btn-sm btn-outline-warning py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
+                                            <i class="fa-solid fa-chevron-down"></i>
+                                        </button>
+                                    </div>
+                                    <ul class="mb-0 ps-3 text-dark small d-none">
+                                        <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
+                                        <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
+                                        <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
+                                        <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                    </ul>
                                 </div>`;
                         }
+                        else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "DangVanChuyen") {
+                            orderHtml += `
+                            <div class="shipping-box bg-primary bg-opacity-25 border border-primary rounded p-3 my-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-primary fw-bold">
+                                        <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
+                                    </div>
+                                    <span class="fw-semibold text-primary">
+                                        ${donHang.GiaoHang.TrangThaiGiaoHang} - Đơn hàng đang được vận chuyển
+                                    </span>
+                                    <button class="btn btn-sm btn-outline-primary py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <ul class="mb-0 ps-3 text-dark small d-none">
+                                    <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
+                                    <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
+                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
+                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                </ul>
+                            </div>`;
+                                                }
+                                                else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "ThatBai") {
+                                                    orderHtml += `
+                            <div class="shipping-box bg-danger bg-opacity-25 border border-danger rounded p-3 my-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-danger fw-bold">
+                                        <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
+                                    </div>
+                                    <span class="fw-semibold text-danger">
+                                        ${donHang.GiaoHang.TrangThaiGiaoHang} - Vận chuyển thất bại, vui lòng liên hệ với quản trị viên
+                                    </span>
+                                    <button class="btn btn-sm btn-outline-danger py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <ul class="mb-0 ps-3 text-dark small d-none">
+                                    <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
+                                    <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
+                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
+                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                </ul>
+                            </div>`;
+                                                }
+                                                else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "BiHoan") {
+                                                    orderHtml += `
+                            <div class="shipping-box bg-secondary bg-opacity-25 border border-secondary rounded p-3 my-3">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="text-secondary fw-bold">
+                                        <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
+                                    </div>
+                                    <span class="fw-semibold text-secondary">
+                                        ${donHang.GiaoHang.TrangThaiGiaoHang} - Đơn hàng bị hoàn, vui lòng kiểm tra lại thông tin nhận hàng
+                                    </span>
+                                    <button class="btn btn-sm btn-outline-secondary py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                                <ul class="mb-0 ps-3 text-dark small d-none">
+                                    <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
+                                    <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
+                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
+                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                </ul>
+                            </div>`;
+                        }
+
+
+
 
                         // Tổng tiền
                         orderHtml += `
@@ -890,14 +994,14 @@
 
                         // Nút hành động
                         orderHtml += `<div class="d-flex justify-content-end gap-2 mt-3">`;
-                        
+
                         if (donHang.TrangThaiDonHang === "DangXuLy" && donHang.TrangThaiThanhToan === "ChoThanhToan") {
                             orderHtml += `
                                 <button class="btn btn-danger" onclick="huyDonHang('${donHang.MaDonHang}')">
                                     Hủy đơn hàng
                                 </button>`;
                         }
-                        
+
                         // Chỉ hiển thị nút đánh giá nếu đơn hàng hoàn thành và chưa đánh giá hết
                         if (donHang.TrangThaiDonHang === "HoanThanh") {
                             orderHtml += `
@@ -905,9 +1009,9 @@
                                     Đánh giá
                                 </button>`;
                         }
-                        
+
                         orderHtml += `</div></div>`;
-                        
+
                         orderList.append(orderHtml);
 
                         // Load đánh giá cho từng sản phẩm
@@ -917,7 +1021,7 @@
                     });
                 }
             },
-            error: function() {
+            error: function () {
                 alert('Có lỗi xảy ra khi tải danh sách đơn hàng');
             }
         });
@@ -928,11 +1032,11 @@
         $.ajax({
             url: '/DanhGia/KiemTraDanhGia',
             type: 'GET',
-            data: { 
+            data: {
                 maBienThe: maBienThe,
-                maDonHang: maDonHang 
+                maDonHang: maDonHang
             },
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     const ratingDiv = document.querySelector(`.rating[data-mabienthe="${maBienThe}"][data-madonhang="${maDonHang}"]`);
                     if (ratingDiv) {
@@ -942,13 +1046,13 @@
                                 <div class="d-flex align-items-center">
                                     <div class="me-2">
                                         ${Array(5).fill().map((_, i) => `
-                                            <i class="fa-${i < response.soSao ? 'solid' : 'regular'} fa-star text-warning" 
+                                            <i class="fa-${i < response.soSao ? 'solid' : 'regular'} fa-star text-warning"
                                                style="color: #ffc107 !important;"></i>
                                         `).join('')}
                                     </div>
                                     <small class="text-muted">${response.binhLuan || ''}</small>
                                 </div>`;
-                            
+
                             // Ẩn nút đánh giá nếu tất cả sản phẩm đã được đánh giá
                             const btnDanhGia = document.getElementById(`btn-danhgia-${maDonHang}`);
                             if (btnDanhGia) {
@@ -1011,7 +1115,7 @@
         });
     }
     // Load đơn hàng khi chuyển đến tab đơn hàng
-    $('.nav-link[data-target="my-order"]').click(function() {
+    $('.nav-link[data-target="my-order"]').click(function () {
         loadDonHang();
     });
 </script>
@@ -1024,7 +1128,7 @@
             url: '/DanhGia/GetSanPhamChuaDanhGia',
             type: 'GET',
             data: { maDonHang: maDonHang },
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     if (response.data.length === 0) {
                         Swal.fire({
@@ -1048,12 +1152,12 @@
                                         <label class="form-label">Sản phẩm: ${response.data[0].tenHangHoa}</label>
                                         <div class="rating-stars mb-2">
                                             ${Array(5).fill().map((_, i) => `
-                                                <i class="fa-regular fa-star text-warning" 
+                                                <i class="fa-regular fa-star text-warning"
                                                    style="cursor: pointer; font-size: 24px;"
                                                    data-rating="${i + 1}"></i>
                                             `).join('')}
                                         </div>
-                                        <textarea class="form-control" id="binhLuan" 
+                                        <textarea class="form-control" id="binhLuan"
                                                   placeholder="Nhập bình luận của bạn (không bắt buộc)"></textarea>
                                     </div>
                                 </div>
@@ -1065,7 +1169,7 @@
                                 // Xử lý sự kiện click vào sao
                                 const stars = document.querySelectorAll('.rating-stars i');
                                 stars.forEach(star => {
-                                    star.addEventListener('click', function() {
+                                    star.addEventListener('click', function () {
                                         selectedRating = parseInt(this.getAttribute('data-rating'));
                                         stars.forEach(s => {
                                             const sRating = parseInt(s.getAttribute('data-rating'));
@@ -1102,7 +1206,7 @@
                                         soSao: result.value.rating,
                                         binhLuan: result.value.binhLuan
                                     },
-                                    success: function(response) {
+                                    success: function (response) {
                                         if (response.success) {
                                             Swal.fire('Thành công!', response.message, 'success').then(() => {
                                                 // Sau khi đánh giá thành công, tiếp tục với sản phẩm tiếp theo
@@ -1140,3 +1244,18 @@
     }
 </script>
 
+<script>
+    function toggleShippingDetails(button) {
+        // Tìm phần tử <ul> kế tiếp trong cùng thẻ cha (div bên ngoài chứa tất cả)
+        const container = button.closest('.my-3'); // hoặc .shipping-container nếu bạn có class riêng
+        const ul = container.querySelector('ul');
+        const icon = button.querySelector('i');
+
+        // Toggle ẩn/hiện
+        ul.classList.toggle('d-none');
+
+        // Đổi icon mũi tên
+        icon.classList.toggle('fa-chevron-down');
+        icon.classList.toggle('fa-chevron-up');
+    }
+</script>

@@ -865,11 +865,13 @@
 
 
     <div class="space-y-5" id="reviewsContainer">
-        @for (int i = 0; i < Model.Product.DanhGiasChiTiet.Count; i++)
+        @{
+            var sortedReviews = Model.Product.DanhGiasChiTiet.OrderByDescending(x => x.NgayTao).ToList();
+        }
+        @for (int i = 0; i < sortedReviews.Count; i++)
         {
-            var danhgia = Model.Product.DanhGiasChiTiet[i];
+            var danhgia = sortedReviews[i];
             var hiddenClass = i >= 2 ? "d-none" : "";
-
             <div class="bg-white my-3 p-4 rounded-4 shadow review-item @hiddenClass">
                 <div class="d-flex justify-content-between mb-3">
                     <div class="d-flex gap-3">
@@ -896,10 +898,6 @@
                     <div class="small text-muted">@danhgia.NgayTao</div>
                 </div>
                 <p class="text-muted mb-3">@danhgia.BinhLuan</p>
-                <div class="d-flex gap-2">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 1" class="rounded" width="80" height="80">
-                    <img src="https://ui-themez.smartinnovates.net/items/swoo_html/inner_pages/assets/img/products/prod27.png" alt="Review image 2" class="rounded" width="80" height="80">
-                </div>
             </div>
         }
     </div>

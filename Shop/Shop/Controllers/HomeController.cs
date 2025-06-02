@@ -30,7 +30,8 @@ namespace Shop.Controllers
             ViewBag.DanhSachYeuThich = dsYeuThich;
             var danhMucs = data.DanhMucs
                      .ToList();
-
+            var maBienTheDaBan = data.ChiTietDonHangs
+                    .Select(ct => ct.MaBienThe);
             ViewBag.DanhMucList = danhMucs;
             var hangHoaFull = (from hh in data.HangHoas
                                    // Gộp với tất cả biến thể theo MaHangHoa
@@ -52,9 +53,12 @@ namespace Shop.Controllers
                                    hh.MoTa,
                                    hh.NgayTao
                                } into g
-
+                               let danhSachBienThe = g
+                                  .Where(x => x.bienThe != null)
+                                  .Select(x => x.bienThe.MaBienThe)
                                select new HangHoaViewModel
                                {
+
                                    MaDanhMuc = g.Key.MaDanhMuc,
                                    MaHangHoa = g.Key.MaHangHoa,
                                    MoTaDai = g.Key.MoTaDai,
@@ -80,7 +84,9 @@ namespace Shop.Controllers
                                               .Count(),
                                    DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
                                                ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
-                                               : 0
+                                               : 0,
+                                   SoLuongDaBan = danhSachBienThe.Count(ma => maBienTheDaBan.Contains(ma))
+
                                }).ToList();
 
             return View(hangHoaFull);

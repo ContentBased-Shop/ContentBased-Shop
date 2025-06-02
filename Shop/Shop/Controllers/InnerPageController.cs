@@ -32,9 +32,11 @@ namespace Shop.Controllers
             return View();
         }
         //[POST]: Login
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Login(string username, string password, string returnUrl, bool rememberMe = false, string tempCart = null)
-        {
+            {
+
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.TempCart = tempCart;
 

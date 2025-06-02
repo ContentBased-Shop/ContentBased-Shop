@@ -22,6 +22,8 @@ namespace Shop.Models
 
         public int SoLuongDanhGia { get; set; }
         public float DanhGiaTrungBinh { get; set; }
+
+        public int SoLuongDaBan { get; set; }
     }
 
 
