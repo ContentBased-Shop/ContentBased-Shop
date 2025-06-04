@@ -9,7 +9,7 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
+        SHOPDataContext data = new SHOPDataContext("Data Source=ACERNITRO5;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
                 "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
         // GET: /Home/
         #region TRANG-CHU
@@ -32,56 +32,75 @@ namespace Shop.Controllers
                      .ToList();
 
             ViewBag.DanhMucList = danhMucs;
-            var hangHoaFull = (from hh in data.HangHoas
-                                   // Gộp với tất cả biến thể theo MaHangHoa
-                               join bt in data.BienTheHangHoas
-                               on hh.MaHangHoa equals bt.MaHangHoa into btGroup
-                               from bienThe in btGroup.DefaultIfEmpty()
+            // Tách truy vấn thành các phần nhỏ hơn
+            var hangHoaQuery = data.HangHoas
+                .Select(hh => new
+                {
+                    hh.MaDanhMuc,
+                    hh.MaHangHoa,
+                    hh.MoTaDai,
+                    hh.TenHangHoa,
+                    hh.HinhAnh,
+                    hh.MoTa,
+                    hh.NgayTao
+                }).ToList();
 
-                                   // Gộp với đánh giá
-                               join dg in data.DanhGias
-                               on hh.MaHangHoa equals dg.MaHangHoa into dgGroup
-                               from danhGia in dgGroup.DefaultIfEmpty()
-                               group new { bienThe, danhGia } by new
-                               {
-                                   hh.MaDanhMuc,
-                                   hh.MaHangHoa,
-                                   hh.MoTaDai,
-                                   hh.TenHangHoa,
-                                   hh.HinhAnh,
-                                   hh.MoTa,
-                                   hh.NgayTao
-                               } into g
+            var bienTheQuery = data.BienTheHangHoas
+                .Select(bt => new
+                {
+                    bt.MaHangHoa,
+                    bt.MaBienThe,
+                    bt.GiaBan,
+                    bt.GiaKhuyenMai,
+                    bt.SoLuongTonKho
+                }).ToList();
 
-                               select new HangHoaViewModel
-                               {
-                                   MaDanhMuc = g.Key.MaDanhMuc,
-                                   MaHangHoa = g.Key.MaHangHoa,
-                                   MoTaDai = g.Key.MoTaDai,
-                                   TenHangHoa = g.Key.TenHangHoa,
-                                   HinhAnh = g.Key.HinhAnh,
-                                   MoTa = g.Key.MoTa,
-                                   NgayTao = g.Key.NgayTao.Value,
-                                   MaBienThe = g.Where(x => x.bienThe != null)
-                                             .Select(x => x.bienThe.MaBienThe)
-                                             .FirstOrDefault(),
-                                   GiaBan = g.Where(x => x.bienThe != null)
-                                              .Select(x => x.bienThe.GiaBan)
-                                              .FirstOrDefault() ?? 0,
-                                   GiaKhuyenMai = g.Where(x => x.bienThe != null)
-                                                .Select(x => x.bienThe.GiaKhuyenMai)
-                                                .FirstOrDefault() ?? 0,
-                                   SoLuongTonKho = g.Where(x => x.bienThe != null)
-                                                 .Select(x => x.bienThe.SoLuongTonKho)
-                                                 .FirstOrDefault() ?? 0,
-                                   SoLuongDanhGia = g.Where(x => x.danhGia != null)
-                                              .Select(x => x.danhGia.MaDanhGia)
-                                              .Distinct()
-                                              .Count(),
-                                   DanhGiaTrungBinh = g.Any(x => x.danhGia != null)
-                                               ? g.Average(x => (float?)x.danhGia.SoSao) ?? 0
-                                               : 0
-                               }).ToList();
+            var danhGiaQuery = data.DanhGias
+                .Select(dg => new
+                {
+                    dg.MaHangHoa,
+                    dg.MaDanhGia,
+                    dg.SoSao
+                }).ToList();
+
+            var hangHoaFull = hangHoaQuery
+                .Select(hh => new HangHoaViewModel
+                {
+                    MaDanhMuc = hh.MaDanhMuc,
+                    MaHangHoa = hh.MaHangHoa,
+                    MoTaDai = hh.MoTaDai,
+                    TenHangHoa = hh.TenHangHoa,
+                    HinhAnh = hh.HinhAnh,
+                    MoTa = hh.MoTa,
+                    NgayTao = hh.NgayTao.Value,
+                    MaBienThe = bienTheQuery
+                        .Where(bt => bt.MaHangHoa == hh.MaHangHoa)
+                        .Select(bt => bt.MaBienThe)
+                        .FirstOrDefault(),
+                    GiaBan = bienTheQuery
+                        .Where(bt => bt.MaHangHoa == hh.MaHangHoa)
+                        .Select(bt => bt.GiaBan)
+                        .FirstOrDefault() ?? 0,
+                    GiaKhuyenMai = bienTheQuery
+                        .Where(bt => bt.MaHangHoa == hh.MaHangHoa)
+                        .Select(bt => bt.GiaKhuyenMai)
+                        .FirstOrDefault() ?? 0,
+                    SoLuongTonKho = bienTheQuery
+                        .Where(bt => bt.MaHangHoa == hh.MaHangHoa)
+                        .Select(bt => bt.SoLuongTonKho)
+                        .FirstOrDefault() ?? 0,
+                    SoLuongDanhGia = danhGiaQuery
+                        .Where(dg => dg.MaHangHoa == hh.MaHangHoa)
+                        .Select(dg => dg.MaDanhGia)
+                        .Distinct()
+                        .Count(),
+                    DanhGiaTrungBinh = danhGiaQuery
+                        .Where(dg => dg.MaHangHoa == hh.MaHangHoa)
+                        .Any() ? danhGiaQuery
+                            .Where(dg => dg.MaHangHoa == hh.MaHangHoa)
+                            .Average(dg => (float?)dg.SoSao) ?? 0
+                        : 0
+                }).ToList();
 
             return View(hangHoaFull);
         }
