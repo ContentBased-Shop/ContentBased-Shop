@@ -100,7 +100,7 @@
                                     <img src="~/assets/Image/Product/@product.HinhAnh" alt="@product.TenHangHoa" width="194" height="200">
                                 </div>
                                 <h5 class="product-name">@product.TenHangHoa</h5>
-                                <p class="product-description">@product.MoTa</p>
+                                <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">@product.MoTa</p>
                                 <div class="star-rating">
                                     @for (int i = 1; i <= 5; i++)
                                     {
@@ -294,7 +294,7 @@
 </script>
 <script>
     // Thời gian kết thúc countdown
-    const countdownDate = new Date("2025-05-30T00:00:00").getTime();
+    const countdownDate = new Date("2025-07-30T00:00:00").getTime();
 
     // Gắn các phần tử
     const daysEl = document.getElementById("days");

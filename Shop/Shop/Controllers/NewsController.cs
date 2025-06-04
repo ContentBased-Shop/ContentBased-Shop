@@ -113,7 +113,19 @@ namespace Shop.Controllers
                 return PartialView("_NewsPartial", new List<NewsModel>());
             }
         }
-
+        public async Task<ActionResult> PartialNews_2()
+        {
+            try
+            {
+                var articles = await FetchNewsArticlesAsync("công nghệ");
+                return PartialView("_NewsPartial_2", articles);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Lỗi khi tải tin tức: " + ex.Message;
+                return PartialView("_NewsPartial_2", new List<NewsModel>());
+            }
+        }
         public async Task<ActionResult> Blog()
         {
             try
@@ -127,7 +139,6 @@ namespace Shop.Controllers
                 return View();
 
             }
-           
         }
 
     }

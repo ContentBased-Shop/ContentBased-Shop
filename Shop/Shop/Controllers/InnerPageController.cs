@@ -767,6 +767,7 @@ namespace Shop.Controllers
                 var giaoHang = new GiaoHang
                 {
                     MaGiaoHang = GenerateUniqueShippingId(),
+                    DonViVanChuyen = "J&T Express",
                     MaDonHang = donHang.MaDonHang,
                     MaDiaChi = model.maDiaChi,
                     MaVanDon = GenerateUniqueTrackingId(),
@@ -1062,23 +1063,83 @@ namespace Shop.Controllers
             }
 
             var otp = new Random().Next(100000, 999999).ToString();
-
             var fromAddress = new MailAddress("phamnguyenvu287@gmail.com", "Swoo Techsmart");
             var toAddress = new MailAddress(email);
             const string fromPassword = "sryh smuc npaf tuvq"; // bỏ \r\n thừa
+            const string subject = "Mã xác thực OTP - Đăng ký tài khoản Swootechsmart";
+                        string body = $@"
+                        <!DOCTYPE html>
+                        <html lang='vi'>
+                        <head>
+                            <meta charset='UTF-8'>
+                            <style>
+                                body {{
+                                    font-family: Arial, sans-serif;
+                                    background-color: #f4f4f4;
+                                    margin: 0;
+                                    padding: 0;
+                                }}
+                                .container {{
+                                    max-width: 600px;
+                                    margin: 40px auto;
+                                    background-color: #ffffff;
+                                    padding: 30px;
+                                    border-radius: 8px;
+                                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                                }}
+                                .header {{
+                                    text-align: center;
+                                    font-size: 20px;
+                                    font-weight: bold;
+                                    color: #333;
+                                    margin-bottom: 20px;
+                                }}
+                                .otp {{
+                                    font-size: 32px;
+                                    font-weight: bold;
+                                    color: #007bff;
+                                    text-align: center;
+                                    margin: 20px 0;
+                                    letter-spacing: 4px;
+                                }}
+                                .note {{
+                                    color: #555;
+                                    font-size: 14px;
+                                    line-height: 1.6;
+                                }}
+                                .footer {{
+                                    margin-top: 30px;
+                                    text-align: center;
+                                    font-size: 13px;
+                                    color: #999;
+                                }}
+                            </style>
+                        </head>
+                        <body>
+                            <div class='container'>
+                                <div class='header'>Mã OTP xác thực tài khoản</div>
 
-            const string subject = "Mã OTP đăng ký tài khoản";
-            string body = $@"Quý khách  thân mến,
+                                <p class='note'>
+                                    Kính gửi Quý khách,<br><br>
+                                    Quý khách đang thực hiện đăng ký tài khoản tại <strong>Swootechsmart</strong>.<br>
+                                    Vui lòng sử dụng mã OTP bên dưới để hoàn tất quá trình xác thực:
+                                </p>
 
-            Có vẻ như Quý khách đang đăng nhập vào tài khoản Swootechsmart bằng một thiết bị mới. Mã xác thực OTP của Quý khách là {otp}.
+                                <div class='otp'>{otp}</div>
 
-            Mã xác thực này sẽ hết hiệu lực trong 2 phút.
+                                <p class='note'>
+                                    Mã OTP có hiệu lực trong <strong>2 phút</strong> kể từ khi nhận được email này.<br>
+                                    <strong>Lưu ý:</strong> Vui lòng không chia sẻ mã này với bất kỳ ai.
+                                </p>
 
-            Để đảm bảo an toàn, vui lòng không chia sẻ mã này cho bất cứ ai.
-
-            Cảm ơn Quý khách đã lựa chọn Swootechsmart.
-
-            Trân trọng,";
+                                <div class='footer'>
+                                    Cảm ơn Quý khách đã lựa chọn Swootechsmart!<br>
+                                    Trân trọng,<br>
+                                    Đội ngũ Swootechsmart
+                                </div>
+                            </div>
+                        </body>
+                        </html>";
 
             var smtp = new SmtpClient
             {
@@ -1093,7 +1154,8 @@ namespace Shop.Controllers
                 using (var message = new MailMessage(fromAddress, toAddress)
                 {
                     Subject = subject,
-                    Body = body
+                    Body = body,
+                    IsBodyHtml = true
                 })
                 {
                     smtp.Send(message);

@@ -303,42 +303,28 @@
             <div class="tab-pane fade show active" id="description">
 
                 <div class="d-flex">
-                    <div class="col-lg-8">
+                    <div class="col-lg-9">
                         <div class="content-wrapper" id="contentWrapper">
                             @Html.Raw(Model.Product.MoTaChiTiet)
                         </div>
 
                     </div>
 
-                    <div class="col-lg-4 ">
-                        <div class="bg-white px-3 rounded shadow-sm " style="max-height:520px;">
+                    <div class="col-lg-3 ">
+                        <div class="bg-white px-3 rounded shadow-sm " style="height:500px;">
                             <h3 class="mb-3">
                                 <i class="bi bi-file-earmark-text-fill text-danger me-2"></i>
                                 Tin tức liên quan
                             </h3>
                             <div class="list-group list-group-flush" id="related-articles">
-                                <a href="#" class="d-flex mb-3 text-decoration-none">
-                                    <img src="https://cdn-media.sforum.vn/storage/app/media/1image/iphone-12-pro-max-mau-nao-dat-nhat-thumbnail.jpg" alt="..." class="rounded" style="width: 70px; height: 70px; object-fit: cover;">
-                                    <div class="ms-2 small text-dark">Xiaomi Mijia Wireless Floor Scrubber 4 Max ra mắt với...</div>
-                                </a>
-                                <a href="#" class="d-flex mb-3 text-decoration-none">
-                                    <img src="https://cdn-media.sforum.vn/storage/app/media/minhty/beecube-x2-max-gen-5.jpg" alt="..." class="rounded" style="width: 70px; height: 70px; object-fit: cover;">
-                                    <div class="ms-2 small text-dark">Xiaomi Box 5 và 5 Max ra mắt với HyperOS...</div>
-                                </a>
-                                <a href="#" class="d-flex mb-3 text-decoration-none">
-                                    <img src="https://cdn-media.sforum.vn/storage/app/media/trannghia/trannghia/vivo-x200-ultra-vs-iphone-16-pro-max-cover.jpg" alt="..." class="rounded" style="width: 70px; height: 70px; object-fit: cover;">
-                                    <div class="ms-2 small text-dark">Đánh giá HP OMEN MAX 16: Màn hình OLED đẹp...</div>
-                                </a>
-                                <a href="#" class="d-flex mb-3 text-decoration-none">
-                                    <img src="https://cdn-media.sforum.vn/storage/app/media/trannghia/trannghia/vivo-x200-ultra-vs-iphone-16-pro-max-cover.jpg" alt="..." class="rounded" style="width: 70px; height: 70px; object-fit: cover;">
-                                    <div class="ms-2 small text-dark">Đánh giá HP OMEN MAX 16: Màn hình OLED đẹp...</div>
-                                </a>
-                                <!-- Nút xem tất cả -->
-                                <div class="text-center mt-2">
-                                    <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#more-articles" aria-expanded="false" aria-controls="more-articles">
-                                        Xem tất cả
-                                    </button>
-                                </div>
+                              
+                                <script>
+                                    fetch('/News/PartialNews_2')
+                                        .then(response => response.text())
+                                        .then(html => {
+                                            document.getElementById('related-articles').innerHTML = html;
+                                        });
+                                </script>
                             </div>
 
                         </div>
@@ -489,7 +475,7 @@
                                                         }
                                                         <span class="rating-count">@product.SoLuongDanhGia Đánh Giá</span>
                                                     </div>
-                                                    <p class="card-text text-muted">@product.MoTa</p>
+                                                    <p class="card-text text-muted" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">@product.MoTa</p>
                                                     @Html.Raw(product.MoTaDai)
                                                     <div class="d-flex align-items-center mb-3">
                                                         <span class="fw-bold fs-4 text-danger">@(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
@@ -524,7 +510,7 @@
 
                                                             <span class="fw-bold fs-6 text-danger"> @(((double)bienThe.GiaKhuyenMai).ToString("N0")) ₫</span>
                                                             <span class="text-muted text-decoration-line-through">@(((double)bienThe.GiaBan).ToString("N0")) ₫</span>
-                                                            <p class="card-text">@product.MoTa</p>
+                                                            <p class="card-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 300px;">@product.MoTa</p>
 
                                                         </div>
                                                     </div>
@@ -707,7 +693,7 @@
                             {
                                 <div class="review-count">(@bienThe.SoLuongTonKho)</div>
                                 <h5 class="product-name">@product.TenHangHoa</h5>
-                                <p class="product-description">@product.MoTa</p>
+                                <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">@product.MoTa</p>
                                 <div class="star-rating">
                                     @for (int i = 1; i <= 5; i++)
                                     {

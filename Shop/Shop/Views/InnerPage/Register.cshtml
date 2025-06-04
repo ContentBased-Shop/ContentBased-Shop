@@ -442,6 +442,10 @@ $('#phonenumber').on('blur', function () {
     function sendOtp() {
         var email = document.getElementById("email").value;
 
+        if (email === "") {
+            alert("Vui lòng nhập địa chỉ email trước khi gửi.");
+            return false; // Ngăn form gửi
+        }
         fetch('/InnerPage/SendOtp?email=' + encodeURIComponent(email))
             .then(response => response.json())
             .then(data => {

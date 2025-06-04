@@ -173,10 +173,10 @@ namespace Shop.Controllers
                     }
                 }
 
-                // Sắp xếp kết quả theo điểm dự đoán giảm dần và lấy 3 sản phẩm đầu tiên
+                // Sắp xếp kết quả theo điểm dự đoán giảm dần và lấy 10 sản phẩm đầu tiên
                 var ketQuaCuoiCung = ketQuaGopY
                     .OrderByDescending(k => k.DiemDuDoan)
-                    .Take(3)
+                    .Take(20)
                     .ToList();
 
                 return Json(new { success = true, data = ketQuaCuoiCung }, JsonRequestBehavior.AllowGet);

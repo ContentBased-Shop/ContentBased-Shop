@@ -509,7 +509,11 @@
                         </div>
                         <div class="review-count">(@product.SoLuongTonKho)</div>
                         <h5 class="product-name">@product.TenHangHoa</h5>
-                        <p class="product-description">@product.MoTa</p>
+                        <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">
+                            @product.MoTa
+                        </p>
+
+
                         <div class="star-rating">
                             @for (int i = 1; i <= 5; i++)
                             {
@@ -586,7 +590,9 @@
                         </div>
                         <div class="review-count">(@product.SoLuongTonKho)</div>
                         <h5 class="product-name">@product.TenHangHoa</h5>
-                        <p class="product-description">@product.MoTa</p>
+                        <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">
+                            @product.MoTa
+                        </p>
                         <div class="star-rating">
                             @for (int i = 1; i <= 5; i++)
                             {
@@ -669,7 +675,9 @@
                         </div>
                         <div class="review-count">(@product.SoLuongTonKho)</div>
                         <h5 class="product-name">@product.TenHangHoa</h5>
-                        <p class="product-description">@product.MoTa</p>
+                        <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">
+                            @product.MoTa
+                        </p>
                         <div class="star-rating">
                             @for (int i = 1; i <= 5; i++)
                             {
@@ -749,7 +757,9 @@
                         </div>
                         <div class="review-count">(@product.SoLuongTonKho)</div>
                         <h5 class="product-name">@product.TenHangHoa</h5>
-                        <p class="product-description">@product.MoTa </p>
+                        <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">
+                            @product.MoTa
+                        </p>
                         <div class="star-rating">
                             @for (int i = 1; i <= 5; i++)
                             {
@@ -956,7 +966,9 @@
                                     </div>
                                     <div class="review-count">(@product.SoLuongTonKho)</div>
                                     <h5 class="product-name">@product.TenHangHoa</h5>
-                                    <p class="product-description">@product.MoTa</p>
+                                    <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">
+                                        @product.MoTa
+                                    </p>
                                     <div class="star-rating">
                                         @for (int i = 1; i <= 5; i++)
                                         {
@@ -1170,7 +1182,9 @@
                                     </div>
                                     <div class="review-count">(@product.SoLuongTonKho)</div>
                                     <h5 class="product-name">@product.TenHangHoa</h5>
-                                    <p class="product-description">@product.MoTa</p>
+                                    <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">
+                                        @product.MoTa
+                                    </p>
                                     <div class="star-rating">
                                         @for (int i = 1; i <= 5; i++)
                                         {
@@ -1782,7 +1796,7 @@
                                                     </div>
                                                     <div class="review-count">(${product.SoLuongTonKho})</div>
                                                     <h5 class="product-name">${product.TenHangHoa}</h5>
-                                                    <p class="product-description">${product.MoTa}</p>
+                                                    <p class="product-description" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 200px;">${product.MoTa}</p>
                                                     <div class="price-container">
                                                         <span class="current-price">${product.GiaKhuyenMai.toLocaleString()} ₫</span>
                                                         <span class="original-price text-muted text-decoration-line-through">${product.GiaBan.toLocaleString()} ₫</span>

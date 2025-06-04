@@ -597,6 +597,7 @@ namespace Shop.Controllers
                     var giaoHang = new GiaoHang
                     {
                         MaGiaoHang = GenerateUniqueShippingId(),
+                        DonViVanChuyen = "J&T Express",
                         MaDonHang = donHang.MaDonHang,
                         MaDiaChi = orderModel.maDiaChi,
                         MaVanDon = GenerateUniqueTrackingId(),
@@ -962,6 +963,7 @@ namespace Shop.Controllers
                     var giaoHang = new GiaoHang
                     {
                         MaGiaoHang = maGiaoHang,
+                        DonViVanChuyen = "J&T Express",
                         MaDonHang = maDonHang,
                         MaDiaChi = orderModel.maDiaChi,
                         MaVanDon = maVanDon,

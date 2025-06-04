@@ -620,6 +620,7 @@
     <Content Include="Views\InnerPage\ChangePassword.cshtml" />
     <Content Include="Views\InnerPage\Faq.cshtml" />
     <Content Include="Views\InnerPage\Logout.cshtml" />
+    <Content Include="Views\Shared\_NewsPartial_2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
