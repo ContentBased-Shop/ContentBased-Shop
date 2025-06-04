@@ -217,7 +217,7 @@
 
             <div class="brands-container">
                 <!-- First row of brands -->
-                <div class="row row-cols-5 g-4 mb-4">
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3 g-md-4 mb-4">
                     <div class="col">
                         <div class="brand-item">
                             <img src="~/assets/Image/Logo/LogoBrand/acer_logo.jpg" alt="Acer" title="Acer" data-bs-toggle="tooltip">
@@ -246,7 +246,7 @@
                 </div>
 
                 <!-- Second row of brands -->
-                <div class="row row-cols-5 g-4">
+                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3 g-md-4">
                     <div class="col">
                         <div class="brand-item">
                             <img src="~/assets/Image/Logo/LogoBrand/logitech_logo.jpg" alt="Logitech" title="Logitech" data-bs-toggle="tooltip">
@@ -339,11 +339,9 @@
     </div>
 
 
-
-
-    <div class="d-flex gap-3">
+    <div class="row g-3">
         <!-- DEALS OF THE DAY SECTION -->
-        <div class="w-75">
+        <div class="col-12 col-lg-9">
             <div class="card-header deals-header">
                 <div style="background-color: #1ABA1A " class="d-flex justify-content-between align-items-center rounded-3 px-4 py-2 text-white">
                     <h3 class="m-0">Deal hời hôm nay @DateTime.Now.ToShortDateString()</h3>
@@ -443,7 +441,7 @@
 
         </div>
 
-        <div class="w-25">
+        <div class="col-lg-3 d-none d-lg-block">
             <div class="d-flex flex-column">
                 <div class="mb-2">
                     <img class="img-fluid" src="~/assets/Image/Header/Banner/banner_1.png" alt="Image 3" />
@@ -848,6 +846,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4 class="fw-bold text-uppercase border-start border-4 border-success ps-3 mb-4">TOP Điện thoại & Tablet được yêu thích</h4>
         </div>
+
         <div class="row g-4">
             <!-- Redmi Banner -->
             <div class="col-12 col-md-6">
@@ -859,93 +858,36 @@
             <!-- Categories Grid -->
             <div class="col-12 col-md-6">
                 <div class="row g-3">
-                    <!-- iPhone Category -->
-                    <div class="col-4">
-                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "iphone" })" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">iPhone (iOS)</h3>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_iphone.png" alt="iPhone" class="category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <!-- Loop từng category -->
+                    @{
+                        var categories = new[] {
+                        new { Name = "iPhone (iOS)", Img = "phone_iphone.png", Keyword = "iphone" },
+                        new { Name = "Samsung", Img = "phone_adr.png", Keyword = "Samsung" },
+                        new { Name = "5G Support", Img = "phone_5g.png", Keyword = "5G" },
+                        new { Name = "Gaming", Img = "phone_gaming.png", Keyword = "Gaming" },
+                        new { Name = "Xiaomi", Img = "phone_xiaomi.png", Keyword = "Xiaomi" },
+                        new { Name = "Phụ kiện", Img = "phone_acces.png", Keyword = "Phụ kiện" },
+                    };
+                    }
 
-
-                    <!-- Android Category -->
-                    <div class="col-4">
-                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Samsung" })" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Samsung</h3>
+                    @foreach (var cat in categories)
+                    {
+                        <div class="col-6 col-md-4 col-lg-4">
+                            <a href="@Url.Action("ProductSearch", "Product", new { keyword = cat.Keyword })" class="text-decoration-none">
+                                <div class="card category-card h-100 border-light">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <h3 class="card-title fs-6 fw-semibold">@cat.Name</h3>
+                                        <img src="~/assets/Image/Header/Product_Feature/@cat.Img" alt="@cat.Name" class="category-image-top-cell" >
                                     </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_adr.png" alt="Android" class=".category-image-top-cell">
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- 5G Support Category -->
-                    <div class="col-4">
-                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "5G" })" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">5G Support</h3>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_5g.png" alt="5G Support" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Gaming Category -->
-                    <div class="col-4">
-                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Gaming" })" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Gaming</h3>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_gaming.png" alt="Gaming" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Xiaomi Category -->
-                    <div class="col-4">
-                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Xiaomi" })" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Xiaomi</h3>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_xiaomi.png" alt="Xiaomi" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <!-- Accessories Category -->
-                    <div class="col-4">
-                        <a href="@Url.Action("ProductSearch", "Product", new { keyword = "Phụ kiện" })" class="text-decoration-none">
-                            <div class="card category-card h-100 border-light">
-                                <div class="card-body d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <h3 class="card-title fs-6 fw-semibold">Phụ kiện</h3>
-                                    </div>
-                                    <img src="~/assets/Image/Header/Product_Feature/phone_acces.png" alt="Accessories" class=".category-image-top-cell">
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                            </a>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
+
+
         <div style="background-color:white" class="swiper productSwiper p-4 rounded-4 my-3">
 
             <!-- Swiper Wrapper -->
@@ -1037,8 +979,8 @@
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
-
     </div>
+
     <style>
         .swiper-button-next, .swiper-button-prev {
             color: #999; /* Màu sắc xám nhạt cho các nút */
