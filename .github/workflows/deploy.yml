@@ -21,6 +21,14 @@ jobs:
 
     - name: Restore NuGet packages
       run: nuget restore ./Shop
+    - name: Install .NET Framework 4.5 Developer Pack
+      shell: powershell
+      run: |
+        $url = "https://download.microsoft.com/download/7/6/0/7606503A-556B-4CFA-AF6D-6F2948A1A171/NDP45-DevPack-KB2872776-x86-x64-ENU.exe"
+        $installer = "$env:TEMP\ndp45devpack.exe"
+        Invoke-WebRequest -Uri $url -OutFile $installer
+        Start-Process -FilePath $installer -ArgumentList "/quiet", "/norestart" -Wait
+        Write-Host "✅ .NET Framework 4.5 Developer Pack installed."
 
     - name: Build solution (Debug first)
       run: msbuild ./Shop/Shop.sln /p:Configuration=Debug /p:Platform="Any CPU"
