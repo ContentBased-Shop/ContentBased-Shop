@@ -7,36 +7,33 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest # Thay đổi sang Windows
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '6.0.x' # Hoặc '8.0.x' tùy theo project
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
 
-    - name: Restore dependencies
-      run: dotnet restore ./Shop
+    - name: Setup NuGet
+      uses: nuget/setup-nuget@v1
+
+    - name: Restore NuGet packages
+      run: nuget restore ./Shop/Shop.sln
 
     - name: Build application
-      run: dotnet build ./Shop --configuration Release --no-restore
-
-    - name: Run tests (if exists)
-      run: dotnet test ./Shop --no-build --verbosity normal
-      continue-on-error: true # Tiếp tục nếu không có tests
+      run: msbuild ./Shop/Shop.sln /p:Configuration=Release /p:Platform="Any CPU"
 
     - name: Publish application
-      run: dotnet publish ./Shop --configuration Release --output ./publish --no-build
+      run: msbuild ./Shop/Shop/Shop.csproj /p:Configuration=Release /p:Platform="Any CPU" /p:PublishProfile=Properties/PublishProfiles/FolderProfile.pubxml /p:PublishUrl=../publish /p:WebPublishMethod=FileSystem /p:DeployOnBuild=true
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'swootechsmart-g9e2gzdyd0a3gkf7'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: './publish'
+        package: './Shop/publish'
 
     - name: Deployment notification
       if: success()
