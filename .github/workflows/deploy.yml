@@ -19,11 +19,16 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
+    - name: Install .NET Framework 4.5 Targeting Pack
+      run: |
+        choco install netfx-4.5-devpack -y
+      continue-on-error: true
+
     - name: Restore NuGet packages
       run: nuget restore ./Shop/Shop.sln
 
     - name: Build application
-      run: msbuild ./Shop/Shop.sln /p:Configuration=Release /p:Platform="Any CPU"
+      run: msbuild ./Shop/Shop.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.8
 
     - name: Publish application
       run: msbuild ./Shop/Shop/Shop.csproj /p:Configuration=Release /p:Platform="Any CPU" /p:PublishProfile=Properties/PublishProfiles/FolderProfile.pubxml /p:PublishUrl=../publish /p:WebPublishMethod=FileSystem /p:DeployOnBuild=true
