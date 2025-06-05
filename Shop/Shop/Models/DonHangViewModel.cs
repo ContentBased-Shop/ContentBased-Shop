@@ -41,8 +41,9 @@ namespace Shop.Models
         public string MaVanDon { get; set; }
         public string DonViVanChuyen { get; set; }
         public string TrangThaiGiaoHang { get; set; }
-        public DateTime? NgayGuiHang { get; set; }
-        public DateTime? NgayNhanHang { get; set; }
+        public string NgayGuiHang { get; set; }
+        public string NgayNhanHang { get; set; }
+
         public string DiaChiDayDu { get; set; }
         public string TenNguoiNhan { get; set; }
         public string SoDienThoai { get; set; }

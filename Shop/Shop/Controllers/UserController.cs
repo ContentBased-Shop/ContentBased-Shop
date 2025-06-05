@@ -230,8 +230,8 @@ namespace Shop.Controllers
                             MaVanDon = gh.MaVanDon,
                             DonViVanChuyen = gh.DonViVanChuyen,
                             TrangThaiGiaoHang = gh.TrangThaiGiaoHang,
-                            NgayGuiHang = gh.NgayGuiHang,
-                            NgayNhanHang = gh.NgayNhanHang,
+                            NgayGuiHang = gh.NgayGuiHang == null ? null : gh.NgayGuiHang.ToString(),
+                            NgayNhanHang = gh.NgayNhanHang == null ? null : gh.NgayNhanHang.ToString(),
                             DiaChiDayDu = data.DiaChiKhachHangs
                                 .Where(dc => dc.MaDiaChi == gh.MaDiaChi)
                                 .Select(dc => dc.DiaChiDayDu)
