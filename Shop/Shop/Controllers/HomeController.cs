@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Shop.Models;
+using OfficeOpenXml;
+using System.IO;
 
 namespace Shop.Controllers
 {
@@ -124,14 +126,19 @@ namespace Shop.Controllers
         {
             try
             {
+                System.Diagnostics.Debug.WriteLine("=== Bắt đầu GetRecommendedProducts ===");
+                System.Diagnostics.Debug.WriteLine($"Mã khách hàng: {maKhachHang}");
+                
                 var ketQuaGopY = new List<SanPhamGoiY>();
                 
                 // Lấy danh sách sản phẩm xem gần đây từ cache
                 var dsMaHangHoaXemGanDay = HttpRuntime.Cache["RecentProducts"] as List<string> ?? new List<string>();
+                System.Diagnostics.Debug.WriteLine($"Số sản phẩm xem gần đây: {dsMaHangHoaXemGanDay.Count}");
                 
                 // Trường hợp 1: Người chưa đăng nhập
                 if (string.IsNullOrEmpty(maKhachHang))
                 {
+                    System.Diagnostics.Debug.WriteLine("Trường hợp: Người chưa đăng nhập");
                     if (dsMaHangHoaXemGanDay.Any())
                     {
                         // Lấy điểm tương đồng của các sản phẩm đã xem với các sản phẩm khác
@@ -181,15 +188,19 @@ namespace Shop.Controllers
                 }
                 else
                 {
+                    System.Diagnostics.Debug.WriteLine("Trường hợp: Người đã đăng nhập");
                     // Lấy danh sách sản phẩm đã đánh giá của khách hàng
                     var danhGiaDaCo = data.CollaborativeFilterings
                         .Where(cf => cf.MaKhachHang == maKhachHang)
                         .Select(cf => new { cf.MaHangHoa, cf.DiemSo })
                         .ToList();
+                    
+                    System.Diagnostics.Debug.WriteLine($"Số đánh giá đã có: {danhGiaDaCo.Count}");
 
                     // Trường hợp 2: Người mới đăng nhập lần đầu (chưa có đánh giá)
                     if (!danhGiaDaCo.Any())
                     {
+                        System.Diagnostics.Debug.WriteLine("Trường hợp: Người mới đăng nhập lần đầu");
                         // Kết hợp sản phẩm yêu thích và sản phẩm xem gần đây
                         var dsMaHangHoaCanXet = new List<string>();
                         
@@ -326,13 +337,118 @@ namespace Shop.Controllers
                     .Take(5)
                     .ToList();
 
+                // Xuất file Excel ma trận điểm dự đoán
+                try
+                {
+                    // Thiết lập license cho EPPlus
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                    // Lấy danh sách khách hàng và sản phẩm
+                    var khachHangs = data.KhachHangs.Select(k => k.MaKhachHang).ToList();
+                    var hangHoas = data.HangHoas.Select(h => h.MaHangHoa).ToList();
+
+                    // Tạo file Excel mới
+                    using (var package = new ExcelPackage())
+                    {
+                        var worksheet = package.Workbook.Worksheets.Add("MaTranDuDoan");
+
+                        // Thêm header
+                        worksheet.Cells[1, 1].Value = "MaKhachHang";
+                        for (int i = 0; i < hangHoas.Count; i++)
+                        {
+                            worksheet.Cells[1, i + 2].Value = hangHoas[i];
+                        }
+
+                        // Điền dữ liệu
+                        int row = 2;
+                        foreach (var khachHang in khachHangs)
+                        {
+                            worksheet.Cells[row, 1].Value = khachHang;
+
+                            // Lấy đánh giá thực tế của khách hàng
+                            var danhGiaThucTe = data.CollaborativeFilterings
+                                .Where(cf => cf.MaKhachHang == khachHang)
+                                .Select(cf => new { cf.MaHangHoa, cf.DiemSo })
+                                .ToList();
+
+                            // Tính điểm dự đoán cho từng sản phẩm
+                            for (int i = 0; i < hangHoas.Count; i++)
+                            {
+                                var maHangHoa = hangHoas[i];
+                                double diemDuDoan = 0;
+
+                                var danhGiaHienTai = danhGiaThucTe.FirstOrDefault(d => d.MaHangHoa == maHangHoa);
+                                if (danhGiaHienTai != null)
+                                {
+                                    // Nếu khách hàng đã đánh giá, sử dụng điểm thực tế
+                                    diemDuDoan = (double)danhGiaHienTai.DiemSo;
+                                }
+                                else
+                                {
+                                    // Tính điểm dự đoán dựa trên các đánh giá khác
+                                    double tongDiemTuongDong = 0;
+                                    double tongDiemDanhGia = 0;
+
+                                    foreach (var danhGia in danhGiaThucTe)
+                                    {
+                                        var diemTuongDong = data.ContentBasedFilterings
+                                            .Where(cbf => (cbf.MaHangHoa1 == danhGia.MaHangHoa && cbf.MaHangHoa2 == maHangHoa) ||
+                                                        (cbf.MaHangHoa1 == maHangHoa && cbf.MaHangHoa2 == danhGia.MaHangHoa))
+                                            .Select(cbf => cbf.DiemTuongDong)
+                                            .FirstOrDefault();
+
+                                        if (diemTuongDong > 0)
+                                        {
+                                            tongDiemTuongDong += (double)diemTuongDong;
+                                            tongDiemDanhGia += (double)(danhGia.DiemSo * diemTuongDong);
+                                        }
+                                    }
+
+                                    if (tongDiemTuongDong > 0)
+                                    {
+                                        diemDuDoan = tongDiemDanhGia / tongDiemTuongDong;
+                                    }
+                                }
+
+                                worksheet.Cells[row, i + 2].Value = Math.Round(diemDuDoan, 2);
+                            }
+                            row++;
+                        }
+
+                        // Tự động điều chỉnh độ rộng cột
+                        worksheet.Cells.AutoFitColumns();
+
+                        // Tạo tên file với ngày giờ
+                        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                        string fileName = $"MaTranDuDoan_{timestamp}.xlsx";
+                        string filePath = Server.MapPath($"~/assets/Data/{fileName}");
+                        
+                        // Đảm bảo thư mục tồn tại
+                        string directory = Path.GetDirectoryName(filePath);
+                        if (!Directory.Exists(directory))
+                        {
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        // Lưu file
+                        package.SaveAs(new FileInfo(filePath));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Lỗi khi xuất file Excel: {ex.Message}");
+                }
+
                 System.Diagnostics.Debug.WriteLine($"Tổng số kết quả trước khi sắp xếp: {ketQuaGopY.Count}");
                 System.Diagnostics.Debug.WriteLine($"Số kết quả cuối cùng: {ketQuaCuoiCung.Count}");
+                System.Diagnostics.Debug.WriteLine("=== Kết thúc GetRecommendedProducts ===");
 
                 return Json(new { success = true, data = ketQuaCuoiCung }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine($"Lỗi trong GetRecommendedProducts: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -389,6 +505,111 @@ namespace Shop.Controllers
                                       .ToList();
 
                 return Json(new { success = true, data = sanPhamLienQuan }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult ExportPredictionMatrix()
+        {
+            try
+            {
+                // Thiết lập license cho EPPlus
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                // Lấy danh sách khách hàng và sản phẩm
+                var khachHangs = data.KhachHangs.Select(k => k.MaKhachHang).ToList();
+                var hangHoas = data.HangHoas.Select(h => h.MaHangHoa).ToList();
+
+                // Tạo file Excel mới
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("MaTranDuDoan");
+
+                    // Thêm header
+                    worksheet.Cells[1, 1].Value = "MaKhachHang";
+                    for (int i = 0; i < hangHoas.Count; i++)
+                    {
+                        worksheet.Cells[1, i + 2].Value = hangHoas[i];
+                    }
+
+                    // Điền dữ liệu
+                    int row = 2;
+                    foreach (var khachHang in khachHangs)
+                    {
+                        worksheet.Cells[row, 1].Value = khachHang;
+
+                        // Lấy đánh giá thực tế của khách hàng
+                        var danhGiaThucTe = data.CollaborativeFilterings
+                            .Where(cf => cf.MaKhachHang == khachHang)
+                            .Select(cf => new { cf.MaHangHoa, cf.DiemSo })
+                            .ToList();
+
+                        // Tính điểm dự đoán cho từng sản phẩm
+                        for (int i = 0; i < hangHoas.Count; i++)
+                        {
+                            var maHangHoa = hangHoas[i];
+                            double diemDuDoan = 0;
+
+                            var danhGiaHienTai = danhGiaThucTe.FirstOrDefault(d => d.MaHangHoa == maHangHoa);
+                            if (danhGiaHienTai != null)
+                            {
+                                // Nếu khách hàng đã đánh giá, sử dụng điểm thực tế
+                                diemDuDoan = (double)danhGiaHienTai.DiemSo;
+                            }
+                            else
+                            {
+                                // Tính điểm dự đoán dựa trên các đánh giá khác
+                                double tongDiemTuongDong = 0;
+                                double tongDiemDanhGia = 0;
+
+                                foreach (var danhGia in danhGiaThucTe)
+                                {
+                                    var diemTuongDong = data.ContentBasedFilterings
+                                        .Where(cbf => (cbf.MaHangHoa1 == danhGia.MaHangHoa && cbf.MaHangHoa2 == maHangHoa) ||
+                                                    (cbf.MaHangHoa1 == maHangHoa && cbf.MaHangHoa2 == danhGia.MaHangHoa))
+                                    .Select(cbf => cbf.DiemTuongDong)
+                                    .FirstOrDefault();
+
+                                    if (diemTuongDong > 0)
+                                    {
+                                        tongDiemTuongDong += (double)diemTuongDong;
+                                        tongDiemDanhGia += (double)(danhGia.DiemSo * diemTuongDong);
+                                    }
+                                }
+
+                                if (tongDiemTuongDong > 0)
+                                {
+                                    diemDuDoan = tongDiemDanhGia / tongDiemTuongDong;
+                                }
+                            }
+
+                            worksheet.Cells[row, i + 2].Value = Math.Round(diemDuDoan, 2);
+                        }
+                        row++;
+                    }
+
+                    // Tự động điều chỉnh độ rộng cột
+                    worksheet.Cells.AutoFitColumns();
+
+                    // Tạo tên file với ngày giờ
+                    string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+                    string fileName = $"MaTranDuDoan_{timestamp}.xlsx";
+                    string filePath = Server.MapPath($"~/assets/Data/{fileName}");
+                    
+                    // Đảm bảo thư mục tồn tại
+                    string directory = Path.GetDirectoryName(filePath);
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    // Lưu file
+                    package.SaveAs(new FileInfo(filePath));
+                }
+
+                return Json(new { success = true, message = "Xuất file Excel thành công!" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
