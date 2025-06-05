@@ -3,11 +3,11 @@ name: Deploy ContentBased-Shop to Azure
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # Cho phép chạy manual
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest # Thay đổi sang Windows
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -19,26 +19,45 @@ jobs:
     - name: Setup NuGet
       uses: nuget/setup-nuget@v1
 
-    - name: Install .NET Framework 4.5 Targeting Pack
-      run: |
-        choco install netfx-4.5-devpack -y
+    - name: Restore NuGet packages
+      run: nuget restore ./Shop
+
+    - name: Build solution (Debug first)
+      run: msbuild ./Shop/Shop.sln /p:Configuration=Debug /p:Platform="Any CPU"
+
+    - name: Build solution (Release)
+      run: msbuild ./Shop/Shop.sln /p:Configuration=Release /p:Platform="Any CPU"
       continue-on-error: true
 
-    - name: Restore NuGet packages
-      run: nuget restore ./Shop/Shop.sln
-
-    - name: Build application
-      run: msbuild ./Shop/Shop.sln /p:Configuration=Release /p:Platform="Any CPU" /p:TargetFrameworkVersion=v4.8
-
-    - name: Publish application
-      run: msbuild ./Shop/Shop/Shop.csproj /p:Configuration=Release /p:Platform="Any CPU" /p:PublishProfile=Properties/PublishProfiles/FolderProfile.pubxml /p:PublishUrl=../publish /p:WebPublishMethod=FileSystem /p:DeployOnBuild=true
+    - name: Manual copy files for deployment
+      shell: powershell
+      run: |
+        # Tạo thư mục publish
+        New-Item -ItemType Directory -Path "publish" -Force
+        
+        # Copy files từ Debug build (fallback nếu Release failed)
+        $sourcePath = "Shop/Shop"
+        
+        # Copy các file cần thiết
+        Copy-Item "$sourcePath/*.aspx*" "publish/" -Recurse -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/*.html*" "publish/" -Recurse -Force -ErrorAction SilentlyContinue  
+        Copy-Item "$sourcePath/*.config" "publish/" -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/bin" "publish/" -Recurse -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/Content" "publish/" -Recurse -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/Scripts" "publish/" -Recurse -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/Views" "publish/" -Recurse -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/App_Data" "publish/" -Recurse -Force -ErrorAction SilentlyContinue
+        Copy-Item "$sourcePath/Global.asax*" "publish/" -Force -ErrorAction SilentlyContinue
+        
+        Write-Host "Files copied to publish directory"
+        Get-ChildItem "publish" -Recurse | Select-Object Name, Length | Format-Table
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'swootechsmart-g9e2gzdyd0a3gkf7'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: './Shop/publish'
+        package: './publish'
 
     - name: Deployment notification
       if: success()
