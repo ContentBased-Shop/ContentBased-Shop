@@ -1452,6 +1452,7 @@ namespace Shop.Controllers
         }
         public JsonResult GetSoLuongThongBao()
         {
+            data = new SHOPDataContext(connStr);
             string maKhachHang = Session["UserID"]?.ToString(); // hoặc HttpContext.User.Identity.Name nếu dùng Identity
             if (string.IsNullOrEmpty(maKhachHang))
                 return Json(0, JsonRequestBehavior.AllowGet);

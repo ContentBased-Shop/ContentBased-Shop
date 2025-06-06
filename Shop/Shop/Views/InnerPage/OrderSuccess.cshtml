@@ -32,22 +32,26 @@
                             <p class="mb-1">
                                 <strong>Phương thức thanh toán:</strong>
                                 @{
-                                    string phuongThuc = "";
-                                    if (thanhToan.PhuongThucThanhToan == "TheTinDung")
+                                    string phuongThuc = "Không xác định";
+
+                                    if (thanhToan != null)
                                     {
-                                        phuongThuc = "Thẻ tín dụng/Thẻ ghi nợ";
-                                    }
-                                    else if (thanhToan.PhuongThucThanhToan == "COD")
-                                    {
-                                        phuongThuc = "Thanh toán khi nhận hàng";
-                                    }
-                                    else if (thanhToan.PhuongThucThanhToan == "ChuyenKhoan")
-                                    {
-                                        phuongThuc = "Chuyển khoản ngân hàng";
+                                        if (thanhToan.PhuongThucThanhToan == "TheTinDungPayPal")
+                                        {
+                                            phuongThuc = "Thẻ tín dụng/Thẻ ghi nợ";
+                                        }
+                                        else if (thanhToan.PhuongThucThanhToan == "TheTinDungVNPAY")
+                                        {
+                                            phuongThuc = "VNPay";
+                                        }
+                                        else if (thanhToan.PhuongThucThanhToan == "COD")
+                                        {
+                                            phuongThuc = "Thanh toán khi nhận hàng";
+                                        }
                                     }
                                     else
                                     {
-                                        phuongThuc = thanhToan.PhuongThucThanhToan;
+                                        phuongThuc = "Chưa có thông tin thanh toán";
                                     }
                                 }
                                 @phuongThuc
