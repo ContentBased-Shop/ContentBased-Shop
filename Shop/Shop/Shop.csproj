@@ -267,10 +267,6 @@
     <Content Include="assets\Image\MyTeam\CongTien.png" />
     <Content Include="assets\Image\MyTeam\NguyenVu.png" />
     <Content Include="assets\Image\MyTeam\NhatQuan.png" />
-    <Content Include="assets\Image\News\so-sanh-apple-m3-ultra-va-apple-m4-max-thumb.jpg" />
-    <Content Include="assets\Image\News\tecno-spark-30c-co-may-mau-th.jpg" />
-    <Content Include="assets\Image\News\tinh-nang-xiaomi-15s-pro.jpg" />
-    <Content Include="assets\Image\News\xiaomi-pad-7-co-may-mau-th.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\acer_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\asus_logo.jpg" />
     <Content Include="assets\Image\Logo\LogoBrand\Honor.jpg" />
@@ -560,6 +556,7 @@
     <None Include="Models\SHOP.dbml.layout">
       <DependentUpon>SHOP.dbml</DependentUpon>
     </None>
+    <None Include="Properties\PublishProfiles\Shop20250605193751 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

@@ -17,8 +17,8 @@ namespace Shop.Controllers
 {
     public class PaymentController : Controller
     {
-        private SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;User ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
-
+        SHOPDataContext data;
+        string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
         #region Email
         private readonly string _emailAddress = "managertask34@gmail.com";
         private readonly string _emailPassword = "veaq dwhq oico jlzc";
@@ -26,6 +26,7 @@ namespace Shop.Controllers
 
         private void SendOrderConfirmationEmail(string maDonHang)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 // Lấy thông tin đơn hàng
@@ -140,6 +141,7 @@ namespace Shop.Controllers
         // Hàm tạo mã đơn hàng, thanh toán, v.v.
         string GenerateUniqueOrderId()
         {
+            data = new SHOPDataContext(connStr);
             Random rand = new Random();
             string code;
             do
@@ -152,6 +154,7 @@ namespace Shop.Controllers
 
         string GenerateUniquePaymentId()
         {
+            data = new SHOPDataContext(connStr);
             Random rand = new Random();
             string code;
             do
@@ -164,6 +167,7 @@ namespace Shop.Controllers
 
         string GenerateUniqueShippingId()
         {
+            data = new SHOPDataContext(connStr);
             Random rand = new Random();
             string code;
             do
@@ -185,6 +189,7 @@ namespace Shop.Controllers
 
         string GenerateUniqueOrderDetailId()
         {
+            data = new SHOPDataContext(connStr);
             Random rand = new Random();
             string code;
             do
@@ -200,6 +205,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult PayWithPaypal(OrderModel model)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." });
@@ -428,6 +434,7 @@ namespace Shop.Controllers
         // Xử lý khi thanh toán thành công
         public ActionResult PaymentSuccess()
         {
+            data = new SHOPDataContext(connStr);
             // Lấy thông tin thanh toán từ URL
             var paymentId = Request.Params["paymentId"];
             var payerId = Request.Params["PayerID"];
@@ -660,6 +667,7 @@ namespace Shop.Controllers
         #region VNPay
         public ActionResult CreatePaymentUrl(OrderModel model)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." }, JsonRequestBehavior.AllowGet);
@@ -785,7 +793,8 @@ namespace Shop.Controllers
     
         public ActionResult PaymentCallbackVnpay()
             {
-                var vnpay = new VnPayLibrary();
+            data = new SHOPDataContext(connStr);
+            var vnpay = new VnPayLibrary();
 
                 // Lấy tất cả tham số từ QueryString
                 foreach (string key in Request.QueryString.AllKeys)

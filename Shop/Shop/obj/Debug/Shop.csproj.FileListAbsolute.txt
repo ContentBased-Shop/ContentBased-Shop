@@ -87,6 +87,7 @@ C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\Microsoft.Web
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\Newtonsoft.Json.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\PayPal.dll
+C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\QRCoder.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\System.Net.Http.Formatting.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\System.Web.Http.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\System.Web.Http.WebHost.dll
@@ -114,4 +115,3 @@ C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.cs
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.csproj.Up2Date
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.dll
 C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\obj\Debug\Shop.pdb
-C:\Users\phamn\OneDrive\Máy tính\ContentBased-Shop\Shop\Shop\bin\QRCoder.dll

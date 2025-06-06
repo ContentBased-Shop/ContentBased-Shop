@@ -6,16 +6,18 @@ using System.Web.Mvc;
 using Shop.Models;
 using Shop.Helpers;
 using System.Web.Providers.Entities;
+using System.Configuration;
 namespace Shop.Controllers
 {
     public class UserController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
-                 "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
+        SHOPDataContext data;
+        string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
         //
         // GET: /User/
         public ActionResult Index()
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return RedirectToAction("Login", "InnerPage");
 
@@ -43,6 +45,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult CapNhatDiaChiMacDinh(string maDiaChi)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return new HttpStatusCodeResult(401); // Unauthorized
 
@@ -69,6 +72,7 @@ namespace Shop.Controllers
         [HttpPost]
         public JsonResult LuuDiaChiMoi(DiaChiKhachHang diaChi)
         {
+            data = new SHOPDataContext(connStr);
             // Kiểm tra nếu người dùng chưa đăng nhập
             if (Session["UserID"] == null)
             {
@@ -116,6 +120,7 @@ namespace Shop.Controllers
         [HttpDelete]
         public JsonResult XoaDiaChi(string id)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 // Tìm địa chỉ theo mã địa chỉ
@@ -143,6 +148,7 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult Edit(string id)
         {
+            data = new SHOPDataContext(connStr);
             var diaChi = data.DiaChiKhachHangs.FirstOrDefault(d => d.MaDiaChi == id);
             if (diaChi == null)
             {
@@ -155,6 +161,7 @@ namespace Shop.Controllers
         [HttpGet]
         public JsonResult GetDonHang()
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return Json(new { success = false, message = "Vui lòng đăng nhập" }, JsonRequestBehavior.AllowGet);
 
@@ -253,6 +260,7 @@ namespace Shop.Controllers
         [HttpPost]
         public JsonResult HuyDonHang(string maDonHang)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return Json(new { success = false, message = "Vui lòng đăng nhập" });
 
@@ -280,6 +288,7 @@ namespace Shop.Controllers
         // POST: /User/ChangePassword
         public ActionResult ChangePassword(string password, string password_new)
         {
+            data = new SHOPDataContext(connStr);
             string username = Session["AccountName"]?.ToString();
             string sessionPassword = Session["password"]?.ToString();
             password = SecurityHelper.EncryptPassword(password, "mysecretkey");
@@ -319,6 +328,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult XacNhanDoiThongTin(string HoTen, string Email, string SoDienThoai)
         {
+            data = new SHOPDataContext(connStr);
             var userId = Session["UserID"]?.ToString();
 
             if (string.IsNullOrEmpty(userId))

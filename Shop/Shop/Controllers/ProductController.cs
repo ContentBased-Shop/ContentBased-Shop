@@ -10,12 +10,13 @@ using QRCoder;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Configuration;
 namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
-               "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
+        SHOPDataContext data;
+        string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
         //
         // GET: /Product/
 
@@ -26,6 +27,7 @@ namespace Shop.Controllers
         #region ProductDetail
         public ActionResult ProductSearch(string keyword)
         {
+            data = new SHOPDataContext(connStr);
             if (string.IsNullOrEmpty(keyword))
             {
                 return View("ProductSearch", new List<HangHoaViewModel>());
@@ -87,6 +89,7 @@ namespace Shop.Controllers
         #region ProductDetail
         public ActionResult ProductDetail(string id, string mabienthe)
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -226,6 +229,7 @@ namespace Shop.Controllers
         #region ProductDienThoaiTabLet
         public ActionResult ProductDienThoaiTabLet(string maDm)
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -289,6 +293,7 @@ namespace Shop.Controllers
         #region ProductLapTopPC
         public ActionResult ProductLapTopPC(string maDm)
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -351,6 +356,7 @@ namespace Shop.Controllers
         #region ProductManHinh
         public ActionResult ProductManHinh(string maDm)
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -412,6 +418,7 @@ namespace Shop.Controllers
         #region Gaming
         public ActionResult Gaming(string maDm)
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -473,6 +480,7 @@ namespace Shop.Controllers
         #region AnotherProduct
         public ActionResult AnotherProduct(string maDm)
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -537,7 +545,7 @@ namespace Shop.Controllers
         #region PhuKien
         public ActionResult PhuKien(string maDm)
         {
-
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -598,6 +606,7 @@ namespace Shop.Controllers
         #endregion
         public ActionResult ProductWishList()
         {
+            data = new SHOPDataContext(connStr);
             string maKhachHang = Session["UserID"] as string;
             if (string.IsNullOrEmpty(maKhachHang))
             {
@@ -662,6 +671,7 @@ namespace Shop.Controllers
         [HttpPost]
         public JsonResult AddWishList(string maHangHoa)
         {
+            data = new SHOPDataContext(connStr);
             var maKhachHang = Session["UserID"] as string;
             if (string.IsNullOrEmpty(maKhachHang))
             {
@@ -693,6 +703,7 @@ namespace Shop.Controllers
 
         public JsonResult SearchSuggest(string keyword)
         {
+            data = new SHOPDataContext(connStr);
             var hangHoaFull = (from hh in data.HangHoas
                                join bt in data.BienTheHangHoas
                                on hh.MaHangHoa equals bt.MaHangHoa into btGroup
@@ -727,6 +738,7 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult AddRecentProduct(string maHangHoa, string maBienThe)
         {
+            data = new SHOPDataContext(connStr);
             var list = HttpRuntime.Cache["RecentProducts"] as List<string> ?? new List<string>();
 
             if (list.Contains(maHangHoa))
@@ -746,6 +758,7 @@ namespace Shop.Controllers
         [ChildActionOnly]                     // <-- thêm thuộc tính này (tùy chọn)
         public ActionResult RecentlyViewedPartial()
         {
+            data = new SHOPDataContext(connStr);
             var dsMaHangHoa = HttpRuntime.Cache["RecentProducts"] as List<string> ?? new List<string>();
 
             var recentProducts =

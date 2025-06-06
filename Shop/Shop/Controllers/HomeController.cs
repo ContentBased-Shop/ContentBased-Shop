@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,12 +10,14 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
-                "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
+        SHOPDataContext data;
+        string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
+
         // GET: /Home/
         #region TRANG-CHU
         public ActionResult Index()
         {
+            data = new SHOPDataContext(connStr);
             // Hiện thị danh sách đã thêm vào ds yêu thích
             string maKhachHang = Session["UserID"] as string;
             List<string> dsYeuThich = new List<string>();
@@ -95,6 +98,7 @@ namespace Shop.Controllers
 
         public JsonResult GetRecommendedProducts(string maKhachHang)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 // Lấy danh sách sản phẩm đã đánh giá của khách hàng

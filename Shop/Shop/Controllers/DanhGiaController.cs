@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using Shop.Models;
@@ -7,11 +8,12 @@ namespace Shop.Controllers
 {
     public class DanhGiaController : Controller
     {
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
-                   "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
+        SHOPDataContext data;
+        string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
         [HttpPost]
         public JsonResult LuuDanhGia(string maDonHang, string maBienThe, int soSao, string binhLuan)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return Json(new { success = false, message = "Vui lòng đăng nhập" });
 
@@ -102,6 +104,7 @@ namespace Shop.Controllers
         [HttpGet]
         public JsonResult KiemTraDanhGia(string maBienThe, string maDonHang)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return Json(new { success = false, message = "Vui lòng đăng nhập" }, JsonRequestBehavior.AllowGet);
 
@@ -147,6 +150,7 @@ namespace Shop.Controllers
         [HttpGet]
         public JsonResult GetSanPhamChuaDanhGia(string maDonHang)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
                 return Json(new { success = false, message = "Vui lòng đăng nhập" }, JsonRequestBehavior.AllowGet);
 

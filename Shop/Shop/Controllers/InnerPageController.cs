@@ -12,14 +12,14 @@ using System.Net.Mail;
 using System.Net;
 using System.Web.Script.Serialization;
 using System.Web.Security;
+using System.Configuration;
 
 namespace Shop.Controllers
 {
     public class InnerPageController : Controller
     {
-
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
-                 "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
+        SHOPDataContext data;
+        string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
         public ActionResult Index()
         {
             return View();
@@ -36,7 +36,8 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(string username, string password, string returnUrl, bool rememberMe = false, string tempCart = null)
             {
-
+           
+            data = new SHOPDataContext(connStr);
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.TempCart = tempCart;
 
@@ -134,6 +135,7 @@ namespace Shop.Controllers
         // Tạo giỏ hàng mới nếu khách hàng chưa có
         private GioHang GetOrCreateCart(string maKhachHang)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 var gioHang = data.GioHangs.FirstOrDefault(g => g.MaKhachHang == maKhachHang);
@@ -162,6 +164,7 @@ namespace Shop.Controllers
         // Merge giỏ hàng từ localStorage vào giỏ hàng trong CSDL
         private void MergeCart(string maKhachHang, string tempCartJson)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 if (string.IsNullOrEmpty(tempCartJson))
@@ -280,6 +283,7 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult GetCartItems()
         {
+            data = new SHOPDataContext(connStr);
             if (!IsLoggedIn())
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." }, JsonRequestBehavior.AllowGet);
@@ -323,6 +327,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult UpdateCartItem(CartItemUpdateModel model)
         {
+            data = new SHOPDataContext(connStr);
             if (!IsLoggedIn())
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." });
@@ -431,6 +436,7 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult GetUserAddresses()
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." }, JsonRequestBehavior.AllowGet);
@@ -464,6 +470,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult AddUserAddress(AddressModel model)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." });
@@ -524,6 +531,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult CreateOrder(OrderModel model)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." });
@@ -798,6 +806,7 @@ namespace Shop.Controllers
         // Trang thông báo đặt hàng thành công
         public ActionResult OrderSuccess(string id)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return RedirectToAction("Login");
@@ -913,6 +922,7 @@ namespace Shop.Controllers
         [HttpGet]
         public JsonResult CheckPhoneNumber(string phonenumber)
         {
+            data = new SHOPDataContext(connStr);
             // Kiểm tra xem số điện thoại có tồn tại trong cơ sở dữ liệu không
             bool exists = data.KhachHangs.Any(u => u.SoDienThoai == phonenumber); // Sử dụng đúng tên bảng và cột của bạn
             return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
@@ -920,6 +930,7 @@ namespace Shop.Controllers
         [HttpGet]
         public JsonResult CheckEmail(string email)
         {
+            data = new SHOPDataContext(connStr);
             email = email?.Trim().ToLower(); // chuẩn hóa
             bool exists = data.KhachHangs.Any(kh => kh.Email.ToLower() == email);
             return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
@@ -927,6 +938,7 @@ namespace Shop.Controllers
         [HttpPost]
         public JsonResult CapNhatDaDoc(string maThongBao)
         {
+            data = new SHOPDataContext(connStr);
             // Lấy thông báo từ DB
             var thongBao = data.ThongBaos.FirstOrDefault(tb => tb.MaThongBao == maThongBao);
             if (thongBao != null)
@@ -941,6 +953,7 @@ namespace Shop.Controllers
         [HttpGet]
         public JsonResult CheckUsername(string username)
         {
+            data = new SHOPDataContext(connStr);
             // LINQ query kiểm tra xem username có tồn tại chưa
             bool exists = data.KhachHangs.Any(u => u.TenDangNhap == username);
             return Json(new { exists = exists }, JsonRequestBehavior.AllowGet);
@@ -954,6 +967,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Register(string name, string username, string email, string password, string phonenumber, string tempCart = null)
         {
+            data = new SHOPDataContext(connStr);
             // Kiểm tra trống
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
@@ -1204,6 +1218,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult ForgotPassword(string email, string username)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 // Kiểm tra email và username có tồn tại không
@@ -1300,6 +1315,7 @@ namespace Shop.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
+            data = new SHOPDataContext(connStr);
             // Kiểm tra xem người dùng đã đăng nhập chưa
             if (Session["UserID"] == null)
             {
@@ -1327,6 +1343,7 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult ChangePassword(string currentPassword, string newPassword)
         {
+            data = new SHOPDataContext(connStr);
             if (Session["UserID"] == null)
             {
                 return Json(new { success = false, message = "Bạn chưa đăng nhập." });
@@ -1417,6 +1434,7 @@ namespace Shop.Controllers
       
         public ActionResult LoadThongBao()
         {
+            data = new SHOPDataContext(connStr);
             var maKhachHang = Session["UserID"] as string;
 
             if (string.IsNullOrEmpty(maKhachHang))
@@ -1535,6 +1553,7 @@ namespace Shop.Controllers
         // Hàm kiểm tra voucher
         private dynamic ValidateVoucher(string maKhachHang, string maVoucherCode, float tongTien)
         {
+            data = new SHOPDataContext(connStr);
             // Tìm voucher trong CSDL
             var voucher = data.Vouchers.FirstOrDefault(v => 
                 v.MaVoucherCode == maVoucherCode && 
@@ -1620,6 +1639,7 @@ namespace Shop.Controllers
         // Hàm áp dụng voucher khi đặt hàng
         private void ApplyVoucher(string maKhachHang, string maVoucherCode, string maDonHang)
         {
+            data = new SHOPDataContext(connStr);
             if (string.IsNullOrWhiteSpace(maVoucherCode)) return;
             
             var voucher = data.Vouchers.FirstOrDefault(v => v.MaVoucherCode == maVoucherCode);
@@ -1671,6 +1691,7 @@ namespace Shop.Controllers
 
         private void SendOrderConfirmationEmail(string maDonHang)
         {
+            data = new SHOPDataContext(connStr);
             try
             {
                 // Lấy thông tin đơn hàng
