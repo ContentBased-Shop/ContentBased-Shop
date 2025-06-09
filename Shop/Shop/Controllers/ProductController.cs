@@ -15,13 +15,10 @@ namespace Shop.Controllers
 {
     public class ProductController : Controller
     {
-<<<<<<< HEAD
+
         SHOPDataContext data;
         string connStr = ConfigurationManager.ConnectionStrings["CuaHangAzureConnectionString"].ConnectionString;
-=======
-        SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
-                "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
->>>>>>> Vu_local
+
         //
         // GET: /Product/
 
