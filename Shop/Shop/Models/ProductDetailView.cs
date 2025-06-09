@@ -31,8 +31,6 @@ namespace Shop.Models
         public List<DanhGiaView> DanhGiasChiTiet { get; set; }
         public Dictionary<int, int> ThongKeSoSao { get; set; } = new Dictionary<int, int>();
 
-        // Thêm thông tin từ bảng MoTaChiTietHangHoa
-
         public string MoTaChiTiet { get; set; }
         public DateTime? NgayCapNhat { get; set; }
         public DateTime? NgayTaoMoTaChiTiet { get; set; }

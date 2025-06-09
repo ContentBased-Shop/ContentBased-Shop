@@ -17,8 +17,8 @@ namespace Shop.Controllers
 {
     public class PaymentController : Controller
     {
-        private SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;User ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
-
+    SHOPDataContext data = new SHOPDataContext("Data Source=MSI;Initial Catalog=CuaHang2;Persist Security Info=True;Use" +
+                "r ID=sa;Password=123;Encrypt=True;TrustServerCertificate=True");
         #region Email
         private readonly string _emailAddress = "managertask34@gmail.com";
         private readonly string _emailPassword = "veaq dwhq oico jlzc";

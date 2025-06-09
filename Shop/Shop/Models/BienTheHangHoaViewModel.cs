@@ -21,7 +21,7 @@ namespace Shop.Models
         public double GiaKhuyenMai { get; set; }
         public int SoLuongTonKho { get; set; }
 
-        public List<string> UrlAnh { get; set; } = new List<string>();  // Danh sách ảnh theo biến thể
+        public List<string> UrlAnh { get; set; } = new List<string>();  
     }
 
 }

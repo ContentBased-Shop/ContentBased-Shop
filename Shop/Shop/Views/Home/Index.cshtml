@@ -1717,7 +1717,7 @@
                     }
 
                     // Hiển thị loading
-                    swiperWrapper.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+                    swiperWrapper.innerHTML = '<div class="text-center w-100"><i class="fas fa-spinner fa-spin fa-2x"></i> <p class="mt-2">Đang tải dữ liệu, vui lòng chờ...</p></div>';
                     setTimeout(initSwiper, 100);
 
                     // Gọi API lấy sản phẩm gợi ý
@@ -1773,7 +1773,7 @@
                                 setTimeout(initSwiper, 100);
                             } else {
                                 swiperWrapper.innerHTML = `
-                                    <div class="text-center p-4">
+                                    <div class="text-center p-4 w-100">
                                         <i class="fas fa-info-circle fa-3x mb-3 text-muted"></i>
                                         <h4 class="mb-3">Chưa có sản phẩm gợi ý cho bạn</h4>
                                         <p>Hãy xem thêm sản phẩm để nhận gợi ý phù hợp</p>

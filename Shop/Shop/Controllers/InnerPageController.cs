@@ -1172,6 +1172,8 @@ namespace Shop.Controllers
 
 
         #endregion
+
+        #region Logout
         public ActionResult Logout()
         {
             // Xóa Session
@@ -1195,7 +1197,7 @@ namespace Shop.Controllers
             // Gọi view Logout sẽ thực hiện xóa sessionStorage bên client
             return View("Logout");
         }
-
+        #endregion
 
 
 
@@ -1434,7 +1436,7 @@ namespace Shop.Controllers
         }
         public JsonResult GetSoLuongThongBao()
         {
-            string maKhachHang = Session["UserID"]?.ToString(); // hoặc HttpContext.User.Identity.Name nếu dùng Identity
+            string maKhachHang = Session["UserID"]?.ToString(); 
             if (string.IsNullOrEmpty(maKhachHang))
                 return Json(0, JsonRequestBehavior.AllowGet);
 
