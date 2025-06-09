@@ -1670,7 +1670,6 @@
             let productSwiper = null;
 
             function initSwiper() {
-                // Khởi tạo Swiper mới
                 productSwiper = new Swiper(".productSwiper", {
                     slidesPerView: 2,
                     spaceBetween: 20,
@@ -1697,14 +1696,19 @@
                 if (category === 'recommend') {
                     // Lấy mã khách hàng từ session
                     const maKhachHang = '@Session["UserID"]';
+                    // Lấy danh sách sản phẩm đã xem từ cache
+                    const recentProducts = @Html.Raw(Json.Encode(HttpRuntime.Cache["RecentProducts"] as List<string> ?? new List<string>()));
 
-                    if (!maKhachHang) {
-                        // Hiển thị thông báo khi chưa đăng nhập
+                    if (!maKhachHang && (!recentProducts || recentProducts.length === 0)) {
+                        // Hiển thị thông báo khi chưa đăng nhập và chưa xem sản phẩm nào
                         swiperWrapper.innerHTML = `
                             <div class="text-center p-4 w-100">
-                                <i class="fas fa-user-lock fa-3x mb-3 text-muted"></i>
-                                <h4 class="mb-3">Bạn cần đăng nhập để sử dụng chức năng này</h4>
-                                <a href="/InnerPage/Login" class="btn btn-success">Đăng nhập ngay</a>
+                                <i class="fas fa-info-circle fa-3x mb-3 text-muted"></i>
+                                <h4 class="mb-3">Bạn cần xem sản phẩm hoặc đăng nhập để sử dụng chức năng này</h4>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <a href="/InnerPage/Login" class="btn btn-success">Đăng nhập</a>
+                                    <a href="/Product/ProductDienThoaiTabLet?maDm=DM001" class="btn btn-primary">Xem sản phẩm</a>
+                                </div>
                             </div>
                         `;
 
@@ -1713,7 +1717,7 @@
                     }
 
                     // Hiển thị loading
-                    swiperWrapper.innerHTML = '<div class="text-center"><i class="fas fa-spinner fa-spin fa-2x"></i></div>';
+                    swiperWrapper.innerHTML = '<div class="text-center w-100"><i class="fas fa-spinner fa-spin fa-2x"></i> <p class="mt-2">Đang tải dữ liệu, vui lòng chờ...</p></div>';
                     setTimeout(initSwiper, 100);
 
                     // Gọi API lấy sản phẩm gợi ý
@@ -1746,7 +1750,7 @@
                                                     <div class="free-shipping">FREE SHIPPING</div>
                                                     <div class="recommendation-score">
                                                         <i class="fas fa-star text-warning"></i>
-                                                        <span>Điểm gợi ý: ${product.DiemDuDoan}</span>
+                                                        <span>Điểm gợi ý: ${product.DiemDuDoan || product.DiemTuongDong}</span>
                                                     </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="stock-status">
@@ -1768,12 +1772,25 @@
                                 swiperWrapper.innerHTML = html;
                                 setTimeout(initSwiper, 100);
                             } else {
-                                swiperWrapper.innerHTML = '<div class="text-center p-4">Chưa có sản phẩm gợi ý cho bạn</div>';
+                                swiperWrapper.innerHTML = `
+                                    <div class="text-center p-4 w-100">
+                                        <i class="fas fa-info-circle fa-3x mb-3 text-muted"></i>
+                                        <h4 class="mb-3">Chưa có sản phẩm gợi ý cho bạn</h4>
+                                        <p>Hãy xem thêm sản phẩm để nhận gợi ý phù hợp</p>
+                                        <a href="/Product/ProductDienThoaiTabLet?maDm=DM001" class="btn btn-primary">Xem sản phẩm</a>
+                                    </div>
+                                `;
                                 setTimeout(initSwiper, 100);
                             }
                         },
                         error: function(xhr, status, error) {
-                            swiperWrapper.innerHTML = '<div class="text-center p-4">Có lỗi xảy ra khi tải sản phẩm gợi ý</div>';
+                            swiperWrapper.innerHTML = `
+                                <div class="text-center p-4 w-100">
+                                    <i class="fas fa-exclamation-circle fa-3x mb-3 text-danger"></i>
+                                    <h4 class="mb-3">Có lỗi xảy ra</h4>
+                                    <p>Vui lòng thử lại sau</p>
+                                </div>
+                            `;
                             setTimeout(initSwiper, 100);
                         }
                     });

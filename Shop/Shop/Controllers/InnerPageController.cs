@@ -1186,6 +1186,8 @@ namespace Shop.Controllers
 
 
         #endregion
+
+        #region Logout
         public ActionResult Logout()
         {
             // Xóa Session
@@ -1209,7 +1211,7 @@ namespace Shop.Controllers
             // Gọi view Logout sẽ thực hiện xóa sessionStorage bên client
             return View("Logout");
         }
-
+        #endregion
 
 
 

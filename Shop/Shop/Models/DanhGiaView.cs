@@ -10,7 +10,7 @@ namespace Shop.Models
         public int SoSao { get; set; }
         public string BinhLuan { get; set; }
         public DateTime? NgayTao { get; set; }
-        public string HoTenKhachHang { get; set; } // Thêm tên khách
+        public string HoTenKhachHang { get; set; } 
     }
 
 }
