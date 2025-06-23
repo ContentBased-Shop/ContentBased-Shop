@@ -869,7 +869,6 @@
                         });
                         // Thông tin giao hàng
                         if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "DaGiao") {
-
                             orderHtml += `
                                <div class="bg-success bg-opacity-25 border border-success rounded p-3 my-3">
                                     <div class="d-flex align-items-center gap-2 mb-2">
@@ -877,7 +876,7 @@
                                             <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
                                         </div>
                                         <span class="fw-semibold text-success">
-                                            ${donHang.GiaoHang.TrangThaiGiaoHang} - Giao thành công tới người nhận
+                                            Đã Giao - Giao thành công tới người nhận
                                         </span>
                                         <button class="btn btn-sm btn-outline-success py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
                                             <i class="fa-solid fa-chevron-down"></i>
@@ -886,14 +885,12 @@
                                     <ul class="mb-0 ps-3 text-dark small d-none">
                                         <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
                                         <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
-                                        <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
-                                        <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                        <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang ? donHang.GiaoHang.NgayGuiHang : 'Chưa gửi'}</li>
+                                        <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang ? donHang.GiaoHang.NgayNhanHang : 'Chưa nhận'}</li>
                                     </ul>
                                 </div>
                                 `;
-
-                        }
-                        else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "ChuanBiHang") {
+                        } else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "ChuanBiHang") {
                             orderHtml += `
                             <div class="bg-warning bg-opacity-25 border border-warning rounded p-3 my-3">
                                     <div class="d-flex align-items-center gap-2">
@@ -901,7 +898,7 @@
                                             <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
                                         </div>
                                         <span class="fw-semibold text-warning">
-                                            ${donHang.GiaoHang.TrangThaiGiaoHang} - Đơn hàng đang chuẩn bị bởi người bán
+                                            Chuẩn Bị Hàng - Đơn hàng đang chuẩn bị bởi người bán
                                         </span>
                                         <button class="btn btn-sm btn-outline-warning py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
                                             <i class="fa-solid fa-chevron-down"></i>
@@ -910,12 +907,11 @@
                                     <ul class="mb-0 ps-3 text-dark small d-none">
                                         <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
                                         <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
-                                        <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
-                                        <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                        <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang ? donHang.GiaoHang.NgayGuiHang : 'Chưa gửi'}</li>
+                                        <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang ? donHang.GiaoHang.NgayNhanHang : 'Chưa nhận'}</li>
                                     </ul>
                                 </div>`;
-                        }
-                        else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "DangVanChuyen") {
+                        } else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "DangVanChuyen") {
                             orderHtml += `
                             <div class="shipping-box bg-primary bg-opacity-25 border border-primary rounded p-3 my-3">
                                 <div class="d-flex align-items-center gap-2">
@@ -923,7 +919,7 @@
                                         <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
                                     </div>
                                     <span class="fw-semibold text-primary">
-                                        ${donHang.GiaoHang.TrangThaiGiaoHang} - Đơn hàng đang được vận chuyển
+                                        Đang Vận Chuyển - Đơn hàng đang được vận chuyển
                                     </span>
                                     <button class="btn btn-sm btn-outline-primary py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
                                         <i class="fa-solid fa-chevron-down"></i>
@@ -932,20 +928,19 @@
                                 <ul class="mb-0 ps-3 text-dark small d-none">
                                     <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
                                     <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
-                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
-                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang ? donHang.GiaoHang.NgayGuiHang : 'Chưa gửi'}</li>
+                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang ? donHang.GiaoHang.NgayNhanHang : 'Chưa nhận'}</li>
                                 </ul>
                             </div>`;
-                                                }
-                                                else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "ThatBai") {
-                                                    orderHtml += `
+                        } else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "ThatBai") {
+                            orderHtml += `
                             <div class="shipping-box bg-danger bg-opacity-25 border border-danger rounded p-3 my-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="text-danger fw-bold">
                                         <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
                                     </div>
                                     <span class="fw-semibold text-danger">
-                                        ${donHang.GiaoHang.TrangThaiGiaoHang} - Vận chuyển thất bại, vui lòng liên hệ với quản trị viên
+                                        Thất Bại - Vận chuyển thất bại, vui lòng liên hệ với quản trị viên
                                     </span>
                                     <button class="btn btn-sm btn-outline-danger py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
                                         <i class="fa-solid fa-chevron-down"></i>
@@ -954,20 +949,19 @@
                                 <ul class="mb-0 ps-3 text-dark small d-none">
                                     <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
                                     <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
-                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
-                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang ? donHang.GiaoHang.NgayGuiHang : 'Chưa gửi'}</li>
+                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang ? donHang.GiaoHang.NgayNhanHang : 'Chưa nhận'}</li>
                                 </ul>
                             </div>`;
-                                                }
-                                                else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "BiHoan") {
-                                                    orderHtml += `
+                        } else if (donHang.GiaoHang && donHang.GiaoHang.TrangThaiGiaoHang == "BiHoan") {
+                            orderHtml += `
                             <div class="shipping-box bg-secondary bg-opacity-25 border border-secondary rounded p-3 my-3">
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="text-secondary fw-bold">
                                         <i class="fa-solid fa-truck-fast"></i> ${donHang.GiaoHang.DonViVanChuyen}:
                                     </div>
                                     <span class="fw-semibold text-secondary">
-                                        ${donHang.GiaoHang.TrangThaiGiaoHang} - Đơn hàng bị hoàn, vui lòng kiểm tra lại thông tin nhận hàng
+                                        Bị Hoàn - Đơn hàng bị hoàn, vui lòng kiểm tra lại thông tin nhận hàng
                                     </span>
                                     <button class="btn btn-sm btn-outline-secondary py-0 px-2 ms-auto" type="button" onclick="toggleShippingDetails(this)">
                                         <i class="fa-solid fa-chevron-down"></i>
@@ -976,8 +970,8 @@
                                 <ul class="mb-0 ps-3 text-dark small d-none">
                                     <li><strong>Mã giao hàng:</strong> ${donHang.GiaoHang.MaGiaoHang}</li>
                                     <li><strong>Mã vận đơn:</strong> ${donHang.GiaoHang.MaVanDon}</li>
-                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang}</li>
-                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang}</li>
+                                    <li><strong>Ngày gửi hàng:</strong> ${donHang.GiaoHang.NgayGuiHang ? donHang.GiaoHang.NgayGuiHang : 'Chưa gửi'}</li>
+                                    <li><strong>Ngày nhận hàng:</strong> ${donHang.GiaoHang.NgayNhanHang ? donHang.GiaoHang.NgayNhanHang : 'Chưa nhận'}</li>
                                 </ul>
                             </div>`;
                         }
